@@ -1,0 +1,36 @@
+import 'edit_text.dart';
+
+var control = Control();
+var clientFields = {
+        "co_client_name": control.clientName.text,
+        "off_address_line1": control.addressline1.text,
+        "off_address_line2": control.addressline2.text,
+        "off_town": control.city.text,
+        "off_pincode": control.pincode.text,
+        "off_state": control.state.text,
+        "owner_first_name": control.firstName.text,
+        "owner_last_name": control.lastName.text,
+        "mobile_no": control.phoneNumber.text,
+        "email": control.email.text,
+        "whatsapp": control.whatsapp.text,
+        "resi_address_line1": control.addressline1Controller.text,
+        "resi_address_line2": control.addressline2Controller.text,
+        "resi_town": control.cityController.text,
+        "resi_pincode": control.pincodeController.text,
+        "resi_state": control.stateController.text,
+        "primary_contact_name": control.primaryName.text,
+        "primary_contact_no": control.primaryPhoneNumber.text,
+        "primary_contact_email": control.primaryEmail.text,
+        "primary_contact_whatsapp": control.primaryWhatsapp.text,
+        "secondary_contact_name": control.secondaryName.text,
+        "secondary_contact_no": control.secondaryPhoneNumber.text,
+        "secondary_contact_email": control.secondaryEmail.text,
+        "secondary_contact_whatsapp": control.secondaryWhatsapp.text,
+        "gst_no": control.gstNumber.text,
+        "bank_acc_no": control.accountNumber.text,
+        "bank_ifsc_code": control.ifscCode.text,
+        "bank_acc_name": control.accountName.text,
+        "bank_acc_type": control.accountType.text,
+        "bank_name": control.bankName.text,
+        "bank_acc_location": control.bankLocation.text
+      };
