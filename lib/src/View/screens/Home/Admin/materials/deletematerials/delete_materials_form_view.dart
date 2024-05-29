@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../controler/ClientController/client_controller.dart';
 import '../../../../../../controler/GetDate/get_date.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
@@ -18,21 +19,18 @@ import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/local.dart';
 
-
 class MaterialsFormDeleteView extends StatefulWidget {
-  const MaterialsFormDeleteView({Key? key, required this.id})
-      : super(key: key);
+  const MaterialsFormDeleteView({Key? key, required this.id}) : super(key: key);
   final id;
 
   @override
-  State<MaterialsFormDeleteView> createState() =>
-      _MaterialsFormDeleteView();
+  State<MaterialsFormDeleteView> createState() => _MaterialsFormDeleteView();
 }
 
 class _MaterialsFormDeleteView extends State<MaterialsFormDeleteView> {
   Map<String, dynamic>? data;
   var updatedData;
- 
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +40,7 @@ class _MaterialsFormDeleteView extends State<MaterialsFormDeleteView> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/get-client/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getMaterial}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -68,8 +66,6 @@ class _MaterialsFormDeleteView extends State<MaterialsFormDeleteView> {
     }
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -81,24 +77,25 @@ class _MaterialsFormDeleteView extends State<MaterialsFormDeleteView> {
           key: formKey,
           child: Column(
             children: [
-              
-                 DetailsText(enterDetails: deleteMaterialsDetailsText),
-             MaterialsViewDetails(enabled: false,
-              isEditing: false,
-               materialController: materialController,
-                variantController: variantController, 
+              const DetailsText(enterDetails: deleteMaterialsDetailsText),
+              MaterialsViewDetails(
+                enabled: false,
+                isEditing: false,
+                materialController: materialController,
+                variantController: variantController,
                 quantityMeasurementController: quantityMeasurementController,
-                 quantityValuesController: quantityValuesController,
-                 cGstController:cGstController ,
-                 hSNCodeController: hSNCodeController,
-                 iGstController: iGstController,
-                 sGstController:sGstController ,)
-             , CreateByCreatedOn(
+                quantityValuesController: quantityValuesController,
+                cGstController: cGstController,
+                hSNCodeController: hSNCodeController,
+                iGstController: iGstController,
+                sGstController: sGstController,
+              ),
+              CreateByCreatedOn(
                 createByController: createBy,
                 createOnController: createOn,
                 enabled: false,
               ),
-             formSizebox15,
+              formSizebox15,
               const deleteTableHeader(
                 deleteDate: deleteDate,
                 deleteReason: deleteReason,

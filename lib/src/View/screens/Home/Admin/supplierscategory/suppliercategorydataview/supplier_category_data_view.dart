@@ -1,3 +1,4 @@
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
 import '../deletesupplierscategory/delete_suppliers_category_table.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class SupplierCategoryDataView extends StatelessWidget {
       lastColumnSubName: "created_by",
       lastColumnSecondSubName: "created_by",
       id: "co_supplier_category_id",
-      uri:"$ip/Admin/all-supplier-categories",
+      uri: ApiEndpoints.getAllSupplierCategories,
         image: supplierCategoryEmptyDataImage,
         header: const EmptyViewHeaderBar(
           image: supplierCategory,

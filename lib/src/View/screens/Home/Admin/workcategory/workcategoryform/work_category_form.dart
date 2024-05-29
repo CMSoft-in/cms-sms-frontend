@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
@@ -27,7 +28,7 @@ class _WorkCategoryFormState extends State<WorkCategoryForm> {
 
   Future<void> navigateToPage(BuildContext context) async {
     try {
-      var apiURL = Uri.parse('$ip/Admin/create-work-category');
+      var apiURL = Uri.parse(ApiEndpoints.createWorkCategory);
 
       Map<String, dynamic> values = {
         "co_work_category_name":

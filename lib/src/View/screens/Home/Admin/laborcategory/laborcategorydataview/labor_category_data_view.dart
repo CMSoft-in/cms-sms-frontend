@@ -5,6 +5,7 @@ import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/padding_const.dart';
 import '../../../../../../Model/EmptyDataScreenView/empty_image.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_header.dart';
@@ -37,7 +38,7 @@ class _LaborCategoryDataViewState extends State<LaborCategoryDataView> {
   }
 
   Future<void> fetchData() async {
-    String uri = "$ip/Admin/all-labourcategories";
+    String uri = ApiEndpoints.getAllLabourCategories;
     try {
       final response = await http.get(
         Uri.parse(uri),

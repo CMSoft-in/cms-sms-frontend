@@ -1,10 +1,9 @@
 import '../../../../../../../Model/Const/image_const.dart';
+import '../../../../../../../Model/api/api_model.dart';
 import '../../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/text_const.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../../Model/api/local.dart';
 import '../../../../../../widgets/CommonUsageForm/Delete/delete_header.dart';
 import '../../m_v_text.dart';
 import 'delete_vechiles_form_view.dart';
@@ -41,7 +40,7 @@ class VechilesDeleteTable extends StatelessWidget {
       lastColumnSubName: "created_by",
       lastColumnSecondSubName: "co_vehicle_registration_certificate",
       id: "co_vehicle_id",
-      uri:"$ip/Admin/deleted-vehicles",
+      uri:ApiEndpoints.getAllDeletedVehicles,
         doubleStar: doublestar,
         image:  VechilesEmptyDataImage,
         navigatePage: navigateToVechilesViewDetails,

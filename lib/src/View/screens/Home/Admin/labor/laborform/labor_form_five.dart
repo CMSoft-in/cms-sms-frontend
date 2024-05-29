@@ -4,6 +4,8 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../labor_text_const.dart';
 import '../labordataview/labor_data_view.dart';
 import '/src/Model/api/local.dart';
@@ -41,8 +43,7 @@ class _LaborFormPageFiveState extends State<LaborFormPageFive> {
    LaborTextEditingController laborTextEditingController=LaborTextEditingController();
     Future navigateToPage(context) async {
       print(token);
-      var apiURL = Uri.parse('$ip/Admin/create-labour');
-
+      var apiURL = Uri.parse(ApiEndpoints.createLabour);
       var values = {
         ...oldData,
         "gpay_no": laborTextEditingController.gpayNumberController.text,

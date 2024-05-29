@@ -1,3 +1,4 @@
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
 import '../deleteworkcategory/delete_work_category_table.dart';
 import '/src/View/screens/Home/Admin/workcategory/work_category_text.dart';
@@ -38,7 +39,7 @@ class WorkCategoryDataView extends StatelessWidget {
       lastColumnSubName: "co_work_category_name",
       lastColumnSecondSubName: "co_work_category_name",
       id: "co_work_category_id",
-      uri: "$ip/Admin/all-work-categories",
+      uri: ApiEndpoints.getAllWorkCategories,
       image: workCategoryEmptyDataImage,
       header: const EmptyViewHeaderBar(
         image: workCategory,

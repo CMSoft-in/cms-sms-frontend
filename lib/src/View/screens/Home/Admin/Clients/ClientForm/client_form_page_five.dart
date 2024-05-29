@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../../Model/Const/text_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../controler/ClientController/db_client_controller.dart';
 import '/src/Model/api/local.dart';
 import '/src/View/screens/Home/Admin/Clients/ClientDataView/client_data_view_main.dart';
@@ -53,7 +54,7 @@ class _ClientFormPageFiveState extends State<ClientFormPageFive> {
     Future<void> navigateToPageSix(context) async {
       print(token);
       try {
-        var apiURL = Uri.parse('$ip/Admin/create-client');
+        var apiURL = Uri.parse(ApiEndpoints.createClient);
 
         var values = {
           ...oldData,

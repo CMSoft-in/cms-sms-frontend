@@ -1,3 +1,4 @@
+import '../../../../../../Model/api/api_model.dart';
 import '/src/Model/Const/text_const.dart';
 import '/src/View/widgets/AppBar/AppBar.dart';
 import '/src/View/widgets/Buttons/Long_SizeButton.dart';
@@ -34,7 +35,7 @@ class _LaborCategoryFormState extends State<LaborCategoryForm> {
         LaborCategoryTextEditingController();
 
     Future navigateToPage(context) async {
-      var apiURL = Uri.parse('$ip/Admin/create-labourcategory');
+      var apiURL = Uri.parse(ApiEndpoints.createLabourCategory);
       try {
         var values = {
           "co_labour_category_name":

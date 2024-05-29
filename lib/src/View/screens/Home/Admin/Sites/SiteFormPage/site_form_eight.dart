@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
@@ -49,7 +50,7 @@ class _SiteFormPageEightState extends State<SiteFormPageEight> {
 
   Future<void> submitData() async {
     try {
-      var apiURL = Uri.parse("$ip/Admin/create-site");
+      var apiURL = Uri.parse(ApiEndpoints.createSite);
 
 //       List<Map<String, String>> additionalData = listController.map((controllers) {
 //         return {

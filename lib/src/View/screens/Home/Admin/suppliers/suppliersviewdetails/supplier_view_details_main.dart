@@ -6,6 +6,7 @@ import 'package:cmssms/src/View/screens/Home/Admin/suppliers/suppliersviewdetail
 import 'package:cmssms/src/View/screens/Home/Admin/suppliers/suppliersviewdetails/supplier_view_details_one.dart';
 import 'package:cmssms/src/View/screens/Home/Admin/suppliers/suppliersviewdetails/supplier_view_details_three.dart';
 import 'package:cmssms/src/View/screens/Home/Admin/suppliers/suppliersviewdetails/supplier_view_details_two.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../controler/GetDate/get_date.dart';
 import '../../../../../../controler/supplierController/supplier_controller.dart';
 import '../suppliersdataview/supplier_data_view.dart';
@@ -26,8 +27,7 @@ import '../../../../../widgets/CommonUsageForm/createBy.dart';
 import '../../../../../widgets/CommonUsageForm/view_details_text.dart';
 
 class SupplierViewDetailsMain extends StatefulWidget {
-  const SupplierViewDetailsMain({Key? key, required this.id})
-      : super(key: key);
+  const SupplierViewDetailsMain({Key? key, required this.id}) : super(key: key);
   final id;
 
   @override
@@ -35,8 +35,7 @@ class SupplierViewDetailsMain extends StatefulWidget {
       _SupplierViewDetailsMainState();
 }
 
-class _SupplierViewDetailsMainState
-    extends State<SupplierViewDetailsMain> {
+class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
   CommonController commonController = CommonController();
@@ -51,7 +50,7 @@ class _SupplierViewDetailsMainState
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/get-supplier/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getSupplier}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -100,7 +99,7 @@ class _SupplierViewDetailsMainState
   Future<void> fetchUpdateData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/updatehistory-supplier"),
+        Uri.parse('${ApiEndpoints.getSupplierUpdateHistory}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -134,7 +133,7 @@ class _SupplierViewDetailsMainState
       print("before update");
 
       var response = await http.post(
-        Uri.parse("$ip/Admin/update-supplier/${widget.id}"),
+        Uri.parse('${ApiEndpoints.updateSupplier}/${widget.id}'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
@@ -194,8 +193,7 @@ class _SupplierViewDetailsMainState
                   });
                 },
                 deleteOnPress: AlartMessage(
-                  api:  "/Admin/delete-supplier/${widget.id}",
-                  id: widget.id,
+                  api: '${ApiEndpoints.deleteSupplier}/${widget.id}',
                   onPress: const SupplierDataView(),
                 ),
               ),

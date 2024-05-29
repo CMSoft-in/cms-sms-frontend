@@ -7,6 +7,7 @@ import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 
 import '../../../../../../Model/Const/text_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/client/client_text_const.dart';
 import '../../../../../../controler/ClientController/client_controller.dart';
@@ -27,7 +28,6 @@ import 'client_view_details_one.dart';
 import 'client_view_details_six.dart';
 import 'client_view_details_three.dart';
 import 'client_view_details_two.dart';
-
 
 class ClientViewDetailsMain extends StatefulWidget {
   const ClientViewDetailsMain({Key? key, required this.id}) : super(key: key);
@@ -53,7 +53,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/client/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getClient}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -75,19 +75,25 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
             control.phoneNumber.text = data!["mobile_no"] ?? '';
             control.email.text = data!["email"] ?? '';
             control.whatsapp.text = data!["whatsapp"] ?? '';
-            control.addressline1Controller.text = data!["resi_address_line1"] ?? '';
-            control.addressline2Controller.text = data!["resi_address_line2"] ?? '';
+            control.addressline1Controller.text =
+                data!["resi_address_line1"] ?? '';
+            control.addressline2Controller.text =
+                data!["resi_address_line2"] ?? '';
             control.cityController.text = data!["resi_town"] ?? '';
             control.pincodeController.text = data!["resi_pincode"] ?? '';
             control.stateController.text = data!["resi_state"] ?? '';
             control.primaryName.text = data!["primary_contact_name"] ?? '';
             control.primaryPhoneNumber.text = data!["primary_contact_no"] ?? '';
             control.primaryEmail.text = data!["primary_contact_email"] ?? '';
-            control.primaryWhatsapp.text = data!["primary_contact_whatsapp"] ?? '';
+            control.primaryWhatsapp.text =
+                data!["primary_contact_whatsapp"] ?? '';
             control.secondaryName.text = data!["secondary_contact_name"] ?? '';
-            control.secondaryPhoneNumber.text = data!["secondary_contact_no"] ?? '';
-            control.secondaryEmail.text = data!["secondary_contact_email"] ?? '';
-            control.secondaryWhatsapp.text = data!["secondary_contact_whatsapp"] ?? '';
+            control.secondaryPhoneNumber.text =
+                data!["secondary_contact_no"] ?? '';
+            control.secondaryEmail.text =
+                data!["secondary_contact_email"] ?? '';
+            control.secondaryWhatsapp.text =
+                data!["secondary_contact_whatsapp"] ?? '';
             control.gstNumber.text = data!["gst_no"] ?? '';
             control.accountNumber.text = data!["bank_acc_no"] ?? '';
             control.ifscCode.text = data!["bank_ifsc_code"] ?? '';
@@ -110,7 +116,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
   Future<void> fetchUpdateData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/updatehistory-client/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getClientUpdateHistory}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -143,7 +149,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
     try {
       print("before update");
       var response = await http.patch(
-        Uri.parse("$ip/Admin/update-client/${widget.id}"),
+        Uri.parse('${ApiEndpoints.updateClient}/${widget.id}'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
@@ -164,63 +170,61 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
   }
 
   void checkUpdatingValue() {
-  var oldData = data;
-  print(oldData);
-  if (oldData != null) {
-    Map<String, dynamic> updatedData = {};
-    var clientFields = {
-      "co_client_name": control.clientName.text,
-      "off_address_line1": control.addressline1.text,
-      "off_address_line2": control.addressline2.text,
-      "off_town": control.city.text,
-      "off_pincode": control.pincode.text,
-      "off_state": control.state.text,
-      "owner_first_name": control.firstName.text,
-      "owner_last_name": control.lastName.text,
-      "mobile_no": control.phoneNumber.text,
-      "email": control.email.text,
-      "whatsapp": control.whatsapp.text,
-      "resi_address_line1": control.addressline1Controller.text,
-      "resi_address_line2": control.addressline2Controller.text,
-      "resi_town": control.cityController.text,
-      "resi_pincode": control.pincodeController.text,
-      "resi_state": control.stateController.text,
-      "primary_contact_name": control.primaryName.text,
-      "primary_contact_no": control.primaryPhoneNumber.text,
-      "primary_contact_email": control.primaryEmail.text,
-      "primary_contact_whatsapp": control.primaryWhatsapp.text,
-      "secondary_contact_name": control.secondaryName.text,
-      "secondary_contact_no": control.secondaryPhoneNumber.text,
-      "secondary_contact_email": control.secondaryEmail.text,
-      "secondary_contact_whatsapp": control.secondaryWhatsapp.text,
-      "gst_no": control.gstNumber.text,
-      "bank_acc_no": control.accountNumber.text,
-      "bank_ifsc_code": control.ifscCode.text,
-      "bank_acc_name": control.accountName.text,
-      "bank_acc_type": control.accountType.text,
-      "bank_name": control.bankName.text,
-      "bank_acc_location": control.bankLocation.text,
-      // "aadhar_no": _aadharNumber.text,
-      //   "pan_no": _panNumber.text,
+    var oldData = data;
+    print(oldData);
+    if (oldData != null) {
+      Map<String, dynamic> updatedData = {};
+      var clientFields = {
+        "co_client_name": control.clientName.text,
+        "off_address_line1": control.addressline1.text,
+        "off_address_line2": control.addressline2.text,
+        "off_town": control.city.text,
+        "off_pincode": control.pincode.text,
+        "off_state": control.state.text,
+        "owner_first_name": control.firstName.text,
+        "owner_last_name": control.lastName.text,
+        "mobile_no": control.phoneNumber.text,
+        "email": control.email.text,
+        "whatsapp": control.whatsapp.text,
+        "resi_address_line1": control.addressline1Controller.text,
+        "resi_address_line2": control.addressline2Controller.text,
+        "resi_town": control.cityController.text,
+        "resi_pincode": control.pincodeController.text,
+        "resi_state": control.stateController.text,
+        "primary_contact_name": control.primaryName.text,
+        "primary_contact_no": control.primaryPhoneNumber.text,
+        "primary_contact_email": control.primaryEmail.text,
+        "primary_contact_whatsapp": control.primaryWhatsapp.text,
+        "secondary_contact_name": control.secondaryName.text,
+        "secondary_contact_no": control.secondaryPhoneNumber.text,
+        "secondary_contact_email": control.secondaryEmail.text,
+        "secondary_contact_whatsapp": control.secondaryWhatsapp.text,
+        "gst_no": control.gstNumber.text,
+        "bank_acc_no": control.accountNumber.text,
+        "bank_ifsc_code": control.ifscCode.text,
+        "bank_acc_name": control.accountName.text,
+        "bank_acc_type": control.accountType.text,
+        "bank_name": control.bankName.text,
+        "bank_acc_location": control.bankLocation.text,
+        // "aadhar_no": _aadharNumber.text,
+        //   "pan_no": _panNumber.text,
+      };
 
-    };
-
-    clientFields.forEach((key, value) {
-      if (value != null && value.isNotEmpty && (oldData[key] ?? '') != value) {
-        updatedData[key] = value;
-        print(updatedData);
+      clientFields.forEach((key, value) {
+        if (value.isNotEmpty && (oldData[key] ?? '') != value) {
+          updatedData[key] = value;
+          print(updatedData);
+        }
+      });
+      if (updatedData.isNotEmpty) {
+        print("Updated Data: $updatedData");
+        updateData(updatedData);
+      } else {
+        print("No changes detected.");
       }
-    });
-    if (updatedData.isNotEmpty) {
-      print("Updated Data: $updatedData");
-      updateData(updatedData);
-    } else {
-      print("No changes detected.");
     }
   }
-}
 
-  
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -242,8 +246,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
                   });
                 },
                 deleteOnPress: AlartMessage(
-                  api: "Admin/delete-client",
-                  id: widget.id,
+                  api: '${ApiEndpoints.deleteClient}/${widget.id}',
                   onPress: const ClientDataView(),
                 ),
               ),
@@ -255,7 +258,6 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
                 pincodeController: control.pincode,
                 stateController: control.state,
                 enabled: isEditing,
-                
               ),
               ClientViewDetailsTwo(
                 firstNamee: control.firstName,
@@ -300,7 +302,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
               ),
               CreateByCreatedOn(
                 createByController: createBy,
-                createOnController:createOn,
+                createOnController: createOn,
                 enabled: false,
               ),
               formSizebox15,
@@ -308,7 +310,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
                 formKey: formKey,
                 text: update,
                 onPressed: () {
-                checkUpdatingValue();
+                  checkUpdatingValue();
                 },
                 isEnabled: isEnabled,
               ),
@@ -325,7 +327,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
                         return updatedDataItem(
                           eachItem["updated_old_value"] ?? "",
                           eachItem["updated_new_value"] ?? "",
-                          eachItem["updated_by"].toString() ,
+                          eachItem["updated_by"].toString(),
                         );
                       }).toList(),
                       bottomHeight,

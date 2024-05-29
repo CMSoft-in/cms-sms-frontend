@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:cmssms/src/Model/api/api_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../../Model/Const/color.dart';
@@ -40,7 +41,7 @@ class _SupplierFormPageFourState extends State<SupplierFormPageFour> {
       try {
         print("n");
         print(token);
-        var apiURL = Uri.parse('$ip/Admin/create-supplier');
+        var apiURL = Uri.parse(ApiEndpoints.createSupplier);
         if (oldData["CoSupplier.co_supplier_category_id"] == null) {
       throw Exception("co_supplier_category_id cannot be null");
     }else{

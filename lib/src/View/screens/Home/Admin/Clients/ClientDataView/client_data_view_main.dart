@@ -1,3 +1,4 @@
+import '../../../../../../Model/api/api_model.dart';
 import '/src/Model/Const/color.dart';
 import '/src/View/widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
 import '/src/Model/Const/image_const.dart';
@@ -52,7 +53,7 @@ class _ClientDataViewState extends State<ClientDataView> {
         dateOrNot: false,
         navigatePage: navigateToClientViewDetails,
         doubleStar: estar,
-        uri: "$ip/Admin/all-clients",
+        uri: ApiEndpoints.getAllClients,
         id: 'co_client_id',
         firstColumnMainName: 'co_client_name',
         firstColumnsubName: 'primary_contact_no',

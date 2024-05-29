@@ -1,3 +1,5 @@
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../materialsdataview/materials_data_view.dart';
 import '/src/Model/Const/text_const.dart';
 import '/src/View/screens/Home/Admin/materials/materialsviewdetails/materials_view_details.dart';
@@ -36,7 +38,7 @@ class _MaterialFormState extends State<MaterialForm> {
     Future navigateToPage(context) async {
       try {
         print(token);
-        var apiURL = Uri.parse('$ip/Admin/create-material');
+        var apiURL = Uri.parse(ApiEndpoints.createMaterial);
 
         var values = {
           "co_material_name": materialsTextEditingController.materialController.text,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:cmssms/src/Model/api/api_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +39,7 @@ class _MachinesFormPageFourState extends State<MachinesFormPageFour> {
     MachinesTextEditingController machinesTextEditingController =
         MachinesTextEditingController();
     Future<void> navigateToPage(BuildContext context) async {
-      var apiURL = Uri.parse('$ip/Admin/create-machine');
+      var apiURL = Uri.parse(ApiEndpoints.createMachine);
 
       var values = {
         ...oldData,

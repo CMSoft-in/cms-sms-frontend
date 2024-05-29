@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:cmssms/src/View/screens/Home/Admin/laborcategory/labor_category_text.dart';
 
+import '../../../../../../Model/api/api_model.dart';
 import '/src/View/screens/Home/Admin/laborcategory/laborcategoryviewdetails/labor_category_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -114,7 +115,7 @@ class _LaborCategoryViewDetailsMain
     try {
       print("before update");
       var response = await http.patch(
-        Uri.parse("$ip/Admin/update-labourcategory/${widget.id}"),
+        Uri.parse('${ApiEndpoints.updateLabourCategory}/${widget.id}'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
@@ -131,14 +132,13 @@ class _LaborCategoryViewDetailsMain
     }
   }
 
-void checkUpdatingValue() {
+  void checkUpdatingValue() {
     var oldData = data;
     if (oldData != null) {
       Map<String, dynamic> updatedData = {};
       var clientFields = {
         "co_labour_category_name": laborCategoryController.text,
         "co_labour_category_desc": categorydistributionController.text,
-        
       };
       clientFields.forEach((key, value) {
         if (oldData[key] != null && oldData[key] != value && value != "") {
@@ -176,8 +176,7 @@ void checkUpdatingValue() {
                   });
                 },
                 deleteOnPress: AlartMessage(
-                  api: "/Admin/delete-labourCategory",
-                  id: widget.id,
+                  api: '${ApiEndpoints.deleteLabourCategory}/${widget.id}',
                   onPress: const LaborCategoryDataView(),
                 ),
               ),

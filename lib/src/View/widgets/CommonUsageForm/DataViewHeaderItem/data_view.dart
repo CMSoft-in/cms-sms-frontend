@@ -120,11 +120,9 @@ class _DataViewState extends State<DataView> {
           'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
       if (response.statusCode == 200) {
         setState(() {
           data = jsonDecode(response.body);
-          print(data);
           isLoading = false;
         });
       } else {

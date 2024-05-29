@@ -1,3 +1,5 @@
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../../../../../../Model/Const/image_const.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
 import '/src/Model/Const/color.dart';
@@ -41,7 +43,7 @@ class MaterialsDeleteTable extends StatelessWidget {
       lastColumnSubName: "SGST",
       lastColumnSecondSubName:"IGST" ,
       id:"co_material_id" ,
-      uri:"$ip/Admin/all-deleted-material",
+      uri:ApiEndpoints.getAllDeletedMaterials,
         doubleStar: doublestar,
         image: materialsEmptyDataImage,
         navigatePage: navigateToMaterialsViewDetails,

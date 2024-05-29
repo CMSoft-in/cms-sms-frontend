@@ -1,4 +1,5 @@
 import '../../../../../../Model/Const/image_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
 import '/src/Model/Const/color.dart';
@@ -37,7 +38,7 @@ class SuppliersDeleteTable extends StatelessWidget {
       lastColumnSubName: "co_supplier_category_id",
       lastColumnSecondSubName: "co_supplier_category_id",
       id: "co_supplier_id",
-      uri:"$ip/Admin/all-deleted-supplier",
+      uri:ApiEndpoints.getAllDeletedSuppliers,
         doubleStar: doublestar,
         image:supplierEmptyDataImage,
     

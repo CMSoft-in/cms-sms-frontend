@@ -1,3 +1,5 @@
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
 import '../deletelabor/delete_labor_table.dart';
 import '/src/Model/Const/color.dart';
@@ -38,7 +40,7 @@ class LaborDataView extends StatelessWidget {
       lastColumnSubName: "co_current_sites_allocation",
       lastColumnSecondSubName:"co_current_sites_allocation" ,
       id: "co_labour_id",
-      uri: "$ip/Admin/all-labours",
+      uri: ApiEndpoints.getAllLabours,
         image: laborEmptyDataImage,
         header: const EmptyViewHeaderBar(
           image: labors,

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import '../../../../../../../Model/Const/text_const.dart';
+import '../../../../../../../Model/api/api_model.dart';
 import '../../../../../../../Model/api/local.dart';
 import '../../../../../../../controler/GetDate/get_date.dart';
 import '../../../../../../widgets/AppBar/AppBar.dart';
@@ -38,7 +39,7 @@ class _MachinesFormDeleteViewState extends State<MachinesFormDeleteView> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/machine/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getMachine}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -73,7 +74,7 @@ class _MachinesFormDeleteViewState extends State<MachinesFormDeleteView> {
           key: formKey,
           child: Column(
             children: [
-              DetailsText(enterDetails: deleteMachinesDetailsText),
+              const DetailsText(enterDetails: deleteMachinesDetailsText),
               MachineViewDetailsOne(
                   NameController: mnameController,
                   secondNameController: msecondNameController,

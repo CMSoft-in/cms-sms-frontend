@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../controler/ClientController/client_controller.dart';
 import '../../../../../../controler/GetDate/get_date.dart';
@@ -44,7 +45,7 @@ class _WorkCategoryFormDeleteView extends State<WorkCategoryFormDeleteView> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/work-category/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getWorkCategory}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },

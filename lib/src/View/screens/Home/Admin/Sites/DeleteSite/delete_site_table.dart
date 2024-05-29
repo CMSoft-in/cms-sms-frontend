@@ -1,4 +1,5 @@
 import '../../../../../../Model/Const/image_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/text_const.dart';
@@ -46,7 +47,7 @@ class SiteDeleteTable extends StatelessWidget {
         ),
         dataTableNameOne: siteDataTableName,
         dataTableNameTwo: siteDataTableProjectName,
-        uri: "$ip/Admin/Alldeleted-site",
+        uri:ApiEndpoints.getAllSites,
        
       ),
 

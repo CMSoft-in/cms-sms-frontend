@@ -1,4 +1,6 @@
 
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
 import '../deletemachines/delete_machines_table.dart';
 import '/src/Model/Const/text_const.dart';
@@ -8,7 +10,6 @@ import 'package:flutter/material.dart';
 import '../../../../../../../Model/Const/color.dart';
 import '../../../../../../../Model/Const/image_const.dart';
 import '../../../../../../../Model/EmptyDataScreenView/empty_header.dart';
-import '../../../../../../../Model/api/local.dart';
 import '../machinesviewdetails/machines_view_details_main.dart';
 import '../machinesform/machines_form_one.dart';
 
@@ -38,7 +39,7 @@ class MachinesDataView extends StatelessWidget {
       lastColumnSubName:"created_by" ,
       lastColumnSecondSubName:"co_machine_next_fitness_certificate_date" ,
       id: "co_machine_id",
-      uri:"$ip/Admin/all-machines",
+      uri:ApiEndpoints.getAllMachines,
         image: machinesEmptyDataImage,
         header: const EmptyViewHeaderBar(
           image: machines,

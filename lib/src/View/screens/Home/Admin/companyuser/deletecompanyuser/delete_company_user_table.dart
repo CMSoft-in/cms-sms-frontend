@@ -1,9 +1,10 @@
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../../../../../../Model/Const/image_const.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/text_const.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Model/api/local.dart';
 import '../../../../../widgets/CommonUsageForm/Delete/delete_header.dart';
 import '../companyuser_text.dart';
 import 'delete_company_user_form_view.dart';
@@ -38,7 +39,7 @@ class CompanyUserDeleteTable extends StatelessWidget {
       lastColumnSubName:"co_designation_id" ,
       lastColumnSecondSubName:"co_designation_id" ,
       id:  "co_userid" ,
-      uri:  "$ip/Admin/deleted-cousers",
+      uri:  ApiEndpoints.getAllDeletedCoUsers,
         doubleStar: doublestar,
         image: companyUserEmptyDataImage,
         navigatePage: navigateToCompanyUserViewDetails,

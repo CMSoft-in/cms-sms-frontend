@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
+import '../../../../../../Model/api/api_model.dart';
 import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_user_view_five.dart';
 import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_user_view_four.dart';
 import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_user_view_one.dart';
@@ -147,9 +148,8 @@ class _CompanyUserViewDetailsMainState
           "Authorization": "Bearer $token",
         },
         body: jsonEncode(data),
-
       );
-        print("beefore update");
+      print("beefore update");
       print(response.body);
       if (response.statusCode == 200) {
         print(response.body);
@@ -199,19 +199,22 @@ class _CompanyUserViewDetailsMainState
         "createdBy": createBy.text,
       };
       controllers.forEach((key, value) {
-      if (value != null && value.isNotEmpty && (oldData[key] ?? '') != value) {
-        updatedData[key] = value;
-        print(updatedData);
+        if (value != null &&
+            value.isNotEmpty &&
+            (oldData[key] ?? '') != value) {
+          updatedData[key] = value;
+          print(updatedData);
+        }
+      });
+      if (updatedData.isNotEmpty) {
+        print("Updated Data: $updatedData");
+        updateData(updatedData);
+      } else {
+        print("No changes detected.");
       }
-    });
-    if (updatedData.isNotEmpty) {
-      print("Updated Data: $updatedData");
-      updateData(updatedData);
-    } else {
-      print("No changes detected.");
     }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -234,8 +237,7 @@ class _CompanyUserViewDetailsMainState
                   });
                 },
                 deleteOnPress: AlartMessage(
-                  api: "/Admin/delete-couser/${widget.id}",
-                  id: widget.id,
+                  api: '${ApiEndpoints.deleteCoUser}/${widget.id}',
                   onPress: const CompanyUserDataView(),
                 ),
               ),

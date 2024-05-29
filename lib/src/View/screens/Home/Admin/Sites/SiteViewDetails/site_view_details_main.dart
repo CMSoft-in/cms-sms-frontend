@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '../../../../../../controler/GetDate/get_date.dart';
@@ -76,12 +77,12 @@ List<List<TextEditingController>> clientQualityOfficerControllers = [
 class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
-  
+
   @override
   void initState() {
     super.initState();
     fetchData();
-    
+
     getToken();
   }
 
@@ -91,7 +92,7 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/get-site/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getSite}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -154,56 +155,71 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
     }
   }
 
- void populateClientArchitectControllers(Map<String, dynamic> data) {
-  if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-    List contacts = data["CoSiteContacts"];
-    int index = 0;
-    for (var contact in contacts) {
-      if (contact["contact_category_name"] == "Client Architect") {
-        if (index < clientArchitectControllers.length) {
-          clientArchitectControllers[index][0].text = contact["contact_name"]?.toString() ?? "";
-          clientArchitectControllers[index][1].text = contact["contact_no"]?.toString() ?? "";
-          clientArchitectControllers[index][2].text = contact["contact_email"]?.toString() ?? "";
-          clientArchitectControllers[index][3].text = contact["contact_whatsapp"]?.toString() ?? "";
-        } else {
-          clientArchitectControllers.add([
-            TextEditingController(text: contact["contact_name"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_no"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_email"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_whatsapp"]?.toString() ?? ""),
-          ]);
+  void populateClientArchitectControllers(Map<String, dynamic> data) {
+    if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
+      List contacts = data["CoSiteContacts"];
+      int index = 0;
+      for (var contact in contacts) {
+        if (contact["contact_category_name"] == "Client Architect") {
+          if (index < clientArchitectControllers.length) {
+            clientArchitectControllers[index][0].text =
+                contact["contact_name"]?.toString() ?? "";
+            clientArchitectControllers[index][1].text =
+                contact["contact_no"]?.toString() ?? "";
+            clientArchitectControllers[index][2].text =
+                contact["contact_email"]?.toString() ?? "";
+            clientArchitectControllers[index][3].text =
+                contact["contact_whatsapp"]?.toString() ?? "";
+          } else {
+            clientArchitectControllers.add([
+              TextEditingController(
+                  text: contact["contact_name"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_no"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_email"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_whatsapp"]?.toString() ?? ""),
+            ]);
+          }
+          index++;
         }
-        index++;
       }
     }
   }
-}
 
-
- void populateClientEngineerControllers(Map<String, dynamic> data) {
-  if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-    List contacts = data["CoSiteContacts"];
-    int index = 0;
-    for (var contact in contacts) {
-      if (contact["contact_category_name"] == "Client Engineer") {
-        if (index < clientEngineerControllers.length) {
-          clientEngineerControllers[index][0].text = contact["contact_name"]?.toString() ?? "";
-          clientEngineerControllers[index][1].text = contact["contact_no"]?.toString() ?? "";
-          clientEngineerControllers[index][2].text = contact["contact_email"]?.toString() ?? "";
-          clientEngineerControllers[index][3].text = contact["contact_whatsapp"]?.toString() ?? "";
-        } else {
-          clientEngineerControllers.add([
-            TextEditingController(text: contact["contact_name"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_no"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_email"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_whatsapp"]?.toString() ?? ""),
-          ]);
+  void populateClientEngineerControllers(Map<String, dynamic> data) {
+    if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
+      List contacts = data["CoSiteContacts"];
+      int index = 0;
+      for (var contact in contacts) {
+        if (contact["contact_category_name"] == "Client Engineer") {
+          if (index < clientEngineerControllers.length) {
+            clientEngineerControllers[index][0].text =
+                contact["contact_name"]?.toString() ?? "";
+            clientEngineerControllers[index][1].text =
+                contact["contact_no"]?.toString() ?? "";
+            clientEngineerControllers[index][2].text =
+                contact["contact_email"]?.toString() ?? "";
+            clientEngineerControllers[index][3].text =
+                contact["contact_whatsapp"]?.toString() ?? "";
+          } else {
+            clientEngineerControllers.add([
+              TextEditingController(
+                  text: contact["contact_name"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_no"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_email"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_whatsapp"]?.toString() ?? ""),
+            ]);
+          }
+          index++;
         }
-        index++;
       }
     }
   }
-}
 
   void populateSiteEngineerControllers(Map<String, dynamic> data) {
     if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
@@ -238,62 +254,76 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
     }
   }
 
-void populateClientPurchaseOfficerControllers(Map<String, dynamic> data) {
-  if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-    List contacts = data["CoSiteContacts"];
-    int index = 0;
-    for (var contact in contacts) {
-      if (contact["contact_category_name"] == "Client Purchase Officer") {
-        if (index < clientPurchaseOfficerControllers.length) {
-          clientPurchaseOfficerControllers[index][0].text = contact["contact_name"]?.toString() ?? "";
-          clientPurchaseOfficerControllers[index][1].text = contact["contact_no"]?.toString() ?? "";
-          clientPurchaseOfficerControllers[index][2].text = contact["contact_email"]?.toString() ?? "";
-          clientPurchaseOfficerControllers[index][3].text = contact["contact_whatsapp"]?.toString() ?? "";
-        } else {
-          clientPurchaseOfficerControllers.add([
-            TextEditingController(text: contact["contact_name"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_no"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_email"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_whatsapp"]?.toString() ?? ""),
-          ]);
+  void populateClientPurchaseOfficerControllers(Map<String, dynamic> data) {
+    if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
+      List contacts = data["CoSiteContacts"];
+      int index = 0;
+      for (var contact in contacts) {
+        if (contact["contact_category_name"] == "Client Purchase Officer") {
+          if (index < clientPurchaseOfficerControllers.length) {
+            clientPurchaseOfficerControllers[index][0].text =
+                contact["contact_name"]?.toString() ?? "";
+            clientPurchaseOfficerControllers[index][1].text =
+                contact["contact_no"]?.toString() ?? "";
+            clientPurchaseOfficerControllers[index][2].text =
+                contact["contact_email"]?.toString() ?? "";
+            clientPurchaseOfficerControllers[index][3].text =
+                contact["contact_whatsapp"]?.toString() ?? "";
+          } else {
+            clientPurchaseOfficerControllers.add([
+              TextEditingController(
+                  text: contact["contact_name"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_no"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_email"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_whatsapp"]?.toString() ?? ""),
+            ]);
+          }
+          index++;
         }
-        index++;
       }
     }
   }
-}
 
   void populateClientQualityOfficerControllers(Map<String, dynamic> data) {
-  if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-    List contacts = data["CoSiteContacts"];
-    int index = 0;
-    for (var contact in contacts) {
-      if (contact["contact_category_name"] == "Client Quality Officer") {
-        if (index < clientQualityOfficerControllers.length) {
-          clientQualityOfficerControllers[index][0].text = contact["contact_name"]?.toString() ?? "";
-          clientQualityOfficerControllers[index][1].text = contact["contact_no"]?.toString() ?? "";
-          clientQualityOfficerControllers[index][2].text = contact["contact_email"]?.toString() ?? "";
-          clientQualityOfficerControllers[index][3].text = contact["contact_whatsapp"]?.toString() ?? "";
-        } else {
-          clientQualityOfficerControllers.add([
-            TextEditingController(text: contact["contact_name"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_no"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_email"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_whatsapp"]?.toString() ?? ""),
-          ]);
+    if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
+      List contacts = data["CoSiteContacts"];
+      int index = 0;
+      for (var contact in contacts) {
+        if (contact["contact_category_name"] == "Client Quality Officer") {
+          if (index < clientQualityOfficerControllers.length) {
+            clientQualityOfficerControllers[index][0].text =
+                contact["contact_name"]?.toString() ?? "";
+            clientQualityOfficerControllers[index][1].text =
+                contact["contact_no"]?.toString() ?? "";
+            clientQualityOfficerControllers[index][2].text =
+                contact["contact_email"]?.toString() ?? "";
+            clientQualityOfficerControllers[index][3].text =
+                contact["contact_whatsapp"]?.toString() ?? "";
+          } else {
+            clientQualityOfficerControllers.add([
+              TextEditingController(
+                  text: contact["contact_name"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_no"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_email"]?.toString() ?? ""),
+              TextEditingController(
+                  text: contact["contact_whatsapp"]?.toString() ?? ""),
+            ]);
+          }
+          index++;
         }
-        index++;
       }
     }
   }
-}
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BuildAppBar(),
+      appBar: const BuildAppBar(),
       body: SingleChildScrollView(
         child: Container(
           // margin: EdgeInsets.symmetric(horizontal: width(context)! * 0.03),
@@ -309,8 +339,7 @@ void populateClientPurchaseOfficerControllers(Map<String, dynamic> data) {
                   });
                 },
                 deleteOnPress: AlartMessage(
-                  api: "Admin/delete-site",
-                  id: widget.id,
+                  api: '${ApiEndpoints.deleteSite}/${widget.id}',
                   onPress: const SiteDataView(),
                 ),
               ),
@@ -354,23 +383,21 @@ void populateClientPurchaseOfficerControllers(Map<String, dynamic> data) {
                   enabled: isEnabled,
                   governmentApprovalsController: governmentApprovalsController),
               formSizebox15,
-              StackText(stacktext: clientArchitect, color: grey),
+              const StackText(stacktext: clientArchitect, color: grey),
               ..._buildContactFields(clientArchitectControllers),
-              StackText(stacktext: clientEngineer, color: grey),
+              const StackText(stacktext: clientEngineer, color: grey),
               ..._buildContactFields(clientEngineerControllers),
-              StackText(stacktext: siteEngineer, color: grey),
+              const StackText(stacktext: siteEngineer, color: grey),
               ..._buildContactFields(siteEngineerControllers),
-              StackText(stacktext: clientPurchaseOfficer, color: grey),
+              const StackText(stacktext: clientPurchaseOfficer, color: grey),
               ..._buildContactFields(clientPurchaseOfficerControllers),
-              StackText(stacktext: clientQualityOfficer, color: grey),
+              const StackText(stacktext: clientQualityOfficer, color: grey),
               ..._buildContactFields(clientQualityOfficerControllers),
-                formSizebox15,
+              formSizebox15,
               LongButton(
                 formKey: formKey,
                 text: update,
-                onPressed: () {
-                  
-                },
+                onPressed: () {},
                 isEnabled: isEnabled,
               ),
               if (updatedData != null)
@@ -384,8 +411,8 @@ void populateClientPurchaseOfficerControllers(Map<String, dynamic> data) {
                       ),
                       ...updatedData.map((eachItem) {
                         return updatedDataItem(
-                          eachItem["updated_old_value"]?? "",
-                          eachItem["updated_new_value"]?? "",
+                          eachItem["updated_old_value"] ?? "",
+                          eachItem["updated_new_value"] ?? "",
                           eachItem["updated_by"].toString(),
                         );
                       }).toList(),

@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import '../../../../../../../Model/api/api_model.dart';
 import '../../../../../../../controler/GetDate/get_date.dart';
 import '../vechilesdataview/vechiles_data_view.dart';
 import '/src/View/screens/Home/Admin/machines&vechiles/vechiles/vechilesviewdetails/vechiles_view_details_four.dart';
@@ -44,7 +45,7 @@ class _VechilesFormPageFourState extends State<VechilesFormPageFour> {
     Future<void> navigateToPage(context) async {
       try{
            print(token);
-      var apiURL = Uri.parse('$ip/Admin/create-vehicle');
+      var apiURL = Uri.parse(ApiEndpoints.createVehicle);
 
       var values = {
         ...oldData,

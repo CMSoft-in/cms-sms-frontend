@@ -1,4 +1,5 @@
 import '../../../../../../Model/Const/image_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
 import '../work_category_text.dart';
 import '/src/Model/Const/color.dart';
@@ -38,7 +39,7 @@ class WorkCategoryDeleteTable extends StatelessWidget {
       lastColumnSubName: "created_by",
       lastColumnSecondSubName: "created_by",
       id: "co_work_category_id",
-      uri:"$ip/Admin/deleted-work-categories",
+      uri: ApiEndpoints.getAllDeletedWorkCategories,
         doubleStar: doublestar,
         image: workCategoryEmptyDataImage,
         

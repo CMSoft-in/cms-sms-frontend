@@ -1,3 +1,5 @@
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
 import '../deletevechiles/delete_vechiles_table.dart';
 import '/src/Model/Const/text_const.dart';
@@ -40,7 +42,7 @@ class VechilesDataView extends StatelessWidget {
       lastColumnSubName: "created_by",
       lastColumnSecondSubName: "co_vehicle_registration_certificate",
       id: "co_vehicle_id",
-      uri: "$ip/Admin/all-vehicles",
+      uri: ApiEndpoints.getAllVehicles,
       image: VechilesEmptyDataImage,
       header: const EmptyViewHeaderBar(
         image: vechicle,

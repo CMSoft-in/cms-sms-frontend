@@ -1,3 +1,4 @@
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
 import '../deletesupplier/delete_suppliers_table.dart';
 import '../suppliersviewdetails/supplier_view_details_main.dart';
@@ -8,7 +9,6 @@ import '/src/View/screens/Home/Admin/Clients/ClientViewDetails/client_view_datai
 import 'package:flutter/material.dart';
 
 import '../../../../../../Model/EmptyDataScreenView/empty_header.dart';
-import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../suppliersform/supplier_form_page_one.dart';
 
@@ -39,7 +39,7 @@ class SupplierDataView extends StatelessWidget {
       lastColumnSubName: "co_supplier_category_id",
       lastColumnSecondSubName: "co_supplier_category_id",
       id: "co_supplier_id",
-      uri:"$ip/Admin/getall-supplier",
+     uri: ApiEndpoints.getAllSuppliers,
         header: const EmptyViewHeaderBar(
           image: suppliers,
           onpress: SupplierFormPageOne(),

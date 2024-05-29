@@ -1,4 +1,5 @@
 import '../../../../../../../Model/Const/image_const.dart';
+import '../../../../../../../Model/api/api_model.dart';
 import '../../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/text_const.dart';
@@ -41,7 +42,7 @@ class MachinesDeleteTable extends StatelessWidget {
       lastColumnSubName:"created_by" ,
       lastColumnSecondSubName:"co_machine_next_fitness_certificate_date" ,
       id: "co_machine_id",
-      uri:"$ip/Admin/deleted-machines",
+      uri:ApiEndpoints.getAllDeletedMachines,
         doubleStar: doublestar,
         image: machinesEmptyDataImage,
        

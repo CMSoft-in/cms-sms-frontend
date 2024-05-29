@@ -15,6 +15,7 @@ import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 
 import '../../../../../../Model/Const/text_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '../../../../../../controler/ClientController/client_controller.dart';
@@ -50,7 +51,7 @@ class _SiteFormDeleteViewState extends State<SiteFormDeleteView> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/get-site/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getSite}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },

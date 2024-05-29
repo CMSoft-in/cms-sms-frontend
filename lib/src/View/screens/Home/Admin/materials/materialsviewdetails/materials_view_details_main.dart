@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../../../../../../controler/GetDate/get_date.dart';
 import '../materialsdataview/materials_data_view.dart';
 import '/src/View/screens/Home/Admin/materials/materialsviewdetails/materials_view_details.dart';
@@ -46,7 +48,7 @@ class _MaterialsViewDetailsMain extends State<MaterialsViewDetailsMain> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/get-material/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getMaterial}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -79,7 +81,7 @@ class _MaterialsViewDetailsMain extends State<MaterialsViewDetailsMain> {
   Future<void> fetchUpdateData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/updatehistory-material${widget.id}"),
+        Uri.parse('${ApiEndpoints.getMaterialUpdateHistory}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -113,7 +115,7 @@ class _MaterialsViewDetailsMain extends State<MaterialsViewDetailsMain> {
       print("before update");
 
       var response = await http.patch(
-        Uri.parse("$ip/Admin/update-material/${widget.id}"),
+        Uri.parse('${ApiEndpoints.updateMaterial}/${widget.id}'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
@@ -122,8 +124,8 @@ class _MaterialsViewDetailsMain extends State<MaterialsViewDetailsMain> {
       );
       if (response.statusCode == 200) {
         print(response.body);
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const MaterialsDataView()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const MaterialsDataView()));
       }
     } catch (e) {
       print("update failed $e");
@@ -146,19 +148,21 @@ class _MaterialsViewDetailsMain extends State<MaterialsViewDetailsMain> {
         "IGST": iGstController.text
       };
       controllers.forEach((key, value) {
-      if (value != null && value.isNotEmpty && (oldData[key] ?? '') != value) {
-        updatedData[key] = value;
-        print(updatedData);
+        if (value != null &&
+            value.isNotEmpty &&
+            (oldData[key] ?? '') != value) {
+          updatedData[key] = value;
+          print(updatedData);
+        }
+      });
+      if (updatedData.isNotEmpty) {
+        print("Updated Data: $updatedData");
+        updateData(updatedData);
+      } else {
+        print("No changes detected.");
       }
-    });
-    if (updatedData.isNotEmpty) {
-      print("Updated Data: $updatedData");
-      updateData(updatedData);
-    } else {
-      print("No changes detected.");
     }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -182,8 +186,7 @@ class _MaterialsViewDetailsMain extends State<MaterialsViewDetailsMain> {
                   });
                 },
                 deleteOnPress: AlartMessage(
-                  api: "/Admin/delete-material/${widget.id}" ,
-                  id: widget.id,
+                  api: '${ApiEndpoints.deleteMaterial}/${widget.id}',
                   onPress: const LaborCategoryDataView(),
                 ),
               ),

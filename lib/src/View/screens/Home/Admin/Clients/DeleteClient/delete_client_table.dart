@@ -1,3 +1,5 @@
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../../../../../../Model/Const/image_const.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/local.dart';
@@ -21,33 +23,33 @@ class ClientDeleteTable extends StatelessWidget {
     }
 
     return Container(
-      color: white,
-      child: DeleteDataView(
-         fixFistColumnLength: 2,mapOrNot: false,
-     fixMiddleColumnLength: 1,
-     fixLastColumnLength: 1,
-     firstColumnMainName: 'co_client_name',
-     firstColumnsubName: 'owner_first_name',
-     firstColumnSecondSubName: "owner_first_name",
-     lastColumMainName:'primary_contact_no' ,
-     lastColumnSubName: "owner_first_name",
-     lastColumnSecondSubName:"owner_first_name" ,
-     middleColumMainName: "owner_first_name",
-     middleColumnSubName: "owner_first_name",
-     middleColumnSecondSubName: "owner_first_name",
-        doubleStar: doublestar,
-        image:clientEmptyDataImage ,
-        id: "co_client_id",
-        navigatePage: navigateToClientViewDetails,
-        header: const DeleteHeader(
-          image: clients,
-          deleteText: deleteClientText,
-        ),
-       dateOrNot: false,
-        dataTableNameOne: clientDataTableName,
-        dataTableNameTwo: clientDataTablePrimaryNumber,
-        uri: "$ip/Admin/deleted-clients",
-      )
-    );
+        color: white,
+        child: DeleteDataView(
+          fixFistColumnLength: 2,
+          mapOrNot: false,
+          fixMiddleColumnLength: 1,
+          fixLastColumnLength: 1,
+          firstColumnMainName: 'co_client_name',
+          firstColumnsubName: 'owner_first_name',
+          firstColumnSecondSubName: "owner_first_name",
+          lastColumMainName: 'primary_contact_no',
+          lastColumnSubName: "owner_first_name",
+          lastColumnSecondSubName: "owner_first_name",
+          middleColumMainName: "owner_first_name",
+          middleColumnSubName: "owner_first_name",
+          middleColumnSecondSubName: "owner_first_name",
+          doubleStar: doublestar,
+          image: clientEmptyDataImage,
+          id: "co_client_id",
+          navigatePage: navigateToClientViewDetails,
+          header: const DeleteHeader(
+            image: clients,
+            deleteText: deleteClientText,
+          ),
+          dateOrNot: false,
+          dataTableNameOne: clientDataTableName,
+          dataTableNameTwo: clientDataTablePrimaryNumber,
+          uri: ApiEndpoints.getAllDeletedClients,
+        ));
   }
 }

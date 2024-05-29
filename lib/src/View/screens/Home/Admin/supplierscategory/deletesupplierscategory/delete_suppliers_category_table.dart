@@ -1,3 +1,5 @@
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../../../../../../Model/Const/image_const.dart';
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
@@ -38,7 +40,7 @@ class SuppliersCategoryDeleteTable extends StatelessWidget {
       lastColumnSubName: "created_by",
       lastColumnSecondSubName: "created_by",
       id: "co_supplier_category_id",
-      uri:"$ip/Admin/deleted-supplier-categories",
+      uri:ApiEndpoints.getAllDeletedSupplierCategories,
         doubleStar: doublestar,
         image:supplierCategoryEmptyDataImage,
         navigatePage: navigateToSuppliersCategoryViewDetails,

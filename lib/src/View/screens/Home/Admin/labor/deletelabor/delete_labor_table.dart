@@ -1,3 +1,5 @@
+import 'package:cmssms/src/Model/api/api_model.dart';
+
 import '../../../../../../Model/Const/image_const.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
 import '/src/Model/Const/color.dart';
@@ -40,7 +42,7 @@ class LaborDeleteTable extends StatelessWidget {
       lastColumnSubName: "co_current_sites_allocation",
       lastColumnSecondSubName:"co_current_sites_allocation" ,
       id: "co_labour_id",
-      uri: "$ip/Admin/deleted-labours",
+      uri: ApiEndpoints.getAllDeletedLabours,
         doubleStar: doublestar,
         image:laborEmptyDataImage,
         navigatePage: navigateToLaborViewDetails,

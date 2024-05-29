@@ -8,9 +8,8 @@ import '../../../../Model/Const/height_width.dart';
 import '../../../../Model/Const/text_const.dart';
 
 class AlartMessage extends StatelessWidget {
-  const AlartMessage({Key? key, this.id, this.onPress, required this.api})
+  const AlartMessage({Key? key,  this.onPress, required this.api})
       : super(key: key);
-  final id;
   final onPress;
   final api;
   @override
@@ -20,9 +19,8 @@ class AlartMessage extends StatelessWidget {
 
     void deleteData() async {
       try {
-        print("button");
         var body = jsonEncode({"deletion_reason": deleteReasonController.text});
-        final response = await http.delete(Uri.parse("$ip/$api/$id"),
+        final response = await http.delete(Uri.parse(api),
             headers: {
               "Content-Type": "application/json",
               "Authorization": "Bearer $token",

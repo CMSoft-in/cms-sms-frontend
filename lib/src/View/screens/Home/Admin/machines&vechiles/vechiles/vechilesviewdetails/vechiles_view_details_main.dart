@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../../Model/Const/color.dart';
 import '../../../../../../../Model/Const/height_width.dart';
 import '../../../../../../../Model/Const/text_const.dart';
+import '../../../../../../../Model/api/api_model.dart';
 import '../../../../../../../Model/api/local.dart';
 import '../../../../../../../controler/GetDate/get_date.dart';
 import '../../../../../../../controler/common_controller.dart';
@@ -48,7 +49,7 @@ class _VechilesViewDetailsMainState extends State<VechilesViewDetailsMain> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/vehicle/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getVehicle}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -74,7 +75,7 @@ class _VechilesViewDetailsMainState extends State<VechilesViewDetailsMain> {
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
             // insuranceFilePathController.text =
             //     data!["co_vehicle_registration_certificate"].toString() ?? "";
-           vinsuranceExpiryDateController.text =
+            vinsuranceExpiryDateController.text =
                 Datee.getDate(data!["co_vehicle_insurance_exp_date"]) ?? "";
             vnextFCDateController.text = Datee.getDate(
                     data!["co_vehicle_next_fitness_certificate_date"]) ??
@@ -89,21 +90,21 @@ class _VechilesViewDetailsMainState extends State<VechilesViewDetailsMain> {
     }
   }
 
-    Future<void> fetchUpdateData() async {
+  Future<void> fetchUpdateData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin//updatehistory-vehicle/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getVehicleUpdateHistory}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
       );
-       var data = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       print(response.body);
       if (response.statusCode == 200) {
         setState(() {
           List<dynamic> updateData = [];
-         
-            print(data);
+
+          print(data);
           for (var eachData in data) {
             if (eachData["co_vehicle_id"].toString() == widget.id) {
               updateData.add(eachData);
@@ -119,16 +120,13 @@ class _VechilesViewDetailsMainState extends State<VechilesViewDetailsMain> {
     }
   }
 
-
   bool isEditing = false;
   bool isEnabled = false;
 
   void updateData(data) async {
     try {
-      print("before update");
-      print(data);
       var response = await http.patch(
-        Uri.parse("$ip/Admin/update-vehicle/${widget.id}"),
+        Uri.parse('${ApiEndpoints.updateVehicle}/${widget.id}'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
@@ -139,7 +137,7 @@ class _VechilesViewDetailsMainState extends State<VechilesViewDetailsMain> {
         print(response.body);
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const VechilesDataView()));
-      }else{
+      } else {
         print(response.body);
       }
     } catch (e) {
@@ -148,7 +146,7 @@ class _VechilesViewDetailsMainState extends State<VechilesViewDetailsMain> {
   }
 
   void vehiclesCheckUpdatingValue() {
-     var oldData = data;
+    var oldData = data;
     if (oldData != null) {
       Map<String, dynamic> updatedData = {};
 
@@ -164,26 +162,26 @@ class _VechilesViewDetailsMainState extends State<VechilesViewDetailsMain> {
         "co_vehicle_model": vmodelController.text,
         "co_vehicle_yearofmake": vyearofMakeController.text,
         "co_vehicle_engine_no": vengineChassisNoController.text,
-       
-        "co_vehicle_registration_certificate": vinsuranceFilePathController.text,
+        "co_vehicle_registration_certificate":
+            vinsuranceFilePathController.text,
         "co_vehicle_insurance_exp_date": vinsuranceExpiryDateController.text,
         "co_vehicle_next_fitness_certificate_date": vnextFCDateController.text
       };
 
       controllers.forEach((key, value) {
-      if (value != null && value.isNotEmpty && (oldData[key] ?? '') != value) {
-        updatedData[key] = value;
-        print(updatedData);
+        if (value.isNotEmpty && (oldData[key] ?? '') != value) {
+          updatedData[key] = value;
+          print(updatedData);
+        }
+      });
+      if (updatedData.isNotEmpty) {
+        print("Updated Data: $updatedData");
+        updateData(updatedData);
+      } else {
+        print("No changes detected.");
       }
-    });
-    if (updatedData.isNotEmpty) {
-      print("Updated Data: $updatedData");
-      updateData(updatedData);
-    } else {
-      print("No changes detected.");
     }
   }
-}
 
   CommonController commonController = CommonController();
 
@@ -209,8 +207,7 @@ class _VechilesViewDetailsMainState extends State<VechilesViewDetailsMain> {
                   });
                 },
                 deleteOnPress: AlartMessage(
-                  api:  "Admin/delete-vehicle",
-                  id: widget.id,
+                  api: '${ApiEndpoints.deleteVehicle}/${widget.id}',
                   onPress: const VechilesDataView(),
                 ),
               ),
@@ -268,8 +265,8 @@ class _VechilesViewDetailsMainState extends State<VechilesViewDetailsMain> {
                       ),
                       ...updatedData.map((eachItem) {
                         return updatedDataItem(
-                          eachItem["updated_old_value"]?? "",
-                          eachItem["updated_new_value"]?? "",
+                          eachItem["updated_old_value"] ?? "",
+                          eachItem["updated_new_value"] ?? "",
                           eachItem["updated_by"].toString(),
                         );
                       }).toList(),

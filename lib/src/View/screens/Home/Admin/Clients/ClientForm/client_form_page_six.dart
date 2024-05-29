@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
 
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 
 import '../../../../../widgets/CommonUsageForm/file_picker2.dart';
@@ -86,7 +87,7 @@ class _ClientFormPageSixState extends State<ClientFormPageSix> {
 
         var request = http.MultipartRequest(
           'PATCH',
-          Uri.parse('$ip/Admin/update-client/${widget.id}'),
+          Uri.parse(ApiEndpoints.updateClient),
         );
 
         request.headers['Authorization'] = 'Bearer $token';

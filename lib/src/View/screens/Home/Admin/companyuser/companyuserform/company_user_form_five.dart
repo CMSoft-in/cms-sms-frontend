@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import '../../../../../../Model/api/api_model.dart';
 import '../companyuser_text.dart';
 import '../companyuserdataview/company_user_data_view.dart';
 import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_user_view_five.dart';
@@ -23,13 +24,11 @@ class CompanyUserFormPageFive extends StatefulWidget {
   final Map data;
 
   @override
-  State<CompanyUserFormPageFive> createState() => _CompanyUserFormPageFiveState();
+  State<CompanyUserFormPageFive> createState() =>
+      _CompanyUserFormPageFiveState();
 }
 
 class _CompanyUserFormPageFiveState extends State<CompanyUserFormPageFive> {
-
- 
-
   @override
   void initState() {
     super.initState();
@@ -40,19 +39,26 @@ class _CompanyUserFormPageFiveState extends State<CompanyUserFormPageFive> {
   Widget build(BuildContext context) {
     final oldData = widget.data;
     final formKey = GlobalKey<FormState>();
-  CompanyUserTextEditingController companyUserTextEditingController=CompanyUserTextEditingController();
+    CompanyUserTextEditingController companyUserTextEditingController =
+        CompanyUserTextEditingController();
+        
     Future navigateToPageSix(context) async {
-      print(token);
-      var apiURL = Uri.parse('$ip/Admin/create-couser');
+     
+      var apiURL = Uri.parse(ApiEndpoints.createCoUser);
 
       var values = {
         ...oldData,
-     "bank_acc_name":companyUserTextEditingController. accountNameController.text,
-    "bank_acc_no": companyUserTextEditingController.accountNumberController.text,
-    "bank_acc_type":companyUserTextEditingController. accountTypeController.text,
-    "bank_name":companyUserTextEditingController.bankNameController.text,
-    "bank_ifsc_code":companyUserTextEditingController. ifscCodeController.text,
-    "bank_acc_location": companyUserTextEditingController.bankLocationController.text,
+        "bank_acc_name":
+            companyUserTextEditingController.accountNameController.text,
+        "bank_acc_no":
+            companyUserTextEditingController.accountNumberController.text,
+        "bank_acc_type":
+            companyUserTextEditingController.accountTypeController.text,
+        "bank_name": companyUserTextEditingController.bankNameController.text,
+        "bank_ifsc_code":
+            companyUserTextEditingController.ifscCodeController.text,
+        "bank_acc_location":
+            companyUserTextEditingController.bankLocationController.text,
       };
       print(values);
 
@@ -98,16 +104,27 @@ class _CompanyUserFormPageFiveState extends State<CompanyUserFormPageFive> {
                         stacktext: clientpage5,
                         color: red,
                       ),
-                  formSizebox15,
-                  CompanyUserViewDetailsFive(accountNameController:companyUserTextEditingController. accountNameController, 
-                  accountNumberController:companyUserTextEditingController. accountNumberController,
-                   accountTypeController:companyUserTextEditingController. accountTypeController,
-                    bankLocationController:companyUserTextEditingController. bankLocationController,
-                     bankNameController: companyUserTextEditingController.bankNameController,
-                      ifscCodeController:companyUserTextEditingController. ifscCodeController,
-                      isEditing: true,
-                       enabled: true)
-                      ,formSizebox15,
+                      formSizebox15,
+                      CompanyUserViewDetailsFive(
+                          accountNameController:
+                              companyUserTextEditingController
+                                  .accountNameController,
+                          accountNumberController:
+                              companyUserTextEditingController
+                                  .accountNumberController,
+                          accountTypeController:
+                              companyUserTextEditingController
+                                  .accountTypeController,
+                          bankLocationController:
+                              companyUserTextEditingController
+                                  .bankLocationController,
+                          bankNameController: companyUserTextEditingController
+                              .bankNameController,
+                          ifscCodeController: companyUserTextEditingController
+                              .ifscCodeController,
+                          isEditing: true,
+                          enabled: true),
+                      formSizebox15,
                       bottomHeight,
                     ],
                   ),

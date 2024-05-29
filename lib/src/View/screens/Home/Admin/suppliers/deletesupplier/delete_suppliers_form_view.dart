@@ -6,6 +6,7 @@ import 'package:cmssms/src/View/screens/Home/Admin/suppliers/suppliersviewdetail
 import 'package:cmssms/src/View/screens/Home/Admin/suppliers/suppliersviewdetails/supplier_view_details_three.dart';
 import 'package:cmssms/src/View/screens/Home/Admin/suppliers/suppliersviewdetails/supplier_view_details_two.dart';
 
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../../../../../../controler/GetDate/get_date.dart';
 import '../../../../../../controler/supplierController/supplier_controller.dart';
@@ -25,7 +26,6 @@ import '../../../../../../controler/common_controller.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 
-
 class SuppliersFormDeleteView extends StatefulWidget {
   const SuppliersFormDeleteView({Key? key, required this.id}) : super(key: key);
   final id;
@@ -37,7 +37,7 @@ class SuppliersFormDeleteView extends StatefulWidget {
 class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
   Map<String, dynamic>? data;
   var updatedData;
-   CommonController commonController=CommonController();
+  CommonController commonController = CommonController();
 
   @override
   void initState() {
@@ -45,10 +45,11 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
     fetchData();
     fetchUpdateData();
   }
+
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/get-client/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getSupplier}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -57,10 +58,7 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
         setState(() {
           data = jsonDecode(response.body);
           if (data != null) {
-            var controllers = {
-           
-            "bank_acc_location": control.bankLocation
-          };
+            var controllers = {"bank_acc_location": control.bankLocation};
             controllers.forEach((key, controller) {
               controller.text = data![key]?.toString() ?? '';
             });
@@ -77,7 +75,7 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
   Future<void> fetchUpdateData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/updatehistory-client"),
+        Uri.parse('${ApiEndpoints.getSupplierUpdateHistory}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -111,7 +109,7 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
       print("before update");
 
       var response = await http.post(
-        Uri.parse("$ip/Admin/update-client/${widget.id}"),
+        Uri.parse('${ApiEndpoints.updateSupplier}/${widget.id}'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
@@ -127,6 +125,7 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
       print("update failed $e");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -138,18 +137,43 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
           key: formKey,
           child: Column(
             children: [
-            
-                 DetailsText(enterDetails: deleteSupplierDetailsText),
-               SupplierViewDetailsOne(addressline1Controller: addressline1Controller, addressline2Controller: addressline2Controller, cityController: cityController, enabled: isEnabled, pincodeController: pincodeController, stateController: stateController, supplierNameController: supplierNameController)
-             ,SupplierViewDetailsTwo(enabled: isEnabled, gstController: gstController, primaryEmailController: primaryEmailController, primaryNameController: primaryNameController, primaryPhoneNumberController: primaryPhoneNumberController, primaryWhatsappController: primaryWhatsappController, timeLineController: timeLineController) ,
-             SupplierViewDetailsThree(enabled: isEnabled, materialsSuppliedController: materialsSuppliedController, supplierCategoryController: supplierCategoryController)
-            , SupplierViewDetailsFour(enabled: isEnabled, firstNameController: firstNameController, lastNameController: lastNameController, phoneNumberController: phoneNumberController, secondaryNameController: secondaryNameController, secondaryPhoneNumberController: secondaryPhoneNumberController, secondaryEmailController: secondaryEmailController, secondaryWhatsappController: secondaryWhatsappController)
-             ,CreateByCreatedOn(
-             createByController: createBy,
+              const DetailsText(enterDetails: deleteSupplierDetailsText),
+              SupplierViewDetailsOne(
+                  addressline1Controller: addressline1Controller,
+                  addressline2Controller: addressline2Controller,
+                  cityController: cityController,
+                  enabled: isEnabled,
+                  pincodeController: pincodeController,
+                  stateController: stateController,
+                  supplierNameController: supplierNameController),
+              SupplierViewDetailsTwo(
+                  enabled: isEnabled,
+                  gstController: gstController,
+                  primaryEmailController: primaryEmailController,
+                  primaryNameController: primaryNameController,
+                  primaryPhoneNumberController: primaryPhoneNumberController,
+                  primaryWhatsappController: primaryWhatsappController,
+                  timeLineController: timeLineController),
+              SupplierViewDetailsThree(
+                  enabled: isEnabled,
+                  materialsSuppliedController: materialsSuppliedController,
+                  supplierCategoryController: supplierCategoryController),
+              SupplierViewDetailsFour(
+                  enabled: isEnabled,
+                  firstNameController: firstNameController,
+                  lastNameController: lastNameController,
+                  phoneNumberController: phoneNumberController,
+                  secondaryNameController: secondaryNameController,
+                  secondaryPhoneNumberController:
+                      secondaryPhoneNumberController,
+                  secondaryEmailController: secondaryEmailController,
+                  secondaryWhatsappController: secondaryWhatsappController),
+              CreateByCreatedOn(
+                createByController: createBy,
                 createOnController: createOn,
                 enabled: false,
               ),
-             formSizebox15,
+              formSizebox15,
               const deleteTableHeader(
                 deleteDate: deleteDate,
                 deleteReason: deleteReason,

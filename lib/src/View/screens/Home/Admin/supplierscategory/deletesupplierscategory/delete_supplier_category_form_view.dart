@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../../../../../../controler/ClientController/client_controller.dart';
@@ -43,7 +44,7 @@ class _SuppliersCategoryFormDeleteView extends State<SuppliersCategoryFormDelete
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/supplier-category/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getSupplierCategory}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },

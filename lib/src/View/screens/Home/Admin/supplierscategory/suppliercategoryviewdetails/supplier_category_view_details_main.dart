@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../controler/GetDate/get_date.dart';
 import '../supplier_category_text.dart';
 import 'supplier_category_view_details.dart';
@@ -43,13 +44,13 @@ class _SupplierCategoryViewDetailsMain
   void initState() {
     super.initState();
     fetchData();
-    fetchUpdateData();
+    // fetchUpdateData();
   }
 
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/get-supplier-category/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getSupplierCategory}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -59,11 +60,10 @@ class _SupplierCategoryViewDetailsMain
           data = jsonDecode(response.body);
           if (data != null) {
             var controllers = {
-         
-    "co_supplier_category_name": supplierCategoryController,
-    "co_supplier_category_desc": materialSuppliedController,
-    "created_by": createBy,
-    "createdAt": createOn,
+              "co_supplier_category_name": supplierCategoryController,
+              "co_supplier_category_desc": materialSuppliedController,
+              "created_by": createBy,
+              "createdAt": createOn,
             };
             controllers.forEach((key, controller) {
               controller.text = data![key]?.toString() ?? '';
@@ -78,34 +78,34 @@ class _SupplierCategoryViewDetailsMain
     }
   }
 
-  Future<void> fetchUpdateData() async {
-    try {
-      final response = await http.get(
-        Uri.parse("$ip/Admin/updatehistory-supplier-category"),
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      );
-      if (response.statusCode == 200) {
-        setState(() {
-          var updateData = [];
+  // Future<void> fetchUpdateData() async {
+  //   try {
+  //     final response = await http.get(
+  //       Uri.parse("$ip/Admin/updatehistory-supplier-category"),
+  //       headers: {
+  //         'Authorization': 'Bearer $token',
+  //       },
+  //     );
+  //     if (response.statusCode == 200) {
+  //       setState(() {
+  //         var updateData = [];
 
-          var data = jsonDecode(response.body);
+  //         var data = jsonDecode(response.body);
 
-          for (var eachData in data) {
-            if (eachData["co_supplier_category_id"].toString() == widget.id) {
-              updateData.add(eachData);
-            }
-          }
-          updatedData = updateData;
-        });
-      } else {
-        throw Exception('Failed to load data');
-      }
-    } catch (error) {
-      print('Error fetching data: $error');
-    }
-  }
+  //         for (var eachData in data) {
+  //           if (eachData["co_supplier_category_id"].toString() == widget.id) {
+  //             updateData.add(eachData);
+  //           }
+  //         }
+  //         updatedData = updateData;
+  //       });
+  //     } else {
+  //       throw Exception('Failed to load data');
+  //     }
+  //   } catch (error) {
+  //     print('Error fetching data: $error');
+  //   }
+  // }
 
   bool isEditing = false;
   bool isEnabled = false;
@@ -115,7 +115,7 @@ class _SupplierCategoryViewDetailsMain
       print("before update");
 
       var response = await http.post(
-        Uri.parse("$ip/Admin/update-supplier-category/${widget.id}"),
+        Uri.parse('${ApiEndpoints.updateSupplierCategory}/${widget.id}'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
@@ -131,26 +131,28 @@ class _SupplierCategoryViewDetailsMain
       print("update failed $e");
     }
   }
-void supplierCategoryCheckUpdatingValue() {
-  if (data != null) {
-    Map<String, dynamic> updatedData = {};
 
-        var controllers = {
-           
-            };
-    controllers.forEach((key, value) {
-      if (data![key] != null && data![key].toString() != value && value.isNotEmpty) {
-        updatedData[key] = value;
+  void supplierCategoryCheckUpdatingValue() {
+    if (data != null) {
+      Map<String, dynamic> updatedData = {};
+
+      var controllers = {};
+      controllers.forEach((key, value) {
+        if (data![key] != null &&
+            data![key].toString() != value &&
+            value.isNotEmpty) {
+          updatedData[key] = value;
+        }
+      });
+
+      if (updatedData.isNotEmpty) {
+        updateData(updatedData);
+      } else {
+        print("No changes detected.");
       }
-    });
-
-    if (updatedData.isNotEmpty) {
-      updateData(updatedData);
-    } else {
-      print("No changes detected.");
     }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -174,8 +176,7 @@ void supplierCategoryCheckUpdatingValue() {
                   });
                 },
                 deleteOnPress: AlartMessage(
-                  api:  "/Admin/delete-supplier-category/${widget.id}",
-                  id: widget.id,
+                  api: '${ApiEndpoints.deleteSupplierCategory}/${widget.id}',
                   onPress: const SupplierCategoryDataView(),
                 ),
               ),
@@ -194,7 +195,7 @@ void supplierCategoryCheckUpdatingValue() {
                 formKey: formKey,
                 text: update,
                 onPressed: () {
-                 supplierCategoryCheckUpdatingValue();
+                  supplierCategoryCheckUpdatingValue();
                 },
                 isEnabled: isEnabled,
               ),

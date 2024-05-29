@@ -1,3 +1,4 @@
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
 import '../deletematerials/delete_materials_table.dart';
 import '/src/View/screens/Home/Admin/materials/materials_text.dart';
@@ -36,7 +37,7 @@ class MaterialsDataView extends StatelessWidget {
       lastColumnSubName: "SGST",
       lastColumnSecondSubName:"IGST" ,
       id:"co_material_id" ,
-      uri:"$ip/Admin/getall-material",
+      uri:ApiEndpoints.getAllMaterials,
         image: materialsEmptyDataImage,
         header: const EmptyViewHeaderBar(
           image: materials,
