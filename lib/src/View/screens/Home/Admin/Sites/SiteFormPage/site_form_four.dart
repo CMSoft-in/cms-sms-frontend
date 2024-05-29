@@ -12,7 +12,7 @@ import 'site_form_five.dart';
 
 class SiteFormPageFour extends StatelessWidget {
   const SiteFormPageFour({super.key, required this.data});
-  final Map data;
+  final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
     var oldData = data;

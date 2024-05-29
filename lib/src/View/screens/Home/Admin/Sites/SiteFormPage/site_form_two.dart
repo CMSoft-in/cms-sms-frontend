@@ -11,22 +11,24 @@ import 'site_form_three.dart';
 
 class SiteFormPageTwo extends StatelessWidget {
   const SiteFormPageTwo({super.key, required this.data});
-  final Map data;
+ final Map<String, dynamic> data;
 
   @override
   Widget build(BuildContext context) {
     var oldData = data;
     SitesTextEditingController sitesTextEditingController=SitesTextEditingController();
-    navigateToPageThree(BuildContext context) {
-      
+
+    void navigateToPageThree(BuildContext context) {
+  
       var data = {
         ...oldData,
         dbSiteProjectWorkName:sitesTextEditingController.projectWorkNameController.text.trim(),
         dbSiteProjectSize:sitesTextEditingController.projectSizeController.text.trim(),
-        dbSiteProjectStartDate:sitesTextEditingController.projectStartDateController.text.trim(),
-        dbSiteProjectCompletionDate:sitesTextEditingController.expectedCompletionDateController.text.trim(),
+        dbSiteProjectStartDate:sitesTextEditingController.projectStartDateController.text,
+        dbSiteProjectCompletionDate:sitesTextEditingController.expectedCompletionDateController.text,
         dbSiteProjectDesc:sitesTextEditingController.projectWorkDescriptionofController.text.trim(),
       };
+          print(data);
        Navigator.push(
         context,
         MaterialPageRoute(
@@ -35,6 +37,8 @@ class SiteFormPageTwo extends StatelessWidget {
       );
         
     }
+
+    
 
     return Scaffold(
       appBar: const BuildAppBar(),

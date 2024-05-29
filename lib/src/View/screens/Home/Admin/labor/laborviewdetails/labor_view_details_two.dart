@@ -49,7 +49,7 @@ class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/getAll-labourcategory"),
+        Uri.parse("$ip/Admin/all-labourcategory"),
         headers: {
           'Authorization': 'Bearer $token',
         },

@@ -47,6 +47,7 @@ class _MachinesFormPageFourState extends State<MachinesFormPageFour> {
         "co_machine_next_fitness_certificate_date":
             machinesTextEditingController.nextFCDateController.text,
       };
+   
       print(values);
 
       var body = json.encode(values);
