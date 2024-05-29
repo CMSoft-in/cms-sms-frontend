@@ -139,9 +139,8 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
                 data![dbSecondaryName]?.toString() ?? "";
             secondaryPhoneNumberController.text =
                 data![dbSecondaryNumber]?.toString() ?? "";
-            secondaryWhatsappController.text = data![""]?.toString() ?? "";
-            governmentApprovalsController.text = data![""]?.toString() ?? "";
-
+            secondaryWhatsappController.text = data![dbPrimaryWhatsapp]?.toString() ?? "";
+          
             populateClientArchitectControllers(data!);
             populateClientEngineerControllers(data!);
             populateSiteEngineerControllers(data!);
@@ -326,7 +325,7 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
       appBar: const BuildAppBar(),
       body: SingleChildScrollView(
         child: Container(
-          // margin: EdgeInsets.symmetric(horizontal: width(context)! * 0.03),
+        
           child: Column(
             children: [
               ViewDetailsText(
@@ -379,9 +378,7 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
                       secondaryPhoneNumberController,
                   secondaryWhatsappController: secondaryWhatsappController,
                   whatsappController: primaryWhatsappController),
-              SiteViewDetailsFive(
-                  enabled: isEnabled,
-                  governmentApprovalsController: governmentApprovalsController),
+            
               formSizebox15,
               const StackText(stacktext: clientArchitect, color: grey),
               ..._buildContactFields(clientArchitectControllers),

@@ -127,17 +127,17 @@ final TextEditingController clientQualityOfficerWhatsappController =
     TextEditingController();
 
 class SitesTextEditingController {
-  final siteNameController = TextEditingController();
-  final sitegpsController = TextEditingController();
-  final expectedCompletionDateController = TextEditingController();
-  final projectSizeController = TextEditingController();
-  final projectStartDateController = TextEditingController();
-  final projectWorkDescriptionofController = TextEditingController();
-  final projectWorkNameController = TextEditingController();
-  final companySiteEngineersAllocatedController = TextEditingController();
-  final laborsAllocatedController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController governmentApprovalsController =
+  final  TextEditingController siteNameController = TextEditingController();
+  final TextEditingController sitegpsController = TextEditingController();
+  final  TextEditingController expectedCompletionDateController = TextEditingController();
+  final TextEditingController  projectSizeController = TextEditingController();
+  final TextEditingController  projectStartDateController = TextEditingController();
+  final TextEditingController  projectWorkDescriptionofController = TextEditingController();
+  final TextEditingController  projectWorkNameController = TextEditingController();
+  final TextEditingController  companySiteEngineersAllocatedController = TextEditingController();
+  final TextEditingController  laborsAllocatedController = TextEditingController();
+  final   TextEditingController emailController = TextEditingController();
+  final   TextEditingController governmentApprovalsController =
       TextEditingController();
   final TextEditingController addressline1Controller = TextEditingController();
   final TextEditingController addressline2Controller = TextEditingController();

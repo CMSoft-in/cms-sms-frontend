@@ -11,7 +11,7 @@ import 'site_form_four.dart';
 
 class SiteFormPageThree extends StatelessWidget {
   const SiteFormPageThree({super.key, required this.data});
-  final Map data;
+  final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
     var oldData = data;

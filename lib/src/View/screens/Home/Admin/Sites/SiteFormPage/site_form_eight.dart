@@ -25,7 +25,6 @@ class SiteFormPageEight extends StatefulWidget {
 }
 
 class _SiteFormPageEightState extends State<SiteFormPageEight> {
-  
   @override
   void initState() {
     super.initState();
@@ -45,47 +44,28 @@ class _SiteFormPageEightState extends State<SiteFormPageEight> {
   SitesTextEditingController sitesTextEditingController =
       SitesTextEditingController();
 
-
-
-
   Future<void> submitData() async {
     try {
       var apiURL = Uri.parse(ApiEndpoints.createSite);
 
-//       List<Map<String, String>> additionalData = listController.map((controllers) {
-//         return {
-//           "contact_category_name": clientQualityOfficer,
-//           'name': controllers[0].text,
-//           'phoneNumber': controllers[1].text,
-//           'email': controllers[2].text,
-//           'whatsapp': controllers[3].text,
-//         };
-//       }).toList();
-// var oldData = widget.data;
-//       var data = {
-        
-//         ...oldData,
-//         'sitecontact': additionalData,
-       
-//       };
-Map<String, dynamic> additionalOneData = {
-  "contact_category_name": clientQualityOfficer,
-  'contact_name': listController[0][0].text,
-  'contact_no': int.parse(listController[0][1].text),
-  'contact_email': listController[0][2].text,
-  'contact_whatsapp': int.parse(listController[0][3].text),
-};
+      Map<String, dynamic> additionalOneData = {
+        "contact_category_name": clientQualityOfficer,
+        'contact_name': listController[0][0].text,
+        'contact_no': listController[0][1].text.isNotEmpty ? int.parse(listController[0][1].text) : "",
+        'contact_email': listController[0][2].text,
+        'contact_whatsapp': listController[0][3].text.isNotEmpty ? int.parse(listController[0][3].text) : "",
+      };
 
- List<Map<String, String>> old = List<Map<String, String>>.from(widget.data["sitecontact"]);
-  print(old);
+      List<Map<String, dynamic>> old = List<Map<String, dynamic>>.from(widget.data["sitecontact"]);
+      print(old);
 
-  var data = {
-    ...widget.data,
-    "sitecontact": [...old, additionalOneData]
-  };
-   
+      var data = {
+        ...widget.data,
+        "sitecontact": [...old, additionalOneData]
+      };
 
       print(data);
+
       var body = json.encode(data);
       var response = await http.post(
         apiURL,
@@ -95,7 +75,7 @@ Map<String, dynamic> additionalOneData = {
         },
         body: body,
       );
-
+      print(response.body);
       if (response.statusCode == 201) {
         print('Response body: ${response.body}');
         Navigator.push(
@@ -123,9 +103,9 @@ Map<String, dynamic> additionalOneData = {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 formSizebox10,
-                 StackText(stacktext: sitepage8, color: red),
+                StackText(stacktext: sitepage8, color: red),
                 const SizedBox(height: 15),
-                  StackText(stacktext: clientQualityOfficer, color: grey),
+                StackText(stacktext: clientQualityOfficer, color: grey),
                 ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   shrinkWrap: true,

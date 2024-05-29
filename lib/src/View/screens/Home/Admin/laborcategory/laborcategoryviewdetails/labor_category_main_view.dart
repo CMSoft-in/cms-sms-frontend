@@ -1,17 +1,13 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
-
 import 'dart:convert';
 import 'package:cmssms/src/View/screens/Home/Admin/laborcategory/labor_category_text.dart';
 
 import '../../../../../../Model/api/api_model.dart';
 import '/src/View/screens/Home/Admin/laborcategory/laborcategoryviewdetails/labor_category_view.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/local.dart';
-import '../../../../../../controler/ClientController/client_controller.dart';
 import '../../../../../../controler/common_controller.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
@@ -20,39 +16,48 @@ import '../../../../../widgets/CommonUsageForm/AlartBox/alart_popup.dart';
 import '../../../../../widgets/CommonUsageForm/Update/update_data_item.dart';
 import '../../../../../widgets/CommonUsageForm/Update/update_header.dart';
 import '../../../../../widgets/CommonUsageForm/createBy.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_width.dart';
 import '../../../../../widgets/CommonUsageForm/view_details_text.dart';
+import '../labor_category_text.dart';
 import '../laborcategorydataview/labor_category_data_view.dart';
+import 'labor_category_view.dart';
 
 class LaborCategoryViewDetailsMain extends StatefulWidget {
-  const LaborCategoryViewDetailsMain(
-      {Key? key, required this.context, required this.id})
-      : super(key: key);
-
-  final context;
+  final BuildContext context;
   final String id;
+
+  const LaborCategoryViewDetailsMain({
+    Key? key,
+    required this.context,
+    required this.id,
+  }) : super(key: key);
 
   @override
   State<LaborCategoryViewDetailsMain> createState() =>
-      _LaborCategoryViewDetailsMain();
+      _LaborCategoryViewDetailsMainState();
 }
 
-class _LaborCategoryViewDetailsMain
+class _LaborCategoryViewDetailsMainState
     extends State<LaborCategoryViewDetailsMain> {
-  CommonController commonController = CommonController();
+  final List<TextEditingController> _labourController = [];
+  final List<TextEditingController> _rateController = [];
+  final formKey = GlobalKey<FormState>();
+  final CommonController commonController = CommonController();
+  final TextEditingController laborCategoryController = TextEditingController();
+  final TextEditingController categorydistributionController =
+      TextEditingController();
+  final TextEditingController createBy = TextEditingController();
+  final TextEditingController createOn = TextEditingController();
   Map<String, dynamic>? data;
   bool isEditing = false;
   bool isEnabled = false;
   bool isLoading = true;
   var updatedData;
-  final TextEditingController laborCategoryController = TextEditingController();
-  final TextEditingController categorydistributionController =
-      TextEditingController();
 
   @override
   void initState() {
     super.initState();
     fetchData();
-    // fetchUpdateData();
   }
 
   Future<void> fetchData() async {
@@ -63,7 +68,6 @@ class _LaborCategoryViewDetailsMain
           'Authorization': 'Bearer $token',
         },
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         setState(() {
           data = jsonDecode(response.body)["data"];
@@ -73,6 +77,17 @@ class _LaborCategoryViewDetailsMain
                 data!["co_labour_category_desc"];
             createBy.text = data!["created_by"];
             createOn.text = data!["created_at"];
+
+            if (data!['CoLabourCategoryTeams'] != null) {
+              for (var teamMember in data!['CoLabourCategoryTeams']) {
+                _labourController.add(TextEditingController(
+                    text: teamMember['co_labour_category_team_name']));
+                _rateController.add(TextEditingController(
+                    text:
+                        teamMember['co_labour_category_team_rate'].toString()));
+              }
+            }
+
             isLoading = false;
           }
         });
@@ -84,36 +99,8 @@ class _LaborCategoryViewDetailsMain
     }
   }
 
-  // Future<void> fetchUpdateData() async {
-  //   try {
-  //     final response = await http.get(
-  //       Uri.parse("$ip/Admin/updatehistory-client"),
-  //       headers: {
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //     );
-  //     if (response.statusCode == 200) {
-  //       setState(() {
-  //         var updateData = [];
-  //         var data = jsonDecode(response.body);
-  //         for (var eachData in data) {
-  //           if (eachData["co_labour_category_id"].toString() == widget.id) {
-  //             updateData.add(eachData);
-  //           }
-  //         }
-  //         updatedData = updateData;
-  //       });
-  //     } else {
-  //       throw Exception('Failed to load data');
-  //     }
-  //   } catch (error) {
-  //     print('Error fetching data: $error');
-  //   }
-  // }
-
-  void updateData(data) async {
+  void updateData(Map<String, dynamic> data) async {
     try {
-      print("before update");
       var response = await http.patch(
         Uri.parse('${ApiEndpoints.updateLabourCategory}/${widget.id}'),
         headers: {
@@ -122,10 +109,12 @@ class _LaborCategoryViewDetailsMain
         },
         body: jsonEncode(data),
       );
+
       if (response.statusCode == 200) {
-        print(response.body);
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => const LaborCategoryDataView()));
+      } else {
+        print(response.body);
       }
     } catch (e) {
       print("update failed $e");
@@ -133,30 +122,57 @@ class _LaborCategoryViewDetailsMain
   }
 
   void checkUpdatingValue() {
+  void checkUpdatingValue() {
     var oldData = data;
     if (oldData != null) {
       Map<String, dynamic> updatedData = {};
-      var clientFields = {
+      var checkingFields = {
         "co_labour_category_name": laborCategoryController.text,
         "co_labour_category_desc": categorydistributionController.text,
       };
-      clientFields.forEach((key, value) {
-        if (oldData[key] != null && oldData[key] != value && value != "") {
+      checkingFields.forEach((key, value) {
+        if (oldData[key] != value && value.isNotEmpty) {
           updatedData[key] = value;
         }
       });
+
+      // Check updates in the team members
+      List<Map<String, dynamic>> updatedTeams = [];
+      for (int i = 0; i < _labourController.length; i++) {
+        String newTeamName = _labourController[i].text;
+        String newTeamRate = _rateController[i].text;
+
+        if (i < (data!['CoLabourCategoryTeams'] as List).length) {
+          var oldTeam = data!['CoLabourCategoryTeams'][i];
+          if (oldTeam['co_labour_category_team_name'] != newTeamName ||
+              oldTeam['co_labour_category_team_rate'].toString() !=
+                  newTeamRate) {
+            updatedTeams.add({
+              'co_labour_category_team_name': newTeamName,
+              'co_labour_category_team_rate': newTeamRate,
+            });
+          }
+        } else {
+          // New team member
+          updatedTeams.add({
+            'co_labour_category_team_name': newTeamName,
+            'co_labour_category_team_rate': newTeamRate,
+          });
+        }
+      }
+
+      if (updatedTeams.isNotEmpty) {
+        updatedData['CoLabourCategoryTeams'] = updatedTeams;
+      }
+
       if (updatedData.isNotEmpty) {
-        print("Updated Data: $updatedData");
         updateData(updatedData);
-      } else {
-        print("No changes detected.");
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: white,
       appBar: const BuildAppBar(),
@@ -221,13 +237,55 @@ class _LaborCategoryViewDetailsMain
                               bottomHeight,
                             ],
                           ),
-                      bottomHeight,
-                    ])
-            ],
-          ),
-        ),
-      ),
+                  ],
+                ),
+              ),
+            ),
       bottomSheet: const BottomSheetLogo(),
     );
   }
 }
+
+
+
+
+
+
+
+ // if (!isEditing &&
+                        //     data != null &&
+                        //     data!['co_labour_category_team'] != null)
+                        //   ListView.builder(
+                        //     shrinkWrap: true,
+                        //     itemCount: data!['co_labour_category_team'].length,
+                        //     itemBuilder: (context, index) {
+                        //       var teamMember = data!['co_labour_category_team'][index];
+                        //       return Column(
+                        //         children: [
+                        //           Row(
+                        //             mainAxisAlignment: MainAxisAlignment.center,
+                        //             children: [
+                        //               Text(
+                        //                 teamMember["co_labour_team_name"] ?? '',
+                        //                 style: const TextStyle(fontSize: 16),
+                        //               ),
+                        //               const SizedBox(width: 10),
+                        //               Text(
+                        //                 teamMember["co_labour_team_rate"].toString() ?? '',
+                        //                 style: const TextStyle(fontSize: 16),
+                        //               ),
+                        //             ],
+                        //           ),
+                        //           const SizedBox(height: 10),
+                        //         ],
+                        //       );
+                        //     },
+                        //   ),
+                        // if (!isEditing &&
+                        //     data != null &&
+                        //     data!['co_labour_category_team'] != null)
+                        //   CreateByCreatedOn(
+                        //     createByController: createBy,
+                        //     createOnController: createOn,
+                        //     enabled: false,
+                        //   ),
