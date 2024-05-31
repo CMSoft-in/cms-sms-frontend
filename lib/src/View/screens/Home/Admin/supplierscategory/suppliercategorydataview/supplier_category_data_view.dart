@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/image_const.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/EmptyDataScreenView/empty_header.dart';
-import '../../../../../../Model/api/local.dart';
 import '../supplier_category_text.dart';
 import '../suppliercategoryform/supplier_category_form.dart';
 import '../suppliercategoryviewdetails/supplier_category_view_details_main.dart';

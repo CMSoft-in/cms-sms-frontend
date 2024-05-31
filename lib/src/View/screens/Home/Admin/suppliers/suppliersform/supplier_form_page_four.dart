@@ -50,18 +50,18 @@ class _SupplierFormPageFourState extends State<SupplierFormPageFour> {
         var values = {
           ...oldData,
           "owner_first_name":
-              supplierTextEditingController.firstNameController.text,
+              supplierTextEditingController.firstNameController.text.isEmpty ? null :supplierTextEditingController.firstNameController.text.trim(),
           "owner_last_name":
-              supplierTextEditingController.lastNameController.text,
-          "mobile_no": supplierTextEditingController.phoneNumberController.text,
+              supplierTextEditingController.lastNameController.text.isEmpty ? null :supplierTextEditingController.lastNameController.text.trim(),
+          "mobile_no": supplierTextEditingController.phoneNumberController.text.isEmpty ? null :int.parse(supplierTextEditingController.phoneNumberController.text.trim()),
           "secondary_contact_name":
-              supplierTextEditingController.secondaryNameController.text,
+              supplierTextEditingController.secondaryNameController.text.isEmpty ? null :supplierTextEditingController.secondaryNameController.text.trim(),
           "secondary_contact_no":
-              supplierTextEditingController.secondaryPhoneNumberController.text,
+              supplierTextEditingController.secondaryPhoneNumberController.text.isEmpty ? null :int.parse(supplierTextEditingController.secondaryPhoneNumberController.text.trim()),
           "secondary_contact_email":
-              supplierTextEditingController.secondaryEmailController.text,
+              supplierTextEditingController.secondaryEmailController.text.isEmpty ? null :supplierTextEditingController.secondaryEmailController.text.trim(),
           "secondary_contact_whatsapp":
-              supplierTextEditingController.secondaryWhatsappController.text,
+              supplierTextEditingController.secondaryWhatsappController.text.isEmpty ? null :int.parse(supplierTextEditingController.secondaryWhatsappController.text.trim()),
         };
         print(values);
 

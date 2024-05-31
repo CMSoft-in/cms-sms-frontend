@@ -8,7 +8,6 @@ import '/src/Model/Const/color.dart';
 import '/src/Model/Const/image_const.dart';
 import '/src/Model/Const/text_const.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/EmptyDataScreenView/empty_header.dart';
 
 class CompanyUserDataView extends StatelessWidget {

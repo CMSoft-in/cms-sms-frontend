@@ -24,7 +24,7 @@ class _LaborFormPageTwoState extends State<LaborFormPageTwo> {
   final LaborTextEditingController laborTextEditingController =
       LaborTextEditingController();
   int? coLabourCategoryId;
-
+     
   void changeValue(int v) {
     setState(() {
       coLabourCategoryId = v;
@@ -32,13 +32,14 @@ class _LaborFormPageTwoState extends State<LaborFormPageTwo> {
   }
 
   void navigateToPageThree(BuildContext context) {
-
+ var oldData =widget.data;
     var updatedData = {
-      "bloodgroup": laborTextEditingController.bloodGroupController.text,
+      ...oldData,
+      "bloodgroup": laborTextEditingController.bloodGroupController.text.isEmpty ? null :laborTextEditingController.bloodGroupController.text.trim() ,
       "co_labour_category_id": [coLabourCategoryId],
       "co_labour_rate_model":
-          laborTextEditingController.rateModelController.text,
-      "co_labour_rate": laborTextEditingController.laborRateController.text,
+          laborTextEditingController.rateModelController.text.isEmpty ? null :laborTextEditingController.rateModelController.text.trim(),
+      "co_labour_rate": laborTextEditingController.laborRateController.text.isEmpty ? null :int.parse(laborTextEditingController.laborRateController.text.trim()),
     };
 
     Navigator.push(

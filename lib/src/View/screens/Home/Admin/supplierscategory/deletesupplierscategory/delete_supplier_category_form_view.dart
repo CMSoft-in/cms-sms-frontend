@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
-import 'package:cmssms/src/View/screens/Home/Admin/supplierscategory/supplier_category_text.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/color.dart';
@@ -18,7 +17,6 @@ import '../../../../../widgets/CommonUsageForm/Delete/delete_reason_table_header
 import '../../../../../widgets/CommonUsageForm/Delete/delete_reason_table_item.dart';
 import '../../../../../widgets/CommonUsageForm/DetailsText.dart';
 import '../../../../../widgets/CommonUsageForm/createBy.dart';
-import '../suppliercategoryviewdetails/supplier_category_view_details.dart';
 
 
 class SuppliersCategoryFormDeleteView extends StatefulWidget {
@@ -84,8 +82,9 @@ class _SuppliersCategoryFormDeleteView extends State<SuppliersCategoryFormDelete
           child: Column(
             children: [
                  DetailsText(enterDetails: deleteSupplierCategoryDetailsText),
-              SupplierCategoryViewDetails(enabled: false, isEditing: false, supplierCategoryController: supplierCategoryController, materialSuppliedController: materialSuppliedController)
-             , CreateByCreatedOn(
+              // SupplierCategoryViewDetails(enabled: false, isEditing: false, supplierCategoryController: supplierCategoryController, materialSuppliedController: materialSuppliedController)
+            //  ,
+              CreateByCreatedOn(
                 createByController: createBy,
                 createOnController: createOn,
                 enabled: false,

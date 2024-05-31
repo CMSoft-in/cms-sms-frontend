@@ -22,11 +22,11 @@ class SiteFormPageTwo extends StatelessWidget {
   
       var data = {
         ...oldData,
-        dbSiteProjectWorkName:sitesTextEditingController.projectWorkNameController.text.trim(),
-        dbSiteProjectSize:sitesTextEditingController.projectSizeController.text.trim(),
-        dbSiteProjectStartDate:sitesTextEditingController.projectStartDateController.text,
-        dbSiteProjectCompletionDate:sitesTextEditingController.expectedCompletionDateController.text,
-        dbSiteProjectDesc:sitesTextEditingController.projectWorkDescriptionofController.text.trim(),
+        dbSiteProjectWorkName:sitesTextEditingController.projectWorkNameController.text.isEmpty ? null :sitesTextEditingController.projectWorkNameController.text.trim(),
+        dbSiteProjectSize:sitesTextEditingController.projectSizeController.text.isEmpty ? null :int.parse(sitesTextEditingController.projectSizeController.text.trim()),
+        dbSiteProjectStartDate:sitesTextEditingController.projectStartDateController.text.isEmpty ? null :sitesTextEditingController.projectStartDateController.text.trim(),
+        dbSiteProjectCompletionDate:sitesTextEditingController.expectedCompletionDateController.text.isEmpty ? null :sitesTextEditingController.expectedCompletionDateController.text.trim(),
+        dbSiteProjectDesc:sitesTextEditingController.projectWorkDescriptionofController.text.isEmpty ? null :sitesTextEditingController.projectWorkDescriptionofController.text.trim(),
       };
           print(data);
        Navigator.push(

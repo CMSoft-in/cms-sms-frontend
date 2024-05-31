@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers
 
+import 'package:get/get.dart';
+
 import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_user_view_three.dart';
 import 'package:flutter/material.dart';
 
@@ -26,15 +28,15 @@ class ComapnyUserFormPageThree extends StatelessWidget {
     void navigateToPageFour(BuildContext context) {
       var updatedData = {
         ...oldData,
-      "primary_contact_name": companyUserTextEditingController.primaryNameController.text,
-    "primary_contact_no":companyUserTextEditingController.primaryPhoneNumberController.text,
-    "email":companyUserTextEditingController. primaryEmailController.text,
-    "password":companyUserTextEditingController. primaryEmailController.text,
-    "primary_contact_whatsapp":companyUserTextEditingController.primaryWhatsappController.text,
-     "secondary_contact_name":companyUserTextEditingController.secondaryNameController.text,
-    "secondary_contact_no":companyUserTextEditingController.secondaryPhoneNumberController.text,
-    "secondary_contact_email":companyUserTextEditingController.secondaryEmailController.text,
-    "secondary_contact_whatsapp":companyUserTextEditingController.secondaryWhatsappController.text,
+      "primary_contact_name": companyUserTextEditingController.primaryNameController.text.isEmpty ? null :companyUserTextEditingController.primaryNameController.text.tr,
+    "primary_contact_no":companyUserTextEditingController.primaryPhoneNumberController.text.isEmpty ? null :companyUserTextEditingController.primaryPhoneNumberController.text.trim(),
+    "email":companyUserTextEditingController. primaryEmailController.text.isEmpty ? null :companyUserTextEditingController. primaryEmailController.text.trim(),
+    "password":companyUserTextEditingController. primaryEmailController.text.isEmpty ? null :companyUserTextEditingController. primaryEmailController.text.trim(),
+    "primary_contact_whatsapp":companyUserTextEditingController.primaryWhatsappController.text.isEmpty ? null :int.parse(companyUserTextEditingController.primaryWhatsappController.text.trim()),
+     "secondary_contact_name":companyUserTextEditingController.secondaryNameController.text.isEmpty ? null :companyUserTextEditingController.secondaryNameController.text.trim(),
+    "secondary_contact_no":companyUserTextEditingController.secondaryPhoneNumberController.text.isEmpty ? null :int.parse(companyUserTextEditingController.secondaryPhoneNumberController.text.trim()),
+    "secondary_contact_email":companyUserTextEditingController.secondaryEmailController.text.isEmpty ? null :companyUserTextEditingController.secondaryEmailController.text.trim(),
+    "secondary_contact_whatsapp":companyUserTextEditingController.secondaryWhatsappController.text.isEmpty ? null :int.parse(companyUserTextEditingController.secondaryWhatsappController.text.trim()),
      
       };
       Navigator.push(

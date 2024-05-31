@@ -4,11 +4,9 @@ import 'dart:convert';
 import 'package:cmssms/src/Model/api/api_model.dart';
 
 import '../../../../../../controler/GetDate/get_date.dart';
-import 'labor_view_details_six.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_four.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_one.dart';
 import 'labor_view_details_five.dart';
-import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_three.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_two.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -62,8 +60,8 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
           data = jsonDecode(response.body);
           print(data);
           if (data != null) {rateModelController.text = data!["co_labour_rate_model"] ?? "";
-             laborRateController.text = data!["co_labour_rate"].toString() ?? "";
-           aadharNumberController.text = data!["aadhar_no"].toString() ?? "";
+             laborRateController.text = data!["co_labour_rate"].toString() ;
+           aadharNumberController.text = data!["aadhar_no"].toString() ;
              phoneNumberController.text = data!["mobile_no"] ?? "";
             firstNameController.text = data!["first_name"] ?? "";
             lastNameController.text = data!["last_name"] ?? "";
@@ -257,14 +255,16 @@ void laborCheckUpdatingValue() {
                   laborRateController: laborRateController,
                   isEditing: isEditing,
                   enabled: isEnabled),
-              LaborViewDetailsThree(
-                  isEditing: isEditing,
-                  aadharfilePathController: aadharfilePathController,
-                  aadharController: aadharNumberController,
-                  siteWorkedController: siteWorkedController,
-                  cuurentSiteAllocationController:
-                      cuurentSiteAllocationController,
-                  enabled: isEnabled),
+              // LaborViewDetailsThree(
+              //   changeValue: (){},
+              //    coLabourCategoryId: 2,
+              //     isEditing: isEditing,
+              //     aadharfilePathController: aadharfilePathController,
+              //     aadharController: aadharNumberController,
+              //     siteWorkedController: siteWorkedController,
+              //     cuurentSiteAllocationController:
+              //         cuurentSiteAllocationController,
+              //     enabled: isEnabled),
               LaborViewDetailsFour(
                   primaryNameController: primaryNameController,
                   primaryPhoneNumberController: primaryPhoneNumberController,

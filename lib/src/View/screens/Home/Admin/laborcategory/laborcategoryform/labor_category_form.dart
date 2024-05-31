@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../../../../Model/api/api_model.dart';
 import '/src/Model/Const/text_const.dart';
 import '/src/View/widgets/AppBar/AppBar.dart';
@@ -6,11 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../../Model/Const/padding_const.dart';
 import '../../../../../../Model/Const/height_width.dart';
-import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/local.dart';
-import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
-import '../../../../../widgets/Buttons/Long_SizeButton.dart';
+
 import '../../../../../widgets/CommonUsageForm/DetailsText.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_width.dart';
 import '../labor_category_text.dart';
@@ -46,16 +46,17 @@ class _LaborCategoryFormState extends State<LaborCategoryForm> {
         List<Map<String, String>> teamData = [];
         for (int i = 0; i < _labourController.length; i++) {
           teamData.add({
-            "co_labour_category_team_name": _labourController[i].text,
+            "co_labour_category_team_name": _labourController[i].text  ,
             "co_labour_category_team_rate": _rateController[i].text,
           });
         }
 
         var values = {
           "co_labour_category_name":
-              laborCategoryTextEditingController.laborCategoryController.text,
+              laborCategoryTextEditingController.laborCategoryController.text.isEmpty ? null :laborCategoryTextEditingController.laborCategoryController.text.trim(),
           "co_labour_category_desc": laborCategoryTextEditingController
-              .categorydistributionController.text,
+              .categorydistributionController.text.isEmpty ? null :laborCategoryTextEditingController
+              .categorydistributionController.text.trim(),
           "co_labour_category_team": teamData,
         };
 print(values);

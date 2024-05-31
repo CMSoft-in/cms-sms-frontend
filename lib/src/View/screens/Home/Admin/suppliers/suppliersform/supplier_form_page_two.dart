@@ -21,12 +21,12 @@ class SupplierFormPageTwo extends StatelessWidget {
       var updatedData = {
         ...oldData,
       
-     "gst_no":supplierTextEditingController. gstController.text,
-    "primary_contact_name":supplierTextEditingController.primaryNameController.text,
-    "primary_contact_no": supplierTextEditingController.primaryPhoneNumberController.text,
-    "primary_contact_email":supplierTextEditingController. primaryEmailController.text,
-    "primary_contact_whatsapp":  supplierTextEditingController.primaryWhatsappController.text,
-      "payment_timeline": supplierTextEditingController.timeLineController.text,
+     "gst_no":supplierTextEditingController. gstController.text.isEmpty ? null :int.parse(supplierTextEditingController. gstController.text.trim()),
+    "primary_contact_name":supplierTextEditingController.primaryNameController.text.isEmpty ? null :supplierTextEditingController.primaryNameController.text.trim(),
+    "primary_contact_no": supplierTextEditingController.primaryPhoneNumberController.text.isEmpty ? null :int.parse(supplierTextEditingController.primaryPhoneNumberController.text.trim()),
+    "primary_contact_email":supplierTextEditingController. primaryEmailController.text.isEmpty ? null :supplierTextEditingController. primaryEmailController.text.trim(),
+    "primary_contact_whatsapp":  supplierTextEditingController.primaryWhatsappController.text.isEmpty ? null :int.parse(supplierTextEditingController.primaryWhatsappController.text.trim()),
+      "payment_timeline": supplierTextEditingController.timeLineController.text.isEmpty ? null : supplierTextEditingController.timeLineController.text.trim(),
         
       };
       Navigator.push(

@@ -20,12 +20,12 @@ SupplierTextEditingController supplierTextEditingController=SupplierTextEditingC
 
     void navigateToPageTwo(BuildContext context) {
       var data = {
-        "co_supplier_name": supplierTextEditingController.supplierNameController.text,
-    "off_address_line1": supplierTextEditingController.addressline1Controller.text,
-    "off_address_line2": supplierTextEditingController.addressline2Controller.text,
-    "off_town": supplierTextEditingController.cityController.text,
-    "off_state":supplierTextEditingController. stateController.text,
-    "off_pincode":supplierTextEditingController.pincodeController.text,
+        "co_supplier_name": supplierTextEditingController.supplierNameController.text.isEmpty ? null :supplierTextEditingController.supplierNameController.text.trim(),
+    "off_address_line1": supplierTextEditingController.addressline1Controller.text.isEmpty ? null :supplierTextEditingController.addressline1Controller.text.trim(),
+    "off_address_line2": supplierTextEditingController.addressline2Controller.text.isEmpty ? null :supplierTextEditingController.addressline2Controller.text.trim(),
+    "off_town": supplierTextEditingController.cityController.text.isEmpty ? null :supplierTextEditingController.cityController.text.trim(),
+    "off_state":supplierTextEditingController. stateController.text.isEmpty ? null :supplierTextEditingController. stateController.text.trim(),
+    "off_pincode":supplierTextEditingController.pincodeController.text.isEmpty ? null :int.parse(supplierTextEditingController.pincodeController.text.trim()),
       };
       Navigator.push(
         context,

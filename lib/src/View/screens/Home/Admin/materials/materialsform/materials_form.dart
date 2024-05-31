@@ -41,16 +41,16 @@ class _MaterialFormState extends State<MaterialForm> {
         var apiURL = Uri.parse(ApiEndpoints.createMaterial);
 
         var values = {
-          "co_material_name": materialsTextEditingController.materialController.text,
-          "material_variant": materialsTextEditingController.variantController.text,
+          "co_material_name": materialsTextEditingController.materialController.text.isEmpty ? null :materialsTextEditingController.materialController.text.trim(),
+          "material_variant": materialsTextEditingController.variantController.text.isEmpty ? null : materialsTextEditingController.variantController.text,
           "quantity_values":
-              materialsTextEditingController.quantityValuesController.text,
+              materialsTextEditingController.quantityValuesController.text.isEmpty ? null :materialsTextEditingController.quantityValuesController.text.trim(),
           "quantity_measurement":
-              materialsTextEditingController.quantityMeasurementController.text,
-          "HSN_code": materialsTextEditingController.hSNCodeController.text,
-          "CGST": materialsTextEditingController.cGstController.text,
-          "SGST": materialsTextEditingController.sGstController.text,
-          "IGST": materialsTextEditingController.iGstController.text,
+              materialsTextEditingController.quantityMeasurementController.text.isEmpty ? null : materialsTextEditingController.quantityMeasurementController.text.trim(),
+          "HSN_code": materialsTextEditingController.hSNCodeController.text.isEmpty ? null : materialsTextEditingController.hSNCodeController.text.trim(),
+          "CGST": materialsTextEditingController.cGstController.text.isEmpty ? null :materialsTextEditingController.cGstController.text.trim(),
+          "SGST": materialsTextEditingController.sGstController.text.isEmpty ? null :materialsTextEditingController.sGstController.text.trim(),
+          "IGST": materialsTextEditingController.iGstController.text.isEmpty ? null :materialsTextEditingController.iGstController.text.trim(),
         };
         print(values);
 

@@ -23,7 +23,7 @@ class SiteFormPageFive extends StatelessWidget {
     void navigateToPageSix(BuildContext context) {
       var data = {
         ...oldData,
-        dbPrimaryEmail: sitesTextEditingController.governmentApprovalsController.text.trim(),
+        // dbPrimaryEmail: sitesTextEditingController.governmentApprovalsController.text.trim(),
       };
 
       Navigator.push(

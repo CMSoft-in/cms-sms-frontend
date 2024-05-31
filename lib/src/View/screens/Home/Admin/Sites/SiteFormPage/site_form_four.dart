@@ -22,15 +22,15 @@ class SiteFormPageFour extends StatelessWidget {
     navigateToPageFive(BuildContext context) {
       var data = {
         ...oldData,
-        dbPrimaryEmail: sitesTextEditingController.primaryEmailController.text.trim(),
-        dbPrimaryName: sitesTextEditingController.primaryNameController.text.trim(),
-        dbPrimaryNumber: sitesTextEditingController.primaryPhoneNumberController.text.trim(),
-        'project_planned_completion_date':
-            sitesTextEditingController.primaryWhatsappController.text.trim(),
-        dbSecondaryEmail:sitesTextEditingController. secondaryEmailController.text.trim(),
-        dbSecondaryName:sitesTextEditingController. secondaryNameController.text.trim(),
-        dbSecondaryNumber: sitesTextEditingController.secondaryPhoneNumberController.text.trim(),
-        "project_short_desc": sitesTextEditingController.secondaryWhatsappController.text.trim(),
+        dbPrimaryEmail: sitesTextEditingController.primaryEmailController.text.isEmpty ? null :sitesTextEditingController.primaryEmailController.text.trim(),
+        dbPrimaryName: sitesTextEditingController.primaryNameController.text.isEmpty ? null :sitesTextEditingController.primaryNameController.text.trim(),
+        dbPrimaryNumber: sitesTextEditingController.primaryPhoneNumberController.text.isEmpty ? null :int.parse(sitesTextEditingController.primaryPhoneNumberController.text.trim()),
+        dbPrimaryWhatsapp:
+            sitesTextEditingController.primaryWhatsappController.text.isEmpty ? null :int.parse( sitesTextEditingController.primaryWhatsappController.text..trim()),
+        dbSecondaryEmail:sitesTextEditingController. secondaryEmailController.text.isEmpty ? null :sitesTextEditingController. secondaryEmailController.text.trim(),
+        dbSecondaryName:sitesTextEditingController. secondaryNameController.text.isEmpty ? null :sitesTextEditingController. secondaryNameController.text.trim(),
+        dbSecondaryNumber: sitesTextEditingController.secondaryPhoneNumberController.text.isEmpty ? null :int.parse(sitesTextEditingController.secondaryPhoneNumberController.text.trim()),
+        dbSecondaryWhatsapp: sitesTextEditingController.secondaryWhatsappController.text.isEmpty ? null :int.parse(sitesTextEditingController.secondaryWhatsappController.text.trim()),
       };
       Navigator.push(
         context,

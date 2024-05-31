@@ -7,7 +7,6 @@ import '/src/View/screens/Home/Admin/Clients/ClientForm/client_form_page_one.dar
 import '/src/View/screens/Home/Admin/Clients/ClientViewDetails/client_view_datails_main.dart';
 import '/src/Model/utility/client/client_text_const.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/EmptyDataScreenView/empty_header.dart';
 import '../DeleteClient/delete_client_table.dart';
 import 'dart:typed_data';

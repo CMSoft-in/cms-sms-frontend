@@ -32,13 +32,14 @@ class _WorkCategoryFormState extends State<WorkCategoryForm> {
 
       Map<String, dynamic> values = {
         "co_work_category_name":
-            workCategoryTextEditingController.workCategoryController.text,
+            workCategoryTextEditingController.workCategoryController.text.isEmpty ? null :  workCategoryTextEditingController.workCategoryController.text.trim(),
         "co_work_category_desc": workCategoryTextEditingController
-            .categorydistributionController.text,
+            .categorydistributionController.text.isEmpty ? null :workCategoryTextEditingController
+            .categorydistributionController.text.trim(),
         "co_work_category_outturn_value":
-            workCategoryTextEditingController.outturnValueController.text,
+            workCategoryTextEditingController.outturnValueController.text.isEmpty ? null :workCategoryTextEditingController.outturnValueController.text.trim(),
         "co_work_category_outturn_measurement":
-            workCategoryTextEditingController.outturnMeasurementController.text
+            workCategoryTextEditingController.outturnMeasurementController.text.isEmpty ? null :workCategoryTextEditingController.outturnMeasurementController.text.trim()
       };
 
       var body = json.encode(values);

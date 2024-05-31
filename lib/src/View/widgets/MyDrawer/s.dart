@@ -77,7 +77,6 @@
 
 // import 'my_drawer.dart';
 
-
 // class DataView extends StatefulWidget {
 //   const DataView({
 //     Key? key,
@@ -92,7 +91,7 @@
 //     required this.bottomsheet,
 //     required this.header,
 //     required this.image,
-    
+
 //   }) : super(key: key);
 
 //   final dataTableNameOne;
@@ -106,7 +105,6 @@
 //   final doubleStar;
 //   final navigatePage;
 //   final bottomsheet;
- 
 
 //   @override
 //   _DataViewState createState() => _DataViewState();
@@ -159,9 +157,9 @@
 //              data.isEmpty ? Center(
 //                 child: isLoading
 //                     ? const CircularProgressIndicator()
-//                     : 
+//                     :
 //                         Center(child: EmptyDataImage(image: widget.image))
-                      
+
 //               ):
 //           SingleChildScrollView(
 //           child:Column(
@@ -174,7 +172,7 @@
 //                 ...data
 //                   .map(
 //                     (item) => DataItem(
-                  
+
 //                       navigatePage: () => widget.navigatePage(item[widget.id]),
 //                       name: item[widget.name],
 //                       doubleStar: widget.doubleStar,
@@ -185,7 +183,7 @@
 //               bottomHeight,
 //             ],
 //           ),
-          
+
 //         ),
 //         ],)
 //       ),
@@ -220,7 +218,7 @@
 //     height: 50,
 //       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 //        Expanded(
-//          child: 
+//          child:
 //         //  TwoDataNameOne(navigatePage, doubleStar, name)
 //          Padding(
 //             padding:left30,
@@ -404,12 +402,10 @@
 //   }
 // }
 
-
 // import 'package:flutter/material.dart';
 // import 'package:pdf/pdf.dart';
 // import 'package:pdf/widgets.dart' as pw;
 // import 'package:printing/printing.dart';
-
 
 // class MyHomePage extends StatelessWidget {
 //   @override
@@ -448,83 +444,182 @@
 //   }
 // }
 
+// Future<void> fetchData() async {
+//   try {
+//     final response = await http.get(
+//       Uri.parse("$ip/Admin/get-site/${widget.id}"),
+//       headers: {
+//         'Authorization': 'Bearer $token',
+//       },
+//     );
+//     if (response.statusCode == 200) {
+//       setState(() {
+//         data = jsonDecode(response.body);
+//         print(data);
+//         if (data != null) {
+//           setControllersWithData(data!);
+//         }
+//       });
+//     } else {
+//       throw Exception('Failed to load data');
+//     }
+//   } catch (error) {
+//     print('Error fetching data: $error');
+//   }
+// }
 
-  // Future<void> fetchData() async {
-  //   try {
-  //     final response = await http.get(
-  //       Uri.parse("$ip/Admin/get-site/${widget.id}"),
-  //       headers: {
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //     );
-  //     if (response.statusCode == 200) {
-  //       setState(() {
-  //         data = jsonDecode(response.body);
-  //         print(data);
-  //         if (data != null) {
-  //           setControllersWithData(data!);
-  //         }
-  //       });
-  //     } else {
-  //       throw Exception('Failed to load data');
-  //     }
-  //   } catch (error) {
-  //     print('Error fetching data: $error');
-  //   }
-  // }
-
-  // void setControllersWithData(Map<String, dynamic> data) {
-  //    siteNameController.text = data![dbSiteName]?.toString() ?? "";
-  //         addressline1Controller.text = data![dbSiteAddressOne]?.toString() ?? "";
-  //         addressline2Controller.text = data![dbSiteAddressTwo]?.toString() ?? "";
-  //         pincodeController.text = data![dbSitePincode]?.toString() ?? "";
-  //         cityController.text = data![dbSiteTown]?.toString() ?? "";
-  //         stateController.text = data![dbSiteState]?.toString() ?? "";
-  //         sitegpsController.text = data![dbSiteGpsLocation]?.toString() ?? "";
-  //         projectWorkNameController.text = data![dbSiteProjectWorkName]?.toString() ?? "";
-  //         projectSizeController.text = data![dbSiteProjectSize]?.toString() ?? "";
-  //         projectStartDateController.text = data![dbSiteProjectStartDate]?.toString() ?? "";
-  //         expectedCompletionDateController.text = data![dbSiteProjectCompletionDate]?.toString() ?? "";
-  //         projectWorkDescriptionofController.text = data![dbSiteProjectDesc]?.toString() ?? "";
-  //         companySiteEngineersAllocatedController.text = data![""]?.toString() ?? "";
-  //         laborsAllocatedController.text = data![" "]?.toString() ?? "";
-  //         primaryEmailController.text = data![dbPrimaryEmail]?.toString() ?? "";
-  //         primaryNameController.text = data![dbPrimaryName]?.toString() ?? "";
-  //         primaryPhoneNumberController.text = data![dbPrimaryNumber]?.toString() ?? "";
-  //         primaryWhatsappController.text = data![""]?.toString() ?? "";
-  //         secondaryEmailController.text = data![dbSecondaryEmail]?.toString() ?? "";
-  //         secondaryNameController.text = data![dbSecondaryName]?.toString() ?? "";
-  //         secondaryPhoneNumberController.text = data![dbSecondaryNumber]?.toString() ?? "";
-  //         secondaryWhatsappController.text = data![""]?.toString() ?? "";
-  //         governmentApprovalsController.text = data![""]?.toString() ?? "";
-  //         clientArchitectEmailController.text = data![""]?.toString() ?? "";
-  //         clientArchitectNameController.text = data![dbPrimaryName]?.toString() ?? "";
-  //         clientArchitectPhoneNumberController.text = data![dbPrimaryNumber]?.toString() ?? "";
-  //         clientArchitectWhatsappController.text = data![""]?.toString() ?? "";
-  //         clientEngineerEmailController.text = data![dbSecondaryEmail]?.toString() ?? "";
-  //         clientEngineerNameController.text = data![dbSecondaryName]?.toString() ?? "";
-  //         clientEngineerPhoneNumberController.text = data![dbSecondaryNumber]?.toString() ?? "";
-  //         clientEngineerWhatsappController.text = data![""]?.toString() ?? "";
-  //         siteEngineerEmailController.text = data![dbPrimaryEmail]?.toString() ?? "";
-  //         siteEngineerNameController.text = data![dbPrimaryName]?.toString() ?? "";
-  //         siteEngineerPhoneNumberController.text = data![dbPrimaryNumber]?.toString() ?? "";
-  //         siteEngineerWhatsappController.text = data![""]?.toString() ?? "";
-  //         clientPurchaseOfficerEmailController.text = data![dbSecondaryEmail]?.toString() ?? "";
-  //         clientPurchaseOfficerNameController.text = data![dbSecondaryName]?.toString() ?? "";
-  //         clientPurchaseOfficerPhoneNumberController.text = data![dbSecondaryNumber]?.toString() ?? "";
-  //         clientPurchaseOfficerWhatsappController.text = data![""]?.toString() ?? "";
-  //         clientQualityOfficerEmailController.text = data![dbPrimaryEmail]?.toString() ?? "";
-  //         clientQualityOfficerNameController.text = data![dbPrimaryName]?.toString() ?? "";
-  //         clientQualityOfficerPhoneNumberController.text = data![dbPrimaryNumber]?.toString() ?? "";
-  //         clientQualityOfficerWhatsappController.text = data![dbPrimaryWhatsapp]?.toString() ?? "";
-  // }
-
+// void setControllersWithData(Map<String, dynamic> data) {
+//    siteNameController.text = data![dbSiteName]?.toString() ?? "";
+//         addressline1Controller.text = data![dbSiteAddressOne]?.toString() ?? "";
+//         addressline2Controller.text = data![dbSiteAddressTwo]?.toString() ?? "";
+//         pincodeController.text = data![dbSitePincode]?.toString() ?? "";
+//         cityController.text = data![dbSiteTown]?.toString() ?? "";
+//         stateController.text = data![dbSiteState]?.toString() ?? "";
+//         sitegpsController.text = data![dbSiteGpsLocation]?.toString() ?? "";
+//         projectWorkNameController.text = data![dbSiteProjectWorkName]?.toString() ?? "";
+//         projectSizeController.text = data![dbSiteProjectSize]?.toString() ?? "";
+//         projectStartDateController.text = data![dbSiteProjectStartDate]?.toString() ?? "";
+//         expectedCompletionDateController.text = data![dbSiteProjectCompletionDate]?.toString() ?? "";
+//         projectWorkDescriptionofController.text = data![dbSiteProjectDesc]?.toString() ?? "";
+//         companySiteEngineersAllocatedController.text = data![""]?.toString() ?? "";
+//         laborsAllocatedController.text = data![" "]?.toString() ?? "";
+//         primaryEmailController.text = data![dbPrimaryEmail]?.toString() ?? "";
+//         primaryNameController.text = data![dbPrimaryName]?.toString() ?? "";
+//         primaryPhoneNumberController.text = data![dbPrimaryNumber]?.toString() ?? "";
+//         primaryWhatsappController.text = data![""]?.toString() ?? "";
+//         secondaryEmailController.text = data![dbSecondaryEmail]?.toString() ?? "";
+//         secondaryNameController.text = data![dbSecondaryName]?.toString() ?? "";
+//         secondaryPhoneNumberController.text = data![dbSecondaryNumber]?.toString() ?? "";
+//         secondaryWhatsappController.text = data![""]?.toString() ?? "";
+//         governmentApprovalsController.text = data![""]?.toString() ?? "";
+//         clientArchitectEmailController.text = data![""]?.toString() ?? "";
+//         clientArchitectNameController.text = data![dbPrimaryName]?.toString() ?? "";
+//         clientArchitectPhoneNumberController.text = data![dbPrimaryNumber]?.toString() ?? "";
+//         clientArchitectWhatsappController.text = data![""]?.toString() ?? "";
+//         clientEngineerEmailController.text = data![dbSecondaryEmail]?.toString() ?? "";
+//         clientEngineerNameController.text = data![dbSecondaryName]?.toString() ?? "";
+//         clientEngineerPhoneNumberController.text = data![dbSecondaryNumber]?.toString() ?? "";
+//         clientEngineerWhatsappController.text = data![""]?.toString() ?? "";
+//         siteEngineerEmailController.text = data![dbPrimaryEmail]?.toString() ?? "";
+//         siteEngineerNameController.text = data![dbPrimaryName]?.toString() ?? "";
+//         siteEngineerPhoneNumberController.text = data![dbPrimaryNumber]?.toString() ?? "";
+//         siteEngineerWhatsappController.text = data![""]?.toString() ?? "";
+//         clientPurchaseOfficerEmailController.text = data![dbSecondaryEmail]?.toString() ?? "";
+//         clientPurchaseOfficerNameController.text = data![dbSecondaryName]?.toString() ?? "";
+//         clientPurchaseOfficerPhoneNumberController.text = data![dbSecondaryNumber]?.toString() ?? "";
+//         clientPurchaseOfficerWhatsappController.text = data![""]?.toString() ?? "";
+//         clientQualityOfficerEmailController.text = data![dbPrimaryEmail]?.toString() ?? "";
+//         clientQualityOfficerNameController.text = data![dbPrimaryName]?.toString() ?? "";
+//         clientQualityOfficerPhoneNumberController.text = data![dbPrimaryNumber]?.toString() ?? "";
+//         clientQualityOfficerWhatsappController.text = data![dbPrimaryWhatsapp]?.toString() ?? "";
+// }
 
 import 'package:flutter/material.dart';
-
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import '../../../Model/Const/color.dart';
 import '../../../Model/Const/height_width.dart';
 import '../../../Model/Const/text_const.dart';
 
+class MultiSelectDropDownForm extends StatefulWidget {
+  final List dropdownItems;
+  final String dropDownName;
+  final bool optionalisEmpty;
+  final String star;
+  final onChanged;
+  final List selectedIds;
+  final TextEditingController controller;
+  
+  const MultiSelectDropDownForm({
+    Key? key,
+    required this.selectedIds,
+    required this.dropdownItems,
+    required this.dropDownName,
+    required this.onChanged,
+    required this.star,
+    required this.optionalisEmpty,
+    required this.controller
+  }) : super(key: key);
+
+  @override
+  MultiSelectDropDownFormState createState() => MultiSelectDropDownFormState();
+}
+
+class MultiSelectDropDownFormState extends State<MultiSelectDropDownForm> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: primaryWidth,
+            child: MultiSelectDialogField(
+              items: widget.dropdownItems
+                  .map((item) => MultiSelectItem(item["id"], item["name"]))
+                  .toList(),
+              title: Text(widget.dropDownName, style: textStyleGrey18),
+              // selectedColor: Colors.blue,
+              decoration: BoxDecoration(
+                // color: Colors.blue.withOpacity(0.1),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                border: Border.all(
+                  color: grey,
+                  width: 2,
+                ),
+              ),
+              buttonIcon: Icon(
+                Icons.arrow_drop_down,
+                color: black,
+              ),
+              buttonText:Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: widget.dropDownName,
+                      style: textStyleGrey18,  // Adjust to match textStyleGrey18
+                    ),
+                    TextSpan(
+                      text: widget.star,
+                      style: textStyleRedStar,  // Adjust to match textStyleGrey18
+                    ),
+                  ],
+                ),
+              ),
+
+              validator: (value) {
+                return validMethod(value);
+              },
+              
+              onConfirm: widget.onChanged,
+              initialValue: widget.selectedIds,
+               
+            )
+          
+          ),
+          
+        ],
+      ),
+    );
+  }
+   String? validMethod(value) {
+    if (widget.optionalisEmpty == true) {
+      if (value.runtimeType == int) {
+        return null;
+      }
+      if (value == null || value.isEmpty) {
+        return "Please enter ${widget.dropDownName}";
+      }
+      return null;
+    }
+    return null;
+  }
+}
+
+// import 'package:flutter/material.dart';
+// // ignore: depend_on_referenced_packages
+// import 'package:multi_select_flutter/multi_select_flutter.dart';
+// import '../../../Model/Const/height_width.dart';
+// import '../../../Model/Const/text_const.dart';
 
 class DropDownFormm extends StatefulWidget {
   final List dropdownItems;
@@ -594,10 +689,10 @@ class DropDownFormmState extends State<DropDownFormm> {
 
   String? validMethod(value) {
     if (widget.optionalisEmpty == true) {
-      if(value.runtimeType == int){   
-          return null;     
+      if (value.runtimeType == int) {
+        return null;
       }
-      if (value == null || value.isEmpty ) {
+      if (value == null || value.isEmpty) {
         return "Please enter ${widget.dropDownName}";
       }
       return null;
@@ -606,16 +701,309 @@ class DropDownFormmState extends State<DropDownFormm> {
   }
 }
 
+// class DropDownFormmm extends StatefulWidget {
+//   final List dropdownItems;
+//   final String dropDownName;
+//   final bool optionalisEmpty;
+//   final String star;
+//   final Function(List) onChanged;
+//   final List selectedIds;
+//   final TextEditingController controller;
 
+//   const DropDownFormmm({
+//     super.key,
+//     required this.selectedIds,
+//     required this.dropdownItems,
+//     required this.dropDownName,
+//     required this.onChanged,
+//     required this.star,
+//     required this.optionalisEmpty,
+//     required this.controller,
+//   });
 
+//   @override
+//   DropDownFormmmState createState() => DropDownFormmmState();
+// }
+
+// class DropDownFormmmState extends State<DropDownFormmm> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: <Widget>[
+//           SizedBox(
+//             width: primaryWidth,
+//             child: FormField<List>(
+//               initialValue: widget.selectedIds,
+//               validator: validMethod,
+//               builder: (state) {
+//                 return Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     MultiSelectDialogField(
+//                       decoration: BoxDecoration(
+//                         border: Border.all(
+//                           color: state.hasError ? Colors.red : Colors.grey,
+//                         ),
+//                         borderRadius: BorderRadius.circular(5),
+//                       ),
+//                       buttonText: Text(
+//                         widget.dropDownName,
+//                         style: textStyleGrey18,
+//                       ),
+//                       title: RichText(
+//                       text: TextSpan(
+//                     children: [
+//                       TextSpan(
+//                         text: widget.dropDownName,
+//                         style: textStyleGrey18,
+//                       ),
+//                       TextSpan(
+//                         text: widget.star,
+//                         style: textStyleRedStar,
+//                       )
+//                     ],
+//                   )),
+//                       items: widget.dropdownItems
+//                           .map((item) => MultiSelectItem(item['id'], item['name']))
+//                           .toList(),
+//                       initialValue: widget.selectedIds,
+//                       onConfirm: (values) {
+//                         widget.onChanged(values);
+//                         state.didChange(values);
+//                       },
+//                     ),
+//                     state.hasError
+//                         ? Padding(
+//                             padding: const EdgeInsets.all(8.0),
+//                             child: Text(
+//                               state.errorText ?? '',
+//                               style: TextStyle(color: Colors.red),
+//                             ),
+//                           )
+//                         : Container(),
+//                   ],
+//                 );
+//               },
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   String? validMethod(List<dynamic>? values) {
+//     if (widget.optionalisEmpty) {
+//       if (values == null || values.isEmpty) {
+//         return "Please enter ${widget.dropDownName}";
+//       }
+//       return null;
+//     }
+//     return null;
+//   }
+// }
+// // class DropDownFormmm extends StatefulWidget {
+// //   final List dropdownItems;
+// //   final String dropDownName;
+// //   final bool optionalisEmpty;
+// //   final String star;
+// //   final Function(List) onChanged;
+// //   final List selectedIds;
+// //   final TextEditingController controller;
+
+// //   const DropDownFormmm({
+// //     super.key,
+// //     required this.selectedIds,
+// //     required this.dropdownItems,
+// //     required this.dropDownName,
+// //     required this.onChanged,
+// //     required this.star,
+// //     required this.optionalisEmpty,
+// //     required this.controller,
+// //   });
+
+// //   @override
+// //   DropDownFormmmState createState() => DropDownFormmmState();
+// // }
+
+// // class DropDownFormmmState extends State<DropDownFormmm> {
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return SingleChildScrollView(
+// //       child: Column(
+// //         crossAxisAlignment: CrossAxisAlignment.start,
+// //         children: <Widget>[
+// //           SizedBox(
+// //             width: primaryWidth,
+// //             child: FormField<List>(
+// //               initialValue: widget.selectedIds,
+// //               validator: validMethod,
+// //               builder: (state) {
+// //                 return Column(
+// //                   crossAxisAlignment: CrossAxisAlignment.start,
+// //                   children: [
+// //                     MultiSelectDialogField(
+// //                       decoration: BoxDecoration(
+// //                         border: Border.all(
+// //                           color: state.hasError ? Colors.red : Colors.grey,
+// //                         ),
+// //                         borderRadius: BorderRadius.circular(5),
+// //                       ),
+// //                       buttonText: Text(
+// //                         widget.dropDownName,
+// //                         style: textStyleGrey18,
+// //                       ),
+// //                       title: Text(
+// //                         widget.dropDownName,
+// //                         style: textStyleGrey18,
+// //                       ),
+// //                       items: widget.dropdownItems
+// //                           .map((item) => MultiSelectItem(item['id'], item['name']))
+// //                           .toList(),
+// //                       initialValue: widget.selectedIds,
+// //                       onConfirm: (values) {
+// //                         widget.onChanged(values);
+// //                         state.didChange(values);
+// //                       },
+// //                     ),
+// //                     state.hasError
+// //                         ? Padding(
+// //                             padding: const EdgeInsets.all(8.0),
+// //                             child: Text(
+// //                               state.errorText ?? '',
+// //                               style: TextStyle(color: Colors.red),
+// //                             ),
+// //                           )
+// //                         : Container(),
+// //                   ],
+// //                 );
+// //               },
+// //             ),
+// //           ),
+// //         ],
+// //       ),
+// //     );
+// //   }
+class DropDownFormmm extends StatefulWidget {
+  final List dropdownItems;
+  final String dropDownName;
+  final bool optionalisEmpty;
+  final String star;
+  final Function(List) onChanged;
+  final List selectedIds;
+  final TextEditingController controller;
+
+  const DropDownFormmm({
+    super.key,
+    required this.selectedIds,
+    required this.dropdownItems,
+    required this.dropDownName,
+    required this.onChanged,
+    required this.star,
+    required this.optionalisEmpty,
+    required this.controller,
+  });
+
+  @override
+  DropDownFormmmState createState() => DropDownFormmmState();
+}
+
+class DropDownFormmmState extends State<DropDownFormmm> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: primaryWidth,
+            child: FormField<List>(
+              initialValue: widget.selectedIds,
+              validator: validMethod,
+              builder: (state) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MultiSelectDialogField(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: state.hasError ? Colors.red : Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      buttonText: Text(
+                        widget.dropDownName,
+                        style: textStyleGrey18,
+                      ),
+                      title: RichText(
+                      text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: widget.dropDownName,
+                        style: textStyleGrey18,
+                      ),
+                      TextSpan(
+                        text: widget.star,
+                        style: textStyleRedStar,
+                      )
+                    ],
+                  )),
+                      items: widget.dropdownItems
+                          .map((item) => MultiSelectItem(item['id'], item['name']))
+                          .toList(),
+                      initialValue: widget.selectedIds,
+                      onConfirm: (values) {
+                        widget.onChanged(values);
+                        state.didChange(values);
+                      },
+                    ),
+                    state.hasError
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              state.errorText ?? '',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          )
+                        : Container(),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String? validMethod(List<dynamic>? values) {
+    if (widget.optionalisEmpty) {
+      if (values == null || values.isEmpty) {
+        return "Please enter ${widget.dropDownName}";
+      }
+      return null;
+    }
+    return null;
+  }
+}
+// //   String? validMethod(List<dynamic>? values) {
+// //     if (widget.optionalisEmpty) {
+// //       if (values == null || values.isEmpty) {
+// //         return "Please enter ${widget.dropDownName}";
+// //       }
+// //       return null;
+// //     }
+// //     return null;
+// //   }
+// // }
 // class LaborViewDetailsTwoo extends StatefulWidget {
 //   const LaborViewDetailsTwoo({
 //     Key? key,
-   
+
 //     required this.isEditing,
 //     required this.enabled,
 //   }) : super(key: key);
-
 
 //   final bool isEditing;
 //   final bool enabled;
@@ -640,7 +1028,7 @@ class DropDownFormmState extends State<DropDownFormm> {
 //   }
 
 //   Future<void> fetchData() async {
-  
+
 //     try {
 //       final response = await http.get(
 //         Uri.parse("$ip/Admin/getAll-labourcategory"),
@@ -686,7 +1074,6 @@ class DropDownFormmState extends State<DropDownFormm> {
 //   }
 
 //   Future<void> sendSelectedLaborCategoryId() async {
-   
 
 //     if (selectedLaborCategoryId != null) {
 //       try {
@@ -793,7 +1180,7 @@ class DropDownFormmState extends State<DropDownFormm> {
 //             inputtype: keyboardTypeNone,
 //             enabled: widget.enabled,
 //           ),
-         
+
 //         ]),
 //                 ),
 //               ),
@@ -809,7 +1196,3 @@ class DropDownFormmState extends State<DropDownFormm> {
 //     );
 //   }
 // }
-
-
-
-

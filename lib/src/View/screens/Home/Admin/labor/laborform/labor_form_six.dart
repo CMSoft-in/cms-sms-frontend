@@ -1,4 +1,3 @@
-
 // // // ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers
 
 // // ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, use_build_context_synchronously
@@ -23,8 +22,6 @@
 // }
 
 // class _LaborFormPageSixState extends State<LaborFormPageSix> {
-
-
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -98,12 +95,9 @@
 //   }
 // }
 import 'dart:convert';
-import 'package:cmssms/src/Model/Const/padding_const.dart';
-import 'package:cmssms/src/View/widgets/CommonUsageForm/textformfeild/text_form_field_width.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import '../../../../../../Model/Const/text_const.dart';
 import '../labor_text_const.dart';
 import '/src/Model/api/local.dart';
 import '/src/View/screens/Home/Admin/Clients/ClientDataView/client_data_view_main.dart';
@@ -115,17 +109,17 @@ import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 
 class LaborFormPageSix extends StatefulWidget {
-  const LaborFormPageSix({
-    super.key,required this.data
-  });
-   final Map data;
+  const LaborFormPageSix({super.key, required this.data});
+  final Map data;
 
   @override
   State<LaborFormPageSix> createState() => _LaborFormPageSixState();
 }
 
 class _LaborFormPageSixState extends State<LaborFormPageSix> {
-  final List<TextEditingController> _labourController = [TextEditingController()];
+  final List<TextEditingController> _labourController = [
+    TextEditingController()
+  ];
   final List<TextEditingController> _rateController = [TextEditingController()];
 
   @override
@@ -193,9 +187,7 @@ class _LaborFormPageSixState extends State<LaborFormPageSix> {
                     formSizebox15,
                     Center(
                       child: Column(
-                        children: [
-                         
-                        ],
+                        children: [],
                       ),
                     ),
                     formSizebox15,

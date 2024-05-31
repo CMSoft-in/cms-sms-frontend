@@ -23,14 +23,14 @@ class ComapnyUserFormPageOne extends StatelessWidget {
 
     void navigateToPageTwo(BuildContext context) {
       var data = {
-        "first_name":companyUserTextEditingController. firstNameController.text,
-    "last_name":companyUserTextEditingController.lastNameController.text,
-    "address_line1":companyUserTextEditingController.addressline1Controller.text,
-    "address_line2": companyUserTextEditingController.addressline2Controller.text,
-    "town": companyUserTextEditingController.cityController.text,
-    "state": companyUserTextEditingController.stateController.text,
-    "pincode":companyUserTextEditingController. pincodeController.text,
-    "mobile_no": companyUserTextEditingController.phoneNumberController.text,
+        "first_name":companyUserTextEditingController. firstNameController.text.isEmpty ? null : companyUserTextEditingController. firstNameController.text.trim() ,
+    "last_name":companyUserTextEditingController.lastNameController.text.isEmpty ? null : companyUserTextEditingController.lastNameController.text.trim(),
+    "address_line1":companyUserTextEditingController.addressline1Controller.text.isEmpty ? null : companyUserTextEditingController.addressline1Controller.text.trim(),
+    "address_line2": companyUserTextEditingController.addressline2Controller.text.isEmpty ? null :companyUserTextEditingController.addressline2Controller.text.trim() ,
+    "town": companyUserTextEditingController.cityController.text.isEmpty ? null : companyUserTextEditingController.cityController.text.trim(),
+    "state": companyUserTextEditingController.stateController.text.isEmpty ? null :companyUserTextEditingController.stateController.text.trim() ,
+    "pincode":companyUserTextEditingController. pincodeController.text.isEmpty ? null : int.parse(companyUserTextEditingController. pincodeController.text.trim()),
+    "mobile_no": companyUserTextEditingController.phoneNumberController.text.isEmpty ? null : companyUserTextEditingController.phoneNumberController.text.trim(),
       };
       Navigator.push(
         context,

@@ -1,3 +1,6 @@
+import 'package:cmssms/src/Model/api/api_model.dart';
+
+import '../suppliercategorydataview/supplier_category_data_view.dart';
 import '/src/Model/Const/text_const.dart';
 import '../suppliercategoryviewdetails/supplier_category_view_details.dart';
 import '/src/View/widgets/AppBar/AppBar.dart';
@@ -10,7 +13,6 @@ import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/CommonUsageForm/DetailsText.dart';
-import '../../laborcategory/laborcategorydataview/labor_category_data_view.dart';
 import '../supplier_category_text.dart';
 
 class SupplierCategoryForm extends StatefulWidget {
@@ -21,29 +23,36 @@ class SupplierCategoryForm extends StatefulWidget {
 }
 
 class _SupplierCategoryFormState extends State<SupplierCategoryForm> {
+  List<dynamic> comaterialCategoryId = [];
+   final formKey = GlobalKey<FormState>();
+    SupplierCategoryTextEditingController
+        supplierCategoryTextEditingController =
+        SupplierCategoryTextEditingController();
+
+    
   @override
   void initState() {
     super.initState();
     getToken();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-    SupplierCategoryTextEditingController
-        supplierCategoryTextEditingController =
-        SupplierCategoryTextEditingController();
+void changeValue(List<dynamic> v) {
+    setState(() {
+      comaterialCategoryId = v;
+    });
+  }
 
+  
     Future navigateToPage(context) async {
       print(token);
       try {
-        var apiURL = Uri.parse('$ip/Admin/create-supplier-category');
+        var apiURL = Uri.parse(ApiEndpoints.createSupplierCategory);
 
         var values = {
           "co_supplier_category_name":
-              supplierCategoryTextEditingController.supplierCategoryController.text,
-          "CoSupplierCategory.co_material_id":
-             [supplierCategoryTextEditingController.materialSuppliedController.text] ,
+              supplierCategoryTextEditingController.supplierCategoryController.text.isEmpty ? null :supplierCategoryTextEditingController.supplierCategoryController.text,
+          "co_material_id":comaterialCategoryId.isEmpty ? null :comaterialCategoryId
+            ,
         };
         print(values);
 
@@ -61,7 +70,7 @@ class _SupplierCategoryFormState extends State<SupplierCategoryForm> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const LaborCategoryDataView(),
+              builder: (context) => const SupplierCategoryDataView(),
             ),
           );
         } else {
@@ -72,6 +81,9 @@ class _SupplierCategoryFormState extends State<SupplierCategoryForm> {
         print(e);
       }
     }
+  @override
+  Widget build(BuildContext context) {
+ 
 
     return Scaffold(
       appBar: const BuildAppBar(),
@@ -83,6 +95,8 @@ class _SupplierCategoryFormState extends State<SupplierCategoryForm> {
               const DetailsText(enterDetails: supplierCategorydetails),
               formSizebox15,
               SupplierCategoryViewDetails(
+                changeValue: changeValue,
+                comaterialCategoryId: comaterialCategoryId.isNotEmpty ? comaterialCategoryId.first : null,
                   enabled: true,
                   isEditing: true,
                   supplierCategoryController:
