@@ -1,3 +1,4 @@
+import '../../../../../widgets/CommonUsageForm/textformfeild/empty_text_form_field.dart';
 import '/src/View/widgets/CommonUsageForm/HintText.dart';
 import '/src/View/widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '/src/Model/Const/color.dart';
@@ -32,15 +33,13 @@ class SiteViewDetailsThree extends StatelessWidget {
             inputtype: keyboardTypeNone,
             enabled: enabled),
         formSizebox10,
-        TextformField(
-            controller: laborsAllocatedController,
-            text: laborsAllocated,
-            limitLength: 120,
-            optionalisEmpty: false,
-            inputformat: alphabatsAndNumbers,
-            star: estar,
-            inputtype: keyboardTypeNone,
-            enabled: enabled)
+        EmptyTextformField(
+           labourAllocationLists: [],
+          enabled: true,
+          optionalisEmpty: true,
+          controller: laborsAllocatedController,
+          text: laborsAllocated,
+        )
       ],
     );
   }

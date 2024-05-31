@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-var ip = 'http://192.168.68.102:4000';
+var ip = 'http://192.168.68.119:4000';
 // var ip = 'http://localhost:4000';
 
 String token =
@@ -9,22 +9,5 @@ String token =
 void getToken() async {
   var pref = await SharedPreferences.getInstance();
   token = pref.getString("token")!;
-  print(token);
 }
 
-      // fixFistColumnLength: ,
-      // fixMiddleColumnLength: ,
-      // fixLastColumnLength: ,
-      // firstColumnMainName: ,
-      // firstColumnsubName: ,
-      // firstColumnSecondSubName: ,
-      // middleColumMainName: ,
-      // middleColumnSubName: ,
-      // middleColumnSecondSubName: ,
-      // lastColumMainName: ,
-      // lastColumnSubName: ,
-      // lastColumnSecondSubName: ,
-      // id: ,
-      // uri:"$ip/Admin/",
-   
- 
