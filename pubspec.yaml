@@ -15,13 +15,14 @@ dependencies:
   shared_preferences: ^2.0.8
   printing: ^5.5.9
   geocoding: 3.0.0
-  get: ^4.6.1  
+  get: ^4.6.1  # Keep the latest version
   geolocator: ^7.7.1
   http: ^1.2.1
   intl: ^0.19.0
-  screenshot: ^3.0.0
+  cupertino_icons: ^1.0.2
+  screenshot: ^2.5.0
   fluttertoast: ^8.2.5
-
+  multi_select_flutter: ^4.1.3
 
 dev_dependencies:
   flutter_test:
@@ -33,7 +34,7 @@ flutter:
   assets:
     - assets/
     - assets/Home/
-
+  #  - images/a_dot_ham.jpeg
 
   fonts:
     - family: Poppins
