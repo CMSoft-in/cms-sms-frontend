@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../controler/common_controller.dart';
+import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/Buttons/Long_SizeButton.dart';
 import '../../../../../widgets/CommonUsageForm/AlartBox/alart_popup.dart';
@@ -172,70 +174,70 @@ class _LaborCategoryViewDetailsMainState
       backgroundColor: white,
       appBar: const BuildAppBar(),
       body: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              ViewDetailsText(
-                viewClientDetailsTextt: isEditing
-                    ? editLaborCategoryDetailsText
-                    : viewLaborCategoryDetailsText,
-                editOnPress: () {
-                  setState(() {
-                    isEditing = !isEditing;
-                    isEnabled = !isEnabled;
-                  });
-                },
-                deleteOnPress: AlartMessage(
-                  api: '${ApiEndpoints.deleteLabourCategory}/${widget.id}',
-                  onPress: const LaborCategoryDataView(),
-                ),
-              ),
-              isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : Column(children: [
-                      LaborCategoryViewDetails(
-                          enabled: isEditing,
-                          laborCategoryController: laborCategoryController,
-                          categorydistributionController:
-                              categorydistributionController),
-                      CreateByCreatedOn(
-                        createByController: createBy,
-                        createOnController: createOn,
-                        enabled: false,
-                      ),
-                      formSizebox15,
-                      LongButton(
-                        formKey: formKey,
-                        text: update,
-                        onPressed: () {
-                          checkUpdatingValue();
-                        },
-                        isEnabled: isEnabled,
-                      ),
-                      if (updatedData != null)
-                        if (updatedData.length != 0)
-                          Column(
-                            children: [
-                              const UpdateHeader(
-                                updatedByHeader: updateByHeaderText,
-                                newValueHeader: newvalueHeaderText,
-                                oldValueHeader: oldvlueHeaderText,
-                              ),
-                              ...updatedData.map((eachItem) {
-                                return updatedDataItem(
-                                  eachItem["updated_old_value"],
-                                  eachItem["updated_new_value"],
-                                  eachItem["updated_by"].toString(),
-                                );
-                              }).toList(),
-                              bottomHeight,
-                            ],
-                          ),
+          child: Form(
+        key: formKey,
+        child: Column(children: [
+          ViewDetailsText(
+            viewClientDetailsTextt: isEditing
+                ? editLaborCategoryDetailsText
+                : viewLaborCategoryDetailsText,
+            editOnPress: () {
+              setState(() {
+                isEditing = !isEditing;
+                isEnabled = !isEnabled;
+              });
+            },
+            deleteOnPress: AlartMessage(
+              api: '${ApiEndpoints.deleteLabourCategory}/${widget.id}',
+              onPress: const LaborCategoryDataView(),
+            ),
+          ),
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    LaborCategoryViewDetails(
+                        enabled: isEditing,
+                        laborCategoryController: laborCategoryController,
+                        categorydistributionController:
+                            categorydistributionController),
+                    CreateByCreatedOn(
+                      createByController: createBy,
+                      createOnController: createOn,
+                      enabled: false,
+                    ),
+                    formSizebox15,
+                    LongButton(
+                      formKey: formKey,
+                      text: update,
+                      onPressed: () {
+                        checkUpdatingValue();
+                      },
+                      isEnabled: isEnabled,
+                    ),
+                    if (updatedData != null)
+                      if (updatedData.length != 0)
+                        Column(
+                          children: [
+                            const UpdateHeader(
+                              updatedByHeader: updateByHeaderText,
+                              newValueHeader: newvalueHeaderText,
+                              oldValueHeader: oldvlueHeaderText,
+                            ),
+                            ...updatedData.map((eachItem) {
+                              return updatedDataItem(
+                                eachItem["updated_old_value"],
+                                eachItem["updated_new_value"],
+                                eachItem["updated_by"].toString(),
+                              );
+                            }).toList(),
+                            bottomHeight,
+                          ],
+                        ),
                   ],
                 ),
-              ),
-            ),
+        ]),
+      )),
       bottomSheet: const BottomSheetLogo(),
     );
   }
