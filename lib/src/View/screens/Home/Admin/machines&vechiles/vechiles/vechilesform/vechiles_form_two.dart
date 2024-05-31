@@ -22,10 +22,10 @@ class VechilesFormPageTwo extends StatelessWidget {
     void navigateToPageThree(BuildContext context) {
       var updatedData = {
         ...oldData,
-       "co_vehicle_company_name":vechilesTextEditingController.companyController.text,
-    "co_vehicle_model":vechilesTextEditingController. modelController.text,
-    "co_vehicle_yearofmake":vechilesTextEditingController.yearofMakeController.text,
-    "co_vehicle_engine_no":  vechilesTextEditingController.engineChassisNoController.text,
+       "co_vehicle_company_name":vechilesTextEditingController.companyController.text.isEmpty ? null :vechilesTextEditingController.companyController.text.trim(),
+    "co_vehicle_model":vechilesTextEditingController. modelController.text.isEmpty ? null :vechilesTextEditingController. modelController.text.trim(),
+    "co_vehicle_yearofmake":vechilesTextEditingController.yearofMakeController.text.isEmpty ? null :int.parse(vechilesTextEditingController.yearofMakeController.text.trim()),
+    "co_vehicle_engine_no":  vechilesTextEditingController.engineChassisNoController.text.isEmpty ? null : vechilesTextEditingController.engineChassisNoController.text.trim(),
       };
       Navigator.push(
         context,

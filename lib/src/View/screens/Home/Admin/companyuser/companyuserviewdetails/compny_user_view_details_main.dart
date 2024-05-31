@@ -199,8 +199,8 @@ class _CompanyUserViewDetailsMainState
         "createdBy": createBy.text,
       };
       controllers.forEach((key, value) {
-        if (value != null &&
-            value.isNotEmpty &&
+        if (
+            value.isNotEmpty &&value != null &&
             (oldData[key] ?? '') != value) {
           updatedData[key] = value;
           print(updatedData);

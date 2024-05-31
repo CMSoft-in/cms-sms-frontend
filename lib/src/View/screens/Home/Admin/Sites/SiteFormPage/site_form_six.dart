@@ -272,17 +272,17 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
     try {
       Map<String, dynamic> additionalOneData = {
         "contact_category_name": "Client Architect",
-        'contact_name': listOneController[0][0].text ?? "",
+        'contact_name': listOneController[0][0].text ,
         'contact_no': listOneController[0][1].text.isNotEmpty ? int.parse(listOneController[0][1].text) : "",
-        'contact_email': listOneController[0][2].text ?? "",
+        'contact_email': listOneController[0][2].text ,
         'contact_whatsapp': listOneController[0][3].text.isNotEmpty ? int.parse(listOneController[0][3].text) : "",
       };
 
       Map<String, dynamic> additionalTwoData = {
         "contact_category_name": "Client Engineer",
-        'contact_name': listTwoController[0][0].text ?? "",
+        'contact_name': listTwoController[0][0].text ,
         'contact_no': listTwoController[0][1].text.isNotEmpty ? int.parse(listTwoController[0][1].text) : 0,
-        'contact_email': listTwoController[0][2].text ?? "",
+        'contact_email': listTwoController[0][2].text ,
         'contact_whatsapp': listTwoController[0][3].text.isNotEmpty ? int.parse(listTwoController[0][3].text) : 0,
       };
 

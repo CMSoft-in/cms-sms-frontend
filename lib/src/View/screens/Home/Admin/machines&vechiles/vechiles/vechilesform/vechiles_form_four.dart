@@ -5,7 +5,6 @@
 import 'dart:async';
 import 'dart:convert';
 import '../../../../../../../Model/api/api_model.dart';
-import '../../../../../../../controler/GetDate/get_date.dart';
 import '../vechilesdataview/vechiles_data_view.dart';
 import '/src/View/screens/Home/Admin/machines&vechiles/vechiles/vechilesviewdetails/vechiles_view_details_four.dart';
 import '../../../../../../../Model/Const/color.dart';
@@ -49,9 +48,10 @@ class _VechilesFormPageFourState extends State<VechilesFormPageFour> {
 
       var values = {
         ...oldData,
-        "co_vehicle_insurance_exp_date": vechilesTextEditingController. insuranceExpiryDateController.text,
-          "next_FC_date": Datee.getDate(
-          vechilesTextEditingController.nextFCDateController.text),
+        "co_vehicle_insurance_exp_date": vechilesTextEditingController. insuranceExpiryDateController.text.isEmpty ? null :vechilesTextEditingController. insuranceExpiryDateController.text.trim(),
+          "next_FC_date": 
+          vechilesTextEditingController.nextFCDateController.text.isEmpty ? null :
+          vechilesTextEditingController.nextFCDateController.text,
       };
       print(values);
 

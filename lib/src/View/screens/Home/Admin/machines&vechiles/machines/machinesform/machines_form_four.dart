@@ -44,9 +44,9 @@ class _MachinesFormPageFourState extends State<MachinesFormPageFour> {
       var values = {
         ...oldData,
         "co_machine_insurance_exp_date":
-            machinesTextEditingController.innsuranceExpiryDateController.text,
+            machinesTextEditingController.innsuranceExpiryDateController.text.isEmpty ? null :machinesTextEditingController.innsuranceExpiryDateController.text.trim(),
         "co_machine_next_fitness_certificate_date":
-            machinesTextEditingController.nextFCDateController.text,
+            machinesTextEditingController.nextFCDateController.text.isEmpty ? null :machinesTextEditingController.nextFCDateController.text.trim(),
       };
    
       print(values);

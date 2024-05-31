@@ -69,8 +69,8 @@ const dbPrimaryNumber = 'primary_contact_no';
 const dbSecondaryName = 'secondary_contact_name';
 const dbSecondaryEmail = 'secondary_contact_email';
 const dbSecondaryNumber = 'secondary_contact_no';
-const dbPrimaryWhatsapp = 'contact_whatsapp';
-
+const dbPrimaryWhatsapp = 'primary_contact_whatsapp';
+const dbSecondaryWhatsapp = 'secondary_contact_whatsapp';
 final siteNameController = TextEditingController();
 final sitegpsController = TextEditingController();
 final formKey = GlobalKey<FormState>();

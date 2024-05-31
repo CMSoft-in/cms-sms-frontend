@@ -25,9 +25,9 @@ class MachinesFormPageTwo extends StatelessWidget {
     void navigateToPageThree(BuildContext context) {
       var updatedData = {
         ...oldData,
-      "co_machine_company_name":machinesTextEditingController. companyController.text,
-    "co_machine_model": machinesTextEditingController.modelController.text,
-    "co_machine_yearofmake":machinesTextEditingController. yearofMakeController.text,
+      "co_machine_company_name":machinesTextEditingController. companyController.text.isEmpty ? null :machinesTextEditingController. companyController.text.trim(),
+    "co_machine_model": machinesTextEditingController.modelController.text.isEmpty ? null :machinesTextEditingController.modelController.text.trim(),
+    "co_machine_yearofmake":machinesTextEditingController. yearofMakeController.text.isEmpty ? null :machinesTextEditingController. yearofMakeController.text.trim(),
       };
       Navigator.push(
         context,

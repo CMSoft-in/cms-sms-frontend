@@ -9,11 +9,9 @@ import '../../../../../widgets/CommonUsageForm/Delete/delete_reason_table_item.d
 import '../../../../../widgets/CommonUsageForm/DetailsText.dart';
 import '../../../../../widgets/CommonUsageForm/createBy.dart';
 import '../labor_text_const.dart';
-import '../laborviewdetails/labor_view_details_six.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_four.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_one.dart';
 import '../laborviewdetails/labor_view_details_five.dart';
-import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_three.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_two.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -21,7 +19,6 @@ import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/local.dart';
-import '../../../../../../controler/ClientController/client_controller.dart';
 import '../../../../../../controler/common_controller.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
@@ -63,8 +60,8 @@ class _LaborFormDeleteViewState extends State<LaborFormDeleteView> {
 
           if (data != null) {
             rateModelController.text = data!["co_labour_rate_model"] ?? "";
-            laborRateController.text = data!["co_labour_rate"].toString() ?? "";
-            aadharNumberController.text = data!["aadhar_no"].toString() ?? "";
+            laborRateController.text = data!["co_labour_rate"].toString()  ;
+            aadharNumberController.text = data!["aadhar_no"].toString() ;
             phoneNumberController.text = data!["mobile_no"] ?? "";
             firstNameController.text = data!["first_name"] ?? "";
             lastNameController.text = data!["last_name"] ?? "";
@@ -137,15 +134,16 @@ class _LaborFormDeleteViewState extends State<LaborFormDeleteView> {
                   laborRateController: laborRateController,
                   isEditing: false,
                   enabled: false),
-              LaborViewDetailsThree(
-                
-                  isEditing: false,
-                  aadharfilePathController: aadharfilePathController,
-                  aadharController: aadharNumberController,
-                  siteWorkedController: siteWorkedController,
-                  cuurentSiteAllocationController:
-                      cuurentSiteAllocationController,
-                  enabled: false),
+              // LaborViewDetailsThree(
+              //   changeValue: (){},
+              //   coLabourCategoryId: 1,
+              //     isEditing: false,
+              //     aadharfilePathController: aadharfilePathController,
+              //     aadharController: aadharNumberController,
+              //     siteWorkedController: siteWorkedController,
+              //     cuurentSiteAllocationController:
+              //         cuurentSiteAllocationController,
+              //     enabled: false),
               LaborViewDetailsFour(
                   primaryNameController: primaryNameController,
                   primaryPhoneNumberController: primaryPhoneNumberController,

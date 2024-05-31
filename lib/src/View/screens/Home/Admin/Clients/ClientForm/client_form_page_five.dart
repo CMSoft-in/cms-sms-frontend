@@ -10,10 +10,7 @@ import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../controler/ClientController/db_client_controller.dart';
 import '/src/Model/api/local.dart';
-import '/src/View/screens/Home/Admin/Clients/ClientDataView/client_data_view_main.dart';
-
 import 'package:flutter/material.dart';
-
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/Buttons/next_back_button.dart';
 import '../ClientViewDetails/client_view_details_five.dart';

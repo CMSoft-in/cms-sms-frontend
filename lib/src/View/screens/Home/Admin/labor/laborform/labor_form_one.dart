@@ -1,5 +1,4 @@
 // ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers
-
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_one.dart';
 import 'package:flutter/material.dart';
 
@@ -24,14 +23,14 @@ class LaborFormPageOne extends StatelessWidget {
    LaborTextEditingController laborTextEditingController=LaborTextEditingController();
     void navigateToPageTwo(BuildContext context) {
       var data = {
-         "first_name":   laborTextEditingController.firstNameController.text,
-        "last_name":   laborTextEditingController.lastNameController.text,
-        "address_line1":   laborTextEditingController.addressline1Controller.text,
-        "address_line2":  laborTextEditingController. addressline2Controller.text,
-        "town":   laborTextEditingController.cityController.text,
-        "state":  laborTextEditingController. stateController.text,
-        "pincode":  laborTextEditingController. pincodeController.text,
-        "mobile_no":   laborTextEditingController.phoneNumberController.text,
+         "first_name":   laborTextEditingController.firstNameController.text.isEmpty ? null :laborTextEditingController.firstNameController.text.trim(),
+        "last_name":   laborTextEditingController.lastNameController.text.isEmpty ? null : laborTextEditingController.lastNameController.text.trim(),
+        "address_line1":   laborTextEditingController.addressline1Controller.text.isEmpty ? null :laborTextEditingController.addressline1Controller.text.trim(),
+        "address_line2":  laborTextEditingController. addressline2Controller.text.isEmpty ? null :laborTextEditingController. addressline2Controller.text.trim(),
+        "town":   laborTextEditingController.cityController.text.isEmpty ? null :laborTextEditingController.cityController.text.trim(),
+        "state":  laborTextEditingController. stateController.text.isEmpty ? null :laborTextEditingController. stateController.text.trim(),
+        "pincode":  laborTextEditingController. pincodeController.text.isEmpty ? null :int.parse(laborTextEditingController. pincodeController.text.trim()),
+        "mobile_no":   laborTextEditingController.phoneNumberController.text.isEmpty ? null :int.parse(laborTextEditingController.phoneNumberController.text.trim()),
       
       };
       Navigator.push(

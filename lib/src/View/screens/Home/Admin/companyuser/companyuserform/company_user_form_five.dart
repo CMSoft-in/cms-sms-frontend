@@ -49,16 +49,16 @@ class _CompanyUserFormPageFiveState extends State<CompanyUserFormPageFive> {
       var values = {
         ...oldData,
         "bank_acc_name":
-            companyUserTextEditingController.accountNameController.text,
+            companyUserTextEditingController.accountNameController.text.isEmpty ? null :companyUserTextEditingController.accountNameController.text.trim(),
         "bank_acc_no":
-            companyUserTextEditingController.accountNumberController.text,
+            companyUserTextEditingController.accountNumberController.text.isEmpty ? null :int.parse(companyUserTextEditingController.accountNumberController.text.trim()),
         "bank_acc_type":
-            companyUserTextEditingController.accountTypeController.text,
-        "bank_name": companyUserTextEditingController.bankNameController.text,
+            companyUserTextEditingController.accountTypeController.text.isEmpty ? null :companyUserTextEditingController.accountTypeController.text.trim(),
+        "bank_name": companyUserTextEditingController.bankNameController.text.isEmpty ? null :companyUserTextEditingController.bankNameController.text.trim(),
         "bank_ifsc_code":
-            companyUserTextEditingController.ifscCodeController.text,
+            companyUserTextEditingController.ifscCodeController.text.isEmpty ? null :companyUserTextEditingController.ifscCodeController.text.trim(),
         "bank_acc_location":
-            companyUserTextEditingController.bankLocationController.text,
+            companyUserTextEditingController.bankLocationController.text.isEmpty ? null :companyUserTextEditingController.bankLocationController.text.trim(),
       };
       print(values);
 

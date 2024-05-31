@@ -4,7 +4,6 @@ import 'dart:convert';
 import '../../../../../../../Model/Const/text_const.dart';
 import '../../../../../../../Model/api/api_model.dart';
 import '../../../../../../../Model/api/local.dart';
-import '../../../../../../../controler/GetDate/get_date.dart';
 import '../../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../../widgets/CommonUsageForm/DetailsText.dart';

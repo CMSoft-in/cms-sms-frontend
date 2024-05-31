@@ -25,14 +25,14 @@ class LaborFormPageFour extends StatelessWidget {
     void navigateToPageFive(BuildContext context) {
       var updatedData = {
         ...oldData,
-       "emergency_contact_name":laborTextEditingController.primaryNameController.text,
-        "emergency_contact_no":laborTextEditingController. primaryPhoneNumberController.text,
-         "primary_contact_email":laborTextEditingController. primaryEmailController.text,
-            "primary_contact_whatsapp": laborTextEditingController.primaryWhatsappController.text,
-            "secondary_contact_name": laborTextEditingController.secondaryNameController.text,
-            "secondary_contact_no": laborTextEditingController.secondaryPhoneNumberController.text,
-            "secondary_contact_email": laborTextEditingController.secondaryEmailController.text,
-            "secondary_contact_whatsapp": laborTextEditingController.secondaryWhatsappController.text,
+       "emergency_contact_name":laborTextEditingController.primaryNameController.text.isEmpty ? null :laborTextEditingController.primaryNameController.text.trim(),
+        "emergency_contact_no":laborTextEditingController. primaryPhoneNumberController.text.isEmpty ? null :int.parse(laborTextEditingController. primaryPhoneNumberController.text.trim()),
+         "primary_contact_email":laborTextEditingController. primaryEmailController.text.isEmpty ? null :laborTextEditingController. primaryEmailController.text.trim(),
+            "primary_contact_whatsapp": laborTextEditingController.primaryWhatsappController.text.isEmpty ? null :int.parse(laborTextEditingController.primaryWhatsappController.text..trim()),
+            "secondary_contact_name": laborTextEditingController.secondaryNameController.text.isEmpty ? null :laborTextEditingController.secondaryNameController.text.trim(),
+            "secondary_contact_no": laborTextEditingController.secondaryPhoneNumberController.text.isEmpty ? null :int.parse( laborTextEditingController.secondaryPhoneNumberController.text..trim()),
+            "secondary_contact_email": laborTextEditingController.secondaryEmailController.text.isEmpty ? null :laborTextEditingController.secondaryEmailController.text.trim(),
+            "secondary_contact_whatsapp": laborTextEditingController.secondaryWhatsappController.text.isEmpty ? null :int.parse(laborTextEditingController.secondaryWhatsappController.text..trim()),
       };
       Navigator.push(
         context,

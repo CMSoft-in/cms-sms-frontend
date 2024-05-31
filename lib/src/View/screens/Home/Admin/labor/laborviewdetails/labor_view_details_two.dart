@@ -1,3 +1,4 @@
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../widgets/MyDrawer/s.dart';
 import '/src/View/screens/Home/Admin/laborcategory/labor_category_text.dart';
@@ -39,7 +40,7 @@ class LaborViewDetailsTwo extends StatefulWidget {
 class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
   List labordropdownItems = [];
   int? selectedLaborCategoryId;
-
+  
   @override
   void initState() {
     super.initState();
@@ -47,9 +48,10 @@ class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
   }
 
   Future<void> fetchData() async {
+  String  uri=ApiEndpoints.getAllLabourCategories;
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/all-labourcategory"),
+        Uri.parse(uri),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -80,29 +82,7 @@ class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
     });
   }
 
-  // Future<void> sendSelectedLaborCategoryId() async {
-  //   if (selectedLaborCategoryId != null) {
-  //     try {
-  //       final response = await http.post(
-  //         Uri.parse("$ip/Admin/selected-labourcategory"),
-  //         headers: {
-  //           'Authorization': 'Bearer $token',
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: json.encode({'co_labour_category_id': selectedLaborCategoryId}),
-  //       );
-  //       if (response.statusCode == 200) {
-  //         print("Data sent successfully");
-  //       } else {
-  //         print("Failed to send data: ${response.statusCode}");
-  //       }
-  //     } catch (error) {
-  //       print('Error sending data: $error');
-  //     }
-  //   } else {
-  //     print('No labor category selected');
-  //   }
-  // }
+ 
 
   @override
   Widget build(BuildContext context) {

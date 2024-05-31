@@ -24,13 +24,13 @@ class MachinesFormPageOne extends StatelessWidget {
     MachinesTextEditingController machinesTextEditingController=MachinesTextEditingController();
     void navigateToPageTwo(BuildContext context) {
       var updatedData = {
-      "co_machine_no": machinesTextEditingController.nameController.text,      
-    "owner_first_name": machinesTextEditingController.secondNameController.text,
-       "off_address_line1":  machinesTextEditingController.addressline1Controller.text,
-        "off_address_line2":  machinesTextEditingController.addressline2Controller.text,
-        "city":  machinesTextEditingController.cityController.text,
-        "state":  machinesTextEditingController.stateController.text,
-        "pincode":  machinesTextEditingController.pincodeController.text,
+      "co_machine_no": machinesTextEditingController.nameController.text.isEmpty ? null :machinesTextEditingController.nameController.text.trim(),      
+    "owner_first_name": machinesTextEditingController.secondNameController.text.isEmpty ? null :machinesTextEditingController.secondNameController.text.trim(),
+       "off_address_line1":  machinesTextEditingController.addressline1Controller.text.isEmpty ? null :machinesTextEditingController.addressline1Controller.text.trim(),
+        "off_address_line2":  machinesTextEditingController.addressline2Controller.text.isEmpty ? null : machinesTextEditingController.addressline2Controller.text.trim(),
+        "city":  machinesTextEditingController.cityController.text.isEmpty ? null :machinesTextEditingController.cityController.text.trim(),
+        "state":  machinesTextEditingController.stateController.text.isEmpty ? null :machinesTextEditingController.stateController.text.trim(),
+        "pincode":  machinesTextEditingController.pincodeController.text.isEmpty ? null :int.parse(machinesTextEditingController.pincodeController.text.trim()),
       };
       Navigator.push(
         context,

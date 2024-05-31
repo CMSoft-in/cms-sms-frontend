@@ -1,18 +1,16 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
-
 import 'dart:convert';
-
-import '../../../../../../Model/api/api_model.dart';
-import '../../../../../../controler/GetDate/get_date.dart';
-import '../supplier_category_text.dart';
-import 'supplier_category_view_details.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import '../../../../../../Model/api/api_model.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/drop_down_form_field.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
+import '../../../../../widgets/MyDrawer/s.dart';
+import '../supplier_category_text.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/local.dart';
-import '../../../../../../controler/ClientController/client_controller.dart';
 import '../../../../../../controler/common_controller.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
@@ -25,25 +23,31 @@ import '../../../../../widgets/CommonUsageForm/view_details_text.dart';
 import '../suppliercategorydataview/supplier_category_data_view.dart';
 
 class SupplierCategoryViewDetailsMain extends StatefulWidget {
-  const SupplierCategoryViewDetailsMain({Key? key, required this.id})
-      : super(key: key);
-  final id;
+  const SupplierCategoryViewDetailsMain({Key? key, required this.id}) : super(key: key);
+  final String id;
 
   @override
-  State<SupplierCategoryViewDetailsMain> createState() =>
-      _SupplierCategoryViewDetailsMain();
+  State<SupplierCategoryViewDetailsMain> createState() => _SupplierCategoryViewDetailsMain();
 }
 
-class _SupplierCategoryViewDetailsMain
-    extends State<SupplierCategoryViewDetailsMain> {
+class _SupplierCategoryViewDetailsMain extends State<SupplierCategoryViewDetailsMain> {
+ List materialdropdownItems1 = [];
+  List<int> selectedMaterialCategoryIds = [];
   Map<String, dynamic>? data;
   var updatedData;
   CommonController commonController = CommonController();
+ List<dynamic> comaterialCategoryId = [];
+  // Initialize TextEditingControllers
+  TextEditingController supplierCategoryController = TextEditingController();
+  TextEditingController materialSuppliedController = TextEditingController();
+  TextEditingController createByController = TextEditingController();
+  TextEditingController createOnController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     fetchData();
+    MaterialfetchData();
     // fetchUpdateData();
   }
 
@@ -55,19 +59,25 @@ class _SupplierCategoryViewDetailsMain
           'Authorization': 'Bearer $token',
         },
       );
+
+      print(response.body);
+
       if (response.statusCode == 200) {
         setState(() {
           data = jsonDecode(response.body);
           if (data != null) {
-            var controllers = {
-              "co_supplier_category_name": supplierCategoryController,
-              "co_supplier_category_desc": materialSuppliedController,
-              "created_by": createBy,
-              "createdAt": createOn,
-            };
-            controllers.forEach((key, controller) {
-              controller.text = data![key]?.toString() ?? '';
-            });
+            // Properly set the TextEditingController values
+            supplierCategoryController.text = data!["co_supplier_category_name"] ?? '';
+            // Handle nested JSON data for multiple materials
+            if (data!["co_material_id"] != null) {
+              List<String> materialNames = [];
+              for (var material in data!["co_material_id"]) {
+                materialNames.add(material["co_material_name"] ?? '');
+              }
+              materialSuppliedController.text = materialNames.join(', ');
+            }
+            createByController.text = data!["created_by"] ?? '';
+            createOnController.text = data!["createdAt"] ?? '';
           }
         });
       } else {
@@ -78,39 +88,16 @@ class _SupplierCategoryViewDetailsMain
     }
   }
 
-  // Future<void> fetchUpdateData() async {
-  //   try {
-  //     final response = await http.get(
-  //       Uri.parse("$ip/Admin/updatehistory-supplier-category"),
-  //       headers: {
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //     );
-  //     if (response.statusCode == 200) {
-  //       setState(() {
-  //         var updateData = [];
-
-  //         var data = jsonDecode(response.body);
-
-  //         for (var eachData in data) {
-  //           if (eachData["co_supplier_category_id"].toString() == widget.id) {
-  //             updateData.add(eachData);
-  //           }
-  //         }
-  //         updatedData = updateData;
-  //       });
-  //     } else {
-  //       throw Exception('Failed to load data');
-  //     }
-  //   } catch (error) {
-  //     print('Error fetching data: $error');
-  //   }
-  // }
+  void changeValue(List<dynamic> v) {
+    setState(() {
+      comaterialCategoryId = v;
+    });
+  }
 
   bool isEditing = false;
   bool isEnabled = false;
 
-  void updateData(data) async {
+  void updateData(Map<String, dynamic> data) async {
     try {
       print("before update");
 
@@ -122,10 +109,12 @@ class _SupplierCategoryViewDetailsMain
         },
         body: jsonEncode(data),
       );
+
       if (response.statusCode == 200) {
         print(response.body);
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const SupplierCategoryDataView()));
+          builder: (context) => const SupplierCategoryDataView(),
+        ));
       }
     } catch (e) {
       print("update failed $e");
@@ -133,24 +122,102 @@ class _SupplierCategoryViewDetailsMain
   }
 
   void supplierCategoryCheckUpdatingValue() {
-    if (data != null) {
-      Map<String, dynamic> updatedData = {};
+  if (data != null) {
+    Map<String, dynamic> updatedData = {};
 
-      var controllers = {};
-      controllers.forEach((key, value) {
-        if (data![key] != null &&
-            data![key].toString() != value &&
-            value.isNotEmpty) {
-          updatedData[key] = value;
-        }
-      });
-
-      if (updatedData.isNotEmpty) {
-        updateData(updatedData);
-      } else {
-        print("No changes detected.");
+    // Get the list of current material names
+    List<String> currentMaterialNames = [];
+    if (data!["co_material_id"] != null) {
+      for (var material in data!["co_material_id"]) {
+        currentMaterialNames.add(material["co_material_name"] ?? '');
       }
     }
+
+    // Define the controllers
+    var controllers = {
+      'co_supplier_category_name': supplierCategoryController.text,
+      'co_material_names': materialSuppliedController.text,
+      'created_by': createByController.text,
+      'createdAt': createOnController.text,
+    };
+
+    // Convert the current material names to a single string for comparison
+    String currentMaterialNamesString = currentMaterialNames.join(', ');
+
+    // Compare the current values with the values from the controllers
+    if (data!["co_supplier_category_name"] != controllers['co_supplier_category_name'] && 
+        controllers['co_supplier_category_name']!.isNotEmpty) {
+      updatedData['co_supplier_category_name'] = controllers['co_supplier_category_name'];
+    }
+
+    if (currentMaterialNamesString != controllers['co_material_names'] && 
+        controllers['co_material_names']!.isNotEmpty) {
+      updatedData['co_material_names'] = controllers['co_material_names'];
+    }
+
+    if (data!["created_by"] != controllers['created_by'] && 
+        controllers['created_by']!.isNotEmpty) {
+      updatedData['created_by'] = controllers['created_by'];
+    }
+
+    if (data!["createdAt"] != controllers['createdAt'] && 
+        controllers['createdAt']!.isNotEmpty) {
+      updatedData['createdAt'] = controllers['createdAt'];
+    }
+
+    // Check if there are any changes and update the data
+    if (updatedData.isNotEmpty) {
+      updateData(updatedData);
+    } else {
+      print("No changes detected.");
+    }
+  }
+}
+
+ Future<void> MaterialfetchData() async {
+    String uri = ApiEndpoints.getAllMaterials;
+    try {
+      final response = await http.get(
+        Uri.parse(uri),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+        // print(response.body);
+        var body = json.decode(response.body);
+      
+      if (response.statusCode == 200) {
+      
+        var newList = [];
+        // var newListOne = [];
+        body.forEach((each) {
+          int id = each["co_material_id"];
+          String name = each["co_material_name"];
+          newList.add({"id": id, "name": name});
+        });
+        // body.forEach((each) {
+        //   int id = each["co_site_id"];
+        //   String name = each["co_site_name"];
+        //   newListOne.add({"id": id, "name": name});
+        // });
+        setState(() {
+          materialdropdownItems1 = newList;
+          // labordropdownItems1 = newListOne;
+        });
+      }
+    } catch (error) {
+      print('Error fetching data: $error');
+    }
+  }
+
+  void onMultiSelectChanged(List<dynamic> newIds) {
+    setState(() {
+      changeValue(newIds);
+      selectedMaterialCategoryIds = newIds.cast<int>();
+  comaterialCategoryId = selectedMaterialCategoryIds.isNotEmpty ? [selectedMaterialCategoryIds.first] : [];
+
+print(comaterialCategoryId);
+    });
   }
 
   @override
@@ -180,14 +247,54 @@ class _SupplierCategoryViewDetailsMain
                   onPress: const SupplierCategoryDataView(),
                 ),
               ),
-              SupplierCategoryViewDetails(
+             isEditing
+              ?  DropDownForm(
+                  dropdownItems: const [
+                      "Supplier CateGory 1",
+                      "Supplier CateGory 2",
+                      "Supplier CateGory 3",
+                      "Supplier CateGory 4"
+                    ],
+                  dropDownName: supplierCategoryText,
+                  star: star,
+                  optionalisEmpty: true,
+                  controller: supplierCategoryController)
+              : TextformField(
+                  controller: supplierCategoryController,
+                  text: supplierCategoryText,
+                  star: star,
+                  limitLength: 20,
+                  optionalisEmpty: true,
+                  inputformat: alphabatsAndNumbers,
+                  inputtype: keyboardTypeNone,
                   enabled: isEnabled,
-                  isEditing: isEditing,
-                  supplierCategoryController: supplierCategoryController,
-                  materialSuppliedController: materialSuppliedController),
+                ),
+          formSizebox10,
+          isEditing
+              ? MultiSelectDropDownForm(
+                selectedIds: selectedMaterialCategoryIds,
+                onChanged: onMultiSelectChanged,
+                dropdownItems: materialdropdownItems1,
+                dropDownName: materialSupplied,
+                star: star,
+                optionalisEmpty: true,
+                controller: materialSuppliedController,
+              )
+              : MaxMinTextFormField(
+                maxLines: 4,
+                minLines: 1,
+                  controller: materialSuppliedController,
+                  text: materialSupplied,
+                  star: star,
+                  limitLength: 20,
+                  optionalisEmpty: true,
+                  inputformat: alphabatsAndNumbers,
+                  inputtype: keyboardTypeNone,
+                  enabled: isEnabled,
+                ),
               CreateByCreatedOn(
-                createByController: createBy,
-                createOnController: createOn,
+                createByController: createByController,
+                createOnController: createOnController,
                 enabled: false,
               ),
               formSizebox15,
@@ -199,25 +306,24 @@ class _SupplierCategoryViewDetailsMain
                 },
                 isEnabled: isEnabled,
               ),
-              if (updatedData != null)
-                if (updatedData.length != 0)
-                  Column(
-                    children: [
-                      const UpdateHeader(
-                        updatedByHeader: updateByHeaderText,
-                        newValueHeader: newvalueHeaderText,
-                        oldValueHeader: oldvlueHeaderText,
-                      ),
-                      ...updatedData.map((eachItem) {
-                        return updatedDataItem(
-                          eachItem["updated_old_value"],
-                          eachItem["updated_new_value"],
-                          eachItem["updated_by"].toString(),
-                        );
-                      }).toList(),
-                      bottomHeight,
-                    ],
-                  ),
+              if (updatedData != null && updatedData.length != 0)
+                Column(
+                  children: [
+                    const UpdateHeader(
+                      updatedByHeader: updateByHeaderText,
+                      newValueHeader: newvalueHeaderText,
+                      oldValueHeader: oldvlueHeaderText,
+                    ),
+                    ...updatedData.map((eachItem) {
+                      return updatedDataItem(
+                        eachItem["updated_old_value"],
+                        eachItem["updated_new_value"],
+                        eachItem["updated_by"].toString(),
+                      );
+                    }).toList(),
+                    bottomHeight,
+                  ],
+                ),
               bottomHeight,
             ],
           ),

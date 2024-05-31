@@ -5,7 +5,6 @@ import '../suppliersviewdetails/supplier_view_details_main.dart';
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/image_const.dart';
 import '/src/Model/Const/text_const.dart';
-import '/src/View/screens/Home/Admin/Clients/ClientViewDetails/client_view_datails_main.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../Model/EmptyDataScreenView/empty_header.dart';

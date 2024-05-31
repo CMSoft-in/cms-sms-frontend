@@ -1,27 +1,18 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, depend_on_referenced_packages, avoid_print, use_build_context_synchronously
 import 'dart:io';
 import 'dart:async';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
-
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
-
 import '../../../../../widgets/CommonUsageForm/file_picker2.dart';
 import '/src/View/screens/Home/Admin/Clients/ClientDataView/client_data_view_main.dart';
-import 'package:flutter/material.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import '../../../../../widgets/Buttons/back_button.dart';
-import '../../../../../widgets/Buttons/validate_button.dart';
 import '../../../../../widgets/CommonUsageForm/HintText.dart';
-import '../../../../../widgets/CommonUsageForm/file_picker.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
@@ -30,7 +21,7 @@ import '../../../../../../Model/utility/client/client_text_const.dart';
 
 class ClientFormPageSix extends StatefulWidget {
   ClientFormPageSix({Key? key, required this.id}) : super(key: key);
-  String id;
+ final String id;
 
   @override
   State<ClientFormPageSix> createState() => _ClientFormPageSixState();

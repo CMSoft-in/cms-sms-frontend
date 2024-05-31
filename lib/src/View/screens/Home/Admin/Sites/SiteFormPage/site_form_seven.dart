@@ -55,9 +55,9 @@ class _SiteFormPageSevenState extends State<SiteFormPageSeven> {
         Map<String, dynamic> additionalTwoData = {
           "contact_category_name": clientPurchaseOfficer,
           'contact_name': listTwoController[0][0].text,
-          'contact_no': int.tryParse(listTwoController[0][1].text) ?? 0,
+          'contact_no': int.tryParse(listTwoController[0][1].text) ?? '',
           'contact_email': listTwoController[0][2].text,
-          'contact_whatsapp': int.tryParse(listTwoController[0][3].text) ?? 0,
+          'contact_whatsapp': int.tryParse(listTwoController[0][3].text) ?? "",
         };
 
         List<Map<String, dynamic>> old = List<Map<String, dynamic>>.from(

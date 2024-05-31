@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../controler/common_controller.dart';
-import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/Buttons/Long_SizeButton.dart';
 import '../../../../../widgets/CommonUsageForm/AlartBox/alart_popup.dart';
@@ -171,168 +169,67 @@ class _LaborCategoryViewDetailsMainState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Labor Category Details'),
-      ),
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    ViewDetailsText(
-                      viewClientDetailsTextt: isEditing
-                          ? editLaborCategoryDetailsText
-                          : viewLaborCategoryDetailsText,
-                      editOnPress: () {
-                        setState(() {
-                          isEditing = !isEditing;
-                          isEnabled = !isEnabled;
-                        });
-                      },
-                      deleteOnPress: AlartMessage(
-                        api: '${ApiEndpoints.deleteLabourCategory}/${widget.id}',
-                        onPress: const LaborCategoryDataView(),
+      backgroundColor: white,
+      appBar: const BuildAppBar(),
+      body: SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              ViewDetailsText(
+                viewClientDetailsTextt: isEditing
+                    ? editLaborCategoryDetailsText
+                    : viewLaborCategoryDetailsText,
+                editOnPress: () {
+                  setState(() {
+                    isEditing = !isEditing;
+                    isEnabled = !isEnabled;
+                  });
+                },
+                deleteOnPress: AlartMessage(
+                  api: '${ApiEndpoints.deleteLabourCategory}/${widget.id}',
+                  onPress: const LaborCategoryDataView(),
+                ),
+              ),
+              isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : Column(children: [
+                      LaborCategoryViewDetails(
+                          enabled: isEditing,
+                          laborCategoryController: laborCategoryController,
+                          categorydistributionController:
+                              categorydistributionController),
+                      CreateByCreatedOn(
+                        createByController: createBy,
+                        createOnController: createOn,
+                        enabled: false,
                       ),
-                    ),
-                    isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : Column(
+                      formSizebox15,
+                      LongButton(
+                        formKey: formKey,
+                        text: update,
+                        onPressed: () {
+                          checkUpdatingValue();
+                        },
+                        isEnabled: isEnabled,
+                      ),
+                      if (updatedData != null)
+                        if (updatedData.length != 0)
+                          Column(
                             children: [
-                              LaborCategoryViewDetails(
-                                enabled: isEditing,
-                                laborCategoryController:
-                                    laborCategoryController,
-                                categorydistributionController:
-                                    categorydistributionController,
+                              const UpdateHeader(
+                                updatedByHeader: updateByHeaderText,
+                                newValueHeader: newvalueHeaderText,
+                                oldValueHeader: oldvlueHeaderText,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: Column(
-                                  children: [
-                                    ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: _labourController.length,
-                                      itemBuilder: (context, index) {
-                                        return Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  TextFormFieldWidth(
-                                                    Width: 250,
-                                                    controller:
-                                                        _labourController[
-                                                            index],
-                                                    text: titleLabel,
-                                                    limitLength: 50,
-                                                    optionalisEmpty: false,
-                                                    inputformat:
-                                                        alphabatsAndNumbers,
-                                                    star: estar,
-                                                    inputtype: keyboardTypeNone,
-                                                    enabled: isEnabled,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10),
-                                                    child: TextFormFieldWidth(
-                                                      Width: 100,
-                                                      controller:
-                                                          _rateController[
-                                                              index],
-                                                      text: titleLabel,
-                                                      limitLength: 50,
-                                                      optionalisEmpty: false,
-                                                      inputformat:
-                                                          alphabatsAndNumbers,
-                                                      star: estar,
-                                                      inputtype:
-                                                          keyboardTypeNone,
-                                                      enabled: isEnabled,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 10),
-                                              if (index != 0)
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _labourController[index]
-                                                          .clear();
-                                                      _rateController[index]
-                                                          .clear();
-                                                      _labourController
-                                                          .removeAt(index);
-                                                      _rateController
-                                                          .removeAt(index);
-                                                    });
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.delete,
-                                                    color: Color(0xFF6B74D6),
-                                                    size: 35,
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _labourController
-                                              .add(TextEditingController());
-                                          _rateController
-                                              .add(TextEditingController());
-                                        });
-                                      },
-                                      child: const Text('Add'),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              CreateByCreatedOn(
-                                createByController: createBy,
-                                createOnController: createOn,
-                                enabled: false,
-                              ),
-                              const SizedBox(height: 15),
-                              LongButton(
-                                formKey: formKey,
-                                text: update,
-                                onPressed: () {
-                                  checkUpdatingValue();
-                                },
-                                isEnabled: isEnabled,
-                              ),
-                              if (updatedData != null && updatedData.isNotEmpty)
-                                Column(
-                                  children: [
-                                    const UpdateHeader(
-                                      updatedByHeader: updateByHeaderText,
-                                      newValueHeader: newvalueHeaderText,
-                                      oldValueHeader: oldvlueHeaderText,
-                                    ),
-                                    ...updatedData.map<Widget>((eachItem) {
-                                      return updatedDataItem(
-                                        eachItem["updated_old_value"],
-                                        eachItem["updated_new_value"],
-                                        eachItem["updated_by"].toString(),
-                                      );
-                                    }).toList(),
-                                    const SizedBox(height: 20),
-                                  ],
-                                ),
-                              const SizedBox(height: 20),
+                              ...updatedData.map((eachItem) {
+                                return updatedDataItem(
+                                  eachItem["updated_old_value"],
+                                  eachItem["updated_new_value"],
+                                  eachItem["updated_by"].toString(),
+                                );
+                              }).toList(),
+                              bottomHeight,
                             ],
                           ),
                   ],
@@ -343,47 +240,3 @@ class _LaborCategoryViewDetailsMainState
     );
   }
 }
-
-
-
-
-
-
-
- // if (!isEditing &&
-                        //     data != null &&
-                        //     data!['co_labour_category_team'] != null)
-                        //   ListView.builder(
-                        //     shrinkWrap: true,
-                        //     itemCount: data!['co_labour_category_team'].length,
-                        //     itemBuilder: (context, index) {
-                        //       var teamMember = data!['co_labour_category_team'][index];
-                        //       return Column(
-                        //         children: [
-                        //           Row(
-                        //             mainAxisAlignment: MainAxisAlignment.center,
-                        //             children: [
-                        //               Text(
-                        //                 teamMember["co_labour_team_name"] ?? '',
-                        //                 style: const TextStyle(fontSize: 16),
-                        //               ),
-                        //               const SizedBox(width: 10),
-                        //               Text(
-                        //                 teamMember["co_labour_team_rate"].toString() ?? '',
-                        //                 style: const TextStyle(fontSize: 16),
-                        //               ),
-                        //             ],
-                        //           ),
-                        //           const SizedBox(height: 10),
-                        //         ],
-                        //       );
-                        //     },
-                        //   ),
-                        // if (!isEditing &&
-                        //     data != null &&
-                        //     data!['co_labour_category_team'] != null)
-                        //   CreateByCreatedOn(
-                        //     createByController: createBy,
-                        //     createOnController: createOn,
-                        //     enabled: false,
-                        //   ),

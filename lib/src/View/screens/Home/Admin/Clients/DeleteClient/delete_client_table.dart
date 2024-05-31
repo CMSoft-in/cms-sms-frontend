@@ -2,7 +2,6 @@ import 'package:cmssms/src/Model/api/api_model.dart';
 
 import '../../../../../../Model/Const/image_const.dart';
 import '../../../../../../Model/Const/text_const.dart';
-import '../../../../../../Model/api/local.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_view.dart';
 import '../../../../../widgets/CommonUsageForm/Delete/delete_header.dart';
 import '/src/Model/Const/color.dart';

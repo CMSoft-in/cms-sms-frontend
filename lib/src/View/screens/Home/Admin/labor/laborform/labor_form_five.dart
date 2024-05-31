@@ -46,13 +46,13 @@ class _LaborFormPageFiveState extends State<LaborFormPageFive> {
       var apiURL = Uri.parse(ApiEndpoints.createLabour);
       var values = {
         ...oldData,
-        "gpay_no": laborTextEditingController.gpayNumberController.text,
-        "bank_acc_name": laborTextEditingController.accountNameController.text,
-        "bank_acc_no": laborTextEditingController.accountNumberController.text,
-        "bank_acc_type": laborTextEditingController.accountTypeController.text,
-        "bank_name": laborTextEditingController.bankNameController.text,
-        "bank_ifsc_code": laborTextEditingController.ifscCodeController.text,
-        "bank_acc_location": laborTextEditingController.bankLocationController.text,
+        "gpay_no": laborTextEditingController.gpayNumberController.text.isEmpty ? null :int.parse(laborTextEditingController.gpayNumberController.text.trim()),
+        "bank_acc_name": laborTextEditingController.accountNameController.text.isEmpty ? null :laborTextEditingController.accountNameController.text.trim(),
+        "bank_acc_no": laborTextEditingController.accountNumberController.text.isEmpty ? null :int.parse(laborTextEditingController.accountNumberController.text.trim()),
+        "bank_acc_type": laborTextEditingController.accountTypeController.text.isEmpty ? null :laborTextEditingController.accountTypeController.text.trim(),
+        "bank_name": laborTextEditingController.bankNameController.text.isEmpty ? null :laborTextEditingController.bankNameController.text.trim(),
+        "bank_ifsc_code": laborTextEditingController.ifscCodeController.text.isEmpty ? null :laborTextEditingController.ifscCodeController.text.trim(),
+        "bank_acc_location": laborTextEditingController.bankLocationController.text.isEmpty ? null :laborTextEditingController.bankLocationController.text.trim(),
       };
 
 print(values);

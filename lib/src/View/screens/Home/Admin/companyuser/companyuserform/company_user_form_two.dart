@@ -21,11 +21,11 @@ class ComapnyUserFormPageTwo extends StatelessWidget {
     void navigateToPageThree(BuildContext context) {
       var updatedData = {
         ...oldData,
-      "bloodgroup":companyUserTextEditingController. bloodGroupController.text,
-    "dateofjoining":companyUserTextEditingController.joinDateController.text,
-     "designation_id": companyUserTextEditingController.officeDesignationController.text,
+      "bloodgroup":companyUserTextEditingController. bloodGroupController.text.isEmpty ? null :companyUserTextEditingController. bloodGroupController.text.trim() ,
+    "dateofjoining":companyUserTextEditingController.joinDateController.text.isEmpty ? null : companyUserTextEditingController.joinDateController.text.isEmpty,
+     "designation_id": companyUserTextEditingController.officeDesignationController.text.isEmpty ? null : companyUserTextEditingController.officeDesignationController.text.trim(),
      "co_app_role_id": 
-      companyUserTextEditingController. applicationRoleController.text,
+      companyUserTextEditingController. applicationRoleController.text.isEmpty ? null :companyUserTextEditingController. applicationRoleController.text.trim() ,
    
       };
       Navigator.push(
