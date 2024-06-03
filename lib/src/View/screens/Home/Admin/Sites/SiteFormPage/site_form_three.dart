@@ -15,17 +15,22 @@ class SiteFormPageThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var oldData = data;
-    
+    List<int> labourAllocated = [];
 
     final formKey = GlobalKey<FormState>();
-   SitesTextEditingController sitesTextEditingController=SitesTextEditingController();
+    SitesTextEditingController sitesTextEditingController =
+        SitesTextEditingController();
+
+        
     void navigateToPageThree(BuildContext context) {
-    
-      var data = {...oldData,
-      '':sitesTextEditingController.companySiteEngineersAllocatedController.text.trim(),
-      ' ':sitesTextEditingController.laborsAllocatedController.text.trim()
+      var data = {
+        ...oldData,
+        '': sitesTextEditingController
+            .companySiteEngineersAllocatedController.text
+            .trim(),
+        'labours_allocated': labourAllocated
       };
-       Navigator.push(
+      Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => SiteFormPageFour(data: data),
@@ -46,14 +51,16 @@ class SiteFormPageThree extends StatelessWidget {
                 SiteViewDetailsThree(
                     enabled: true,
                     companySiteEngineersAllocatedController:
-                        sitesTextEditingController.companySiteEngineersAllocatedController,
-                    laborsAllocatedController:sitesTextEditingController. laborsAllocatedController),
+                        sitesTextEditingController
+                            .companySiteEngineersAllocatedController,
+                    laborsAllocatedController:
+                        sitesTextEditingController.laborsAllocatedController),
                 formSizebox15,
                 bottomHeight
               ],
             )),
       ),
-       bottomSheet: BackNextButton(
+      bottomSheet: BackNextButton(
           formKey: formKey,
           isEnabled: true,
           onPress: () => navigateToPageThree(context)),

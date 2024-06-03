@@ -154,10 +154,10 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
                   primaryPhoneNumberController: primaryPhoneNumberController,
                   primaryWhatsappController: primaryWhatsappController,
                   timeLineController: timeLineController),
-              SupplierViewDetailsThree(
-                  enabled: isEnabled,
-                  materialsSuppliedController: materialsSuppliedController,
-                  supplierCategoryController: supplierCategoryController),
+              // SupplierViewDetailsThree(
+              //     enabled: isEnabled,
+              //     materialsSuppliedController: materialsSuppliedController,
+              //     supplierCategoryController: supplierCategoryController),
               SupplierViewDetailsFour(
                   enabled: isEnabled,
                   firstNameController: firstNameController,

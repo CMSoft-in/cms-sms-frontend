@@ -9,22 +9,5 @@ String token =
 void getToken() async {
   var pref = await SharedPreferences.getInstance();
   token = pref.getString("token")!;
-  print(token);
 }
 
-      // fixFistColumnLength: ,
-      // fixMiddleColumnLength: ,
-      // fixLastColumnLength: ,
-      // firstColumnMainName: ,
-      // firstColumnsubName: ,
-      // firstColumnSecondSubName: ,
-      // middleColumMainName: ,
-      // middleColumnSubName: ,
-      // middleColumnSecondSubName: ,
-      // lastColumMainName: ,
-      // lastColumnSubName: ,
-      // lastColumnSecondSubName: ,
-      // id: ,
-      // uri:"$ip/Admin/",
-   
- 

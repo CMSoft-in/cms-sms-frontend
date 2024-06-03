@@ -1,19 +1,19 @@
-import 'package:cmssms/src/Model/Const/color.dart';
 import 'package:cmssms/src/Model/Const/height_width.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../../Model/Const/text_const.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LocationFormField extends StatefulWidget {
-  const LocationFormField(
-      {super.key,
-      required this.controller,
-      required this.text,
-      required this.optionalisEmpty,
-      required this.star,
-      required this.enabled});
+  const LocationFormField({
+    Key? key,
+    required this.controller,
+    required this.text,
+    required this.optionalisEmpty,
+    required this.star,
+    required this.enabled,
+  }) : super(key: key);
+
   final TextEditingController controller;
   final String text;
   final String star;
@@ -21,26 +21,27 @@ class LocationFormField extends StatefulWidget {
   final bool optionalisEmpty;
 
   @override
-  State<LocationFormField> createState() => _LocationFormFieldState();
+  _LocationFormFieldState createState() => _LocationFormFieldState();
 }
 
 class _LocationFormFieldState extends State<LocationFormField> {
-  late Position currentposition;
+  late Position currentPosition;
   late String currentAddress;
 
   Future<void> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
+    // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       Fluttertoast.showToast(msg: 'Please enable Your Location Service');
+      return;
     }
-    permission = await Geolocator.checkPermission();
 
+    permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-
       if (permission == LocationPermission.denied) {
         Fluttertoast.showToast(msg: 'Location permissions are denied');
         return;
@@ -64,14 +65,12 @@ class _LocationFormFieldState extends State<LocationFormField> {
       Placemark place = placemarks[0];
 
       setState(() {
-        currentposition = position;
-        print(place);
+        currentPosition = position;
         currentAddress = "${place.subLocality}, ${place.locality}";
         widget.controller.text = currentAddress;
       });
     } catch (e) {
-      print('Error fetching location: $e');
-      Fluttertoast.showToast(msg:'$e');
+      Fluttertoast.showToast(msg: 'Error fetching location: $e');
     }
   }
 
@@ -82,60 +81,56 @@ class _LocationFormFieldState extends State<LocationFormField> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-              width: 260,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  label: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: widget.text,
-                          style: textStyleGrey18,
-                        ),
-                        TextSpan(
-                          text: widget.star,
-                          style: textStyleRedStar,
-                        ),
-                      ],
-                    ),
+          Expanded(
+            child: TextFormField(
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                label: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: widget.text,
+                        style: TextStyle(color: Colors.grey, fontSize: 18),
+                      ),
+                      TextSpan(
+                        text: widget.star,
+                        style: TextStyle(color: Colors.red, fontSize: 18),
+                      ),
+                    ],
                   ),
-                  errorStyle: const TextStyle(color: Colors.red),
                 ),
-                validator: validMethod,
-                controller: widget.controller,
-                enabled: widget.enabled,
-              )),
+                errorStyle: const TextStyle(color: Colors.red),
+              ),
+              validator: validMethod,
+              controller: widget.controller,
+              enabled: widget.enabled,
+            ),
+          ),
           ElevatedButton(
-            onPressed: () async {
-              _determinePosition();
-            },
+            onPressed: _determinePosition,
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.white, // Text color
-              elevation: 0, // Elevation
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 20, vertical: 10), // Padding
+              backgroundColor: Colors.white,
+              elevation: 0,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10), // Border radius
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
             child: const Text(
               'Get',
               style: TextStyle(
-                color: black,
-                fontSize: 16, // Text size
+                color: Colors.black,
+                fontSize: 16,
               ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
   String? validMethod(value) {
-    if (widget.optionalisEmpty == true) {
+    if (widget.optionalisEmpty) {
       if (value == null || value.isEmpty) {
         return "Please enter ${widget.text == '+91-' ? 'Phone Number' : widget.text}";
       }

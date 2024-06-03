@@ -65,6 +65,7 @@ void changeValue(List<dynamic> v) {
           },
           body: body,
         );
+        print(response.body);
         if (response.statusCode == 201) {
           print('Response body: ${response.body}');
           Navigator.push(

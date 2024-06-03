@@ -120,7 +120,7 @@ class _DataViewState extends State<DataView> {
           'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+      // print(response.body);
       if (response.statusCode == 200) {
         setState(() {
           data = jsonDecode(response.body);
@@ -177,7 +177,7 @@ class _DataViewState extends State<DataView> {
                                   : (item[widget.firstColumnsubName]?.toString() ?? ''),
                               firstColumnSecondSubName: item[widget.firstColumnSecondSubName]?.toString() ?? '',
                               lastColumMainName: widget.dateOrNot 
-                                  ? item[widget.lastColumMainName]?? '' 
+                                  ? Date.getDate(item[widget.lastColumMainName]).toString()?? '' 
                                   : (item[widget.lastColumMainName]?.toString() ?? ''),
                               lastColumnSubName: item[widget.lastColumnSubName]?.toString() ?? '',
                               lastColumnSecondSubName: item[widget.lastColumnSecondSubName]?.toString() ?? '',

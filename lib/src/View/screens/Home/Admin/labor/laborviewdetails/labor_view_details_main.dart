@@ -70,21 +70,29 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
             cityController.text = data!["town"] ?? "";
             stateController.text = data!["state"] ?? "";
             pincodeController.text = data!["pincode"] ?? "";
+                gpayNumberController.text = data!["gpay_no"] ?? "";
+                accountNameController.text = data!["bank_acc_name"] ?? "";
+            accountNumberController.text = data!["bank_acc_no"] ?? "";
+              accountTypeController.text = data!["bank_acc_type"] ?? "";
+            bankNameController.text = data!["bank_name"] ?? "";
             primaryNameController.text = data!["emergency_contact_name"] ?? "";
+               ifscCodeController.text = data!["bank_ifsc_code"] ?? "";
+             primaryEmailController.text =
+                data!["email"] ?? "";
+                   primaryWhatsappController.text =
+                data!["whatsapp"] ?? "";
              bloodGroupController.text = data!["bloodgroup"] ?? "";
             primaryPhoneNumberController.text =
                 data!["emergency_contact_no"] ?? "";
                  createBy.text = data!["created_by"] ?? "";
-            createOn.text = Date.getDate(data!["created_on"]) ?? "";
+            createOn.text = Date.getDate(data!["createdAt"]) ?? "";
           
+         
+            
+          
+         
            
            
-             gpayNumberController.text = data!["gpay_no"] ?? "";
-            accountNameController.text = data!["bank_acc_name"] ?? "";
-            accountNumberController.text = data!["bank_acc_no"] ?? "";
-            accountTypeController.text = data!["bank_acc_type"] ?? "";
-            bankNameController.text = data!["bank_name"] ?? "";
-            ifscCodeController.text = data!["bank_ifsc_code"] ?? "";
                 
            
          
@@ -180,6 +188,7 @@ void laborCheckUpdatingValue() {
       "emergency_contact_name": primaryNameController.text,
       "emergency_contact_no": primaryPhoneNumberController.text,
       "mobile_no": phoneNumberController.text,
+       "email": primaryEmailController.text,
       "bloodgroup": bloodGroupController.text,
       "gpay_no": gpayNumberController.text,
       "bank_acc_name": accountNameController.text,
@@ -188,7 +197,7 @@ void laborCheckUpdatingValue() {
       "bank_name": bankNameController.text,
       "bank_ifsc_code": ifscCodeController.text,
       "aadhar_no": aadharNumberController.text,
-      "co_labour_rate": laborRateController.text,
+      "co_labour_rate":laborRateController.text,
       "co_labour_rate_model": rateModelController.text,
     };
 

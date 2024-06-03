@@ -31,7 +31,7 @@ class VechilesFormPageOne extends StatelessWidget {
     "owner_first_name": vechilesTextEditingController. secondNameController.text.isEmpty ? null :vechilesTextEditingController. secondNameController.text.trim(),
      "off_address_line1":vechilesTextEditingController. addressline1Controller.text.isEmpty ? null :vechilesTextEditingController. addressline1Controller.text.trim(),
         "off_address_line2":vechilesTextEditingController. addressline2Controller.text.isEmpty ? null :vechilesTextEditingController. addressline2Controller.text.trim(),
-        "town":vechilesTextEditingController. cityController.text.isEmpty ? null :vechilesTextEditingController. cityController.text.trim(),
+        "city":vechilesTextEditingController. cityController.text.isEmpty ? null :vechilesTextEditingController. cityController.text.trim(),
         "state":vechilesTextEditingController. stateController.text.isEmpty ? null :vechilesTextEditingController. stateController.text.trim(),
         "pincode":vechilesTextEditingController. pincodeController.text.isEmpty ? null :int.parse(vechilesTextEditingController. pincodeController.text.trim()),
       };

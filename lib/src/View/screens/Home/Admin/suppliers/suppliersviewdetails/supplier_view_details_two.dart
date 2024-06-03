@@ -32,7 +32,7 @@ class SupplierViewDetailsTwo extends StatelessWidget {
             text: gstNo,
             limitLength: 15,
             optionalisEmpty: true,
-            inputformat: number,
+            inputformat: alphabatsAndNumbers,
             star: star,
             inputtype: keyboardTypeNumber,
             enabled: enabled),
@@ -40,7 +40,7 @@ class SupplierViewDetailsTwo extends StatelessWidget {
         TextformField(
             controller: timeLineController,
             text: timeLine,
-            limitLength: 2,
+            limitLength: 5,
             optionalisEmpty: true,
             inputformat: number,
             star: star,

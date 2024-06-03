@@ -39,7 +39,8 @@ class _MachinesFormPageFourState extends State<MachinesFormPageFour> {
     MachinesTextEditingController machinesTextEditingController =
         MachinesTextEditingController();
     Future<void> navigateToPage(BuildContext context) async {
-      var apiURL = Uri.parse(ApiEndpoints.createMachine);
+      try{
+         var apiURL = Uri.parse(ApiEndpoints.createMachine);
 
       var values = {
         ...oldData,
@@ -60,7 +61,7 @@ class _MachinesFormPageFourState extends State<MachinesFormPageFour> {
         },
         body: body,
       );
-
+        print(response.body);
       if (response.statusCode == 201) {
         print('Response body: ${response.body}');
         Navigator.push(
@@ -73,6 +74,10 @@ class _MachinesFormPageFourState extends State<MachinesFormPageFour> {
         print(response.body);
         print('Failed to load data: ${response.statusCode}');
       }
+      }catch(e){
+      print(e);
+      }
+     
     }
 
     return Scaffold(

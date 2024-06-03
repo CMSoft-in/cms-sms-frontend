@@ -49,7 +49,7 @@ class _VechilesFormPageFourState extends State<VechilesFormPageFour> {
       var values = {
         ...oldData,
         "co_vehicle_insurance_exp_date": vechilesTextEditingController. insuranceExpiryDateController.text.isEmpty ? null :vechilesTextEditingController. insuranceExpiryDateController.text.trim(),
-          "next_FC_date": 
+          "co_vehicle_next_fitness_certificate_date": 
           vechilesTextEditingController.nextFCDateController.text.isEmpty ? null :
           vechilesTextEditingController.nextFCDateController.text,
       };

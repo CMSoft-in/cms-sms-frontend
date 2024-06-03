@@ -9,19 +9,43 @@ import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../suppliersviewdetails/supplier_view_details_three.dart';
 import 'supplier_form_page_four.dart';
 
-class SupplierFormPageThree extends StatelessWidget {
+class SupplierFormPageThree extends StatefulWidget {
   const SupplierFormPageThree({super.key, required this.data});
   final data;
+
   @override
-  Widget build(BuildContext context) {
-    var oldData = data;
+  State<SupplierFormPageThree> createState() => _SupplierFormPageThreeState();
+}
+
+class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
+   List<dynamic> comaterialCategoryId = [];
     final formKey = GlobalKey<FormState>();
     SupplierTextEditingController supplierTextEditingController=SupplierTextEditingController();
+    List<dynamic> coSupplierCategoryIds = [];
+
+  @override
+  Widget build(BuildContext context) {
+    var oldData = widget.data;
+   
+
+  void changeValue(List<dynamic> v) {
+    setState(() {
+      coSupplierCategoryIds = v;
+    });
+  }
+  void changeMaterialValue(List<dynamic> v) {
+    setState(() {
+      comaterialCategoryId = v;
+    });
+  }
+
+
+  
     void navigateToPageFour(BuildContext context) {
       var updatedData = {
         ...oldData,
-        "co_supplier_category_id": supplierTextEditingController.supplierCategoryController.text,
-        "co_material_id":supplierTextEditingController.materialsSuppliedController.text,
+        "co_supplier_category_id": coSupplierCategoryIds.isEmpty ? null :coSupplierCategoryIds,
+        "co_material_id":comaterialCategoryId.isEmpty ? null :comaterialCategoryId,
       };
       Navigator.push(
         context,
@@ -41,11 +65,16 @@ class SupplierFormPageThree extends StatelessWidget {
             children: [
               formSizebox8,
               const StackText(
-                stacktext: supplierPage2,
+                stacktext: supplierPage3,
                 color: red,
               ),
               formSizebox15,
               SupplierViewDetailsThree(
+                changeValue:changeValue ,
+                coSupplierCategoryId: coSupplierCategoryIds.isNotEmpty ? coSupplierCategoryIds.first : null,
+changeMaterialValue: changeMaterialValue,
+comaterialCategoryId: comaterialCategoryId.isNotEmpty ? comaterialCategoryId.first : null,
+                isEditing: true,
                   enabled: true,
                   materialsSuppliedController: supplierTextEditingController.materialsSuppliedController,
                   supplierCategoryController: supplierTextEditingController.supplierCategoryController),

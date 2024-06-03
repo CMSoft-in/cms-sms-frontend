@@ -18,7 +18,7 @@ class SiteFormPageSix extends StatefulWidget {
   @override
   State<SiteFormPageSix> createState() => _SiteFormPageSixState();
 }
-
+  
 class _SiteFormPageSixState extends State<SiteFormPageSix> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -42,6 +42,7 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       backgroundColor: white,
       appBar: const BuildAppBar(),
@@ -268,45 +269,50 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
     );
   }
 
-  void navigateToPageSeven(BuildContext context) {
-    try {
+ void navigateToPageSeven(BuildContext context) {
+  List<Map<String, dynamic>> siteContacts = List<Map<String, dynamic>>.from(
+    widget.data["sitecontact"] ?? []
+  );
+
+  // Add Client Architect contacts
+  for (int i = 0; i < listOneController.length; i++) {
+    
       Map<String, dynamic> additionalOneData = {
         "contact_category_name": "Client Architect",
-        'contact_name': listOneController[0][0].text ,
-        'contact_no': listOneController[0][1].text.isNotEmpty ? int.parse(listOneController[0][1].text) : "",
-        'contact_email': listOneController[0][2].text ,
-        'contact_whatsapp': listOneController[0][3].text.isNotEmpty ? int.parse(listOneController[0][3].text) : "",
+        'contact_name': listOneController[i][0].text,
+        'contact_no': int.tryParse(listOneController[i][1].text) ?? "",
+        'contact_email': listOneController[i][2].text,
+        'contact_whatsapp': int.tryParse(listOneController[i][3].text) ?? "",
       };
+      siteContacts.add(additionalOneData);
+    }
+  
 
+  // Add Client Engineer contacts
+  for (int i = 0; i < listTwoController.length; i++) {
+    
       Map<String, dynamic> additionalTwoData = {
         "contact_category_name": "Client Engineer",
-        'contact_name': listTwoController[0][0].text ,
-        'contact_no': listTwoController[0][1].text.isNotEmpty ? int.parse(listTwoController[0][1].text) : 0,
-        'contact_email': listTwoController[0][2].text ,
-        'contact_whatsapp': listTwoController[0][3].text.isNotEmpty ? int.parse(listTwoController[0][3].text) : 0,
+        'contact_name': listTwoController[i][0].text,
+        'contact_no': int.tryParse(listTwoController[i][1].text) ?? "",
+        'contact_email': listTwoController[i][2].text,
+        'contact_whatsapp': int.tryParse(listTwoController[i][3].text) ?? "",
       };
-
-      // Extract and combine the existing site contacts
-      List<Map<String, dynamic>> siteContacts = List<Map<String, dynamic>>.from(
-        widget.data["sitecontact"] ?? []
-      );
-
-      // Add the new contacts
-      siteContacts.addAll([additionalOneData, additionalTwoData]);
-
-      var data = {
-        ...widget.data,
-        "sitecontact": siteContacts
-      };
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SiteFormPageSeven(data: data),
-        ),
-      );
-    } catch (e) {
-      print(e);
+      siteContacts.add(additionalTwoData);
     }
-  }
+  
+
+  var data = {
+    ...widget.data,
+    "sitecontact": siteContacts
+  };
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => SiteFormPageSeven(data: data),
+    ),
+  );
+}
+
 }

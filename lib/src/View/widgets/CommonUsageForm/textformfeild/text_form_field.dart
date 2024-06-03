@@ -57,6 +57,7 @@ class _TextformFieldState extends State<TextformField> {
             LengthLimitingTextInputFormatter(widget.limitLength),
           ],
           keyboardType: widget.inputtype,
+          
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             label: RichText(
@@ -85,11 +86,29 @@ class _TextformFieldState extends State<TextformField> {
   String? validMethod(value) {
     if (widget.optionalisEmpty == true) {
       if (value == null || value.isEmpty) {
-        return "Please enter ${widget.text == '+91-' ? 'Phone Number' : widget.text}";
+        if(widget.text == "Email"){
+            if(value.toString().endsWith("@gmail.com")){
+                  return null;
+            }
+            else {
+              return "Please enterr valid Email";
+            }
+       
       }
-
-      return null;
+     
+      return "Please enter ${widget.text == '+91-' ? 'Phone Number' : widget.text}";
     }
     return null;
   }
+  else if(value.length > 0 && widget.text == "Email"){
+            if(value.toString().endsWith("@gmail.com")){
+                  return null;
+            }
+            else {
+              return "Please enter valid Email";
+            }
+       
+      }
+  return null;
+}
 }

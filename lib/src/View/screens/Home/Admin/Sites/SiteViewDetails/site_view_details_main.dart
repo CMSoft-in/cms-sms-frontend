@@ -11,7 +11,6 @@ import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
-import '../../../../../../controler/GetDate/get_date.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/Buttons/Long_SizeButton.dart';
 import '../../../../../widgets/CommonUsageForm/AlartBox/alart_popup.dart';
@@ -87,7 +86,6 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
 
   bool isEditing = false;
   bool isEnabled = false;
-
 Future<void> fetchData() async {
   try {
     final response = await http.get(
@@ -96,9 +94,12 @@ Future<void> fetchData() async {
         'Authorization': 'Bearer $token',
       },
     );
-    print(response.body);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
     if (response.statusCode == 200) {
       final Map<String, dynamic>? data = jsonDecode(response.body) as Map<String, dynamic>?;
+      print('Data decoded: $data');
 
       setState(() {
         if (data != null) {
@@ -110,15 +111,15 @@ Future<void> fetchData() async {
           stateController.text = data[dbSiteState]?.toString() ?? "";
           primaryEmailController.text = data[dbPrimaryEmail]?.toString() ?? "";
           createBy.text = data["created_by"]?.toString() ?? "";
-          createOn.text = Date.getDate(data["created_at"])?.toString() ?? "";
+          createOn.text = data["created_at"]??  "";
           primaryNameController.text = data[dbPrimaryName]?.toString() ?? "";
           primaryPhoneNumberController.text = data[dbPrimaryNumber]?.toString() ?? "";
           primaryWhatsappController.text = data[""]?.toString() ?? "";
           sitegpsController.text = data[dbSiteGpsLocation]?.toString() ?? "";
           projectWorkNameController.text = data[dbSiteProjectWorkName]?.toString() ?? "";
           projectSizeController.text = data[dbSiteProjectSize]?.toString() ?? "";
-          projectStartDateController.text = Date.getDate(data[dbSiteProjectStartDate])?.toString() ?? "";
-          expectedCompletionDateController.text = Date.getDate(data[dbSiteProjectCompletionDate])?.toString() ?? "";
+          projectStartDateController.text = data[dbSiteProjectStartDate] ??"";
+          expectedCompletionDateController.text = data[dbSiteProjectCompletionDate] ?? "";
           projectWorkDescriptionofController.text = data[dbSiteProjectDesc]?.toString() ?? "";
           companySiteEngineersAllocatedController.text = data[""]?.toString() ?? "";
           laborsAllocatedController.text = data[" "]?.toString() ?? "";
@@ -127,46 +128,60 @@ Future<void> fetchData() async {
           secondaryPhoneNumberController.text = data[dbSecondaryNumber]?.toString() ?? "";
           secondaryWhatsappController.text = data[dbPrimaryWhatsapp]?.toString() ?? "";
 
+          print("Data fetched: $data");
+
           populateContactControllers(data, "Client Architect", clientArchitectControllers);
-          populateContactControllers(data, "Site Engineer", siteEngineerControllers);
+          populateContactControllers(data, "Client Site Engineer", siteEngineerControllers);
           populateContactControllers(data, "Client Engineer", clientEngineerControllers);
           populateContactControllers(data, "Client Purchase Officer", clientPurchaseOfficerControllers);
           populateContactControllers(data, "Client Quality Officer", clientQualityOfficerControllers);
         }
       });
+    } else {
+      print('Failed to load data');
     }
   } catch (e) {
-    print(e);
+    print('Error fetching data: $e');
   }
 }
 
-void populateContactControllers(Map<String, dynamic> data, String category, List<List<TextEditingController>> controllers) {
+
+
+void populateContactControllers(
+  Map<String, dynamic> data,
+  String category,
+  List<List<TextEditingController>> controllers
+) {
   if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
     List contacts = data["CoSiteContacts"];
     int index = 0;
 
-    // Iterate through each contact and filter by the category
+    print('Populating contacts for category: $category');
+
     for (var contact in contacts) {
       if (contact["contact_category_name"] == category) {
-        if (index < controllers.length) {
-          controllers[index][0].text = contact["contact_name"]?.toString() ?? "";
-          controllers[index][1].text = contact["contact_no"]?.toString() ?? "";
-          controllers[index][2].text = contact["contact_email"]?.toString() ?? "";
-          controllers[index][3].text = contact["contact_whatsapp"]?.toString() ?? "";
-        } else {
-          // Add new controllers dynamically if more contacts are found
+        print('Found contact for category $category: ${contact["contact_name"]}');
+
+      
+        while (index >= controllers.length) {
           controllers.add([
-            TextEditingController(text: contact["contact_name"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_no"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_email"]?.toString() ?? ""),
-            TextEditingController(text: contact["contact_whatsapp"]?.toString() ?? ""),
+            TextEditingController(),
+            TextEditingController(),
+            TextEditingController(),
+            TextEditingController()
           ]);
         }
+
+        controllers[index][0].text = contact["contact_name"]?.toString() ?? "";
+        controllers[index][1].text = contact["contact_no"]?.toString() ?? "";
+        controllers[index][2].text = contact["contact_email"]?.toString() ?? "";
+        controllers[index][3].text = contact["contact_whatsapp"]?.toString() ?? "";
+
         index++;
       }
     }
 
-    // Clear any extra controllers that are no longer needed
+  
     while (index < controllers.length) {
       controllers[index][0].clear();
       controllers[index][1].clear();
@@ -174,180 +189,20 @@ void populateContactControllers(Map<String, dynamic> data, String category, List
       controllers[index][3].clear();
       index++;
     }
+  } else {
+    print('No contacts found in data for category: $category');
   }
 }
 
 
-  // void populateClientArchitectControllers(Map<String, dynamic> data) {
-  //   if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-  //     List contacts = data["CoSiteContacts"];
-  //     int index = 0;
-  //     for (var contact in contacts) {
-  //       if (contact["contact_category_name"] == "Client Architect") {
-  //         if (index < clientArchitectControllers.length) {
-  //           clientArchitectControllers[index][0].text =
-  //               contact["contact_name"]?.toString() ?? "";
-  //           clientArchitectControllers[index][1].text =
-  //               contact["contact_no"]?.toString() ?? "";
-  //           clientArchitectControllers[index][2].text =
-  //               contact["contact_email"]?.toString() ?? "";
-  //           clientArchitectControllers[index][3].text =
-  //               contact["contact_whatsapp"]?.toString() ?? "";
-  //         } else {
-  //           clientArchitectControllers.add([
-  //             TextEditingController(
-  //                 text: contact["contact_name"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_no"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_email"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_whatsapp"]?.toString() ?? ""),
-  //           ]);
-  //         }
-  //         index++;
-  //       }
-  //     }
-  //   }
-  // }
 
-  // void populateClientEngineerControllers(Map<String, dynamic> data) {
-  //   if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-  //     List contacts = data["CoSiteContacts"];
-  //     int index = 0;
-  //     for (var contact in contacts) {
-  //       if (contact["contact_category_name"] == "Client Engineer") {
-  //         if (index < clientEngineerControllers.length) {
-  //           clientEngineerControllers[index][0].text =
-  //               contact["contact_name"]?.toString() ?? "";
-  //           clientEngineerControllers[index][1].text =
-  //               contact["contact_no"]?.toString() ?? "";
-  //           clientEngineerControllers[index][2].text =
-  //               contact["contact_email"]?.toString() ?? "";
-  //           clientEngineerControllers[index][3].text =
-  //               contact["contact_whatsapp"]?.toString() ?? "";
-  //         } else {
-  //           clientEngineerControllers.add([
-  //             TextEditingController(
-  //                 text: contact["contact_name"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_no"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_email"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_whatsapp"]?.toString() ?? ""),
-  //           ]);
-  //         }
-  //         index++;
-  //       }
-  //     }
-  //   }
-  // }
 
-  // void populateSiteEngineerControllers(Map<String, dynamic> data) {
-  //   if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-  //     List contacts = data["CoSiteContacts"];
-  //     int index = 0;
-  //     for (var contact in contacts) {
-  //       if (contact["contact_category_name"] == "Site Engineer") {
-  //         if (index < siteEngineerControllers.length) {
-  //           siteEngineerControllers[index][0].text =
-  //               contact["contact_name"]?.toString() ?? "";
-  //           siteEngineerControllers[index][1].text =
-  //               contact["contact_no"]?.toString() ?? "";
-  //           siteEngineerControllers[index][2].text =
-  //               contact["contact_email"]?.toString() ?? "";
-  //           siteEngineerControllers[index][3].text =
-  //               contact["contact_whatsapp"]?.toString() ?? "";
-  //         } else {
-  //           siteEngineerControllers.add([
-  //             TextEditingController(
-  //                 text: contact["contact_name"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_no"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_email"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_whatsapp"]?.toString() ?? ""),
-  //           ]);
-  //         }
-  //         index++;
-  //       }
-  //     }
-  //   }
-  // }
-
-  // void populateClientPurchaseOfficerControllers(Map<String, dynamic> data) {
-  //   if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-  //     List contacts = data["CoSiteContacts"];
-  //     int index = 0;
-  //     for (var contact in contacts) {
-  //       if (contact["contact_category_name"] == "Client Purchase Officer") {
-  //         if (index < clientPurchaseOfficerControllers.length) {
-  //           clientPurchaseOfficerControllers[index][0].text =
-  //               contact["contact_name"]?.toString() ?? "";
-  //           clientPurchaseOfficerControllers[index][1].text =
-  //               contact["contact_no"]?.toString() ?? "";
-  //           clientPurchaseOfficerControllers[index][2].text =
-  //               contact["contact_email"]?.toString() ?? "";
-  //           clientPurchaseOfficerControllers[index][3].text =
-  //               contact["contact_whatsapp"]?.toString() ?? "";
-  //         } else {
-  //           clientPurchaseOfficerControllers.add([
-  //             TextEditingController(
-  //                 text: contact["contact_name"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_no"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_email"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_whatsapp"]?.toString() ?? ""),
-  //           ]);
-  //         }
-  //         index++;
-  //       }
-  //     }
-  //   }
-  // }
-
-  // void populateClientQualityOfficerControllers(Map<String, dynamic> data) {
-  //   if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-  //     List contacts = data["CoSiteContacts"];
-  //     int index = 0;
-  //     for (var contact in contacts) {
-  //       if (contact["contact_category_name"] == "Client Quality Officer") {
-  //         if (index < clientQualityOfficerControllers.length) {
-  //           clientQualityOfficerControllers[index][0].text =
-  //               contact["contact_name"]?.toString() ?? "";
-  //           clientQualityOfficerControllers[index][1].text =
-  //               contact["contact_no"]?.toString() ?? "";
-  //           clientQualityOfficerControllers[index][2].text =
-  //               contact["contact_email"]?.toString() ?? "";
-  //           clientQualityOfficerControllers[index][3].text =
-  //               contact["contact_whatsapp"]?.toString() ?? "";
-  //         } else {
-  //           clientQualityOfficerControllers.add([
-  //             TextEditingController(
-  //                 text: contact["contact_name"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_no"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_email"]?.toString() ?? ""),
-  //             TextEditingController(
-  //                 text: contact["contact_whatsapp"]?.toString() ?? ""),
-  //           ]);
-  //         }
-  //         index++;
-  //       }
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const BuildAppBar(),
-      body: SingleChildScrollView(
+      body:SingleChildScrollView(
         child: Container(
         
           child: Column(
@@ -501,7 +356,7 @@ void populateContactControllers(Map<String, dynamic> data, String category, List
               enabled: isEnabled,
             ),
             if (index != 0)
-              GestureDetector(
+            isEditing ?  GestureDetector(
                 onTap: () {
                   setState(() {
                     controllers[index].clear();
@@ -513,8 +368,8 @@ void populateContactControllers(Map<String, dynamic> data, String category, List
                   color: Color(0xFF6B74D6),
                   size: 35,
                 ),
-              ),
-            const SizedBox(width: 10),
+              ): formSizebox10,
+        formSizebox10,
              
               isEnabled?  GestureDetector(
                   
@@ -537,3 +392,97 @@ void populateContactControllers(Map<String, dynamic> data, String category, List
     });
   }
 }
+
+// Future<void> fetchData() async {
+//   try {
+//     final response = await http.get(
+//       Uri.parse('${ApiEndpoints.getSite}/${widget.id}'),
+//       headers: {
+//         'Authorization': 'Bearer $token',
+//       },
+//     );
+//     // print(response.body);
+   
+//     if (response.statusCode == 200) {
+      
+//       final Map<String, dynamic>? data = jsonDecode(response.body) as Map<String, dynamic>?;
+
+//       setState(() {
+//         if (data != null) {
+//           siteNameController.text = data[dbSiteName]?.toString() ?? "";
+//           addressline1Controller.text = data[dbSiteAddressOne]?.toString() ?? "";
+//           addressline2Controller.text = data[dbSiteAddressTwo]?.toString() ?? "";
+//           pincodeController.text = data[dbSitePincode]?.toString() ?? "";
+//           cityController.text = data[dbSiteTown]?.toString() ?? "";
+//           stateController.text = data[dbSiteState]?.toString() ?? "";
+//           primaryEmailController.text = data[dbPrimaryEmail]?.toString() ?? "";
+//           createBy.text = data["created_by"]?.toString() ?? "";
+//           createOn.text = Date.getDate(data["created_at"])?.toString() ?? "";
+//           primaryNameController.text = data[dbPrimaryName]?.toString() ?? "";
+//           primaryPhoneNumberController.text = data[dbPrimaryNumber]?.toString() ?? "";
+//           primaryWhatsappController.text = data[""]?.toString() ?? "";
+//           sitegpsController.text = data[dbSiteGpsLocation]?.toString() ?? "";
+//           projectWorkNameController.text = data[dbSiteProjectWorkName]?.toString() ?? "";
+//           projectSizeController.text = data[dbSiteProjectSize]?.toString() ?? "";
+//           projectStartDateController.text = Date.getDate(data[dbSiteProjectStartDate])?.toString() ?? "";
+//           expectedCompletionDateController.text = Date.getDate(data[dbSiteProjectCompletionDate])?.toString() ?? "";
+//           projectWorkDescriptionofController.text = data[dbSiteProjectDesc]?.toString() ?? "";
+//           companySiteEngineersAllocatedController.text = data[""]?.toString() ?? "";
+//           laborsAllocatedController.text = data[" "]?.toString() ?? "";
+//           secondaryEmailController.text = data[dbSecondaryEmail]?.toString() ?? "";
+//           secondaryNameController.text = data[dbSecondaryName]?.toString() ?? "";
+//           secondaryPhoneNumberController.text = data[dbSecondaryNumber]?.toString() ?? "";
+//           secondaryWhatsappController.text = data[dbPrimaryWhatsapp]?.toString() ?? "";
+//    print("Data fetched: $data");
+//           populateContactControllers(data, "Client Architect", clientArchitectControllers);
+//           populateContactControllers(data, "Client Site Engineer", siteEngineerControllers);
+//           populateContactControllers(data, "Client Engineer", clientEngineerControllers);
+//           populateContactControllers(data, "Client Purchase Officer", clientPurchaseOfficerControllers);
+//           populateContactControllers(data, "Client Quality Officer", clientQualityOfficerControllers);
+//         }
+//       });
+//     }
+//   } catch (e) {
+//     print(e);
+//   }
+// }
+
+
+
+// void populateContactControllers(Map<String, dynamic> data, String category, List<List<TextEditingController>> controllers) {
+//   if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
+//     List contacts = data["CoSiteContacts"];
+//     int index = 0;
+ 
+//     for (var contact in contacts) {
+ 
+//       if (contact["contact_category_name"] == category) {
+        
+//         if (index < controllers.length) {
+//           controllers[index][0].text = contact["contact_name"]?.toString() ?? "";
+//           controllers[index][1].text = contact["contact_no"]?.toString() ?? "";
+//           controllers[index][2].text = contact["contact_email"]?.toString() ?? "";
+//           controllers[index][3].text = contact["contact_whatsapp"]?.toString() ?? "";
+//         } else {
+       
+//           controllers.add([
+//             TextEditingController(text: contact["contact_name"]?.toString() ?? ""),
+//             TextEditingController(text: contact["contact_no"]?.toString() ?? ""),
+//             TextEditingController(text: contact["contact_email"]?.toString() ?? ""),
+//             TextEditingController(text: contact["contact_whatsapp"]?.toString() ?? ""),
+//           ]);
+//         }
+//         index++;
+//       }
+//     }
+
+//     // Clear any extra controllers that are no longer needed
+//     while (index < controllers.length) {
+//       controllers[index][0].clear();
+//       controllers[index][1].clear();
+//       controllers[index][2].clear();
+//       controllers[index][3].clear();
+//       index++;
+//     }
+//   }
+// }
