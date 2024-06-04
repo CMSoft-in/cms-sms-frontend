@@ -39,6 +39,7 @@ class ClientViewDetailsMain extends StatefulWidget {
 
 class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
   Map<String, dynamic>? data;
+ bool isLoading = true;
   var updatedData;
   CommonController commonController = CommonController();
 
