@@ -19,9 +19,10 @@ class MyAppState extends State<MyApp> {
       theme: ThemeData(
         fontFamily: "Poppins",
       ),
-      home: const SiteFormPageThree(
-        data: {},
-      ),
+      // home: const SiteFormPageThree(
+      //   data: {},
+      // ),
+      home: const Home(),
       debugShowCheckedModeBanner: false,
     );
   }

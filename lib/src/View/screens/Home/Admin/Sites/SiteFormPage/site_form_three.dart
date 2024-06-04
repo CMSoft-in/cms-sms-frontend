@@ -21,7 +21,6 @@ class SiteFormPageThree extends StatelessWidget {
     SitesTextEditingController sitesTextEditingController =
         SitesTextEditingController();
 
-        
     void navigateToPageThree(BuildContext context) {
       var data = {
         ...oldData,
@@ -64,7 +63,7 @@ class SiteFormPageThree extends StatelessWidget {
           formKey: formKey,
           isEnabled: true,
           onPress: () => navigateToPageThree(context)),
-      bottomNavigationBar: BottomSheetLogo(),
+      bottomNavigationBar: const BottomSheetLogo(),
     );
   }
 }

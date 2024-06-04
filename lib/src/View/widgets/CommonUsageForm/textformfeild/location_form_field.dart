@@ -1,3 +1,4 @@
+import 'package:cmssms/src/Model/Const/height_width.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -76,7 +77,7 @@ class _LocationFormFieldState extends State<LocationFormField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: primaryWidth ,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -89,11 +90,12 @@ class _LocationFormFieldState extends State<LocationFormField> {
                     children: [
                       TextSpan(
                         text: widget.text,
-                        style: TextStyle(color: Colors.grey, fontSize: 18),
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 18),
                       ),
                       TextSpan(
                         text: widget.star,
-                        style: TextStyle(color: Colors.red, fontSize: 18),
+                        style: const TextStyle(color: Colors.red, fontSize: 18),
                       ),
                     ],
                   ),

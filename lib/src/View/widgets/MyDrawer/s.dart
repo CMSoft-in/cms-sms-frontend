@@ -528,17 +528,17 @@ class MultiSelectDropDownForm extends StatefulWidget {
   final onChanged;
   final List selectedIds;
   final TextEditingController controller;
-  
-  const MultiSelectDropDownForm({
-    Key? key,
-    required this.selectedIds,
-    required this.dropdownItems,
-    required this.dropDownName,
-    required this.onChanged,
-    required this.star,
-    required this.optionalisEmpty,
-    required this.controller
-  }) : super(key: key);
+
+  const MultiSelectDropDownForm(
+      {Key? key,
+      required this.selectedIds,
+      required this.dropdownItems,
+      required this.dropDownName,
+      required this.onChanged,
+      required this.star,
+      required this.optionalisEmpty,
+      required this.controller})
+      : super(key: key);
 
   @override
   MultiSelectDropDownFormState createState() => MultiSelectDropDownFormState();
@@ -552,56 +552,55 @@ class MultiSelectDropDownFormState extends State<MultiSelectDropDownForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
-            width: primaryWidth,
-            child: MultiSelectDialogField(
-              items: widget.dropdownItems
-                  .map((item) => MultiSelectItem(item["id"], item["name"]))
-                  .toList(),
-              title: Text(widget.dropDownName, style: textStyleGrey18),
-              // selectedColor: Colors.blue,
-              decoration: BoxDecoration(
-                // color: Colors.blue.withOpacity(0.1),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                border: Border.all(
-                  color: grey,
-                  width: 2,
+              width: primaryWidth,
+              child: MultiSelectDialogField(
+                items: widget.dropdownItems
+                    .map((item) => MultiSelectItem(item["id"], item["name"]))
+                    .toList(),
+                title: Text(widget.dropDownName, style: textStyleGrey18),
+                // selectedColor: Colors.blue,
+                decoration: BoxDecoration(
+                  // color: Colors.blue.withOpacity(0.1),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  border: Border.all(
+                    color: grey,
+                    width: 2,
+                  ),
                 ),
-              ),
-              buttonIcon: Icon(
-                Icons.arrow_drop_down,
-                color: black,
-              ),
-              buttonText:Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: widget.dropDownName,
-                      style: textStyleGrey18,  // Adjust to match textStyleGrey18
-                    ),
-                    TextSpan(
-                      text: widget.star,
-                      style: textStyleRedStar,  // Adjust to match textStyleGrey18
-                    ),
-                  ],
+                buttonIcon: const Icon(
+                  Icons.arrow_drop_down,
+                  color: black,
                 ),
-              ),
+                buttonText: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: widget.dropDownName,
+                        style:
+                            textStyleGrey18, // Adjust to match textStyleGrey18
+                      ),
+                      TextSpan(
+                        text: widget.star,
+                        style:
+                            textStyleRedStar, // Adjust to match textStyleGrey18
+                      ),
+                    ],
+                  ),
+                ),
 
-              validator: (value) {
-                return validMethod(value);
-              },
-              
-              onConfirm: widget.onChanged,
-              initialValue: widget.selectedIds,
-               
-            )
-          
-          ),
-          
+                validator: (value) {
+                  return validMethod(value);
+                },
+
+                onConfirm: widget.onChanged,
+                initialValue: widget.selectedIds,
+              )),
         ],
       ),
     );
   }
-   String? validMethod(value) {
+
+  String? validMethod(value) {
     if (widget.optionalisEmpty == true) {
       if (value.runtimeType == int) {
         return null;
@@ -937,20 +936,21 @@ class DropDownFormmmState extends State<DropDownFormmm> {
                         style: textStyleGrey18,
                       ),
                       title: RichText(
-                      text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: widget.dropDownName,
-                        style: textStyleGrey18,
-                      ),
-                      TextSpan(
-                        text: widget.star,
-                        style: textStyleRedStar,
-                      )
-                    ],
-                  )),
+                          text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: widget.dropDownName,
+                            style: textStyleGrey18,
+                          ),
+                          TextSpan(
+                            text: widget.star,
+                            style: textStyleRedStar,
+                          )
+                        ],
+                      )),
                       items: widget.dropdownItems
-                          .map((item) => MultiSelectItem(item['id'], item['name']))
+                          .map((item) =>
+                              MultiSelectItem(item['id'], item['name']))
                           .toList(),
                       initialValue: widget.selectedIds,
                       onConfirm: (values) {
@@ -963,7 +963,7 @@ class DropDownFormmmState extends State<DropDownFormmm> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               state.errorText ?? '',
-                              style: TextStyle(color: Colors.red),
+                              style: const TextStyle(color: Colors.red),
                             ),
                           )
                         : Container(),

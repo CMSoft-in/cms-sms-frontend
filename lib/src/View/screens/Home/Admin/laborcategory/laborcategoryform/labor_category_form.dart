@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cmssms/src/View/screens/Home/Admin/labor/labor_text_const.dart';
+
 import '../../../../../../Model/api/api_model.dart';
 import '/src/Model/Const/text_const.dart';
 import '/src/View/widgets/AppBar/AppBar.dart';
@@ -103,6 +105,7 @@ print(values);
                 categorydistributionController: laborCategoryTextEditingController
                     .categorydistributionController,
               ),
+              formSizebox10,
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: _labourController.length,
@@ -115,9 +118,9 @@ print(values);
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextFormFieldWidth(
-                              Width: 250,
+                              Width: 230,
                               controller: _labourController[index],
-                              text: titleLabel,
+                              text: teamMember,
                               limitLength: 50,
                               optionalisEmpty: false,
                               inputformat: alphabatsAndNumbers,
@@ -130,10 +133,10 @@ print(values);
                               child: TextFormFieldWidth(
                                 Width: 100,
                                 controller: _rateController[index],
-                                text: titleLabel,
-                                limitLength: 50,
+                                text: rate,
+                                limitLength: 10,
                                 optionalisEmpty: false,
-                                inputformat: alphabatsAndNumbers,
+                                inputformat: number,
                                 star: estar,
                                 inputtype: keyboardTypeNone,
                                 enabled: true,

@@ -28,13 +28,13 @@ class ValidateButton extends StatelessWidget {
           Widget nextPage = onPressed();
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => nextPage));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Please fill out all mandatory fields.'),
-              duration: Duration(seconds: 2),
-            ),
-          );
+        // } else {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     const SnackBar(
+        //       content: Text('Please fill out all mandatory fields.'),
+        //       duration: Duration(seconds: 2),
+        //     ),
+        //   );
         }
       },
       child: Text(text, style: textStyleWhite18),

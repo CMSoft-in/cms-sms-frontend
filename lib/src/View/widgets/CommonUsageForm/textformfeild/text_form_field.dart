@@ -36,18 +36,16 @@ class _TextformFieldState extends State<TextformField> {
   Widget build(BuildContext context) {
     // final screenSize = MediaQuery.of(context).size;
     // final isMobile = screenSize.width < 600;
-    void changeValue(v){
+    void changeValue(v) {
       if (widget.text == "PAN Number") {
         setState(() {
-           widget.controller.text = widget.controller.text.toUpperCase();
+          widget.controller.text = widget.controller.text.toUpperCase();
         });
-       
       }
     }
-  
+
     return SizedBox(
-        width:
-            primaryWidth /*isMobile ? primaryWidth : screenSize.width * 0.7*/,
+        width: primaryWidth,
         child: TextFormField(
           onChanged: (value) {
             changeValue(value);
@@ -85,10 +83,23 @@ class _TextformFieldState extends State<TextformField> {
   String? validMethod(value) {
     if (widget.optionalisEmpty == true) {
       if (value == null || value.isEmpty) {
+        if (widget.text == "Email") {
+          if (value.toString().endsWith("@gmail.com")) {
+            return null;
+          } else {
+            return "Please enterr valid Email";
+          }
+        }
+
         return "Please enter ${widget.text == '+91-' ? 'Phone Number' : widget.text}";
       }
-
       return null;
+    } else if (value.length > 0 && widget.text == "Email") {
+      if (value.toString().endsWith("@gmail.com")) {
+        return null;
+      } else {
+        return "Please enter valid Email";
+      }
     }
     return null;
   }

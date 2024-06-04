@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cmssms/src/Model/Const/text_const.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../../Model/api/api_model.dart';
@@ -127,7 +128,8 @@ class _AllocationPageState extends State<AllocationPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Center(child: Text("Available")),
+                        const Center(child: Text("Available",style: textStyle20)),
+
                         const SizedBox(height: 15),
                         Padding(
                           padding: const EdgeInsets.all(3.0),
@@ -212,7 +214,7 @@ class _AllocationPageState extends State<AllocationPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Center(child: Text("Allocated")),
+                        const Center(child: Text("Allocated",style: textStyle20)),
                         const SizedBox(height: 15),
                         Padding(
                           padding: const EdgeInsets.all(3.0),

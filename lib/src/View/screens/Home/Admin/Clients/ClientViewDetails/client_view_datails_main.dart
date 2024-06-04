@@ -50,6 +50,9 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
     getToken();
   }
 
+  bool isEditing = false;
+  bool isEnabled = false;
+  bool isLoading = true;
   Future<void> fetchData() async {
     try {
       final response = await http.get(
@@ -60,6 +63,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
       );
 
       if (response.statusCode == 200) {
+        isLoading = false;
         setState(() {
           data = jsonDecode(response.body);
           print(data);
@@ -141,9 +145,6 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
       print('Error fetching Updatedata: $error');
     }
   }
-
-  bool isEditing = false;
-  bool isEnabled = false;
 
   void updateData(data) async {
     try {
@@ -228,116 +229,121 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+
     return Scaffold(
       backgroundColor: white,
       appBar: const BuildAppBar(),
-      body: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              ViewDetailsText(
-                viewClientDetailsTextt:
-                    isEditing ? editClientDetailsText : viewClientDetailsText,
-                editOnPress: () {
-                  setState(() {
-                    isEditing = !isEditing;
-                    isEnabled = !isEnabled;
-                  });
-                },
-                deleteOnPress: AlartMessage(
-                  api: '${ApiEndpoints.deleteClient}/${widget.id}',
-                  onPress: const ClientDataView(),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    ViewDetailsText(
+                      viewClientDetailsTextt: isEditing
+                          ? editClientDetailsText
+                          : viewClientDetailsText,
+                      editOnPress: () {
+                        setState(() {
+                          isEditing = !isEditing;
+                          isEnabled = !isEnabled;
+                        });
+                      },
+                      deleteOnPress: AlartMessage(
+                        api: '${ApiEndpoints.deleteClient}/${widget.id}',
+                        onPress: const ClientDataView(),
+                      ),
+                    ),
+                    ClientViewDetailsOne(
+                      clientNamee: control.clientName,
+                      addressline1Controller: control.addressline1,
+                      addressline2Controller: control.addressline2,
+                      cityController: control.city,
+                      pincodeController: control.pincode,
+                      stateController: control.state,
+                      enabled: isEditing,
+                    ),
+                    ClientViewDetailsTwo(
+                      firstNamee: control.firstName,
+                      lastNamee: control.lastName,
+                      phoneNumberr: control.phoneNumber,
+                      emaill: control.email,
+                      whatsappp: control.whatsapp,
+                      enabled: isEditing,
+                    ),
+                    ClientViewDetailsThree(
+                      addressline1Controller: control.addressline1Controller,
+                      addressline2Controller: control.addressline2Controller,
+                      cityController: control.cityController,
+                      pincodeController: control.pincodeController,
+                      stateController: control.stateController,
+                      enabled: isEditing,
+                    ),
+                    ClientViewDetailsFour(
+                      primaryNameController: control.primaryName,
+                      primaryPhoneNumberController: control.primaryPhoneNumber,
+                      primaryEmailController: control.primaryEmail,
+                      primaryWhatsappController: control.primaryWhatsapp,
+                      secondaryNameController: control.secondaryName,
+                      secondaryPhoneNumberController:
+                          control.secondaryPhoneNumber,
+                      secondaryEmailController: control.secondaryEmail,
+                      secondaryWhatsappController: control.secondaryWhatsapp,
+                      enabled: isEditing,
+                    ),
+                    ClientViewDetailsFive(
+                      gstNumber: control.gstNumber,
+                      accountNumberController: control.accountNumber,
+                      ifscCodeController: control.ifscCode,
+                      accountNameController: control.accountName,
+                      accountTypeController: control.accountType,
+                      bankNameController: control.bankName,
+                      bankLocationController: control.bankLocation,
+                      enabled: isEditing,
+                      isEditing: isEditing,
+                    ),
+                    ClientViewDetailsSix(
+                      enabled: isEditing,
+                    ),
+                    CreateByCreatedOn(
+                      createByController: createBy,
+                      createOnController: createOn,
+                      enabled: false,
+                    ),
+                    formSizebox15,
+                    LongButton(
+                      formKey: formKey,
+                      text: update,
+                      onPressed: () {
+                        checkUpdatingValue();
+                      },
+                      isEnabled: isEnabled,
+                    ),
+                    if (updatedData != null)
+                      if (updatedData.length != 0)
+                        Column(
+                          children: [
+                            const UpdateHeader(
+                              updatedByHeader: updateByHeaderText,
+                              newValueHeader: newvalueHeaderText,
+                              oldValueHeader: oldvlueHeaderText,
+                            ),
+                            ...updatedData.map((eachItem) {
+                              return updatedDataItem(
+                                eachItem["updated_old_value"] ?? "",
+                                eachItem["updated_new_value"] ?? "",
+                                eachItem["updated_by"].toString(),
+                              );
+                            }).toList(),
+                            bottomHeight,
+                          ],
+                        ),
+                    bottomHeight,
+                  ],
                 ),
               ),
-              ClientViewDetailsOne(
-                clientNamee: control.clientName,
-                addressline1Controller: control.addressline1,
-                addressline2Controller: control.addressline2,
-                cityController: control.city,
-                pincodeController: control.pincode,
-                stateController: control.state,
-                enabled: isEditing,
-              ),
-              ClientViewDetailsTwo(
-                firstNamee: control.firstName,
-                lastNamee: control.lastName,
-                phoneNumberr: control.phoneNumber,
-                emaill: control.email,
-                whatsappp: control.whatsapp,
-                enabled: isEditing,
-              ),
-              ClientViewDetailsThree(
-                addressline1Controller: control.addressline1Controller,
-                addressline2Controller: control.addressline2Controller,
-                cityController: control.cityController,
-                pincodeController: control.pincodeController,
-                stateController: control.stateController,
-                enabled: isEditing,
-              ),
-              ClientViewDetailsFour(
-                primaryNameController: control.primaryName,
-                primaryPhoneNumberController: control.primaryPhoneNumber,
-                primaryEmailController: control.primaryEmail,
-                primaryWhatsappController: control.primaryWhatsapp,
-                secondaryNameController: control.secondaryName,
-                secondaryPhoneNumberController: control.secondaryPhoneNumber,
-                secondaryEmailController: control.secondaryEmail,
-                secondaryWhatsappController: control.secondaryWhatsapp,
-                enabled: isEditing,
-              ),
-              ClientViewDetailsFive(
-                gstNumber: control.gstNumber,
-                accountNumberController: control.accountNumber,
-                ifscCodeController: control.ifscCode,
-                accountNameController: control.accountName,
-                accountTypeController: control.accountType,
-                bankNameController: control.bankName,
-                bankLocationController: control.bankLocation,
-                enabled: isEditing,
-                isEditing: isEditing,
-              ),
-              ClientViewDetailsSix(
-                enabled: isEditing,
-              ),
-              CreateByCreatedOn(
-                createByController: createBy,
-                createOnController: createOn,
-                enabled: false,
-              ),
-              formSizebox15,
-              LongButton(
-                formKey: formKey,
-                text: update,
-                onPressed: () {
-                  checkUpdatingValue();
-                },
-                isEnabled: isEnabled,
-              ),
-              if (updatedData != null)
-                if (updatedData.length != 0)
-                  Column(
-                    children: [
-                      const UpdateHeader(
-                        updatedByHeader: updateByHeaderText,
-                        newValueHeader: newvalueHeaderText,
-                        oldValueHeader: oldvlueHeaderText,
-                      ),
-                      ...updatedData.map((eachItem) {
-                        return updatedDataItem(
-                          eachItem["updated_old_value"] ?? "",
-                          eachItem["updated_new_value"] ?? "",
-                          eachItem["updated_by"].toString(),
-                        );
-                      }).toList(),
-                      bottomHeight,
-                    ],
-                  ),
-              bottomHeight,
-            ],
-          ),
-        ),
-      ),
+            ),
       bottomSheet: const BottomSheetLogo(),
     );
   }
