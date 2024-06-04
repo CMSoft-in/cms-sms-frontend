@@ -77,7 +77,7 @@ class _LocationFormFieldState extends State<LocationFormField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: primaryWidth ,
+      width: primaryWidth,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

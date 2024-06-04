@@ -45,51 +45,61 @@ class _SiteFormPageEightState extends State<SiteFormPageEight> {
       SitesTextEditingController();
 
   Future<void> submitData() async {
-    try {
-      var apiURL = Uri.parse(ApiEndpoints.createSite);
+  try {
+    List<Map<String, dynamic>> additionalDataList = [];
 
+    var apiURL = Uri.parse(ApiEndpoints.createSite);
+
+    // Iterate through the listController to create additionalDataList
+    for (int i = 0; i < listController.length; i++) {
       Map<String, dynamic> additionalOneData = {
         "contact_category_name": clientQualityOfficer,
-        'contact_name': listController[0][0].text,
-        'contact_no': listController[0][1].text.isNotEmpty ? int.parse(listController[0][1].text) : "",
-        'contact_email': listController[0][2].text,
-        'contact_whatsapp': listController[0][3].text.isNotEmpty ? int.parse(listController[0][3].text) : "",
+        'contact_name': listController[i][0].text,
+        'contact_no': listController[i][1].text.isNotEmpty ? int.parse(listController[i][1].text) : "",
+        'contact_email': listController[i][2].text,
+        'contact_whatsapp': listController[i][3].text.isNotEmpty ? int.parse(listController[i][3].text) : "",
       };
-
-      List<Map<String, dynamic>> old = List<Map<String, dynamic>>.from(widget.data["sitecontact"]);
-      print(old);
-
-      var data = {
-        ...widget.data,
-        "sitecontact": [...old, additionalOneData]
-      };
-
-      print(data);
-
-      var body = json.encode(data);
-      var response = await http.post(
-        apiURL,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $token",
-        },
-        body: body,
-      );
-      print(response.body);
-      if (response.statusCode == 201) {
-        print('Response body: ${response.body}');
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const SiteDataView()),
-        );
-      } else {
-        print('Failed to load data: ${response.statusCode}');
-        print('Failed to load data: ${response.body}');
-      }
-    } catch (e) {
-      print("Exception in site: $e");
+      additionalDataList.add(additionalOneData);
     }
+
+    // Copy existing contacts
+    List<Map<String, dynamic>> oldContacts = List<Map<String, dynamic>>.from(
+      widget.data["sitecontact"].map((item) => Map<String, dynamic>.from(item))
+    );
+
+    // Combine oldContacts with additionalDataList
+    var data = {
+      ...widget.data,
+      "sitecontact": [...oldContacts, ...additionalDataList]
+    };
+
+    print(data);
+
+    var body = json.encode(data);
+    var response = await http.post(
+      apiURL,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: body,
+    );
+    print(response.body);
+    if (response.statusCode == 201) {
+      print('Response body: ${response.body}');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SiteDataView()),
+      );
+    } else {
+      print('Failed to load data: ${response.statusCode}');
+      print('Failed to load data: ${response.body}');
+    }
+  } catch (e) {
+    print("Exception in site: $e");
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

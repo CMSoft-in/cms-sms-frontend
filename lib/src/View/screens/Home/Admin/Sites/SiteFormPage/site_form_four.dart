@@ -29,7 +29,7 @@ class SiteFormPageFour extends StatelessWidget {
             sitesTextEditingController.primaryNameController.text.trim(),
         dbPrimaryNumber:
             sitesTextEditingController.primaryPhoneNumberController.text.trim(),
-        'project_planned_completion_date':
+        'primary_contact_whatsapp':
             sitesTextEditingController.primaryWhatsappController.text.trim(),
         dbSecondaryEmail:
             sitesTextEditingController.secondaryEmailController.text.trim(),

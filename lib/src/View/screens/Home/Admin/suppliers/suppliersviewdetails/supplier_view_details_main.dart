@@ -64,15 +64,15 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
             addressline2Controller.text = data!["off_address_line2"] ?? "";
             cityController.text = data!["off_town"] ?? "";
             stateController.text = data!["off_state"] ?? "";
-            pincodeController.text = data!["off_pincode"] ?? "";
-            gstController.text = data!["gst_no"] ?? "";
+         pincodeController.text=data!["off_pincode"].toString() ?? "";
+            gstController.text = data!["gst_no"].toString() ?? "";
             primaryNameController.text = data!["primary_contact_name"] ?? "";
             primaryPhoneNumberController.text =
                 data!["primary_contact_no"] ?? "";
             primaryEmailController.text = data!["primary_contact_email"] ?? "";
             primaryWhatsappController.text =
                 data!["primary_contact_whatsapp"] ?? "";
-            timeLineController.text = data!["payment_timeline"] ?? "";
+            timeLineController.text = data!["payment_timeline"].toString() ?? "";
             firstNameController.text = data!["owner_first_name"] ?? "";
             lastNameController.text = data!["owner_last_name"] ?? "";
             phoneNumberController.text = data!["mobile_no"] ?? "";
@@ -86,6 +86,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                 data!["secondary_contact_whatsapp"] ?? "";
             createBy.text = data!["created_by"] ?? "";
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
+               
           }
         });
       } else {
@@ -213,10 +214,13 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                   primaryPhoneNumberController: primaryPhoneNumberController,
                   primaryWhatsappController: primaryWhatsappController,
                   timeLineController: timeLineController),
-              SupplierViewDetailsThree(
-                  enabled: isEnabled,
-                  materialsSuppliedController: materialsSuppliedController,
-                  supplierCategoryController: supplierCategoryController),
+              // SupplierViewDetailsThree(
+              //   changeValue: ,
+              //   coLSupplierCategoryId: ,
+              //   isEditing:isEditing ,
+              //     enabled: isEnabled,
+              //     materialsSuppliedController: materialsSuppliedController,
+              //     supplierCategoryController: supplierCategoryController),
               SupplierViewDetailsFour(
                   enabled: isEnabled,
                   firstNameController: firstNameController,

@@ -26,7 +26,7 @@ class SiteFormPageTwo extends StatelessWidget {
         dbSiteProjectSize:sitesTextEditingController.projectSizeController.text.isEmpty ? null :int.parse(sitesTextEditingController.projectSizeController.text.trim()),
         dbSiteProjectStartDate:sitesTextEditingController.projectStartDateController.text.isEmpty ? null :sitesTextEditingController.projectStartDateController.text.trim(),
         dbSiteProjectCompletionDate:sitesTextEditingController.expectedCompletionDateController.text.isEmpty ? null :sitesTextEditingController.expectedCompletionDateController.text.trim(),
-        dbSiteProjectDesc:sitesTextEditingController.projectWorkDescriptionofController.text.isEmpty ? null :sitesTextEditingController.projectWorkDescriptionofController.text.trim(),
+        dbSiteProjectDesc:sitesTextEditingController.projectWorkDescriptionofController.text.isEmpty ? "" :sitesTextEditingController.projectWorkDescriptionofController.text.trim(),
       };
           print(data);
        Navigator.push(

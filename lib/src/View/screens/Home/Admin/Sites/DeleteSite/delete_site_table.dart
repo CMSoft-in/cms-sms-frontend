@@ -47,7 +47,7 @@ class SiteDeleteTable extends StatelessWidget {
         ),
         dataTableNameOne: siteDataTableName,
         dataTableNameTwo: siteDataTableProjectName,
-        uri:ApiEndpoints.getAllSites,
+        uri:ApiEndpoints.getAllDeletedSites,
        
       ),
 

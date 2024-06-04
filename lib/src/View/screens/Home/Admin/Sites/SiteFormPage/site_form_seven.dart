@@ -37,49 +37,67 @@ class _SiteFormPageSevenState extends State<SiteFormPageSeven> {
       TextEditingController()
     ]
   ];
+void navigateToPageEight(BuildContext context) {
+  try {
+    List<Map<String, dynamic>> additionalDataList = [];
+
+    // Add Client Site Engineer contacts
+    for (int i = 0; i < listOneController.length; i++) {
+     
+        Map<String, dynamic> additionalOneData = {
+          "contact_category_name": siteEngineer,
+          'contact_name': listOneController[i][0].text,
+          'contact_no': int.tryParse(listOneController[i][1].text) ?? "",
+          'contact_email': listOneController[i][2].text,
+          'contact_whatsapp': int.tryParse(listOneController[i][3].text) ?? "",
+        };
+        additionalDataList.add(additionalOneData);
+      }
+    
+
+    // Add Client Purchase Officer contacts
+    for (int i = 0; i < listTwoController.length; i++) {
+    
+        Map<String, dynamic> additionalTwoData = {
+          "contact_category_name": clientPurchaseOfficer,
+          'contact_name': listTwoController[i][0].text,
+          'contact_no': int.tryParse(listTwoController[i][1].text) ?? '',
+          'contact_email': listTwoController[i][2].text,
+          'contact_whatsapp': int.tryParse(listTwoController[i][3].text) ?? "",
+        };
+        additionalDataList.add(additionalTwoData);
+      }
+    
+
+    // Merge new contacts with existing contacts
+    List<Map<String, dynamic>> oldContacts = List<Map<String, dynamic>>.from(
+      widget.data["sitecontact"].map((item) => Map<String, dynamic>.from(item))
+    );
+
+    var data = {
+      ...widget.data,
+      "sitecontact": [...oldContacts, ...additionalDataList]
+    };
+
+    print(data);
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SiteFormPageEight(data: data),
+      ),
+    );
+  } catch (e) {
+    print(e);
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
 
-    void navigateToPageEight(BuildContext context) {
-      try {
-        Map<String, dynamic> additionalOneData = {
-          "contact_category_name": siteEngineer,
-          'contact_name': listOneController[0][0].text,
-          'contact_no': int.tryParse(listOneController[0][1].text) ?? "",
-          'contact_email': listOneController[0][2].text,
-          'contact_whatsapp': int.tryParse(listOneController[0][3].text) ?? "",
-        };
-
-        Map<String, dynamic> additionalTwoData = {
-          "contact_category_name": clientPurchaseOfficer,
-          'contact_name': listTwoController[0][0].text,
-          'contact_no': int.tryParse(listTwoController[0][1].text) ?? '',
-          'contact_email': listTwoController[0][2].text,
-          'contact_whatsapp': int.tryParse(listTwoController[0][3].text) ?? "",
-        };
-
-        List<Map<String, dynamic>> old = List<Map<String, dynamic>>.from(
-          widget.data["sitecontact"].map((item) => Map<String, dynamic>.from(item))
-        );
-
-        var data = {
-          ...widget.data,
-          "sitecontact": [...old, additionalOneData, additionalTwoData]
-        };
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SiteFormPageEight(data: data),
-          ),
-        );
-      } catch (e) {
-        print(e);
-      }
-    }
-
+   
     return Scaffold(
       backgroundColor: white,
       appBar: const BuildAppBar(),

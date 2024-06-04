@@ -12,8 +12,8 @@ import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/Buttons/next_back_button.dart';
 import '../../../../../widgets/CommonUsageForm/HintText.dart';
-import '../../Clients/ClientDataView/client_data_view_main.dart';
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
+import '../suppliersdataview/supplier_data_view.dart';
 import '../suppliersviewdetails/supplier_view_details_four.dart';
 
 class SupplierFormPageFour extends StatefulWidget {
@@ -31,66 +31,57 @@ class _SupplierFormPageFourState extends State<SupplierFormPageFour> {
     getToken();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final oldData = widget.data;
     final formKey = GlobalKey<FormState>();
     SupplierTextEditingController supplierTextEditingController =
         SupplierTextEditingController();
-    Future<void> navigateToPage(context) async {
-      try {
-        print("n");
-        print(token);
-        var apiURL = Uri.parse(ApiEndpoints.createSupplier);
-        if (oldData["CoSupplier.co_supplier_category_id"] == null) {
-      throw Exception("co_supplier_category_id cannot be null");
-    }else{
-      print("co_supplier_category_id r be null");
-    }
-        var values = {
-          ...oldData,
-          "owner_first_name":
-              supplierTextEditingController.firstNameController.text.isEmpty ? null :supplierTextEditingController.firstNameController.text.trim(),
-          "owner_last_name":
-              supplierTextEditingController.lastNameController.text.isEmpty ? null :supplierTextEditingController.lastNameController.text.trim(),
-          "mobile_no": supplierTextEditingController.phoneNumberController.text.isEmpty ? null :int.parse(supplierTextEditingController.phoneNumberController.text.trim()),
-          "secondary_contact_name":
-              supplierTextEditingController.secondaryNameController.text.isEmpty ? null :supplierTextEditingController.secondaryNameController.text.trim(),
-          "secondary_contact_no":
-              supplierTextEditingController.secondaryPhoneNumberController.text.isEmpty ? null :int.parse(supplierTextEditingController.secondaryPhoneNumberController.text.trim()),
-          "secondary_contact_email":
-              supplierTextEditingController.secondaryEmailController.text.isEmpty ? null :supplierTextEditingController.secondaryEmailController.text.trim(),
-          "secondary_contact_whatsapp":
-              supplierTextEditingController.secondaryWhatsappController.text.isEmpty ? null :int.parse(supplierTextEditingController.secondaryWhatsappController.text.trim()),
-        };
-        print(values);
+ Future navigateToPage(BuildContext context) async {
+  try {
+    final oldData = widget.data;
+    var apiURL = Uri.parse(ApiEndpoints.createSupplier);
+ 
+    var values = {
+      ...oldData,
+      "owner_first_name": supplierTextEditingController.firstNameController.text.isEmpty ? null : supplierTextEditingController.firstNameController.text.trim(),
+      "owner_last_name": supplierTextEditingController.lastNameController.text.isEmpty ? null : supplierTextEditingController.lastNameController.text.trim(),
+      "mobile_no": supplierTextEditingController.phoneNumberController.text.isEmpty ? null : int.parse(supplierTextEditingController.phoneNumberController.text.trim()),
+      "secondary_contact_name": supplierTextEditingController.secondaryNameController.text.isEmpty ? null : supplierTextEditingController.secondaryNameController.text.trim(),
+      "secondary_contact_no": supplierTextEditingController.secondaryPhoneNumberController.text.isEmpty ? null : int.parse(supplierTextEditingController.secondaryPhoneNumberController.text.trim()),
+      "secondary_contact_email": supplierTextEditingController.secondaryEmailController.text.isEmpty ? null : supplierTextEditingController.secondaryEmailController.text.trim(),
+      "secondary_contact_whatsapp": supplierTextEditingController.secondaryWhatsappController.text.isEmpty ? null : int.parse(supplierTextEditingController.secondaryWhatsappController.text.trim()),
+    };
+    print(values);
 
-        var body = json.encode(values);
-        var response = await http.post(
-          apiURL,
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer $token",
-          },
-          body: body,
-        );
-        if (response.statusCode == 201) {
-          print('Response body: ${response.body}');
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ClientDataView(),
-            ),
-          );
-        } else {
-          print(response.body);
-          print('Failed to load data: ${response.statusCode}');
-        }
-      } catch (e) {
-        print(e);
-      }
+    var body = json.encode(values);
+    var response = await http.post(
+      apiURL,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: body,
+    );
+    print(response.body);
+    if (response.statusCode == 201) {
+      print('Response body: ${response.body}');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SupplierDataView(),
+        ),
+      );
+    } else {
+      print(response.body);
+      print('Failed to load data: ${response.statusCode}');
     }
+  } catch (e) {
+    print("E$e");
+   
+  }
+}
 
+  @override
+  Widget build(BuildContext context) {
+   
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const BuildAppBar(),

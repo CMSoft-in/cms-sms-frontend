@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cmssms/src/View/screens/Home/Admin/labor/labor_text_const.dart';
+import 'package:cmssms/src/View/screens/Home/Admin/laborOutturn/labor_outturn_text.dart';
 
 import '../../../../../../Model/api/api_model.dart';
 import '/src/Model/Const/text_const.dart';
@@ -120,7 +120,7 @@ print(values);
                             TextFormFieldWidth(
                               Width: 230,
                               controller: _labourController[index],
-                              text: teamMember,
+                              text: teamMeamber,
                               limitLength: 50,
                               optionalisEmpty: false,
                               inputformat: alphabatsAndNumbers,
@@ -134,7 +134,7 @@ print(values);
                                 Width: 100,
                                 controller: _rateController[index],
                                 text: rate,
-                                limitLength: 10,
+                                limitLength: 50,
                                 optionalisEmpty: false,
                                 inputformat: number,
                                 star: estar,
@@ -176,6 +176,8 @@ print(values);
                 },
                 child: const Text('Add'),
               ),
+              bottomHeight,
+              formSizebox15
             ],
           ),
         ),

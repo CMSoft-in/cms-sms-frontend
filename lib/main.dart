@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'src/View/screens/Home/Admin/Sites/SiteFormPage/site_form_three.dart';
 import 'src/View/screens/Home/home.dart';
 
 void main() => runApp(const MyApp());
@@ -23,6 +22,7 @@ class MyAppState extends State<MyApp> {
       //   data: {},
       // ),
       home: const Home(),
+      home:Home(),
       debugShowCheckedModeBanner: false,
     );
   }

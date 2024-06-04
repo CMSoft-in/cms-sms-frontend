@@ -40,9 +40,9 @@ class _SiteFormPageOneState extends State<SiteFormPageOne> {
         dbSitePincode:sitesTextEditingController. pincodeController.text.isEmpty ? null :int.parse(sitesTextEditingController. pincodeController.text.trim()),
         dbSiteTown:sitesTextEditingController. cityController.text.isEmpty ? null :sitesTextEditingController. cityController.text.trim(),
         dbSiteState: sitesTextEditingController.stateController.text.isEmpty ? null :sitesTextEditingController.stateController.text.trim(),
-        dbSiteGpsLocation: sitegpsController.text.isEmpty ? null :sitegpsController.text.trim()
+        dbSiteGpsLocation: sitegpsController.text.isEmpty ? "Loction" :sitegpsController.text.trim()
       };
-
+print(data);
       Navigator.push(
         context,
         MaterialPageRoute(
