@@ -38,7 +38,6 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
   CommonController commonController = CommonController();
-  
 
   @override
   void initState() {
@@ -59,10 +58,11 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
         setState(() {
           data = jsonDecode(response.body);
           print(data);
-          if (data != null) {rateModelController.text = data!["co_labour_rate_model"] ?? "";
-             laborRateController.text = data!["co_labour_rate"].toString() ;
-           aadharNumberController.text = data!["aadhar_no"].toString() ;
-             phoneNumberController.text = data!["mobile_no"] ?? "";
+          if (data != null) {
+            rateModelController.text = data!["co_labour_rate_model"] ?? "";
+            laborRateController.text = data!["co_labour_rate"].toString();
+            aadharNumberController.text = data!["aadhar_no"].toString();
+            phoneNumberController.text = data!["mobile_no"] ?? "";
             firstNameController.text = data!["first_name"] ?? "";
             lastNameController.text = data!["last_name"] ?? "";
             addressline1Controller.text = data!["address_line1"] ?? "";
@@ -70,41 +70,27 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
             cityController.text = data!["town"] ?? "";
             stateController.text = data!["state"] ?? "";
             pincodeController.text = data!["pincode"] ?? "";
-                gpayNumberController.text = data!["gpay_no"] ?? "";
-                accountNameController.text = data!["bank_acc_name"] ?? "";
+            gpayNumberController.text = data!["gpay_no"] ?? "";
+            accountNameController.text = data!["bank_acc_name"] ?? "";
             accountNumberController.text = data!["bank_acc_no"] ?? "";
-              accountTypeController.text = data!["bank_acc_type"] ?? "";
+            accountTypeController.text = data!["bank_acc_type"] ?? "";
             bankNameController.text = data!["bank_name"] ?? "";
             primaryNameController.text = data!["emergency_contact_name"] ?? "";
-               ifscCodeController.text = data!["bank_ifsc_code"] ?? "";
-             primaryEmailController.text =
-                data!["email"] ?? "";
-                   primaryWhatsappController.text =
-                data!["whatsapp"] ?? "";
-             bloodGroupController.text = data!["bloodgroup"] ?? "";
+            ifscCodeController.text = data!["bank_ifsc_code"] ?? "";
+            primaryEmailController.text = data!["email"] ?? "";
+            primaryWhatsappController.text = data!["whatsapp"] ?? "";
+            bloodGroupController.text = data!["bloodgroup"] ?? "";
             primaryPhoneNumberController.text =
                 data!["emergency_contact_no"] ?? "";
-                 createBy.text = data!["created_by"] ?? "";
+            createBy.text = data!["created_by"] ?? "";
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
-          
-         
-            
-          
-         
-           
-           
-                
-           
-         
-          
-           
-            
-              aadharfilePathController.text = data!["aadhar_image"] ?? "";
-            laborCategoryController.text = data!["co_labour_category_id""CoLabourCategory"] ?? "";
+
+            aadharfilePathController.text = data!["aadhar_image"] ?? "";
+            laborCategoryController.text =
+                data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
             siteWorkedController.text = data!["co_sites_worked"] ?? "";
             cuurentSiteAllocationController.text =
                 data!["co_current_sites_allocation"] ?? "";
-           
           }
         });
       } else {
@@ -157,14 +143,13 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
         },
         body: jsonEncode(data),
       );
-     
+
       print(response.body);
       if (response.statusCode == 200) {
         print(response.body);
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const LaborDataView()));
-      }
-      else{
+      } else {
         print(response.body);
       }
     } catch (e) {
@@ -172,55 +157,54 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
     }
   }
 
-void laborCheckUpdatingValue() {
-  var oldData=data;
-  if (oldData != null) {
-    Map<String, dynamic> updatedData = {};
+  void laborCheckUpdatingValue() {
+    var oldData = data;
+    if (oldData != null) {
+      Map<String, dynamic> updatedData = {};
 
-    var currentData = {
-      "first_name": firstNameController.text,
-      "last_name": lastNameController.text,
-      "address_line1": addressline1Controller.text,
-      "address_line2": addressline2Controller.text,
-      "town": cityController.text,
-      "state": stateController.text,
-      "pincode": pincodeController.text,
-      "emergency_contact_name": primaryNameController.text,
-      "emergency_contact_no": primaryPhoneNumberController.text,
-      "mobile_no": phoneNumberController.text,
-       "email": primaryEmailController.text,
-      "bloodgroup": bloodGroupController.text,
-      "gpay_no": gpayNumberController.text,
-      "bank_acc_name": accountNameController.text,
-      "bank_acc_no": accountNumberController.text,
-      "bank_acc_type": accountTypeController.text,
-      "bank_name": bankNameController.text,
-      "bank_ifsc_code": ifscCodeController.text,
-      "aadhar_no": aadharNumberController.text,
-      "co_labour_rate":laborRateController.text,
-      "co_labour_rate_model": rateModelController.text,
-    };
+      var currentData = {
+        "first_name": firstNameController.text,
+        "last_name": lastNameController.text,
+        "address_line1": addressline1Controller.text,
+        "address_line2": addressline2Controller.text,
+        "town": cityController.text,
+        "state": stateController.text,
+        "pincode": pincodeController.text,
+        "emergency_contact_name": primaryNameController.text,
+        "emergency_contact_no": primaryPhoneNumberController.text,
+        "mobile_no": phoneNumberController.text,
+        "email": primaryEmailController.text,
+        "bloodgroup": bloodGroupController.text,
+        "gpay_no": gpayNumberController.text,
+        "bank_acc_name": accountNameController.text,
+        "bank_acc_no": accountNumberController.text,
+        "bank_acc_type": accountTypeController.text,
+        "bank_name": bankNameController.text,
+        "bank_ifsc_code": ifscCodeController.text,
+        "aadhar_no": aadharNumberController.text,
+        "co_labour_rate": laborRateController.text,
+        "co_labour_rate_model": rateModelController.text,
+      };
 
-    currentData.forEach((key, value) {
-      if (value != null && value.isNotEmpty && (oldData[key] ?? '') != value) {
-        updatedData[key] = value;
-        print(updatedData);
+      currentData.forEach((key, value) {
+        if (value != null &&
+            value.isNotEmpty &&
+            (oldData[key] ?? '') != value) {
+          updatedData[key] = value;
+          print(updatedData);
+        }
+      });
+      if (updatedData.isNotEmpty) {
+        print("Updated Data: $updatedData");
+        updateData(updatedData);
+      } else {
+        print("No changes detected.");
       }
-    });
-    if (updatedData.isNotEmpty) {
-      print("Updated Data: $updatedData");
-      updateData(updatedData);
-    } else {
-      print("No changes detected.");
     }
   }
-}
-
-
 
   @override
   Widget build(BuildContext context) {
-     
     final formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: white,
@@ -255,9 +239,8 @@ void laborCheckUpdatingValue() {
                   stateController: stateController,
                   enabled: isEnabled),
               LaborViewDetailsTwo(
-                changeValue: (){},
-                coLabourCategoryId:1,
-              
+                  changeValue: () {},
+                  coLabourCategoryId: 1,
                   bloodGroupController: bloodGroupController,
                   laborCategoryController: laborCategoryController,
                   rateModelController: rateModelController,
@@ -285,7 +268,7 @@ void laborCheckUpdatingValue() {
                   secondaryEmailController: secondaryEmailController,
                   secondaryWhatsappController: secondaryWhatsappController,
                   enabled: isEnabled),
-             
+
               LaborViewDetailsFive(
                   isEditing: isEditing,
                   gpayNumber: gpayNumberController,

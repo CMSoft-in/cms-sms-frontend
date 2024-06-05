@@ -98,19 +98,20 @@ class _SupplierCategoryViewDetailsState extends State<SupplierCategoryViewDetail
       child: Column(
         children: [
           formSizebox10,
-          widget.isEditing
-              ?  DropDownForm(
-                  dropdownItems: const [
-                      "Supplier CateGory 1",
-                      "Supplier CateGory 2",
-                      "Supplier CateGory 3",
-                      "Supplier CateGory 4"
-                    ],
-                  dropDownName: supplierCategoryText,
-                  star: star,
-                  optionalisEmpty: true,
-                  controller: widget.supplierCategoryController)
-              : TextformField(
+          // widget.isEditing
+              // ?  DropDownForm(
+              //     dropdownItems: const [
+              //         "Supplier CateGory 1",
+              //         "Supplier CateGory 2",
+              //         "Supplier CateGory 3",
+              //         "Supplier CateGory 4"
+              //       ],
+              //     dropDownName: supplierCategoryText,
+              //     star: star,
+              //     optionalisEmpty: true,
+              //     controller: widget.supplierCategoryController)
+             // : 
+              TextformField(
                   controller: widget.supplierCategoryController,
                   text: supplierCategoryText,
                   star: star,

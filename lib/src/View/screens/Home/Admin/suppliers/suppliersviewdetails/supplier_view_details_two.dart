@@ -48,8 +48,10 @@ class SupplierViewDetailsTwo extends StatelessWidget {
             enabled: enabled),
         formSizebox10,
         PrimaryContact(
+          eStarIsFalse: true,
           primaryContactName: primaryContact,
             enabled: enabled,
+            emailOptionalIsEmpty: true,
             primaryEmailController: primaryEmailController,
             primaryNameController: primaryNameController,
             primaryPhoneNumberController: primaryPhoneNumberController,

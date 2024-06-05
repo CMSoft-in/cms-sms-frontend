@@ -27,7 +27,9 @@ class LaborCategoryForm extends StatefulWidget {
 }
 
 class _LaborCategoryFormState extends State<LaborCategoryForm> {
-  final List<TextEditingController> _labourController = [TextEditingController()];
+  final List<TextEditingController> _labourController = [
+    TextEditingController()
+  ];
   final List<TextEditingController> _rateController = [TextEditingController()];
 
   @override
@@ -45,23 +47,34 @@ class _LaborCategoryFormState extends State<LaborCategoryForm> {
     Future navigateToPage(context) async {
       var apiURL = Uri.parse(ApiEndpoints.createLabourCategory);
       try {
-        List<Map<String, String>> teamData = [];
+        List<Map<String, dynamic>> teamData = [];
+
         for (int i = 0; i < _labourController.length; i++) {
           teamData.add({
-            "co_labour_category_team_name": _labourController[i].text  ,
-            "co_labour_category_team_rate": _rateController[i].text,
+            "co_labour_category_team_name": _labourController[i].text.isEmpty
+                ? null
+                : _labourController[i].text,
+            "co_labour_category_team_rate": _rateController[i].text.isEmpty
+                ? null
+                : int.tryParse(_rateController[i].text),
           });
         }
 
         var values = {
-          "co_labour_category_name":
-              laborCategoryTextEditingController.laborCategoryController.text.isEmpty ? null :laborCategoryTextEditingController.laborCategoryController.text.trim(),
+          "co_labour_category_name": laborCategoryTextEditingController
+                  .laborCategoryController.text.isEmpty
+              ? null
+              : laborCategoryTextEditingController.laborCategoryController.text
+                  .trim(),
           "co_labour_category_desc": laborCategoryTextEditingController
-              .categorydistributionController.text.isEmpty ? null :laborCategoryTextEditingController
-              .categorydistributionController.text.trim(),
+                  .categorydistributionController.text.isEmpty
+              ? null
+              : laborCategoryTextEditingController
+                  .categorydistributionController.text
+                  .trim(),
           "co_labour_category_team": teamData,
         };
-print(values);
+        print(values);
         var body = json.encode(values);
         var response = await http.post(
           apiURL,
@@ -102,8 +115,9 @@ print(values);
                 enabled: true,
                 laborCategoryController:
                     laborCategoryTextEditingController.laborCategoryController,
-                categorydistributionController: laborCategoryTextEditingController
-                    .categorydistributionController,
+                categorydistributionController:
+                    laborCategoryTextEditingController
+                        .categorydistributionController,
               ),
               formSizebox10,
               ListView.builder(
@@ -136,7 +150,7 @@ print(values);
                                 text: rate,
                                 limitLength: 50,
                                 optionalisEmpty: false,
-                                inputformat: number,
+                                inputformat: alphabatsAndNumbers,
                                 star: estar,
                                 inputtype: keyboardTypeNone,
                                 enabled: true,

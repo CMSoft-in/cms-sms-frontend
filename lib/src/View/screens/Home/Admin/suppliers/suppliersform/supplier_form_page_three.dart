@@ -22,38 +22,40 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
     final formKey = GlobalKey<FormState>();
     SupplierTextEditingController supplierTextEditingController=SupplierTextEditingController();
     List<dynamic> coSupplierCategoryIds = [];
-
-  @override
-  Widget build(BuildContext context) {
-    var oldData = widget.data;
-   
+        
 
   void changeValue(List<dynamic> v) {
     setState(() {
       coSupplierCategoryIds = v;
     });
   }
+
   void changeMaterialValue(List<dynamic> v) {
     setState(() {
       comaterialCategoryId = v;
     });
   }
 
+  void navigateToPageFour(BuildContext context) {
+    var oldData = widget.data;
+    var updatedData = {
+      ...oldData,
+      "co_supplier_category_id":
+          coSupplierCategoryIds.isEmpty ? null : coSupplierCategoryIds,
+      "co_material_id":
+          comaterialCategoryId.isEmpty ? null : comaterialCategoryId,
+    };
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SupplierFormPageFour(data: updatedData),
+      ),
+    );
+  }
 
-  
-    void navigateToPageFour(BuildContext context) {
-      var updatedData = {
-        ...oldData,
-        "co_supplier_category_id": coSupplierCategoryIds.isEmpty ? null :coSupplierCategoryIds,
-        "co_material_id":comaterialCategoryId.isEmpty ? null :comaterialCategoryId,
-      };
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SupplierFormPageFour(data: updatedData),
-        ),
-      );
-    }
+  @override
+  Widget build(BuildContext context) {
+
 
     return Scaffold(
       backgroundColor: white,

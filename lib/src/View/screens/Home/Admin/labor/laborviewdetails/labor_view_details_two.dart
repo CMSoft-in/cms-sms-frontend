@@ -93,7 +93,7 @@ class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
           controller: widget.bloodGroupController,
           text: bloodGroup,
           star: estar,
-          limitLength: 6,
+          limitLength: 3,
           optionalisEmpty: false,
           inputformat: bloodGroupp,
           inputtype: keyboardTypeNone,

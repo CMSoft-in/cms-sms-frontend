@@ -11,13 +11,14 @@ import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_header.dart';
 import '../../../../../widgets/MyDrawer/my_drawer.dart';
 import '../laborcategoryform/labor_category_form.dart';
-import '../laborcategoryviewdetails/labor_category_main_view.dart';
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/text_const.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../laborcategory/labor_category_text.dart';
 import 'package:http/http.dart' as http;
+
+import 'delete_labor_category_form_view.dart';
 class LaborCategoryDeleteTable extends StatefulWidget {
   const LaborCategoryDeleteTable({super.key});
 
@@ -69,7 +70,7 @@ class _LaborCategoryDeleteTableState extends State<LaborCategoryDeleteTable> {
       context,
       MaterialPageRoute(
           builder: (context) =>
-              LaborCategoryViewDetailsMain(context: context, id: id)),
+              LaborCategoryFormDeleteView(id: id)),
     );
   }
 

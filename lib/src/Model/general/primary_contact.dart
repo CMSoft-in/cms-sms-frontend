@@ -7,28 +7,31 @@ import "../Const/color.dart";
 import "../Const/height_width.dart";
 import "../Const/text_const.dart";
 
-
-
 class PrimaryContact extends StatelessWidget {
-  const PrimaryContact({super.key,
-  required this.enabled,
-  required this.primaryContactName,
-  required this.primaryNameController,
-  required this.primaryEmailController,
-  required this.primaryPhoneNumberController,
-  required this.primaryWhatsappController});
+  PrimaryContact(
+      {super.key,
+      required this.enabled,
+      required this.primaryContactName,
+      required this.primaryNameController,
+      required this.primaryEmailController,
+      required this.primaryPhoneNumberController,
+      required this.primaryWhatsappController,
+      this.emailOptionalIsEmpty = false,
+      this.eStarIsFalse = false});
   final bool enabled;
   final TextEditingController primaryNameController;
   final TextEditingController primaryPhoneNumberController;
   final TextEditingController primaryEmailController;
   final TextEditingController primaryWhatsappController;
   final String primaryContactName;
+  bool emailOptionalIsEmpty;
+  bool eStarIsFalse;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-         formSizebox10,
+        formSizebox10,
         StackText(
           stacktext: primaryContactName,
           color: grey,
@@ -60,9 +63,9 @@ class PrimaryContact extends StatelessWidget {
         TextformField(
           controller: primaryEmailController,
           text: email,
-          star: star,
+          star: eStarIsFalse ? star :estar,
           limitLength: 20,
-          optionalisEmpty: true,
+          optionalisEmpty: emailOptionalIsEmpty,
           inputformat: emailonly,
           inputtype: keyboardTypeNone,
           enabled: enabled,
