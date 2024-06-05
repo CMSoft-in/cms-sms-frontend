@@ -9,15 +9,20 @@ import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../suppliersviewdetails/supplier_view_details_two.dart';
 import 'supplier_form_page_three.dart';
 
-class SupplierFormPageTwo extends StatelessWidget {
+class SupplierFormPageTwo extends StatefulWidget {
   const SupplierFormPageTwo({super.key, required this.data});
   final data;
+
   @override
-  Widget build(BuildContext context) {
-    var oldData = data;
+  State<SupplierFormPageTwo> createState() => _SupplierFormPageTwoState();
+}
+
+class _SupplierFormPageTwoState extends State<SupplierFormPageTwo> {
+  
     final formKey = GlobalKey<FormState>();
     SupplierTextEditingController supplierTextEditingController=SupplierTextEditingController();
     void navigateToPageThree(BuildContext context) {
+       var oldData = widget.data;
       var updatedData = {
         ...oldData,
       
@@ -36,6 +41,9 @@ class SupplierFormPageTwo extends StatelessWidget {
         ),
       );
     }
+  @override
+  Widget build(BuildContext context) {
+   
     return Scaffold(
       backgroundColor: white,
       appBar: BuildAppBar(),

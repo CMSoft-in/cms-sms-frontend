@@ -21,13 +21,7 @@ class SiteFormPageOne extends StatefulWidget {
 }
 
 class _SiteFormPageOneState extends State<SiteFormPageOne> {
-
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   SitesTextEditingController sitesTextEditingController=SitesTextEditingController();
     
     
@@ -50,6 +44,12 @@ print(data);
         ),
       );
     }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+  
 
     return Scaffold(
       backgroundColor: white,

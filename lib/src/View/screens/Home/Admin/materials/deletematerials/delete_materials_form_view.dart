@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
-
 import 'dart:convert';
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../controler/ClientController/client_controller.dart';
@@ -11,17 +9,17 @@ import '../../../../../widgets/CommonUsageForm/Delete/delete_reason_table_item.d
 import '../../../../../widgets/CommonUsageForm/DetailsText.dart';
 import '../../../../../widgets/CommonUsageForm/createBy.dart';
 import '../materials_text.dart';
-import '/src/View/screens/Home/Admin/materials/materialsviewdetails/materials_view_details.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/local.dart';
+import '../materialsviewdetails/materials_view_details.dart';
 
 class MaterialsFormDeleteView extends StatefulWidget {
   const MaterialsFormDeleteView({Key? key, required this.id}) : super(key: key);
-  final id;
+  final String id;
 
   @override
   State<MaterialsFormDeleteView> createState() => _MaterialsFormDeleteView();
@@ -29,14 +27,24 @@ class MaterialsFormDeleteView extends StatefulWidget {
 
 class _MaterialsFormDeleteView extends State<MaterialsFormDeleteView> {
   Map<String, dynamic>? data;
-  var updatedData;
+  final materialController = TextEditingController();
+  final variantController = TextEditingController();
+  final quantityValuesController = TextEditingController();
+  final quantityMeasurementController = TextEditingController();
+  final hSNCodeController = TextEditingController();
+  final cGstController = TextEditingController();
+  final sGstController = TextEditingController();
+  final iGstController = TextEditingController();
+  final createBy = TextEditingController();
+  final createOn = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     fetchData();
   }
-
+   bool isLoading =true;
+final formKey = GlobalKey<FormState>();
   Future<void> fetchData() async {
     try {
       final response = await http.get(
@@ -46,16 +54,21 @@ class _MaterialsFormDeleteView extends State<MaterialsFormDeleteView> {
         },
       );
       if (response.statusCode == 200) {
+         isLoading =false;
         setState(() {
           data = jsonDecode(response.body);
+          print(data);
           if (data != null) {
-            var controllers = {
-              "co_client_name": control.clientName,
-              "off_address_line1": control.addressline1,
-            };
-            controllers.forEach((key, controller) {
-              controller.text = data![key]?.toString() ?? '';
-            });
+            materialController.text = data!["co_material_name"]?.toString() ?? "";
+            variantController.text = data!["material_variant"]?.toString() ?? "";
+            quantityValuesController.text = data!["quantity_values"]?.toString() ?? "";
+            quantityMeasurementController.text = data!["quantity_measurement"]?.toString() ?? "";
+            hSNCodeController.text = data!["HSN_code"]?.toString() ?? "";
+            cGstController.text = data!["CGST"]?.toString() ?? "";
+            sGstController.text = data!["SGST"]?.toString() ?? "";
+            iGstController.text = data!["IGST"]?.toString() ?? "";
+            createBy.text = data!["created_by"]?.toString() ?? "";
+            createOn.text = Date.getDate(data!["createdAt"])?.toString() ?? "";
           }
         });
       } else {
@@ -68,11 +81,11 @@ class _MaterialsFormDeleteView extends State<MaterialsFormDeleteView> {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+    
     return Scaffold(
       backgroundColor: white,
       appBar: const BuildAppBar(),
-      body: SingleChildScrollView(
+      body:isLoading?Center(child: CircularProgressIndicator()): SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
@@ -102,21 +115,9 @@ class _MaterialsFormDeleteView extends State<MaterialsFormDeleteView> {
                 deleteperson: deletePerson,
               ),
               DeleteDataItem(
-                deletepersonName: 'Admin 1',
-                deleteReason: () {
-                  if (data == null) {
-                    return "";
-                  } else {
-                    return data!["deletion_reason"];
-                  }
-                }(),
-                deletedDate: () {
-                  if (data == null) {
-                    return "";
-                  } else {
-                    return Date.getDate(data!["deleted_At"]);
-                  }
-                }(),
+                deletepersonName: data?["deleted_by"]?.toString() ?? "",
+                deleteReason: data?["deletion_reason"]?.toString() ?? "",
+                deletedDate: Date.getDate(data?["deleted_on"])?.toString() ?? "",
               ),
               bottomHeight,
             ],

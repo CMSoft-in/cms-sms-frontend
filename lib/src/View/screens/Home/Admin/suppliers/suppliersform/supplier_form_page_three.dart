@@ -21,14 +21,8 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
    List<dynamic> comaterialCategoryId = [];
     final formKey = GlobalKey<FormState>();
     SupplierTextEditingController supplierTextEditingController=SupplierTextEditingController();
-    List<dynamic> coSupplierCategoryIds = [];
-
-  @override
-  Widget build(BuildContext context) {
-    var oldData = widget.data;
-   
-
-  void changeValue(List<dynamic> v) {
+     int? coSupplierCategoryIds;
+    void changeValue(int v) {
     setState(() {
       coSupplierCategoryIds = v;
     });
@@ -38,13 +32,18 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
       comaterialCategoryId = v;
     });
   }
+  
+   
+
+  
 
 
   
     void navigateToPageFour(BuildContext context) {
+       var oldData = widget.data;
       var updatedData = {
         ...oldData,
-        "co_supplier_category_id": coSupplierCategoryIds.isEmpty ? null :coSupplierCategoryIds,
+        "co_supplier_category_id": [coSupplierCategoryIds],
         "co_material_id":comaterialCategoryId.isEmpty ? null :comaterialCategoryId,
       };
       Navigator.push(
@@ -55,6 +54,9 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
       );
     }
 
+  @override
+  Widget build(BuildContext context) {
+ 
     return Scaffold(
       backgroundColor: white,
       appBar: BuildAppBar(),
@@ -70,8 +72,10 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
               ),
               formSizebox15,
               SupplierViewDetailsThree(
+                twoOrNot: false,
+                isMultiSelectDropDownEditing: true,
                 changeValue:changeValue ,
-                coSupplierCategoryId: coSupplierCategoryIds.isNotEmpty ? coSupplierCategoryIds.first : null,
+                coSupplierCategoryId: coSupplierCategoryIds,
 changeMaterialValue: changeMaterialValue,
 comaterialCategoryId: comaterialCategoryId.isNotEmpty ? comaterialCategoryId.first : null,
                 isEditing: true,

@@ -19,19 +19,19 @@ class CompanyUserViewDetailsFour extends StatelessWidget {
 
     return Column(children: [
       formSizebox10,
-      FilePickerr(
-        optionalisEmpty: true,
-        text: "Upload Aadhar",
-        star: estar,
-        filePathController: aadharfilePathController,
-      ),
-      formSizebox10,
-      FilePickerr(
-        optionalisEmpty: true,
-        text: "Pan",
-        star: estar,
-        filePathController: panfilePathController,
-      ),
+      // FilePickerr(
+      //   optionalisEmpty: false,
+      //   text: "Upload Aadhar",
+      //   star: estar,
+      //   filePathController: aadharfilePathController,
+      // ),
+      // formSizebox10,
+      // FilePickerr(
+      //   optionalisEmpty: false,
+      //   text: "Pan",
+      //   star: estar,
+      //   filePathController: panfilePathController,
+      // ),
       formSizebox10,
       TextformField(
         controller: aadharNumberController,

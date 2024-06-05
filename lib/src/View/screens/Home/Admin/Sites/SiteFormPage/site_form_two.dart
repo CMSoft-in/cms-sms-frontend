@@ -9,18 +9,21 @@ import '../../../../../widgets/Buttons/next_back_button.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import 'site_form_three.dart';
 
-class SiteFormPageTwo extends StatelessWidget {
+class SiteFormPageTwo extends StatefulWidget {
   const SiteFormPageTwo({super.key, required this.data});
  final Map<String, dynamic> data;
 
   @override
-  Widget build(BuildContext context) {
-    var oldData = data;
+  State<SiteFormPageTwo> createState() => _SiteFormPageTwoState();
+}
+
+class _SiteFormPageTwoState extends State<SiteFormPageTwo> {
     SitesTextEditingController sitesTextEditingController=SitesTextEditingController();
 
     void navigateToPageThree(BuildContext context) {
-  
+  var oldData = widget.data;
       var data = {
+        
         ...oldData,
         dbSiteProjectWorkName:sitesTextEditingController.projectWorkNameController.text.isEmpty ? null :sitesTextEditingController.projectWorkNameController.text.trim(),
         dbSiteProjectSize:sitesTextEditingController.projectSizeController.text.isEmpty ? null :int.parse(sitesTextEditingController.projectSizeController.text.trim()),
@@ -38,6 +41,9 @@ class SiteFormPageTwo extends StatelessWidget {
         
     }
 
+  @override
+  Widget build(BuildContext context) {
+   
     
 
     return Scaffold(

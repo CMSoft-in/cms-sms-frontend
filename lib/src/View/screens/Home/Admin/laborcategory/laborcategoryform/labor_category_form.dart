@@ -45,13 +45,15 @@ class _LaborCategoryFormState extends State<LaborCategoryForm> {
     Future navigateToPage(context) async {
       var apiURL = Uri.parse(ApiEndpoints.createLabourCategory);
       try {
-        List<Map<String, String>> teamData = [];
-        for (int i = 0; i < _labourController.length; i++) {
-          teamData.add({
-            "co_labour_category_team_name": _labourController[i].text  ,
-            "co_labour_category_team_rate": _rateController[i].text,
-          });
-        }
+        List<Map<String, dynamic>> teamData = [];
+
+for (int i = 0; i < _labourController.length; i++) {
+  teamData.add({
+    "co_labour_category_team_name": _labourController[i].text.isEmpty ? null : _labourController[i].text,
+    "co_labour_category_team_rate": _rateController[i].text.isEmpty ? null : int.tryParse(_rateController[i].text),
+  });
+}
+
 
         var values = {
           "co_labour_category_name":

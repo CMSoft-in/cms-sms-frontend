@@ -1,6 +1,5 @@
-// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers
-import '/src/View/screens/Home/Admin/companyuser/companyuser_text.dart';
 import 'package:flutter/material.dart';
+import '/src/View/screens/Home/Admin/companyuser/companyuser_text.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
@@ -10,32 +9,48 @@ import '../../../../../widgets/CommonUsageForm/HintText.dart';
 import '../companyuserviewdetails/company_user_view_two.dart';
 import 'company_user_form_three.dart';
 
-class ComapnyUserFormPageTwo extends StatelessWidget {
+class ComapnyUserFormPageTwo extends StatefulWidget {
   const ComapnyUserFormPageTwo({super.key, required this.data});
-  final Map data;
+  final Map<String, dynamic> data;
+
+  @override
+  State<ComapnyUserFormPageTwo> createState() => _ComapnyUserFormPageTwoState();
+}
+
+class _ComapnyUserFormPageTwoState extends State<ComapnyUserFormPageTwo> {
+  List<dynamic> coLabourCategoryIds = [];
+  int? coLabourCategoryIdsOne;
+
+  final formKey = GlobalKey<FormState>();
+  final CompanyUserTextEditingController companyUserTextEditingController = CompanyUserTextEditingController();
+
+  void changeValue(List<dynamic> v) {
+    setState(() {
+      coLabourCategoryIds = v;
+    });
+  }
+
+  void navigateToPageThree(BuildContext context) {
+    final oldData = widget.data;
+    var updatedData = {
+      ...oldData,
+      "bloodgroup": companyUserTextEditingController.bloodGroupController.text.isEmpty ? null : companyUserTextEditingController.bloodGroupController.text.trim(),
+      "dateofjoining": companyUserTextEditingController.joinDateController.text.isEmpty ? null : companyUserTextEditingController.joinDateController.text.trim(),
+      "designation_id": [companyUserTextEditingController.officeDesignationController.text.isEmpty ? null : companyUserTextEditingController.officeDesignationController.text.trim()],
+      "co_app_role_id": coLabourCategoryIds.isEmpty ? null : coLabourCategoryIds,
+    };
+
+    print(updatedData);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ComapnyUserFormPageThree(data: updatedData),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final oldData = data;
-    final formKey = GlobalKey<FormState>();
-    CompanyUserTextEditingController companyUserTextEditingController=CompanyUserTextEditingController(); 
-    void navigateToPageThree(BuildContext context) {
-      var updatedData = {
-        ...oldData,
-      "bloodgroup":companyUserTextEditingController. bloodGroupController.text.isEmpty ? null :companyUserTextEditingController. bloodGroupController.text.trim() ,
-    "dateofjoining":companyUserTextEditingController.joinDateController.text.isEmpty ? null : companyUserTextEditingController.joinDateController.text.isEmpty,
-     "designation_id": companyUserTextEditingController.officeDesignationController.text.isEmpty ? null : companyUserTextEditingController.officeDesignationController.text.trim(),
-     "co_app_role_id": 
-      companyUserTextEditingController. applicationRoleController.text.isEmpty ? null :companyUserTextEditingController. applicationRoleController.text.trim() ,
-   
-      };
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ComapnyUserFormPageThree(data: updatedData),
-        ),
-      );
-    }
-
     return Scaffold(
       backgroundColor: white,
       appBar: const BuildAppBar(),
@@ -48,22 +63,28 @@ class ComapnyUserFormPageTwo extends StatelessWidget {
               Center(
                 child: Form(
                   key: formKey,
-                  child: Column(children: [
-                    formSizebox10,
-                    const StackText(
-                      stacktext: companyUserpage2,
-                      color: red,
-                    ),
-                    formSizebox15,
-                    CompanyUserViewDetailsTwo(bloodGroupController:companyUserTextEditingController. bloodGroupController,
-                     joinDateController: companyUserTextEditingController.joinDateController,
-                      officeDesignationController:companyUserTextEditingController. officeDesignationController,
-                       applicationRoleController:companyUserTextEditingController. applicationRoleController,
-                        enabled: true, 
-                       isEditing: true)
-                    ,formSizebox15,
-                    bottomHeight
-                  ]),
+                  child: Column(
+                    children: [
+                      formSizebox10,
+                      const StackText(
+                        stacktext: companyUserpage2,
+                        color: red,
+                      ),
+                      formSizebox15,
+                      CompanyUserViewDetailsTwo(
+                        changeValue: changeValue,
+                        coLabourCategoryId: coLabourCategoryIds.isNotEmpty ? coLabourCategoryIds.first : null,
+                        bloodGroupController: companyUserTextEditingController.bloodGroupController,
+                        joinDateController: companyUserTextEditingController.joinDateController,
+                        officeDesignationController: companyUserTextEditingController.officeDesignationController,
+                        applicationRoleController: companyUserTextEditingController.applicationRoleController,
+                        enabled: true,
+                        isEditing: true,
+                      ),
+                      formSizebox15,
+                      bottomHeight,
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -71,9 +92,10 @@ class ComapnyUserFormPageTwo extends StatelessWidget {
         ),
       ),
       bottomSheet: BackNextButton(
-          formKey: formKey,
-          isEnabled: true,
-          onPress: () => navigateToPageThree(context)),
+        formKey: formKey,
+        isEnabled: true,
+        onPress: () => navigateToPageThree(context),
+      ),
       bottomNavigationBar: const BottomSheetLogo(),
     );
   }

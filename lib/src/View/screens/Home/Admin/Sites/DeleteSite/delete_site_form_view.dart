@@ -78,7 +78,7 @@ List<List<TextEditingController>> clientQualityOfficerControllers = [
 ];
 class _SiteFormDeleteViewState extends State<SiteFormDeleteView> {
   Map<String, dynamic>? data;
-  var updatedData;
+ 
 
   @override
   void initState() {
@@ -188,14 +188,9 @@ void populateContactControllers(
     // Clear any extra controllers that are no longer needed
     while (index < controllers.length) {
       controllers[index][0].clear();
-     
       controllers[index][1].clear();
       controllers[index][2].clear();
       controllers[index][3].clear();
-       controllers[index][0].dispose();
-        controllers[index][1].dispose();
-         controllers[index][2].dispose();
-          controllers[index][3].dispose();
       index++;
     }
   } else {
@@ -368,20 +363,7 @@ void populateContactControllers(
               ): formSizebox10,
         formSizebox10,
              
-              isEnabled?  GestureDetector(
-                  
-                  onTap: () {
-                    setState(() {
-                      controllers.add([
-                        TextEditingController(),
-                        TextEditingController(),
-                        TextEditingController(),
-                        TextEditingController()
-                      ]);
-                    });
-                  },
-                  child: Text("Add More"),
-                ):formSizebox10,
+            formSizebox10,
                 const SizedBox(width: 10),
           ],
         ),

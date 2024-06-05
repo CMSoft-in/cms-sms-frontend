@@ -186,7 +186,7 @@ class _LaborFormPageThreeState extends State<LaborFormPageThree> {
                     children: [
                       formSizebox8,
                       const StackText(
-                        stacktext: laborpage2,
+                        stacktext: laborpage3,
                         color: red,
                       ),
                       formSizebox15,

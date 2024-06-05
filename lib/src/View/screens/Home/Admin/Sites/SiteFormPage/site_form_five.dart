@@ -9,18 +9,25 @@ import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '/src/View/widgets/AppBar/AppBar.dart';
 import '/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_five.dart';
 
-class SiteFormPageFive extends StatelessWidget {
+class SiteFormPageFive extends StatefulWidget {
   const SiteFormPageFive({super.key, required this.data});
   final Map<String, dynamic> data;
 
   @override
-  Widget build(BuildContext context) {
-    var oldData = data;
-    print(oldData);
+  State<SiteFormPageFive> createState() => _SiteFormPageFiveState();
+}
+
+class _SiteFormPageFiveState extends State<SiteFormPageFive> {
+ 
     final formKey = GlobalKey<FormState>();
+
     SitesTextEditingController sitesTextEditingController = SitesTextEditingController();
 
     void navigateToPageSix(BuildContext context) {
+      var oldData = widget.data;
+
+    print(oldData);
+
       var data = {
         ...oldData,
         // dbPrimaryEmail: sitesTextEditingController.governmentApprovalsController.text.trim(),
@@ -33,6 +40,10 @@ class SiteFormPageFive extends StatelessWidget {
         ),
       );
     }
+
+  @override
+  Widget build(BuildContext context) {
+   
 
     return Scaffold(
       backgroundColor: white,

@@ -34,7 +34,7 @@ class _SupplierFormPageFourState extends State<SupplierFormPageFour> {
     final formKey = GlobalKey<FormState>();
     SupplierTextEditingController supplierTextEditingController =
         SupplierTextEditingController();
- Future navigateToPage(BuildContext context) async {
+ Future<dynamic> navigateToPage(BuildContext context) async {
   try {
     final oldData = widget.data;
     var apiURL = Uri.parse(ApiEndpoints.createSupplier);

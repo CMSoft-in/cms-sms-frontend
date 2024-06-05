@@ -28,7 +28,7 @@ class SupplierCategoryDataView extends StatelessWidget {
       firstColumnMainName: "co_supplier_category_name",
       firstColumnsubName: "co_supplier_category_name",
       firstColumnSecondSubName: "co_supplier_category_name",
-      middleColumMainName: "co_supplier_category_desc",
+      middleColumMainName: "created_by",
       middleColumnSubName: "co_supplier_category_desc",
       middleColumnSecondSubName:"co_supplier_category_desc" ,
       lastColumMainName: "created_by",

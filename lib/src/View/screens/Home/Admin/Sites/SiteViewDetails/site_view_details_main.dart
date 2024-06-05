@@ -162,7 +162,7 @@ void populateContactControllers(
       if (contact["contact_category_name"] == category) {
         print('Found contact for category $category: ${contact["contact_name"]}');
 
-      
+        // Ensure the controllers list can accommodate the current index
         while (index >= controllers.length) {
           controllers.add([
             TextEditingController(),
@@ -181,7 +181,7 @@ void populateContactControllers(
       }
     }
 
-  
+    // Clear any extra controllers that are no longer needed
     while (index < controllers.length) {
       controllers[index][0].clear();
       controllers[index][1].clear();

@@ -51,7 +51,7 @@ void changeValue(List<dynamic> v) {
         var values = {
           "co_supplier_category_name":
               supplierCategoryTextEditingController.supplierCategoryController.text.isEmpty ? null :supplierCategoryTextEditingController.supplierCategoryController.text,
-          "co_material_id":comaterialCategoryId.isEmpty ? null :comaterialCategoryId
+          "co_material_id":comaterialCategoryId.isEmpty ? null :comaterialCategoryId.toString()
             ,
         };
         print(values);

@@ -39,7 +39,22 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
   CommonController commonController = CommonController();
-
+   List<dynamic> comaterialCategoryId = [];
+    final formKey = GlobalKey<FormState>();
+    SupplierTextEditingController supplierTextEditingController=SupplierTextEditingController();
+     int? coSupplierCategoryId;
+    void changeValue(int v) {
+    setState(() {
+      coSupplierCategoryId = v;
+    });
+  }
+  void changeMaterialValue(List<dynamic> v) {
+    setState(() {
+      comaterialCategoryId = v;
+    });
+  }
+  
+   
   @override
   void initState() {
     super.initState();
@@ -55,6 +70,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
           'Authorization': 'Bearer $token',
         },
       );
+      print(response.body);
       if (response.statusCode == 200) {
         setState(() {
           data = jsonDecode(response.body);
@@ -86,7 +102,8 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                 data!["secondary_contact_whatsapp"] ?? "";
             createBy.text = data!["created_by"] ?? "";
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
-               
+            supplierCategoryController.text=data!["CoSupplierCategory"]["co_supplier_category_name"] ?? "";
+              //  materialsSuppliedController.text=data!["co_material_id"] ?? "";
           }
         });
       } else {
@@ -214,13 +231,17 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                   primaryPhoneNumberController: primaryPhoneNumberController,
                   primaryWhatsappController: primaryWhatsappController,
                   timeLineController: timeLineController),
-              // SupplierViewDetailsThree(
-              //   changeValue: ,
-              //   coLSupplierCategoryId: ,
-              //   isEditing:isEditing ,
-              //     enabled: isEnabled,
-              //     materialsSuppliedController: materialsSuppliedController,
-              //     supplierCategoryController: supplierCategoryController),
+            SupplierViewDetailsThree(
+                twoOrNot: isEditing,
+                isMultiSelectDropDownEditing: false,
+                changeValue:changeValue ,
+                coSupplierCategoryId: coSupplierCategoryId,
+changeMaterialValue: changeMaterialValue,
+comaterialCategoryId: comaterialCategoryId.isNotEmpty ? comaterialCategoryId.first : null,
+                isEditing: isEditing,
+                  enabled: isEditing,
+                  materialsSuppliedController:materialsSuppliedController,
+                  supplierCategoryController: supplierCategoryController),
               SupplierViewDetailsFour(
                   enabled: isEnabled,
                   firstNameController: firstNameController,
