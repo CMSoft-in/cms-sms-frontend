@@ -69,8 +69,6 @@ import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_header.da
 import '../../../../../widgets/MyDrawer/my_drawer.dart';
 import '../../laborcategory/deletelaborcategory/delete_labor_category_table.dart';
 import '../../laborcategory/labor_category_text.dart';
-import '../../laborcategory/laborcategoryform/labor_category_form.dart';
-import '../../laborcategory/laborcategoryviewdetails/labor_category_main_view.dart';
 
 import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/image_const.dart';

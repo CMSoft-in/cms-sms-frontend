@@ -194,8 +194,137 @@ void populateContactControllers(
   }
 }
 
+void checkUpdatingValue() {
+  var oldData = data;
+  print(oldData);
+  if (oldData != null) {
+    Map<String, dynamic> updatedData = {};
+    var siteFields = {
+      dbSiteName: siteNameController.text,
+      dbSiteAddressOne: addressline1Controller.text,
+      dbSiteAddressTwo: addressline2Controller.text,
+      dbSitePincode: pincodeController.text,
+      dbSiteTown: cityController.text,
+      dbSiteState: stateController.text,
+      dbPrimaryEmail: primaryEmailController.text,
+      "created_by": createBy.text,
+      "created_at": createOn.text,
+      dbPrimaryName: primaryNameController.text,
+      dbPrimaryNumber: primaryPhoneNumberController.text,
+      "": primaryWhatsappController.text,
+      dbSiteGpsLocation: sitegpsController.text,
+      dbSiteProjectWorkName: projectWorkNameController.text,
+      dbSiteProjectSize: projectSizeController.text,
+      dbSiteProjectStartDate: projectStartDateController.text,
+      dbSiteProjectCompletionDate: expectedCompletionDateController.text,
+      dbSiteProjectDesc: projectWorkDescriptionofController.text,
+      "": companySiteEngineersAllocatedController.text,
+      " ": laborsAllocatedController.text,
+      dbSecondaryEmail: secondaryEmailController.text,
+      dbSecondaryName: secondaryNameController.text,
+      dbSecondaryNumber: secondaryPhoneNumberController.text,
+      dbPrimaryWhatsapp: secondaryWhatsappController.text,
+    };
+
+    siteFields.forEach((key, value) {
+      if (value.isNotEmpty && (oldData[key]?.toString() ?? '') != value) {
+        updatedData[key] = value;
+        print(updatedData);
+      }
+    });
+
+    // Check for contacts if needed
+    // For example, check for client architect contacts
+    checkContactUpdates("Client Architect", clientArchitectControllers, oldData, updatedData);
+
+    if (updatedData.isNotEmpty) {
+      print("Updated Data: $updatedData");
+      updateData(updatedData);
+    } else {
+      print("No changes detected.");
+    }
+  }
+}
+
+void checkContactUpdates(
+  String category,
+  List<List<TextEditingController>> controllers,
+  Map<String, dynamic> oldData,
+  Map<String, dynamic> updatedData,
+) {
+  List<Map<String, dynamic>> updatedContacts = [];
+  for (var i = 0; i < controllers.length; i++) {
+    var contact = controllers[i];
+    if (contact[0].text.isNotEmpty) {
+      var oldContactData = oldData["CoSiteContacts"] != null
+          ? (oldData["CoSiteContacts"] as List)
+              .firstWhere((element) => element["contact_category_name"] == category, orElse: () => null)
+          : null;
+      var updatedContactData = {
+        "contact_name": contact[0].text,
+        "contact_no": contact[1].text,
+        "contact_email": contact[2].text,
+        "contact_whatsapp": contact[3].text,
+      };
+      if (oldContactData != null) {
+        // Check if contact has changed
+        var oldContact = (oldContactData["contact_name"] ?? "") +
+            (oldContactData["contact_no"] ?? "") +
+            (oldContactData["contact_email"] ?? "") +
+            (oldContactData["contact_whatsapp"] ?? "");
+       var newContact = (updatedContactData["contact_name"] ?? "") +
+    (updatedContactData["contact_no"] ?? "") +
+    (updatedContactData["contact_email"] ?? "") +
+    (updatedContactData["contact_whatsapp"] ?? "");
+
+        if (oldContact != newContact) {
+          updatedContacts.add({
+            "updated_old_value": oldContact,
+            "updated_new_value": newContact,
+            "updated_by": "User",
+          });
+        }
+      } else {
+        // New contact added
+        updatedContacts.add({
+          "updated_old_value": "",
+          "updated_new_value": updatedContactData,
+          "updated_by": "User", // You can specify the updater here
+        });
+      }
+    }
+  }
+  if (updatedContacts.isNotEmpty) {
+    updatedData["CoSiteContacts"] = updatedContacts;
+  }
+}
 
 
+
+
+  void updateData(data) async {
+    try {
+      print("before update");
+      var response = await http.patch(
+        Uri.parse('${ApiEndpoints.updateSite}/${widget.id}'),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: jsonEncode(data),
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const SiteDataView()));
+      } else {
+        print("before e");
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print("update failed $e");
+    }
+  }
 
 
   @override
@@ -273,7 +402,7 @@ void populateContactControllers(
               LongButton(
                 formKey: formKey,
                 text: update,
-                onPressed: () {},
+                onPressed: () {checkUpdatingValue();},
                 isEnabled: isEnabled,
               ),
               if (updatedData != null)
@@ -392,97 +521,3 @@ void populateContactControllers(
     });
   }
 }
-
-// Future<void> fetchData() async {
-//   try {
-//     final response = await http.get(
-//       Uri.parse('${ApiEndpoints.getSite}/${widget.id}'),
-//       headers: {
-//         'Authorization': 'Bearer $token',
-//       },
-//     );
-//     // print(response.body);
-   
-//     if (response.statusCode == 200) {
-      
-//       final Map<String, dynamic>? data = jsonDecode(response.body) as Map<String, dynamic>?;
-
-//       setState(() {
-//         if (data != null) {
-//           siteNameController.text = data[dbSiteName]?.toString() ?? "";
-//           addressline1Controller.text = data[dbSiteAddressOne]?.toString() ?? "";
-//           addressline2Controller.text = data[dbSiteAddressTwo]?.toString() ?? "";
-//           pincodeController.text = data[dbSitePincode]?.toString() ?? "";
-//           cityController.text = data[dbSiteTown]?.toString() ?? "";
-//           stateController.text = data[dbSiteState]?.toString() ?? "";
-//           primaryEmailController.text = data[dbPrimaryEmail]?.toString() ?? "";
-//           createBy.text = data["created_by"]?.toString() ?? "";
-//           createOn.text = Date.getDate(data["created_at"])?.toString() ?? "";
-//           primaryNameController.text = data[dbPrimaryName]?.toString() ?? "";
-//           primaryPhoneNumberController.text = data[dbPrimaryNumber]?.toString() ?? "";
-//           primaryWhatsappController.text = data[""]?.toString() ?? "";
-//           sitegpsController.text = data[dbSiteGpsLocation]?.toString() ?? "";
-//           projectWorkNameController.text = data[dbSiteProjectWorkName]?.toString() ?? "";
-//           projectSizeController.text = data[dbSiteProjectSize]?.toString() ?? "";
-//           projectStartDateController.text = Date.getDate(data[dbSiteProjectStartDate])?.toString() ?? "";
-//           expectedCompletionDateController.text = Date.getDate(data[dbSiteProjectCompletionDate])?.toString() ?? "";
-//           projectWorkDescriptionofController.text = data[dbSiteProjectDesc]?.toString() ?? "";
-//           companySiteEngineersAllocatedController.text = data[""]?.toString() ?? "";
-//           laborsAllocatedController.text = data[" "]?.toString() ?? "";
-//           secondaryEmailController.text = data[dbSecondaryEmail]?.toString() ?? "";
-//           secondaryNameController.text = data[dbSecondaryName]?.toString() ?? "";
-//           secondaryPhoneNumberController.text = data[dbSecondaryNumber]?.toString() ?? "";
-//           secondaryWhatsappController.text = data[dbPrimaryWhatsapp]?.toString() ?? "";
-//    print("Data fetched: $data");
-//           populateContactControllers(data, "Client Architect", clientArchitectControllers);
-//           populateContactControllers(data, "Client Site Engineer", siteEngineerControllers);
-//           populateContactControllers(data, "Client Engineer", clientEngineerControllers);
-//           populateContactControllers(data, "Client Purchase Officer", clientPurchaseOfficerControllers);
-//           populateContactControllers(data, "Client Quality Officer", clientQualityOfficerControllers);
-//         }
-//       });
-//     }
-//   } catch (e) {
-//     print(e);
-//   }
-// }
-
-
-
-// void populateContactControllers(Map<String, dynamic> data, String category, List<List<TextEditingController>> controllers) {
-//   if (data.containsKey("CoSiteContacts") && data["CoSiteContacts"] is List) {
-//     List contacts = data["CoSiteContacts"];
-//     int index = 0;
- 
-//     for (var contact in contacts) {
- 
-//       if (contact["contact_category_name"] == category) {
-        
-//         if (index < controllers.length) {
-//           controllers[index][0].text = contact["contact_name"]?.toString() ?? "";
-//           controllers[index][1].text = contact["contact_no"]?.toString() ?? "";
-//           controllers[index][2].text = contact["contact_email"]?.toString() ?? "";
-//           controllers[index][3].text = contact["contact_whatsapp"]?.toString() ?? "";
-//         } else {
-       
-//           controllers.add([
-//             TextEditingController(text: contact["contact_name"]?.toString() ?? ""),
-//             TextEditingController(text: contact["contact_no"]?.toString() ?? ""),
-//             TextEditingController(text: contact["contact_email"]?.toString() ?? ""),
-//             TextEditingController(text: contact["contact_whatsapp"]?.toString() ?? ""),
-//           ]);
-//         }
-//         index++;
-//       }
-//     }
-
-//     // Clear any extra controllers that are no longer needed
-//     while (index < controllers.length) {
-//       controllers[index][0].clear();
-//       controllers[index][1].clear();
-//       controllers[index][2].clear();
-//       controllers[index][3].clear();
-//       index++;
-//     }
-//   }
-// }
