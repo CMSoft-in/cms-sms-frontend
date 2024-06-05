@@ -49,16 +49,13 @@ class _LaborCategoryFormState extends State<LaborCategoryForm> {
       try {
         List<Map<String, dynamic>> teamData = [];
 
-        for (int i = 0; i < _labourController.length; i++) {
-          teamData.add({
-            "co_labour_category_team_name": _labourController[i].text.isEmpty
-                ? null
-                : _labourController[i].text,
-            "co_labour_category_team_rate": _rateController[i].text.isEmpty
-                ? null
-                : int.tryParse(_rateController[i].text),
-          });
-        }
+for (int i = 0; i < _labourController.length; i++) {
+  teamData.add({
+    "co_labour_category_team_name": _labourController[i].text.isEmpty ? null : _labourController[i].text,
+    "co_labour_category_team_rate": _rateController[i].text.isEmpty ? null : int.tryParse(_rateController[i].text),
+  });
+}
+
 
         var values = {
           "co_labour_category_name": laborCategoryTextEditingController

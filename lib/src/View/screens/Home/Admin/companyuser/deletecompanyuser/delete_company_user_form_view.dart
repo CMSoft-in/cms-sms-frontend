@@ -95,13 +95,13 @@ class _CompanyUserFormDeleteViewState extends State<CompanyUserFormDeleteView> {
                   pincodeController: pincodeController,
                   stateController: stateController,
                   enabled: false),
-              CompanyUserViewDetailsTwo(
-                  bloodGroupController: bloodGroupController,
-                  joinDateController: joinDateController,
-                  officeDesignationController: officeDesignationController,
-                  applicationRoleController: applicationRoleController,
-                  enabled: false,
-                  isEditing: isEditing),
+              // CompanyUserViewDetailsTwo(
+              //     bloodGroupController: bloodGroupController,
+              //     joinDateController: joinDateController,
+              //     officeDesignationController: officeDesignationController,
+              //     applicationRoleController: applicationRoleController,
+              //     enabled: false,
+              //     isEditing: isEditing),
               CompanyUserViewDetailsThree(
                   primaryNameController: primaryNameController,
                   primaryPhoneNumberController: primaryPhoneNumberController,

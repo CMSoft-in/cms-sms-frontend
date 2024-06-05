@@ -28,8 +28,8 @@ class ComapnyUserFormPageThree extends StatelessWidget {
     void navigateToPageFour(BuildContext context) {
       var updatedData = {
         ...oldData,
-      "primary_contact_name": companyUserTextEditingController.primaryNameController.text.isEmpty ? null :companyUserTextEditingController.primaryNameController.text.tr,
-    "primary_contact_no":companyUserTextEditingController.primaryPhoneNumberController.text.isEmpty ? null :companyUserTextEditingController.primaryPhoneNumberController.text.trim(),
+      "emergency_contact_name": companyUserTextEditingController.primaryNameController.text.isEmpty ? null :companyUserTextEditingController.primaryNameController.text.tr,
+    "emergency_contact_no":companyUserTextEditingController.primaryPhoneNumberController.text.isEmpty ? null :companyUserTextEditingController.primaryPhoneNumberController.text.trim(),
     "email":companyUserTextEditingController. primaryEmailController.text.isEmpty ? null :companyUserTextEditingController. primaryEmailController.text.trim(),
     "password":companyUserTextEditingController. primaryEmailController.text.isEmpty ? null :companyUserTextEditingController. primaryEmailController.text.trim(),
     "primary_contact_whatsapp":companyUserTextEditingController.primaryWhatsappController.text.isEmpty ? null :int.parse(companyUserTextEditingController.primaryWhatsappController.text.trim()),

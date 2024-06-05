@@ -9,37 +9,45 @@ import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import 'site_form_five.dart';
 
-class SiteFormPageFour extends StatelessWidget {
+class SiteFormPageFour extends StatefulWidget {
   const SiteFormPageFour({super.key, required this.data});
   final Map<String, dynamic> data;
+
   @override
-  Widget build(BuildContext context) {
-    var oldData = data;
-    print(oldData);
+  State<SiteFormPageFour> createState() => _SiteFormPageFourState();
+}
+
+class _SiteFormPageFourState extends State<SiteFormPageFour> {
+   
+
     final formKey = GlobalKey<FormState>();
+
     SitesTextEditingController sitesTextEditingController =
         SitesTextEditingController();
 
     navigateToPageFive(BuildContext context) {
+      var oldData = widget.data;
+
+    print(oldData);
       var data = {
         ...oldData,
-        dbPrimaryEmail:
-            sitesTextEditingController.primaryEmailController.text.trim(),
-        dbPrimaryName:
-            sitesTextEditingController.primaryNameController.text.trim(),
-        dbPrimaryNumber:
-            sitesTextEditingController.primaryPhoneNumberController.text.trim(),
-        'primary_contact_whatsapp':
-            sitesTextEditingController.primaryWhatsappController.text.trim(),
-        dbSecondaryEmail:
-            sitesTextEditingController.secondaryEmailController.text.trim(),
-        dbSecondaryName:
-            sitesTextEditingController.secondaryNameController.text.trim(),
-        dbSecondaryNumber: sitesTextEditingController
-            .secondaryPhoneNumberController.text
-            .trim(),
-        "project_short_desc":
-            sitesTextEditingController.secondaryWhatsappController.text.trim(),
+        // dbPrimaryEmail:
+        //     sitesTextEditingController.primaryEmailController.text.trim(),
+        // dbPrimaryName:
+        //     sitesTextEditingController.primaryNameController.text.trim(),
+        // dbPrimaryNumber:
+        //     sitesTextEditingController.primaryPhoneNumberController.text.trim(),
+        // dbPrimaryWhatsapp:
+        //     sitesTextEditingController.primaryWhatsappController.text.trim(),
+        // dbSecondaryEmail:
+        //     sitesTextEditingController.secondaryEmailController.text.trim(),
+        // dbSecondaryName:
+        //     sitesTextEditingController.secondaryNameController.text.trim(),
+        // dbSecondaryNumber: sitesTextEditingController
+        //     .secondaryPhoneNumberController.text
+        //     .trim(),
+        // dbSecondaryWhatsapp:
+        //     sitesTextEditingController.secondaryWhatsappController.text.trim(),
         dbPrimaryEmail: sitesTextEditingController.primaryEmailController.text.isEmpty ? null :sitesTextEditingController.primaryEmailController.text.trim(),
         dbPrimaryName: sitesTextEditingController.primaryNameController.text.isEmpty ? null :sitesTextEditingController.primaryNameController.text.trim(),
         dbPrimaryNumber: sitesTextEditingController.primaryPhoneNumberController.text.isEmpty ? null :int.parse(sitesTextEditingController.primaryPhoneNumberController.text.trim()),
@@ -57,6 +65,10 @@ class SiteFormPageFour extends StatelessWidget {
         ),
       );
     }
+
+  @override
+  Widget build(BuildContext context) {
+   
 
     return Scaffold(
       backgroundColor: white,

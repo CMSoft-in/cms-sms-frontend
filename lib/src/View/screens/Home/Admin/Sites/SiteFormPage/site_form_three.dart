@@ -9,19 +9,26 @@ import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/Buttons/next_back_button.dart';
 import 'site_form_four.dart';
 
-class SiteFormPageThree extends StatelessWidget {
+class SiteFormPageThree extends StatefulWidget {
   const SiteFormPageThree({super.key, required this.data});
   final Map<String, dynamic> data;
+
   @override
-  Widget build(BuildContext context) {
-    var oldData = data;
+  State<SiteFormPageThree> createState() => _SiteFormPageThreeState();
+}
+
+class _SiteFormPageThreeState extends State<SiteFormPageThree> {
+  
+
     List<int> labourAllocated = [];
 
     final formKey = GlobalKey<FormState>();
+
     SitesTextEditingController sitesTextEditingController =
         SitesTextEditingController();
 
     void navigateToPageThree(BuildContext context) {
+       var oldData = widget.data;
       var data = {
         ...oldData,
         '': sitesTextEditingController
@@ -36,6 +43,10 @@ class SiteFormPageThree extends StatelessWidget {
         ),
       );
     }
+
+  @override
+  Widget build(BuildContext context) {
+   
 
     return Scaffold(
       appBar: const BuildAppBar(),

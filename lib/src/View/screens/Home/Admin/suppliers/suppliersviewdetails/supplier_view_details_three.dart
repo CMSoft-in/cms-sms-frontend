@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
@@ -8,38 +10,42 @@ import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dar
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
 import '../../../../../widgets/MyDrawer/s.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+
 class SupplierViewDetailsThree extends StatefulWidget {
-   SupplierViewDetailsThree({super.key,
-  required this.enabled,
-  required this.changeValue,
-    required this.coSupplierCategoryId,
-  
-   
-    required this.changeMaterialValue,
-    required this.comaterialCategoryId,
-    
-    required this.isEditing,  
-  required this.materialsSuppliedController,
-  required this.supplierCategoryController});
   final TextEditingController supplierCategoryController;
   final TextEditingController materialsSuppliedController;
   final bool enabled;
+  final bool twoOrNot;
   int? comaterialCategoryId;
   final Function(List<dynamic>) changeMaterialValue;
-    int? coSupplierCategoryId;
-  final Function(List<dynamic>) changeValue;
+  int? coSupplierCategoryId;
+  final Function changeValue;
   final bool isEditing;
+  final bool isMultiSelectDropDownEditing;
+
+  SupplierViewDetailsThree({
+    super.key,
+    required this.enabled,
+    required this.changeValue,
+    required this.coSupplierCategoryId,
+    required this.isMultiSelectDropDownEditing,
+    required this.changeMaterialValue,
+    required this.comaterialCategoryId,
+    required this.twoOrNot,
+    required this.isEditing,
+    required this.materialsSuppliedController,
+    required this.supplierCategoryController,
+  });
 
   @override
-  State<SupplierViewDetailsThree> createState() => _SupplierViewDetailsThreeState();
+  State<SupplierViewDetailsThree> createState() =>
+      _SupplierViewDetailsThreeState();
 }
 
 class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
-   List supplierCategorydropdownItems = [];
-  List<int> selectedSupplierCategoryIds = [];
- List materialdropdownItems1 = [];
+  List supplierCategoryDropdownItems = [];
+  int? selectedSupplierCategoryId;
+  List materialDropdownItems1 = [];
   List<int> selectedMaterialCategoryIds = [];
 
   @override
@@ -48,7 +54,8 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
     fetchData();
     fetchMaterialData();
   }
-    Future<void> fetchMaterialData() async {
+
+  Future<void> fetchMaterialData() async {
     String uri = ApiEndpoints.getAllMaterials;
     try {
       final response = await http.get(
@@ -57,37 +64,31 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
           'Authorization': 'Bearer $token',
         },
       );
-        // print(response.body);
-        var body = json.decode(response.body);
-      
+
+      var body = json.decode(response.body);
       if (response.statusCode == 200) {
-      
         var newList = [];
-        // var newListOne = [];
         body.forEach((each) {
           int id = each["co_material_id"];
           String name = each["co_material_name"];
           newList.add({"id": id, "name": name});
         });
-        // body.forEach((each) {
-        //   int id = each["co_site_id"];
-        //   String name = each["co_site_name"];
-        //   newListOne.add({"id": id, "name": name});
-        // });
+
         setState(() {
-          materialdropdownItems1 = newList;
-          // labordropdownItems1 = newListOne;
+          materialDropdownItems1 = newList;
         });
       }
     } catch (error) {
-      print('Error fetching data: $error');
+      print('Error  Material fetching data: $error');
     }
   }
+
   void onMultiMaterialSelectChanged(List<dynamic> newIds) {
     setState(() {
       widget.changeMaterialValue(newIds);
       selectedMaterialCategoryIds = newIds.cast<int>();
-      widget.comaterialCategoryId = selectedMaterialCategoryIds.isNotEmpty ? selectedMaterialCategoryIds.first : null;
+      widget.comaterialCategoryId =
+          selectedMaterialCategoryIds.isNotEmpty ? selectedMaterialCategoryIds.first : null;
     });
   }
 
@@ -100,80 +101,93 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
           'Authorization': 'Bearer $token',
         },
       );
-        print(response.body);
-        var body = json.decode(response.body);
-      
+
+      var body = json.decode(response.body);
       if (response.statusCode == 200) {
-      
         var newList = [];
-        
         body.forEach((each) {
           int id = each["co_supplier_category_id"];
           String name = each["co_supplier_category_name"];
           newList.add({"id": id, "name": name});
         });
-      
+
         setState(() {
-          supplierCategorydropdownItems = newList;
-         
+          supplierCategoryDropdownItems = newList;
         });
       }
     } catch (error) {
-      print('Error fetching data: $error');
+      print('Error Supplier Category fetching data: $error');
     }
   }
-   void onMultiSelectChanged(List<dynamic> newIds) {
+
+  void onDropdownChanged(newId) {
     setState(() {
-      widget.changeValue(newIds);
-      selectedSupplierCategoryIds = newIds.cast<int>();
-      widget.coSupplierCategoryId = selectedSupplierCategoryIds.isNotEmpty ? selectedSupplierCategoryIds.first : null;
+      widget.changeValue(newId);
+      selectedSupplierCategoryId = newId;
+      widget.coSupplierCategoryId = selectedSupplierCategoryId;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         formSizebox10,
-        widget.isEditing ?MultiSelectDropDownForm(
-                selectedIds: selectedSupplierCategoryIds,
-                onChanged: onMultiSelectChanged,
-                dropdownItems: supplierCategorydropdownItems,
+        widget.isEditing
+            ? DropDownFormm(
+                selectedId: selectedSupplierCategoryId,
+                onChanged: onDropdownChanged,
+                dropdownItems: supplierCategoryDropdownItems,
                 dropDownName: supplierCategoryText,
                 star: star,
                 optionalisEmpty: true,
                 controller: widget.supplierCategoryController,
               )
-        :TextformField(
-            controller: widget.supplierCategoryController,
-            text: supplierCategoryText,
-            limitLength: 30,
-            optionalisEmpty: true,
-            inputformat: alphabatsAndNumbers,
-            star: star,
-            inputtype: keyboardTypeNone,
-            enabled: widget.enabled),
+            : MaxMinTextFormField(
+                maxLines: 7,
+                minLines: 1,
+                controller: widget.supplierCategoryController,
+                text: supplierCategoryText,
+                limitLength: 30,
+                optionalisEmpty: true,
+                inputformat: alphabatsAndNumbers,
+                star: star,
+                inputtype: keyboardTypeNone,
+                enabled: widget.enabled,
+              ),
         formSizebox10,
-         widget.isEditing
-              ? MultiSelectDropDownForm(
+        widget.isMultiSelectDropDownEditing
+            ? MultiSelectDropDownForm(
                 selectedIds: selectedMaterialCategoryIds,
                 onChanged: onMultiMaterialSelectChanged,
-                dropdownItems: materialdropdownItems1,
+                dropdownItems: materialDropdownItems1,
                 dropDownName: supplierMaterialsSupplied,
                 star: star,
                 optionalisEmpty: true,
                 controller: widget.materialsSuppliedController,
               )
-              : MaxMinTextFormField(
-                maxLines: 4,
-                minLines: 1,
-            controller: widget.materialsSuppliedController,
-            text: supplierMaterialsSupplied,
-            limitLength: 30,
-            optionalisEmpty: true,
-            inputformat: alphabatsAndNumbers,
-            star: star,
-            inputtype: keyboardTypeNone,
-            enabled: widget.enabled)
+            : widget.twoOrNot
+                ? MultiSelectTwoDropDownForm(
+                    selectedIds: selectedMaterialCategoryIds,
+                    onChanged: onMultiMaterialSelectChanged,
+                    dropdownItems: materialDropdownItems1,
+                    dropDownName: supplierMaterialsSupplied,
+                    star: star,
+                    optionalisEmpty: true,
+                    controller: widget.materialsSuppliedController,
+                  )
+                : MaxMinTextFormField(
+                    maxLines: 10,
+                    minLines: 1,
+                    controller: widget.materialsSuppliedController,
+                    text: supplierMaterialsSupplied,
+                    limitLength: 30,
+                    optionalisEmpty: true,
+                    inputformat: alphabatsAndNumbers,
+                    star: star,
+                    inputtype: keyboardTypeNone,
+                    enabled: widget.enabled,
+                  ),
       ],
     );
   }

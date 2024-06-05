@@ -47,9 +47,9 @@ void navigateToPageEight(BuildContext context) {
         Map<String, dynamic> additionalOneData = {
           "contact_category_name": siteEngineer,
           'contact_name': listOneController[i][0].text,
-          'contact_no': int.tryParse(listOneController[i][1].text) ?? "",
+          'contact_no': int.tryParse(listOneController[i][1].text) ?? null,
           'contact_email': listOneController[i][2].text,
-          'contact_whatsapp': int.tryParse(listOneController[i][3].text) ?? "",
+          'contact_whatsapp': int.tryParse(listOneController[i][3].text) ?? null,
         };
         additionalDataList.add(additionalOneData);
       }
@@ -61,9 +61,9 @@ void navigateToPageEight(BuildContext context) {
         Map<String, dynamic> additionalTwoData = {
           "contact_category_name": clientPurchaseOfficer,
           'contact_name': listTwoController[i][0].text,
-          'contact_no': int.tryParse(listTwoController[i][1].text) ?? '',
+          'contact_no': int.tryParse(listTwoController[i][1].text) ?? null,
           'contact_email': listTwoController[i][2].text,
-          'contact_whatsapp': int.tryParse(listTwoController[i][3].text) ?? "",
+          'contact_whatsapp': int.tryParse(listTwoController[i][3].text) ?? null,
         };
         additionalDataList.add(additionalTwoData);
       }
@@ -124,7 +124,7 @@ void navigateToPageEight(BuildContext context) {
                     ]);
                   });
                 },
-                child: Text("Add More"),
+                child: Text("Add More $siteEngineer"),
               ),
               const SizedBox(width: 10),
               const SizedBox(width: 10),
@@ -143,7 +143,7 @@ void navigateToPageEight(BuildContext context) {
                     ]);
                   });
                 },
-                child: Text("Add More"),
+                child: Text("Add More $clientPurchaseOfficer"),
               ),
               const SizedBox(width: 10),
               formSizebox10,

@@ -70,7 +70,7 @@ class _LaborCategoryDeleteTableState extends State<LaborCategoryDeleteTable> {
       context,
       MaterialPageRoute(
           builder: (context) =>
-              LaborCategoryFormDeleteView(id: id)),
+              LaborCategoryViewDetailsMain(context: context, id: id)),
     );
   }
 

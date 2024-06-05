@@ -112,10 +112,24 @@ class _SupplierCategoryViewDetailsState extends State<SupplierCategoryViewDetail
               //     controller: widget.supplierCategoryController)
              // : 
               TextformField(
+         
+              // ?  DropDownForm(
+              //     dropdownItems: const [
+              //         "Supplier CateGory 1",
+              //         "Supplier CateGory 2",
+              //         "Supplier CateGory 3",
+              //         "Supplier CateGory 4"
+              //       ],
+              //     dropDownName: supplierCategoryText,
+              //     star: star,
+              //     optionalisEmpty: true,
+              //     controller: widget.supplierCategoryController)
+              // : 
+              TextformField(
                   controller: widget.supplierCategoryController,
                   text: supplierCategoryText,
                   star: star,
-                  limitLength: 20,
+                  limitLength: 50,
                   optionalisEmpty: true,
                   inputformat: alphabatsAndNumbers,
                   inputtype: keyboardTypeNone,

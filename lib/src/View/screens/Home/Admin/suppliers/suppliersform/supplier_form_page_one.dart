@@ -11,9 +11,12 @@ import '../suppliersviewdetails/supplier_view_details_one.dart';
 import 'supplier_form_page_two.dart';
 
 class SupplierFormPageOne extends StatefulWidget {
+class SupplierFormPageOne extends StatefulWidget {
   const SupplierFormPageOne({super.key});
 
   @override
+  State<SupplierFormPageOne> createState() => _SupplierFormPageOneState();
+}
   State<SupplierFormPageOne> createState() => _SupplierFormPageOneState();
 }
 

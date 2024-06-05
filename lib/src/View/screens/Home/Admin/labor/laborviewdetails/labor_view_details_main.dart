@@ -84,6 +84,10 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                 data!["emergency_contact_no"] ?? "";
             createBy.text = data!["created_by"] ?? "";
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
+      
+            
+              
+            laborCategoryController.text = data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
 
             aadharfilePathController.text = data!["aadhar_image"] ?? "";
             laborCategoryController.text =
@@ -91,6 +95,7 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
             siteWorkedController.text = data!["co_sites_worked"] ?? "";
             cuurentSiteAllocationController.text =
                 data!["co_current_sites_allocation"] ?? "";
+           aadharfilePathController.text = data!["aadhar_image"] ?? "";
           }
         });
       } else {

@@ -55,9 +55,9 @@ class _SiteFormPageEightState extends State<SiteFormPageEight> {
       Map<String, dynamic> additionalOneData = {
         "contact_category_name": clientQualityOfficer,
         'contact_name': listController[i][0].text,
-        'contact_no': listController[i][1].text.isNotEmpty ? int.parse(listController[i][1].text) : "",
+        'contact_no': listController[i][1].text.isNotEmpty ? int.parse(listController[i][1].text) : null,
         'contact_email': listController[i][2].text,
-        'contact_whatsapp': listController[i][3].text.isNotEmpty ? int.parse(listController[i][3].text) : "",
+        'contact_whatsapp': listController[i][3].text.isNotEmpty ? int.parse(listController[i][3].text) : null,
       };
       additionalDataList.add(additionalOneData);
     }
@@ -212,9 +212,10 @@ class _SiteFormPageEightState extends State<SiteFormPageEight> {
                       ]);
                     });
                   },
-                  child: Text("Add More"),
+                  child: Text("Add More $clientQualityOfficer"),
                 ),
-                const SizedBox(width: 10),
+               formSizebox15,
+                bottomHeight,
               ],
             ),
           ),

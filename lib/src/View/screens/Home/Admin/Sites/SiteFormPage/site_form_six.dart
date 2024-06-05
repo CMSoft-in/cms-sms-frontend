@@ -69,7 +69,7 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
                     ]);
                   });
                 },
-                child: Text("Add More"),
+                child: Text("Add More $clientArchitect"),
               ),
               const SizedBox(width: 10),
               StackText(stacktext: clientEngineer, color: grey),
@@ -87,7 +87,7 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
                     ]);
                   });
                 },
-                child: Text("Add More"),
+                child: Text("Add More $clientEngineer"),
               ),
               const SizedBox(width: 10),
               formSizebox10,
@@ -270,9 +270,8 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
   }
 
  void navigateToPageSeven(BuildContext context) {
-  List<Map<String, dynamic>> siteContacts = List<Map<String, dynamic>>.from(
-    widget.data["sitecontact"] ?? []
-  );
+   List<Map<String, dynamic>> additionalDataList = [];
+ 
 
   // Add Client Architect contacts
   for (int i = 0; i < listOneController.length; i++) {
@@ -280,11 +279,11 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
       Map<String, dynamic> additionalOneData = {
         "contact_category_name": "Client Architect",
         'contact_name': listOneController[i][0].text,
-        'contact_no': int.tryParse(listOneController[i][1].text) ?? "",
+        'contact_no': int.tryParse(listOneController[i][1].text) ?? null,
         'contact_email': listOneController[i][2].text,
-        'contact_whatsapp': int.tryParse(listOneController[i][3].text) ?? "",
+        'contact_whatsapp': int.tryParse(listOneController[i][3].text) ?? null,
       };
-      siteContacts.add(additionalOneData);
+      additionalDataList.add(additionalOneData);
     }
   
 
@@ -294,19 +293,19 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
       Map<String, dynamic> additionalTwoData = {
         "contact_category_name": "Client Engineer",
         'contact_name': listTwoController[i][0].text,
-        'contact_no': int.tryParse(listTwoController[i][1].text) ?? "",
+        'contact_no': int.tryParse(listTwoController[i][1].text) ?? null,
         'contact_email': listTwoController[i][2].text,
-        'contact_whatsapp': int.tryParse(listTwoController[i][3].text) ?? "",
+        'contact_whatsapp': int.tryParse(listTwoController[i][3].text) ?? null,
       };
-      siteContacts.add(additionalTwoData);
+      additionalDataList.add(additionalTwoData);
     }
-  
+ 
 
   var data = {
     ...widget.data,
-    "sitecontact": siteContacts
+    "sitecontact":  [...additionalDataList]
   };
-
+print(data);
   Navigator.push(
     context,
     MaterialPageRoute(

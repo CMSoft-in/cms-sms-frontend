@@ -109,7 +109,7 @@ class _MaterialsViewDetailsMain extends State<MaterialsViewDetailsMain> {
 
   bool isEditing = false;
   bool isEnabled = false;
-
+ 
   void updateData(data) async {
     try {
       print("before update");
@@ -187,7 +187,7 @@ class _MaterialsViewDetailsMain extends State<MaterialsViewDetailsMain> {
                 },
                 deleteOnPress: AlartMessage(
                   api: '${ApiEndpoints.deleteMaterial}/${widget.id}',
-                  onPress: const LaborCategoryDataView(),
+                  onPress: const MaterialsDataView(),
                 ),
               ),
               MaterialsViewDetails(

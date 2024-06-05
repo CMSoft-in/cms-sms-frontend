@@ -97,82 +97,79 @@ class _SupplierCategoryViewDetailsMain extends State<SupplierCategoryViewDetails
   bool isEditing = false;
   bool isEnabled = false;
 
-  void updateData(Map<String, dynamic> data) async {
-    try {
-      print("before update");
+  void updateData(Map<String, dynamic> updatedData) async {
+  try {
+    print("Before update: $updatedData");
 
-      var response = await http.post(
-        Uri.parse('${ApiEndpoints.updateSupplierCategory}/${widget.id}'),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $token",
-        },
-        body: jsonEncode(data),
-      );
+    final response = await http.patch(
+      Uri.parse('${ApiEndpoints.updateSupplierCategory}/${widget.id}'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: jsonEncode(updatedData),
+    );
 
-      if (response.statusCode == 200) {
-        print(response.body);
-        Navigator.of(context).push(MaterialPageRoute(
+    if (response.statusCode == 200) {
+      print("Update successful: ${response.body}");
+      Navigator.of(context).push(
+        MaterialPageRoute(
           builder: (context) => const SupplierCategoryDataView(),
-        ));
-      }
-    } catch (e) {
-      print("update failed $e");
+        ),
+      );
+    } else {
+      print("Update failed: ${response.body}");
     }
+  } catch (e) {
+    print("Update failed: $e");
   }
+}
 
-  void supplierCategoryCheckUpdatingValue() {
+
+void supplierCategoryCheckUpdatingValue() {
   if (data != null) {
     Map<String, dynamic> updatedData = {};
 
-    // Get the list of current material names
+    
     List<String> currentMaterialNames = [];
     if (data!["co_material_id"] != null) {
       for (var material in data!["co_material_id"]) {
-        currentMaterialNames.add(material["co_material_name"] ?? '');
+        currentMaterialNames.add(material["co_material_id"] ?? '');
       }
     }
 
-    // Define the controllers
+   
     var controllers = {
       'co_supplier_category_name': supplierCategoryController.text,
-      'co_material_names': materialSuppliedController.text,
+      'co_material_id': comaterialCategoryId.isEmpty ? null :comaterialCategoryId,
       'created_by': createByController.text,
       'createdAt': createOnController.text,
     };
 
-    // Convert the current material names to a single string for comparison
     String currentMaterialNamesString = currentMaterialNames.join(', ');
 
-    // Compare the current values with the values from the controllers
-    if (data!["co_supplier_category_name"] != controllers['co_supplier_category_name'] && 
-        controllers['co_supplier_category_name']!.isNotEmpty) {
+    if (data!["co_supplier_category_name"] != controllers['co_supplier_category_name'] &&
+        controllers['co_supplier_category_name']! =="") {
       updatedData['co_supplier_category_name'] = controllers['co_supplier_category_name'];
     }
 
-    if (currentMaterialNamesString != controllers['co_material_names'] && 
-        controllers['co_material_names']!.isNotEmpty) {
-      updatedData['co_material_names'] = controllers['co_material_names'];
+    if (currentMaterialNamesString != controllers['co_material_id'] &&
+        controllers['co_material_id']! =="") {
+      updatedData['co_material_id'] = controllers['co_material_id'];
     }
 
-    if (data!["created_by"] != controllers['created_by'] && 
-        controllers['created_by']!.isNotEmpty) {
-      updatedData['created_by'] = controllers['created_by'];
-    }
-
-    if (data!["createdAt"] != controllers['createdAt'] && 
-        controllers['createdAt']!.isNotEmpty) {
-      updatedData['createdAt'] = controllers['createdAt'];
-    }
-
-    // Check if there are any changes and update the data
+   
+   
     if (updatedData.isNotEmpty) {
       updateData(updatedData);
     } else {
       print("No changes detected.");
     }
+  } else {
+    print("Data is null.");
   }
 }
+
 
  Future<void> MaterialfetchData() async {
     String uri = ApiEndpoints.getAllMaterials;
@@ -247,19 +244,20 @@ print(comaterialCategoryId);
                   onPress: const SupplierCategoryDataView(),
                 ),
               ),
-             isEditing
-              ?  DropDownForm(
-                  dropdownItems: const [
-                      "Supplier CateGory 1",
-                      "Supplier CateGory 2",
-                      "Supplier CateGory 3",
-                      "Supplier CateGory 4"
-                    ],
-                  dropDownName: supplierCategoryText,
-                  star: star,
-                  optionalisEmpty: true,
-                  controller: supplierCategoryController)
-              : TextformField(
+            //  isEditing
+            //   ?  DropDownForm(
+            //       dropdownItems: const [
+            //           "Supplier CateGory 1",
+            //           "Supplier CateGory 2",
+            //           "Supplier CateGory 3",
+            //           "Supplier CateGory 4"
+            //         ],
+            //       dropDownName: supplierCategoryText,
+            //       star: star,
+            //       optionalisEmpty: true,
+            //       controller: supplierCategoryController)
+            //   : 
+            TextformField(
                   controller: supplierCategoryController,
                   text: supplierCategoryText,
                   star: star,

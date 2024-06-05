@@ -72,8 +72,10 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
               ),
               formSizebox15,
               SupplierViewDetailsThree(
+                twoOrNot: false,
+                isMultiSelectDropDownEditing: true,
                 changeValue:changeValue ,
-                coSupplierCategoryId: coSupplierCategoryIds.isNotEmpty ? coSupplierCategoryIds.first : null,
+                coSupplierCategoryId: coSupplierCategoryIds,
 changeMaterialValue: changeMaterialValue,
 comaterialCategoryId: comaterialCategoryId.isNotEmpty ? comaterialCategoryId.first : null,
                 isEditing: true,

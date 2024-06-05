@@ -520,100 +520,100 @@ import '../../../Model/Const/color.dart';
 import '../../../Model/Const/height_width.dart';
 import '../../../Model/Const/text_const.dart';
 
-// class MultiSelectDropDownForm extends StatefulWidget {
-//   final List dropdownItems;
-//   final String dropDownName;
-//   final bool optionalisEmpty;
-//   final String star;
-//   final Function(List) onChanged;
-//   final List selectedIds;
-//   final TextEditingController controller;
+class MultiSelectTwoDropDownForm extends StatefulWidget {
+  final List dropdownItems;
+  final String dropDownName;
+  final bool optionalisEmpty;
+  final String star;
+  final Function(List) onChanged;
+  final List selectedIds;
+  final TextEditingController controller;
   
-//   const MultiSelectDropDownForm({
-//     Key? key,
-//     required this.selectedIds,
-//     required this.dropdownItems,
-//     required this.dropDownName,
-//     required this.onChanged,
-//     required this.star,
-//     required this.optionalisEmpty,
-//     required this.controller
-//   }) : super(key: key);
+  const MultiSelectTwoDropDownForm({
+    Key? key,
+    required this.selectedIds,
+    required this.dropdownItems,
+    required this.dropDownName,
+    required this.onChanged,
+    required this.star,
+    required this.optionalisEmpty,
+    required this.controller
+  }) : super(key: key);
 
-//   @override
-//   MultiSelectDropDownFormState createState() => MultiSelectDropDownFormState();
-// }
+  @override
+  MultiSelectTwoDropDownFormState createState() => MultiSelectTwoDropDownFormState();
+}
 
-// class MultiSelectDropDownFormState extends State<MultiSelectDropDownForm> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: <Widget>[
-//           SizedBox(
-//             width: primaryWidth,
-//             child: GestureDetector(
-//               onTap: () async {
-//                 await showDialog(
-//                   context: context,
-//                   builder: (context) {
-//                     return MultiSelectDialog(
-//                       items: widget.dropdownItems
-//                           .map((item) => MultiSelectItem(item["id"], item["name"]))
-//                           .toList(),
-//                       initialValue: widget.selectedIds,
-//                       title: Text(widget.dropDownName, style: textStyleGrey18),
-//                       onConfirm: (values) {
-//                         widget.onChanged(values);
-//                         widget.controller.text = values
-//                             .map((id) => widget.dropdownItems
-//                                 .firstWhere((item) => item['id'] == id)['name'])
-//                             .join(', ');
-//                       },
-//                     );
-//                   },
-//                 );
-//               },
-//               child: AbsorbPointer(
-//                 child: TextFormField(
-//                   controller: widget.controller,
-//                   decoration: InputDecoration(
-//                     labelText: widget.dropDownName,
-//                     labelStyle: textStyleGrey18,
-//                     suffixIcon: Icon(Icons.arrow_drop_down, color: black),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(5),
-//                       borderSide: BorderSide(color: grey, width: 2),
-//                     ),
-//                     // errorText: validMethod(widget.selectedIds),
-//                     errorStyle: const TextStyle(color: Colors.red),
-//                   ),
+class MultiSelectTwoDropDownFormState extends State<MultiSelectTwoDropDownForm> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: primaryWidth,
+            child: GestureDetector(
+              onTap: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return MultiSelectDialog(
+                      items: widget.dropdownItems
+                          .map((item) => MultiSelectItem(item["id"], item["name"]))
+                          .toList(),
+                      initialValue: widget.selectedIds,
+                      title: Text(widget.dropDownName, style: textStyleGrey18),
+                      onConfirm: (values) {
+                        widget.onChanged(values);
+                        widget.controller.text = values
+                            .map((id) => widget.dropdownItems
+                                .firstWhere((item) => item['id'] == id)['name'])
+                            .join(', ');
+                      },
+                    );
+                  },
+                );
+              },
+              child: AbsorbPointer(
+                child: TextFormField(
+                  controller: widget.controller,
+                  decoration: InputDecoration(
+                    labelText: widget.dropDownName,
+                    labelStyle: textStyleGrey18,
+                    suffixIcon: Icon(Icons.arrow_drop_down, color: black),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(color: grey, width: 2),
+                    ),
+                    // errorText: validMethod(widget.selectedIds),
+                    errorStyle: const TextStyle(color: Colors.red),
+                  ),
                 
-//                   maxLines: 15,
-//                   minLines: 1,
+                  maxLines: 15,
+                  minLines: 1,
                   
-//                   validator: (value) {
-//                 return validMethod(value);
-//               },
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
+                  validator: (value) {
+                return validMethod(value);
+              },
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-//   String? validMethod( value) {
-//     if (widget.optionalisEmpty) {
-//       if (value.isEmpty) {
-//         return "Please enter ${widget.dropDownName}";
-//       }
-//     }
-//     return null;
-//   }
-// }
+  String? validMethod( value) {
+    if (widget.optionalisEmpty) {
+      if (value.isEmpty) {
+        return "Please enter ${widget.dropDownName}";
+      }
+    }
+    return null;
+  }
+}
 class MultiSelectDropDownForm extends StatefulWidget {
   final List dropdownItems;
   final String dropDownName;
@@ -1090,212 +1090,3 @@ class DropDownFormmmState extends State<DropDownFormmm> {
     return null;
   }
 }
-// //   String? validMethod(List<dynamic>? values) {
-// //     if (widget.optionalisEmpty) {
-// //       if (values == null || values.isEmpty) {
-// //         return "Please enter ${widget.dropDownName}";
-// //       }
-// //       return null;
-// //     }
-// //     return null;
-// //   }
-// // }
-// class LaborViewDetailsTwoo extends StatefulWidget {
-//   const LaborViewDetailsTwoo({
-//     Key? key,
-
-//     required this.isEditing,
-//     required this.enabled,
-//   }) : super(key: key);
-
-//   final bool isEditing;
-//   final bool enabled;
-
-//   @override
-//   State<LaborViewDetailsTwoo> createState() => _LaborViewDetailsTwooState();
-// }
-
-// class _LaborViewDetailsTwooState extends State<LaborViewDetailsTwoo> {
-//   List<String> labordropdownItems = [];
-//   Map<String, int> laborCategoryMap = {}; // Map to store category name to ID
-//   int? selectedLaborCategoryId;
-//     final TextEditingController bloodGroupController=TextEditingController();
-//   final TextEditingController laborCategoryController=TextEditingController();
-//   final TextEditingController rateModelController=TextEditingController();
-//   final TextEditingController laborRateController=TextEditingController();
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     fetchData();
-//   }
-
-//   Future<void> fetchData() async {
-
-//     try {
-//       final response = await http.get(
-//         Uri.parse("$ip/Admin/getAll-labourcategory"),
-//         headers: {
-//           'Authorization': 'Bearer $token',
-//         },
-//       );
-
-//       if (response.statusCode == 200) {
-//         final Map<String, dynamic> responseData = json.decode(response.body);
-
-//         if (responseData['status'] == 'success' && responseData['data'] is List) {
-//           setState(() {
-//             final data = responseData['data'] as List;
-//             labordropdownItems.clear();
-//             laborCategoryMap.clear();
-//             for (var eachItem in data) {
-//               if (eachItem is Map<String, dynamic> && eachItem.containsKey('co_labour_category_name') && eachItem.containsKey('co_labour_category_id')) {
-//                 String dropDownName = eachItem['co_labour_category_name'];
-//                 int categoryId = eachItem['co_labour_category_id'];
-//                 labordropdownItems.add(dropDownName);
-//                 laborCategoryMap[dropDownName] = categoryId;
-//               }
-//             }
-//           });
-//         } else {
-//           print("Unexpected data format: $responseData");
-//         }
-//       } else {
-//         print("Failed to load data: ${response.statusCode}");
-//       }
-//     } catch (error) {
-//       print('Error fetching data: $error');
-//     }
-//   }
-
-//   void onDropdownChanged(String? selectedName) {
-//     if (selectedName != null) {
-//       setState(() {
-//         selectedLaborCategoryId = laborCategoryMap[selectedName];
-//       });
-//     }
-//   }
-
-//   Future<void> sendSelectedLaborCategoryId() async {
-
-//     if (selectedLaborCategoryId != null) {
-//       try {
-//         final response = await http.post(
-//           Uri.parse("$ip/Admin/selected-labourcategory"),
-//           headers: {
-//             'Authorization': 'Bearer $token',
-//             'Content-Type': 'application/json',
-//           },
-//           body: json.encode({'co_labour_category_id': selectedLaborCategoryId}),
-//         );
-
-//         if (response.statusCode == 200) {
-//           print("Data sent successfully");
-//         } else {
-//           print("Failed to send data: ${response.statusCode}");
-//         }
-//       } catch (error) {
-//         print('Error sending data: $error');
-//       }
-//     } else {
-//       print('No labor category selected');
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: white,
-//       appBar: const BuildAppBar(),
-//       body: SingleChildScrollView(
-//         child: Container(
-//           color: white,
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Center(
-//                 child: Form(
-//                   key: formKey,
-//                   child: Column(children: [
-//                     formSizebox8,
-//                     const StackText(
-//                       stacktext: laborpage2,
-//                       color: red,
-//                     ),
-//                     formSizebox15,
-//           TextformField(
-//             controller: bloodGroupController,
-//             text: bloodGroup,
-//             star: estar,
-//             limitLength: 6,
-//             optionalisEmpty: false,
-//             inputformat: bloodGroupp,
-//             inputtype: keyboardTypeNone,
-//             enabled: widget.enabled,
-//           ),
-//           formSizebox10,
-//           widget.isEditing
-//               ? DropDownFormm(
-//                   dropdownItems: labordropdownItems,
-//                   dropDownName: laborCategoryText,
-//                   star: star,
-//                   optionalisEmpty: true,
-//                   controller: laborCategoryController,
-//                   onChanged: onDropdownChanged, // Handle dropdown change
-//                 )
-//               : TextformField(
-//                   controller: laborCategoryController,
-//                   text: laborCategoryText,
-//                   limitLength: 40,
-//                   star: star,
-//                   inputformat: alphabats,
-//                   optionalisEmpty: true,
-//                   inputtype: keyboardTypeNone,
-//                   enabled: widget.enabled,
-//                 ),
-//           formSizebox10,
-//           widget.isEditing
-//               ? DropDownForm(
-//                   dropdownItems: ['Rate150', 'Rate 200'],
-//                   dropDownName: rateModel,
-//                   star: star,
-//                   optionalisEmpty: true,
-//                   controller: rateModelController,
-//                 )
-//               : TextformField(
-//                   controller: rateModelController,
-//                   text: rateModel,
-//                   limitLength: 20,
-//                   star: star,
-//                   inputformat: alphabats,
-//                   optionalisEmpty: true,
-//                   inputtype: keyboardTypeNone,
-//                   enabled: widget.enabled,
-//                 ),
-//           formSizebox10,
-//           TextformField(
-//             controller: laborRateController,
-//             text: laborRate,
-//             star: estar,
-//             limitLength: 40,
-//             optionalisEmpty: false,
-//             inputformat: alphabatsAndNumbers,
-//             inputtype: keyboardTypeNone,
-//             enabled: widget.enabled,
-//           ),
-
-//         ]),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       bottomSheet: BackNextButton(
-//           formKey: formKey,
-//           isEnabled: true,
-//           onPress: () => navigateToPageThree(context)),
-//       bottomNavigationBar: const BottomSheetLogo(),
-//     );
-//   }
-// }
