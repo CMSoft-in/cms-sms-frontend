@@ -74,7 +74,7 @@ class _SiteFormPageThreeState extends State<SiteFormPageThree> {
           formKey: formKey,
           isEnabled: true,
           onPress: () => navigateToPageThree(context)),
-      bottomNavigationBar: BottomSheetLogo(),
+      bottomNavigationBar: const BottomSheetLogo(),
     );
   }
 }

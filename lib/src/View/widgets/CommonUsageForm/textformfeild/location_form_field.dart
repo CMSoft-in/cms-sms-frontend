@@ -90,11 +90,12 @@ class _LocationFormFieldState extends State<LocationFormField> {
                     children: [
                       TextSpan(
                         text: widget.text,
-                        style: TextStyle(color: Colors.grey, fontSize: 18),
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 18),
                       ),
                       TextSpan(
                         text: widget.star,
-                        style: TextStyle(color: Colors.red, fontSize: 18),
+                        style: const TextStyle(color: Colors.red, fontSize: 18),
                       ),
                     ],
                   ),

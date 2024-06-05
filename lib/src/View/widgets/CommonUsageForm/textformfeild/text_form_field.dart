@@ -36,18 +36,16 @@ class _TextformFieldState extends State<TextformField> {
   Widget build(BuildContext context) {
     // final screenSize = MediaQuery.of(context).size;
     // final isMobile = screenSize.width < 600;
-    void changeValue(v){
+    void changeValue(v) {
       if (widget.text == "PAN Number") {
         setState(() {
-           widget.controller.text = widget.controller.text.toUpperCase();
+          widget.controller.text = widget.controller.text.toUpperCase();
         });
-       
       }
     }
-  
+
     return SizedBox(
-        width:
-            primaryWidth /*isMobile ? primaryWidth : screenSize.width * 0.7*/,
+        width: primaryWidth,
         child: TextFormField(
           onChanged: (value) {
             changeValue(value);

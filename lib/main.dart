@@ -18,7 +18,7 @@ class MyAppState extends State<MyApp> {
       theme: ThemeData(
         fontFamily: "Poppins",
       ),
-      home:Home(),
+      home: const Home(),
       debugShowCheckedModeBanner: false,
     );
   }

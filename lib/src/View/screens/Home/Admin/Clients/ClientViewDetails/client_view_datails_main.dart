@@ -39,6 +39,7 @@ class ClientViewDetailsMain extends StatefulWidget {
 
 class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
   Map<String, dynamic>? data;
+ bool isLoading = true;
   var updatedData;
   CommonController commonController = CommonController();
 
@@ -49,9 +50,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
     fetchUpdateData();
     getToken();
   }
-  bool isEditing = false;
-  bool isEnabled = false;
- bool isLoading = true;
+
   Future<void> fetchData() async {
     try {
       final response = await http.get(
@@ -145,7 +144,8 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
     }
   }
 
-
+  bool isEditing = false;
+  bool isEnabled = false;
 
   void updateData(data) async {
     try {
@@ -230,8 +230,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-  
-    return   Scaffold(
+    return Scaffold(
       backgroundColor: white,
       appBar: const BuildAppBar(),
       body: isLoading ? Center(child: CircularProgressIndicator()):SingleChildScrollView(

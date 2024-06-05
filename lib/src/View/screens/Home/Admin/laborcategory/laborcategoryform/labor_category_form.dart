@@ -138,7 +138,7 @@ print(values);
                                 text: rate,
                                 limitLength: 50,
                                 optionalisEmpty: false,
-                                inputformat: alphabatsAndNumbers,
+                                inputformat: number,
                                 star: estar,
                                 inputtype: keyboardTypeNone,
                                 enabled: true,

@@ -622,17 +622,17 @@ class MultiSelectDropDownForm extends StatefulWidget {
   final onChanged;
   final List selectedIds;
   final TextEditingController controller;
-  
-  const MultiSelectDropDownForm({
-    Key? key,
-    required this.selectedIds,
-    required this.dropdownItems,
-    required this.dropDownName,
-    required this.onChanged,
-    required this.star,
-    required this.optionalisEmpty,
-    required this.controller
-  }) : super(key: key);
+
+  const MultiSelectDropDownForm(
+      {Key? key,
+      required this.selectedIds,
+      required this.dropdownItems,
+      required this.dropDownName,
+      required this.onChanged,
+      required this.star,
+      required this.optionalisEmpty,
+      required this.controller})
+      : super(key: key);
 
   @override
   MultiSelectDropDownFormState createState() => MultiSelectDropDownFormState();
@@ -702,7 +702,8 @@ icon: null,
       ),
     );
   }
-   String? validMethod(value) {
+
+  String? validMethod(value) {
     if (widget.optionalisEmpty == true) {
       if (value.runtimeType == int) {
         return null;
@@ -1038,20 +1039,21 @@ class DropDownFormmmState extends State<DropDownFormmm> {
                         style: textStyleGrey18,
                       ),
                       title: RichText(
-                      text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: widget.dropDownName,
-                        style: textStyleGrey18,
-                      ),
-                      TextSpan(
-                        text: widget.star,
-                        style: textStyleRedStar,
-                      )
-                    ],
-                  )),
+                          text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: widget.dropDownName,
+                            style: textStyleGrey18,
+                          ),
+                          TextSpan(
+                            text: widget.star,
+                            style: textStyleRedStar,
+                          )
+                        ],
+                      )),
                       items: widget.dropdownItems
-                          .map((item) => MultiSelectItem(item['id'], item['name']))
+                          .map((item) =>
+                              MultiSelectItem(item['id'], item['name']))
                           .toList(),
                       initialValue: widget.selectedIds,
                       onConfirm: (values) {
@@ -1064,7 +1066,7 @@ class DropDownFormmmState extends State<DropDownFormmm> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               state.errorText ?? '',
-                              style: TextStyle(color: Colors.red),
+                              style: const TextStyle(color: Colors.red),
                             ),
                           )
                         : Container(),
