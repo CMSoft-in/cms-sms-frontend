@@ -10,7 +10,7 @@ import '../suppliersviewdetails/supplier_view_details_two.dart';
 import 'supplier_form_page_three.dart';
 
 class SupplierFormPageTwo extends StatefulWidget {
-class SupplierFormPageTwo extends StatefulWidget {
+
   const SupplierFormPageTwo({super.key, required this.data});
 
   final data;

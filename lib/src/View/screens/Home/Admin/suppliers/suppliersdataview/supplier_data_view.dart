@@ -39,7 +39,7 @@ class SupplierDataView extends StatelessWidget {
       lastColumnSecondSubName: "co_supplier_category_id",
       id: "co_supplier_id",
      uri: ApiEndpoints.getAllSuppliers,
-        header: const EmptyViewHeaderBar(
+        header:  EmptyViewHeaderBar(
           image: suppliers,
           onpress: SupplierFormPageOne(),
           text: titlesuppliers,

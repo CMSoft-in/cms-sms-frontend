@@ -11,6 +11,7 @@ import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_header.dart';
 import '../../../../../widgets/MyDrawer/my_drawer.dart';
 import '../laborcategoryform/labor_category_form.dart';
+import '../laborcategoryviewdetails/labor_category_main_view.dart';
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/text_const.dart';
 import 'package:flutter/material.dart';

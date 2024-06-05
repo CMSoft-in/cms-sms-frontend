@@ -24,68 +24,68 @@ class SupplierCategoryForm extends StatefulWidget {
 
 class _SupplierCategoryFormState extends State<SupplierCategoryForm> {
   List<dynamic> comaterialCategoryId = [];
-   final formKey = GlobalKey<FormState>();
-    SupplierCategoryTextEditingController
-        supplierCategoryTextEditingController =
-        SupplierCategoryTextEditingController();
+  final formKey = GlobalKey<FormState>();
+  SupplierCategoryTextEditingController supplierCategoryTextEditingController =
+      SupplierCategoryTextEditingController();
 
-    
   @override
   void initState() {
     super.initState();
     getToken();
   }
 
-void changeValue(List<dynamic> v) {
+  void changeValue(List<dynamic> v) {
     setState(() {
       comaterialCategoryId = v;
     });
   }
 
-  
-    Future navigateToPage(context) async {
-      print(token);
-      try {
-        var apiURL = Uri.parse(ApiEndpoints.createSupplierCategory);
+  Future navigateToPage(context) async {
+    print(token);
+    try {
+      var apiURL = Uri.parse(ApiEndpoints.createSupplierCategory);
 
-        var values = {
-          "co_supplier_category_name":
-              supplierCategoryTextEditingController.supplierCategoryController.text.isEmpty ? null :supplierCategoryTextEditingController.supplierCategoryController.text,
-          "co_material_id":comaterialCategoryId.isEmpty ? null :comaterialCategoryId.toString()
-            ,
-        };
-        print(values);
+      var values = {
+        "co_supplier_category_name": supplierCategoryTextEditingController
+                .supplierCategoryController.text.isEmpty
+            ? null
+            : supplierCategoryTextEditingController
+                .supplierCategoryController.text,
+        "co_material_id": comaterialCategoryId.isEmpty
+            ? null
+            : comaterialCategoryId.toString(),
+      };
+      print(values);
 
-        var body = json.encode(values);
-        var response = await http.post(
-          apiURL,
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer $token",
-          },
-          body: body,
+      var body = json.encode(values);
+      var response = await http.post(
+        apiURL,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: body,
+      );
+      print(response.body);
+      if (response.statusCode == 201) {
+        print('Response body: ${response.body}');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SupplierCategoryDataView(),
+          ),
         );
+      } else {
         print(response.body);
-        if (response.statusCode == 201) {
-          print('Response body: ${response.body}');
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SupplierCategoryDataView(),
-            ),
-          );
-        } else {
-          print(response.body);
-          print('Failed to load data: ${response.statusCode}');
-        }
-      } catch (e) {
-        print(e);
+        print('Failed to load data: ${response.statusCode}');
       }
+    } catch (e) {
+      print(e);
     }
+  }
+
   @override
   Widget build(BuildContext context) {
- 
-
     return Scaffold(
       appBar: const BuildAppBar(),
       body: SingleChildScrollView(
@@ -96,8 +96,10 @@ void changeValue(List<dynamic> v) {
               const DetailsText(enterDetails: supplierCategorydetails),
               formSizebox15,
               SupplierCategoryViewDetails(
-                changeValue: changeValue,
-                comaterialCategoryId: comaterialCategoryId.isNotEmpty ? comaterialCategoryId.first : null,
+                  changeValue: changeValue,
+                  comaterialCategoryId: comaterialCategoryId.isNotEmpty
+                      ? comaterialCategoryId.first
+                      : null,
                   enabled: true,
                   isEditing: true,
                   supplierCategoryController:
