@@ -37,6 +37,7 @@ class LaborViewDetailsMain extends StatefulWidget {
 class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
+  int? coLabourCategoryId;
   CommonController commonController = CommonController();
 
   @override
@@ -84,10 +85,9 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                 data!["emergency_contact_no"] ?? "";
             createBy.text = data!["created_by"] ?? "";
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
-      
-            
-              
-            laborCategoryController.text = data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
+
+            laborCategoryController.text =
+                data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
 
             aadharfilePathController.text = data!["aadhar_image"] ?? "";
             laborCategoryController.text =
@@ -95,7 +95,9 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
             siteWorkedController.text = data!["co_sites_worked"] ?? "";
             cuurentSiteAllocationController.text =
                 data!["co_current_sites_allocation"] ?? "";
-           aadharfilePathController.text = data!["aadhar_image"] ?? "";
+            aadharfilePathController.text = data!["aadhar_image"] ?? "";
+            coLabourCategoryId =
+                data!["CoLabourCategory"]["co_labour_category_id"];
           }
         });
       } else {
@@ -192,8 +194,7 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
       };
 
       currentData.forEach((key, value) {
-        if (value != null &&
-            value.isNotEmpty &&
+        if (value.isNotEmpty &&
             (oldData[key] ?? '') != value) {
           updatedData[key] = value;
           print(updatedData);
@@ -245,7 +246,7 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                   enabled: isEnabled),
               LaborViewDetailsTwo(
                   changeValue: () {},
-                  coLabourCategoryId: 1,
+                  coLabourCategoryId: coLabourCategoryId,
                   bloodGroupController: bloodGroupController,
                   laborCategoryController: laborCategoryController,
                   rateModelController: rateModelController,
