@@ -26,7 +26,6 @@ class CompanyUserFormPageFour extends StatelessWidget {
     void navigateToPageFive(BuildContext context) {
       var updatedData = {
         ...oldData,
-        
     "Aadhar": companyUserTextEditingController.aadharNumberController.text.isEmpty ? null :int.parse(companyUserTextEditingController.aadharNumberController.text.trim()),
     "Pan": companyUserTextEditingController.panNumberController.text.isEmpty ? null :int.parse(companyUserTextEditingController.panNumberController.text.trim()),
 

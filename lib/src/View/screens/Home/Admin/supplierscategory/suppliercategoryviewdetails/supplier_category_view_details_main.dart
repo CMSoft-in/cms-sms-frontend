@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../../Model/api/api_model.dart';
-import '../../../../../widgets/CommonUsageForm/textformfeild/drop_down_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
 import '../../../../../widgets/MyDrawer/s.dart';
@@ -31,24 +30,27 @@ class SupplierCategoryViewDetailsMain extends StatefulWidget {
 }
 
 class _SupplierCategoryViewDetailsMain extends State<SupplierCategoryViewDetailsMain> {
- List materialdropdownItems1 = [];
+  List materialdropdownItems1 = [];
   List<int> selectedMaterialCategoryIds = [];
   Map<String, dynamic>? data;
   var updatedData;
   CommonController commonController = CommonController();
- List<dynamic> comaterialCategoryId = [];
+  List<int> comaterialCategoryId = [];
+
   // Initialize TextEditingControllers
   TextEditingController supplierCategoryController = TextEditingController();
   TextEditingController materialSuppliedController = TextEditingController();
   TextEditingController createByController = TextEditingController();
   TextEditingController createOnController = TextEditingController();
 
+  bool isEditing = false;
+  bool isEnabled = false;
+
   @override
   void initState() {
     super.initState();
     fetchData();
     MaterialfetchData();
-    // fetchUpdateData();
   }
 
   Future<void> fetchData() async {
@@ -66,9 +68,9 @@ class _SupplierCategoryViewDetailsMain extends State<SupplierCategoryViewDetails
         setState(() {
           data = jsonDecode(response.body);
           if (data != null) {
-            // Properly set the TextEditingController values
+           
             supplierCategoryController.text = data!["co_supplier_category_name"] ?? '';
-            // Handle nested JSON data for multiple materials
+           
             if (data!["co_material_id"] != null) {
               List<String> materialNames = [];
               for (var material in data!["co_material_id"]) {
@@ -90,88 +92,83 @@ class _SupplierCategoryViewDetailsMain extends State<SupplierCategoryViewDetails
 
   void changeValue(List<dynamic> v) {
     setState(() {
-      comaterialCategoryId = v;
+      comaterialCategoryId = v.cast<int>();
     });
   }
 
-  bool isEditing = false;
-  bool isEnabled = false;
-
   void updateData(Map<String, dynamic> updatedData) async {
-  try {
-    print("Before update: $updatedData");
+    try {
+      print("Before update: $updatedData");
 
-    final response = await http.patch(
-      Uri.parse('${ApiEndpoints.updateSupplierCategory}/${widget.id}'),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
-      },
-      body: jsonEncode(updatedData),
-    );
-
-    if (response.statusCode == 200) {
-      print("Update successful: ${response.body}");
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const SupplierCategoryDataView(),
-        ),
+      final response = await http.patch(
+        Uri.parse('${ApiEndpoints.updateSupplierCategory}/${widget.id}'),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: jsonEncode(updatedData),
       );
-    } else {
-      print("Update failed: ${response.body}");
-    }
-  } catch (e) {
-    print("Update failed: $e");
-  }
-}
 
-
-void supplierCategoryCheckUpdatingValue() {
-  if (data != null) {
-    Map<String, dynamic> updatedData = {};
-
-    
-    List<String> currentMaterialNames = [];
-    if (data!["co_material_id"] != null) {
-      for (var material in data!["co_material_id"]) {
-        currentMaterialNames.add(material["co_material_id"] ?? '');
+      if (response.statusCode == 200) {
+        print("Update successful: ${response.body}");
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const SupplierCategoryDataView(),
+          ),
+        );
+      } else {
+        print("Update failed: ${response.body}");
       }
+    } catch (e) {
+      print("Update failed: $e");
     }
-
-   
-    var controllers = {
-      'co_supplier_category_name': supplierCategoryController.text,
-      'co_material_id': comaterialCategoryId.isEmpty ? null :comaterialCategoryId,
-      'created_by': createByController.text,
-      'createdAt': createOnController.text,
-    };
-
-    String currentMaterialNamesString = currentMaterialNames.join(', ');
-
-    if (data!["co_supplier_category_name"] != controllers['co_supplier_category_name'] &&
-        controllers['co_supplier_category_name']! =="") {
-      updatedData['co_supplier_category_name'] = controllers['co_supplier_category_name'];
-    }
-
-    if (currentMaterialNamesString != controllers['co_material_id'] &&
-        controllers['co_material_id']! =="") {
-      updatedData['co_material_id'] = controllers['co_material_id'];
-    }
-
-   
-   
-    if (updatedData.isNotEmpty) {
-      updateData(updatedData);
-    } else {
-      print("No changes detected.");
-    }
-  } else {
-    print("Data is null.");
   }
-}
 
+  void supplierCategoryCheckUpdatingValue() {
+    if (data != null) {
+      Map<String, dynamic> updatedData = {};
 
- Future<void> MaterialfetchData() async {
+     
+      List<int> currentMaterialIds = [];
+      if (data!["co_material_id"] != null) {
+        for (var material in data!["co_material_id"]) {
+          currentMaterialIds.add(material["co_material_id"] ?? 0); 
+        }
+      }
+
+      var controllers = {
+        'co_supplier_category_name': supplierCategoryController.text,
+        'co_material_id': comaterialCategoryId.isEmpty ? currentMaterialIds : comaterialCategoryId,
+        'created_by': createByController.text,
+        'createdAt': createOnController.text,
+      };
+
+      
+      String coSupplierCategoryName = controllers['co_supplier_category_name'] as String;
+      List<int> coMaterialId = controllers['co_material_id'] as List<int>;
+
+      if (data!["co_supplier_category_name"] != coSupplierCategoryName &&
+          coSupplierCategoryName.isNotEmpty) {
+        updatedData['co_supplier_category_name'] = coSupplierCategoryName;
+      }
+
+      if (currentMaterialIds.join(', ') != coMaterialId.join(', ') &&
+          coMaterialId.isNotEmpty) {
+        updatedData['co_material_id'] = coMaterialId;
+      }
+      
+      print(updatedData);
+      if (updatedData.isNotEmpty) {
+        updateData(updatedData);
+      } else {
+        print("No changes detected.");
+      }
+    } else {
+      print("Data is null.");
+    }
+  }
+
+  Future<void> MaterialfetchData() async {
     String uri = ApiEndpoints.getAllMaterials;
     try {
       final response = await http.get(
@@ -180,26 +177,17 @@ void supplierCategoryCheckUpdatingValue() {
           'Authorization': 'Bearer $token',
         },
       );
-        // print(response.body);
-        var body = json.decode(response.body);
-      
+      var body = json.decode(response.body);
+
       if (response.statusCode == 200) {
-      
         var newList = [];
-        // var newListOne = [];
         body.forEach((each) {
           int id = each["co_material_id"];
           String name = each["co_material_name"];
           newList.add({"id": id, "name": name});
         });
-        // body.forEach((each) {
-        //   int id = each["co_site_id"];
-        //   String name = each["co_site_name"];
-        //   newListOne.add({"id": id, "name": name});
-        // });
         setState(() {
           materialdropdownItems1 = newList;
-          // labordropdownItems1 = newListOne;
         });
       }
     } catch (error) {
@@ -209,11 +197,11 @@ void supplierCategoryCheckUpdatingValue() {
 
   void onMultiSelectChanged(List<dynamic> newIds) {
     setState(() {
-      changeValue(newIds);
+      changeValue(newIds.cast<int>());
       selectedMaterialCategoryIds = newIds.cast<int>();
-  comaterialCategoryId = selectedMaterialCategoryIds.isNotEmpty ? [selectedMaterialCategoryIds.first] : [];
+      comaterialCategoryId = selectedMaterialCategoryIds;
 
-print(comaterialCategoryId);
+      print(comaterialCategoryId);
     });
   }
 
@@ -244,58 +232,45 @@ print(comaterialCategoryId);
                   onPress: const SupplierCategoryDataView(),
                 ),
               ),
-            //  isEditing
-            //   ?  DropDownForm(
-            //       dropdownItems: const [
-            //           "Supplier CateGory 1",
-            //           "Supplier CateGory 2",
-            //           "Supplier CateGory 3",
-            //           "Supplier CateGory 4"
-            //         ],
-            //       dropDownName: supplierCategoryText,
-            //       star: star,
-            //       optionalisEmpty: true,
-            //       controller: supplierCategoryController)
-            //   : 
-            TextformField(
-                  controller: supplierCategoryController,
-                  text: supplierCategoryText,
-                  star: star,
-                  limitLength: 20,
-                  optionalisEmpty: true,
-                  inputformat: alphabatsAndNumbers,
-                  inputtype: keyboardTypeNone,
-                  enabled: isEnabled,
-                ),
-          formSizebox10,
-          isEditing
-              ? MultiSelectDropDownForm(
-                selectedIds: selectedMaterialCategoryIds,
-                onChanged: onMultiSelectChanged,
-                dropdownItems: materialdropdownItems1,
-                dropDownName: materialSupplied,
+              TextformField(
+                controller: supplierCategoryController,
+                text: supplierCategoryText,
                 star: star,
+                limitLength: 20,
                 optionalisEmpty: true,
-                controller: materialSuppliedController,
-              )
-              : MaxMinTextFormField(
-                maxLines: 4,
-                minLines: 1,
-                  controller: materialSuppliedController,
-                  text: materialSupplied,
-                  star: star,
-                  limitLength: 20,
-                  optionalisEmpty: true,
-                  inputformat: alphabatsAndNumbers,
-                  inputtype: keyboardTypeNone,
-                  enabled: isEnabled,
-                ),
+                inputformat: alphabatsAndNumbers,
+                inputtype: keyboardTypeNone,
+                enabled: isEnabled,
+              ),
+              formSizebox10,
+              isEditing
+                  ? MultiSelectTwoDropDownForm(
+                      selectedIds: selectedMaterialCategoryIds,
+                      onChanged: onMultiSelectChanged,
+                      dropdownItems: materialdropdownItems1,
+                      dropDownName: materialSupplied,
+                      star: star,
+                      optionalisEmpty: true,
+                      controller: materialSuppliedController,
+                    )
+                  : MaxMinTextFormField(
+                      maxLines: 4,
+                      minLines: 1,
+                      controller: materialSuppliedController,
+                      text: materialSupplied,
+                      star: star,
+                      limitLength: 20,
+                      optionalisEmpty: true,
+                      inputformat: alphabatsAndNumbers,
+                      inputtype: keyboardTypeNone,
+                      enabled: isEnabled,
+                    ),
               CreateByCreatedOn(
                 createByController: createByController,
                 createOnController: createOnController,
                 enabled: false,
               ),
-              formSizebox15,
+            formSizebox15,
               LongButton(
                 formKey: formKey,
                 text: update,
@@ -323,11 +298,12 @@ print(comaterialCategoryId);
                   ],
                 ),
               bottomHeight,
-            ],
-          ),
-        ),
+               ] ),
+              ),
+           
+         
       ),
-      bottomSheet: const BottomSheetLogo(),
+        bottomSheet: const BottomSheetLogo(),
     );
   }
 }
