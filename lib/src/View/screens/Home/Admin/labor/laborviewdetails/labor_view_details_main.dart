@@ -25,6 +25,7 @@ import '../../../../../widgets/CommonUsageForm/createBy.dart';
 import '../../../../../widgets/CommonUsageForm/view_details_text.dart';
 import '../labor_text_const.dart';
 import '../labordataview/labor_data_view.dart';
+import 'labor_view_details_three.dart';
 
 class LaborViewDetailsMain extends StatefulWidget {
   const LaborViewDetailsMain({Key? key, required this.id}) : super(key: key);
@@ -38,6 +39,8 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
   CommonController commonController = CommonController();
+  List<dynamic> coLabourCategoryIds = [];
+ int? coLabourCategoryIdsOne;
 
   @override
   void initState() {
@@ -89,13 +92,14 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
               
             laborCategoryController.text = data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
 
-            aadharfilePathController.text = data!["aadhar_image"] ?? "";
-            laborCategoryController.text =
-                data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
-            siteWorkedController.text = data!["co_sites_worked"] ?? "";
+           
+            // laborCategoryController.text =
+            //     data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
+            siteWorkedController.text = data!["co_sites_worked_sites"]["co_site_name"] ?? "";
             cuurentSiteAllocationController.text =
-                data!["co_current_sites_allocation"] ?? "";
+                data!["co_current_sites_allocation_sites"]["co_site_name"] ?? "";
            aadharfilePathController.text = data!["aadhar_image"] ?? "";
+           
           }
         });
       } else {
@@ -208,6 +212,17 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
     }
   }
 
+  void changeValue(List<dynamic> v) {
+    setState(() {
+      coLabourCategoryIds = v;
+    });
+  }
+
+  void changeValueOne(int v) {
+    // setState(() {
+    //   coLabourCategoryIdsOne = v;
+    // });
+  }
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -252,16 +267,17 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                   laborRateController: laborRateController,
                   isEditing: isEditing,
                   enabled: isEnabled),
-              // LaborViewDetailsThree(
-              //   changeValue: (){},
-              //    coLabourCategoryId: 2,
-              //     isEditing: isEditing,
-              //     aadharfilePathController: aadharfilePathController,
-              //     aadharController: aadharNumberController,
-              //     siteWorkedController: siteWorkedController,
-              //     cuurentSiteAllocationController:
-              //         cuurentSiteAllocationController,
-              //     enabled: isEnabled),
+             LaborViewDetailsTHree(
+                        coLabourCategoryIdOne: coLabourCategoryIdsOne,
+                        changeValueOne: changeValueOne,
+                        changeValue: changeValue,
+                        coLabourCategoryId: coLabourCategoryIds.isNotEmpty ? coLabourCategoryIds.first : null,
+                        aadharController: aadharNumberController,
+                        siteWorkedController: siteWorkedController,
+                        cuurentSiteAllocationController: cuurentSiteAllocationController,
+                        isEditing: isEditing,
+                        enabled: isEditing,
+                      ),
               LaborViewDetailsFour(
                   primaryNameController: primaryNameController,
                   primaryPhoneNumberController: primaryPhoneNumberController,

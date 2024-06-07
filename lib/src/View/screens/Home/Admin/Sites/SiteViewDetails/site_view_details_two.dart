@@ -1,4 +1,5 @@
 import 'package:cmssms/src/View/widgets/CommonUsageForm/textformfeild/datepicker/date_picker_text_form_field.dart';
+import 'package:cmssms/src/View/widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
 
 import '/src/View/widgets/CommonUsageForm/HintText.dart';
 import '/src/View/widgets/CommonUsageForm/textformfeild/text_form_field.dart';
@@ -41,7 +42,10 @@ class SiteViewDetailsTwo extends StatelessWidget {
             inputtype: keyboardTypeNone,
             enabled: enabled),
         formSizebox10,
-        TextformField(
+     
+        MaxMinTextFormField(
+          maxLines:4 ,
+          minLines: 1,
             controller: projectWorkDescriptionofController,
             text: shortDescriptionofProjectWork,
             limitLength: 120,

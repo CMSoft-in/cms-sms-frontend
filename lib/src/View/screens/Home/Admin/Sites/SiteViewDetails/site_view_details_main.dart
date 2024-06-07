@@ -75,17 +75,18 @@ List<List<TextEditingController>> clientQualityOfficerControllers = [
 class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
+  var  oldData;
 
   @override
   void initState() {
     super.initState();
-    fetchData();
-
+     fetchData();
     getToken();
   }
 
   bool isEditing = false;
   bool isEnabled = false;
+
 Future<void> fetchData() async {
   try {
     final response = await http.get(
@@ -96,9 +97,9 @@ Future<void> fetchData() async {
     );
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
-
+ final Map<String, dynamic>? data = jsonDecode(response.body) as Map<String, dynamic>?;
     if (response.statusCode == 200) {
-      final Map<String, dynamic>? data = jsonDecode(response.body) as Map<String, dynamic>?;
+     
       print('Data decoded: $data');
 
       setState(() {
@@ -193,10 +194,9 @@ void populateContactControllers(
     print('No contacts found in data for category: $category');
   }
 }
-
 void checkUpdatingValue() {
-  var oldData = data;
-  print(oldData);
+   oldData = data;
+  print('Old Data: $oldData');  // Ensure oldData is populated correctly
   if (oldData != null) {
     Map<String, dynamic> updatedData = {};
     var siteFields = {
@@ -227,14 +227,12 @@ void checkUpdatingValue() {
     };
 
     siteFields.forEach((key, value) {
-      if (value.isNotEmpty && (oldData[key]?.toString() ?? '') != value) {
+      if (value != null && value.isNotEmpty && (oldData[key]?.toString() ?? '') != value) {
         updatedData[key] = value;
-        print(updatedData);
       }
     });
 
-    // Check for contacts if needed
-    // For example, check for client architect contacts
+ 
     checkContactUpdates("Client Architect", clientArchitectControllers, oldData, updatedData);
 
     if (updatedData.isNotEmpty) {
@@ -243,7 +241,9 @@ void checkUpdatingValue() {
     } else {
       print("No changes detected.");
     }
-  }
+  } else {
+    print("Old data is null, unable to proceed.");
+  } 
 }
 
 void checkContactUpdates(
@@ -252,14 +252,17 @@ void checkContactUpdates(
   Map<String, dynamic> oldData,
   Map<String, dynamic> updatedData,
 ) {
+  if (oldData == null || oldData["CoSiteContacts"] == null) {
+    print('Old data or CoSiteContacts is null for category: $category');
+    return;
+  }
+
   List<Map<String, dynamic>> updatedContacts = [];
   for (var i = 0; i < controllers.length; i++) {
     var contact = controllers[i];
     if (contact[0].text.isNotEmpty) {
-      var oldContactData = oldData["CoSiteContacts"] != null
-          ? (oldData["CoSiteContacts"] as List)
-              .firstWhere((element) => element["contact_category_name"] == category, orElse: () => null)
-          : null;
+      var oldContactData = (oldData["CoSiteContacts"] as List)
+          .firstWhere((element) => element["contact_category_name"] == category, orElse: () => null);
       var updatedContactData = {
         "contact_name": contact[0].text,
         "contact_no": contact[1].text,
@@ -272,10 +275,10 @@ void checkContactUpdates(
             (oldContactData["contact_no"] ?? "") +
             (oldContactData["contact_email"] ?? "") +
             (oldContactData["contact_whatsapp"] ?? "");
-       var newContact = (updatedContactData["contact_name"] ?? "") +
-    (updatedContactData["contact_no"] ?? "") +
-    (updatedContactData["contact_email"] ?? "") +
-    (updatedContactData["contact_whatsapp"] ?? "");
+        var newContact = (updatedContactData["contact_name"] ?? "") +
+            (updatedContactData["contact_no"] ?? "") +
+            (updatedContactData["contact_email"] ?? "") +
+            (updatedContactData["contact_whatsapp"] ?? "");
 
         if (oldContact != newContact) {
           updatedContacts.add({
@@ -300,31 +303,30 @@ void checkContactUpdates(
 }
 
 
-
-
-  void updateData(data) async {
-    try {
-      print("before update");
-      var response = await http.patch(
-        Uri.parse('${ApiEndpoints.updateSite}/${widget.id}'),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $token",
-        },
-        body: jsonEncode(data),
-      );
-      print(response.body);
-      if (response.statusCode == 200) {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const SiteDataView()));
-      } else {
-        print("before e");
-        print(response.statusCode);
-      }
-    } catch (e) {
-      print("update failed $e");
+void updateData(data) async {
+  try {
+    print("Before update");
+    var response = await http.patch(
+      Uri.parse('${ApiEndpoints.updateSite}/${widget.id}'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: jsonEncode(data),
+    );
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    if (response.statusCode == 200) {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const SiteDataView()));
+    } else {
+      print("Update failed with status code: ${response.statusCode}");
     }
+  } catch (e) {
+    print("Update failed with error: $e");
   }
+}
+
 
 
   @override
@@ -370,11 +372,11 @@ void checkContactUpdates(
                   projectWorkDescriptionofController:
                       projectWorkDescriptionofController,
                   projectWorkNameController: projectWorkNameController),
-              SiteViewDetailsThree(
-                  enabled: isEnabled,
-                  companySiteEngineersAllocatedController:
-                      companySiteEngineersAllocatedController,
-                  laborsAllocatedController: laborsAllocatedController),
+              // SiteViewDetailsThree(
+              //     enabled: isEnabled,
+              //     companySiteEngineersAllocatedController:
+              //         companySiteEngineersAllocatedController,
+              //     laborsAllocatedController: laborsAllocatedController),
               SiteViewDetailsFour(
                   enabled: isEnabled,
                   emailController: primaryEmailController,
@@ -399,12 +401,13 @@ void checkContactUpdates(
               const StackText(stacktext: clientQualityOfficer, color: grey),
               ..._buildContactFields(clientQualityOfficerControllers),
               formSizebox15,
-              LongButton(
-                formKey: formKey,
-                text: update,
-                onPressed: () {checkUpdatingValue();},
-                isEnabled: isEnabled,
-              ),
+              ElevatedButton(onPressed: ()=> checkUpdatingValue(), child: Text('Update')),
+              // LongButton(
+              //   formKey: formKey,
+              //   text: update,
+              //   onPressed: () { checkUpdatingValue();},
+              //   isEnabled: isEnabled,
+              // ),
               if (updatedData != null)
                 if (updatedData.length != 0)
                   Column(
