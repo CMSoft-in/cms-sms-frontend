@@ -89,7 +89,7 @@ class _TextformFieldState extends State<TextformField> {
                   return null;
             }
             else {
-              return "Please enterr valid Email";
+              return "Please enter valid Email";
             }
        
       }

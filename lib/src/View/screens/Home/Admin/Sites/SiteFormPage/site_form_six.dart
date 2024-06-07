@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/text_const.dart';
-import 'site_form_seven.dart';
+import '../../../../../widgets/CommonUsageForm/HintText.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/phone_text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/Buttons/next_back_button.dart';
-import '../../../../../widgets/CommonUsageForm/HintText.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '/src/View/widgets/AppBar/AppBar.dart';
+import 'site_form_seven.dart';
 
 class SiteFormPageSix extends StatefulWidget {
-  const SiteFormPageSix({Key? key, required this.data}) : super(key: key);
+  const SiteFormPageSix({super.key, required this.data});
   final Map<String, dynamic> data;
 
   @override
   State<SiteFormPageSix> createState() => _SiteFormPageSixState();
 }
-  
-class _SiteFormPageSixState extends State<SiteFormPageSix> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+class _SiteFormPageSixState extends State<SiteFormPageSix> {
   List<List<TextEditingController>> listOneController = [
     [
       TextEditingController(),
@@ -39,9 +37,66 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
       TextEditingController()
     ]
   ];
+void navigateToPageEight(BuildContext context) {
+  try {
+    List<Map<String, dynamic>> additionalDataList = [];
+
+    // Add Client Site Engineer contacts
+    for (int i = 0; i < listOneController.length; i++) {
+     
+        Map<String, dynamic> additionalOneData = {
+          "contact_category_name": siteEngineer,
+          'contact_name': listOneController[i][0].text,
+          'contact_no': int.tryParse(listOneController[i][1].text) ?? null,
+          'contact_email': listOneController[i][2].text,
+          'contact_whatsapp': int.tryParse(listOneController[i][3].text) ?? null,
+        };
+        additionalDataList.add(additionalOneData);
+      }
+    
+
+    // Add Client Purchase Officer contacts
+    for (int i = 0; i < listTwoController.length; i++) {
+    
+        Map<String, dynamic> additionalTwoData = {
+          "contact_category_name": clientPurchaseOfficer,
+          'contact_name': listTwoController[i][0].text,
+          'contact_no': int.tryParse(listTwoController[i][1].text) ?? null,
+          'contact_email': listTwoController[i][2].text,
+          'contact_whatsapp': int.tryParse(listTwoController[i][3].text) ?? null,
+        };
+        additionalDataList.add(additionalTwoData);
+      }
+    
+
+    // Merge new contacts with existing contacts
+    List<Map<String, dynamic>> oldContacts = List<Map<String, dynamic>>.from(
+      widget.data["sitecontact"].map((item) => Map<String, dynamic>.from(item))
+    );
+
+    var data = {
+      ...widget.data,
+      "sitecontact": [...oldContacts, ...additionalDataList]
+    };
+
+    print(data);
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SiteFormPageSeven(data: data),
+      ),
+    );
+  } catch (e) {
+    print(e);
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+
    
     return Scaffold(
       backgroundColor: white,
@@ -54,9 +109,9 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
               formSizebox8,
               const StackText(stacktext: sitepage6, color: red),
               formSizebox15,
-              StackText(stacktext: clientArchitect, color: grey),
+              StackText(stacktext: siteEngineer, color: grey),
               const SizedBox(height: 15),
-              buildClientArchitectFields(listOneController),
+              buildSiteEngineerFields(listOneController),
               formSizebox10,
               GestureDetector(
                 onTap: () {
@@ -69,12 +124,13 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
                     ]);
                   });
                 },
-                child: Text("Add More $clientArchitect"),
+                child: Text("Add More $siteEngineer"),
               ),
               const SizedBox(width: 10),
-              StackText(stacktext: clientEngineer, color: grey),
+              const SizedBox(width: 10),
+              StackText(stacktext: clientPurchaseOfficer, color: grey),
               formSizebox10,
-              buildClientEngineerFields(listTwoController),
+              buildClientPurchaseOfficerFields(listTwoController),
               formSizebox10,
               GestureDetector(
                 onTap: () {
@@ -87,7 +143,7 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
                     ]);
                   });
                 },
-                child: Text("Add More $clientEngineer"),
+                child: Text("Add More $clientPurchaseOfficer"),
               ),
               const SizedBox(width: 10),
               formSizebox10,
@@ -99,13 +155,13 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
       bottomSheet: BackNextButton(
         formKey: formKey,
         isEnabled: true,
-        onPress: () => navigateToPageSeven(context),
+        onPress: () => navigateToPageEight(context),
       ),
       bottomNavigationBar: const BottomSheetLogo(),
     );
   }
 
-  Widget buildClientArchitectFields(List<List<TextEditingController>> controllers) {
+  Widget buildSiteEngineerFields(List<List<TextEditingController>> controllers) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       shrinkWrap: true,
@@ -187,7 +243,7 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
     );
   }
 
-  Widget buildClientEngineerFields(List<List<TextEditingController>> controllers) {
+  Widget buildClientPurchaseOfficerFields(List<List<TextEditingController>> controllers) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       shrinkWrap: true,
@@ -268,50 +324,4 @@ class _SiteFormPageSixState extends State<SiteFormPageSix> {
       },
     );
   }
-
- void navigateToPageSeven(BuildContext context) {
-   List<Map<String, dynamic>> additionalDataList = [];
- 
-
-  // Add Client Architect contacts
-  for (int i = 0; i < listOneController.length; i++) {
-    
-      Map<String, dynamic> additionalOneData = {
-        "contact_category_name": "Client Architect",
-        'contact_name': listOneController[i][0].text,
-        'contact_no': int.tryParse(listOneController[i][1].text) ?? null,
-        'contact_email': listOneController[i][2].text,
-        'contact_whatsapp': int.tryParse(listOneController[i][3].text) ?? null,
-      };
-      additionalDataList.add(additionalOneData);
-    }
-  
-
-  // Add Client Engineer contacts
-  for (int i = 0; i < listTwoController.length; i++) {
-    
-      Map<String, dynamic> additionalTwoData = {
-        "contact_category_name": "Client Engineer",
-        'contact_name': listTwoController[i][0].text,
-        'contact_no': int.tryParse(listTwoController[i][1].text) ?? null,
-        'contact_email': listTwoController[i][2].text,
-        'contact_whatsapp': int.tryParse(listTwoController[i][3].text) ?? null,
-      };
-      additionalDataList.add(additionalTwoData);
-    }
- 
-
-  var data = {
-    ...widget.data,
-    "sitecontact":  [...additionalDataList]
-  };
-print(data);
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => SiteFormPageSeven(data: data),
-    ),
-  );
-}
-
 }

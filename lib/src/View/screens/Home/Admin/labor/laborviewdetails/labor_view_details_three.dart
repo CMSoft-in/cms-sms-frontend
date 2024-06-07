@@ -444,7 +444,7 @@ void onDropdownChangedOne(newId) {
               ),
         formSizebox10,
       widget.isEditing
-            ? MultiSelectDropDownForm(
+            ? MultiSelectTwoDropDownForm(
                 selectedIds: selectedLaborCategoryIds,
                 onChanged: onMultiSelectChanged,
                 dropdownItems: labordropdownItems,
