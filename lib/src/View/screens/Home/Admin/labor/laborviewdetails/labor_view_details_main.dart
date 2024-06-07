@@ -38,6 +38,7 @@ class LaborViewDetailsMain extends StatefulWidget {
 class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
+  int? coLabourCategoryId;
   CommonController commonController = CommonController();
   List<dynamic> coLabourCategoryIds = [];
  int? coLabourCategoryIdsOne;
@@ -87,19 +88,17 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                 data!["emergency_contact_no"] ?? "";
             createBy.text = data!["created_by"] ?? "";
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
-      
-            
-              
-            laborCategoryController.text = data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
+
+            laborCategoryController.text =
+                data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
 
            
             // laborCategoryController.text =
             //     data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
             siteWorkedController.text = data!["co_sites_worked_sites"]["co_site_name"] ?? "";
             cuurentSiteAllocationController.text =
-                data!["co_current_sites_allocation_sites"]["co_site_name"] ?? "";
+                data!["co_current_sites_allocation"] ?? "";
            aadharfilePathController.text = data!["aadhar_image"] ?? "";
-           
           }
         });
       } else {
@@ -196,8 +195,7 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
       };
 
       currentData.forEach((key, value) {
-        if (value != null &&
-            value.isNotEmpty &&
+        if (value.isNotEmpty &&
             (oldData[key] ?? '') != value) {
           updatedData[key] = value;
           print(updatedData);
@@ -260,7 +258,7 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                   enabled: isEnabled),
               LaborViewDetailsTwo(
                   changeValue: () {},
-                  coLabourCategoryId: 1,
+                  coLabourCategoryId: coLabourCategoryId,
                   bloodGroupController: bloodGroupController,
                   laborCategoryController: laborCategoryController,
                   rateModelController: rateModelController,
