@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/datepicker/date_picker_text_form_field.dart';
-import '../../../../../widgets/CommonUsageForm/textformfeild/drop_down_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../widgets/MyDrawer/s.dart';
 import '../companyuser_text.dart';
 
+// ignore: must_be_immutable
 class CompanyUserViewDetailsTwo extends StatefulWidget {
   CompanyUserViewDetailsTwo({
     Key? key,

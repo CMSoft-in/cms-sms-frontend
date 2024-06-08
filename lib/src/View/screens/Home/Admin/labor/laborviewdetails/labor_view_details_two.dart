@@ -11,6 +11,7 @@ import '../../../../../widgets/CommonUsageForm/textformfeild/drop_down_form_fiel
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../labor_text_const.dart';
 
+// ignore: must_be_immutable
 class LaborViewDetailsTwo extends StatefulWidget {
   LaborViewDetailsTwo(
       {Key? key,

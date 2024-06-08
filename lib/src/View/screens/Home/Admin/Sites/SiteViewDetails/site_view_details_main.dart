@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_four.dart';
 import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_one.dart';
-import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_three.dart';
 import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_two.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
-import '../../../../../widgets/Buttons/Long_SizeButton.dart';
 import '../../../../../widgets/CommonUsageForm/AlartBox/alart_popup.dart';
 import '../../../../../widgets/CommonUsageForm/HintText.dart';
 import '../../../../../widgets/CommonUsageForm/Update/update_data_item.dart';
@@ -218,8 +216,8 @@ void checkUpdatingValue() {
       dbSiteProjectStartDate: projectStartDateController.text,
       dbSiteProjectCompletionDate: expectedCompletionDateController.text,
       dbSiteProjectDesc: projectWorkDescriptionofController.text,
-      "": companySiteEngineersAllocatedController.text,
-      " ": laborsAllocatedController.text,
+      // "": companySiteEngineersAllocatedController.text,
+      // " ": laborsAllocatedController.text,
       dbSecondaryEmail: secondaryEmailController.text,
       dbSecondaryName: secondaryNameController.text,
       dbSecondaryNumber: secondaryPhoneNumberController.text,
@@ -227,6 +225,7 @@ void checkUpdatingValue() {
     };
 
     siteFields.forEach((key, value) {
+      // ignore: unnecessary_null_comparison
       if (value != null && value.isNotEmpty && (oldData[key]?.toString() ?? '') != value) {
         updatedData[key] = value;
       }
@@ -252,6 +251,7 @@ void checkContactUpdates(
   Map<String, dynamic> oldData,
   Map<String, dynamic> updatedData,
 ) {
+  // ignore: unnecessary_null_comparison
   if (oldData == null || oldData["CoSiteContacts"] == null) {
     print('Old data or CoSiteContacts is null for category: $category');
     return;

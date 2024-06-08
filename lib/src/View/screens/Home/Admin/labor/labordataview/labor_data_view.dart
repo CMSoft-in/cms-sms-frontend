@@ -259,13 +259,13 @@ class _LaborDataViewState extends State<LaborDataView> {
                                     child: Text(
                                         textAlign: TextAlign.left,
                                         getLabourCategoryName(
-                                            item["co_labour_category_id"])),
+                                            item["co_labour_category_id"]).toString() ?? ''),
                                   ),
                                   Expanded(
                                     child: Text(
                                         textAlign: TextAlign.left,
                                         getSiteName(item[
-                                            "co_current_sites_allocation"])),
+                                            "co_current_sites_allocation"]).toString()??  ''),
                                   )
                                 ],
                               ),
@@ -274,6 +274,7 @@ class _LaborDataViewState extends State<LaborDataView> {
                                   item["co_labour_id"].toString(),
                                 );
                               },
+                              
                             ),
                           );
                         })

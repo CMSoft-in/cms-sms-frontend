@@ -80,15 +80,15 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
             addressline2Controller.text = data!["off_address_line2"] ?? "";
             cityController.text = data!["off_town"] ?? "";
             stateController.text = data!["off_state"] ?? "";
-         pincodeController.text=data!["off_pincode"].toString() ?? "";
-            gstController.text = data!["gst_no"].toString() ?? "";
+         pincodeController.text=data!["off_pincode"].toString();
+            gstController.text = data!["gst_no"].toString();
             primaryNameController.text = data!["primary_contact_name"] ?? "";
             primaryPhoneNumberController.text =
                 data!["primary_contact_no"] ?? "";
             primaryEmailController.text = data!["primary_contact_email"] ?? "";
             primaryWhatsappController.text =
                 data!["primary_contact_whatsapp"] ?? "";
-            timeLineController.text = data!["payment_timeline"].toString() ?? "";
+            timeLineController.text = data!["payment_timeline"].toString();
             firstNameController.text = data!["owner_first_name"] ?? "";
             lastNameController.text = data!["owner_last_name"] ?? "";
             phoneNumberController.text = data!["mobile_no"] ?? "";
