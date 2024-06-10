@@ -4,15 +4,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mime/mime.dart';
 
-import 'dart:async';
 
-import 'package:http/http.dart' as http;
-
-import 'package:http_parser/http_parser.dart';
 
 import '../../../Model/Const/height_width.dart';
 import '../../../Model/Const/text_const.dart';
 
+// ignore: must_be_immutable
 class FilePickerr2 extends StatefulWidget {
   FilePickerr2({
     Key? key,

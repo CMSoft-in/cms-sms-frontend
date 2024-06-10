@@ -519,14 +519,20 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../../../Model/Const/color.dart';
 import '../../../Model/Const/height_width.dart';
 import '../../../Model/Const/text_const.dart';
+import 'package:flutter/material.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/material.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/material.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
-class MultiSelectTwoDropDownForm extends StatefulWidget {
-  final List dropdownItems;
+class MyHomePage extends StatefulWidget {
+  final List<Map<String, dynamic>> dropdownItems;
   final String dropDownName;
   final bool optionalisEmpty;
   final String star;
-  final Function(List) onChanged;
-  final List selectedIds;
+  final Function(List<String>) onChanged;
+  final List<String> selectedIds;
   final TextEditingController controller;
 
   const MultiSelectTwoDropDownForm(

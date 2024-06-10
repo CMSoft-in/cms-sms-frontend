@@ -4,7 +4,6 @@ import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/delete_data_vi
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/text_const.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Model/api/local.dart';
 import '../../../../../widgets/CommonUsageForm/Delete/delete_header.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import 'delete_site_form_view.dart';

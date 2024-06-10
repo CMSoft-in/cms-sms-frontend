@@ -6,11 +6,12 @@ import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
-import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/multi_select_drop_down_two.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
 import '../../../../../widgets/MyDrawer/s.dart';
 
+// ignore: must_be_immutable
 class SupplierViewDetailsThree extends StatefulWidget {
   final TextEditingController supplierCategoryController;
   final TextEditingController materialsSuppliedController;
