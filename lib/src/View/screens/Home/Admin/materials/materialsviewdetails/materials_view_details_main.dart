@@ -21,7 +21,6 @@ import '../../../../../widgets/CommonUsageForm/Update/update_data_item.dart';
 import '../../../../../widgets/CommonUsageForm/Update/update_header.dart';
 import '../../../../../widgets/CommonUsageForm/createBy.dart';
 import '../../../../../widgets/CommonUsageForm/view_details_text.dart';
-import '../../laborcategory/laborcategorydataview/labor_category_data_view.dart';
 import '../materials_text.dart';
 
 class MaterialsViewDetailsMain extends StatefulWidget {
@@ -148,6 +147,7 @@ class _MaterialsViewDetailsMain extends State<MaterialsViewDetailsMain> {
         "IGST": iGstController.text
       };
       controllers.forEach((key, value) {
+        // ignore: unnecessary_null_comparison
         if (value != null &&
             value.isNotEmpty &&
             (oldData[key] ?? '') != value) {

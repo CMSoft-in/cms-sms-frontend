@@ -1,31 +1,31 @@
-import '../../../../../../Model/api/api_model.dart';
-import '../../../../../../Model/api/local.dart';
-import '../../../../../widgets/MyDrawer/s.dart';
-import '/src/View/screens/Home/Admin/laborcategory/labor_category_text.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
+import '../../../../../../Model/api/local.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/sigle_select_drop_down.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/drop_down_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
+import '../../laborcategory/labor_category_text.dart';
 import '../labor_text_const.dart';
 
 class LaborViewDetailsTwo extends StatefulWidget {
-  LaborViewDetailsTwo(
-      {Key? key,
-      required this.changeValue,
-      required this.coLabourCategoryId,
-      required this.bloodGroupController,
-      required this.laborCategoryController,
-      required this.rateModelController,
-      required this.laborRateController,
-      required this.isEditing,
-      required this.enabled})
-      : super(key: key);
+  const LaborViewDetailsTwo({
+    Key? key,
+    required this.changeValue,
+    required this.coLabourCategoryId,
+    required this.bloodGroupController,
+    required this.laborCategoryController,
+    required this.rateModelController,
+    required this.laborRateController,
+    required this.isEditing,
+    required this.enabled,
+  }) : super(key: key);
 
-  int? coLabourCategoryId;
-  final Function changeValue;
+  final int? coLabourCategoryId;
+  final Function(int?) changeValue;
   final TextEditingController bloodGroupController;
   final TextEditingController laborCategoryController;
   final TextEditingController rateModelController;
@@ -38,17 +38,18 @@ class LaborViewDetailsTwo extends StatefulWidget {
 }
 
 class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
-  List labordropdownItems = [];
+  List<Map<String, dynamic>> labordropdownItems = [];
   int? selectedLaborCategoryId;
-  
+
   @override
   void initState() {
     super.initState();
+    selectedLaborCategoryId = widget.coLabourCategoryId;
     fetchData();
   }
 
   Future<void> fetchData() async {
-  String  uri=ApiEndpoints.getAllLabourCategories;
+     String uri = ApiEndpoints.getAllLabourCategories;
     try {
       final response = await http.get(
         Uri.parse(uri),
@@ -57,15 +58,14 @@ class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
         },
       );
       if (response.statusCode == 200) {
-        var body = json.decode(response.body)["data"];
-        var newList = [];
-        body.forEach((each) {
-          int id = each["co_labour_category_id"];
-          String name = each["co_labour_category_name"];
-          newList.add({"id": id, "name": name});
-        });
+        final List<dynamic> body = json.decode(response.body)["data"];
         setState(() {
-          labordropdownItems = newList;
+          labordropdownItems = body
+              .map((each) => {
+                    "id": each["co_labour_category_id"],
+                    "name": each["co_labour_category_name"]
+                  })
+              .toList();
         });
       }
     } catch (error) {
@@ -73,16 +73,13 @@ class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
     }
   }
 
-
-  void onDropdownChanged(newId) {
+  void onDropdownChanged(String selectedId) {
+    int? newId = int.tryParse(selectedId);
     setState(() {
-       widget.changeValue(newId);
       selectedLaborCategoryId = newId;
-      widget.coLabourCategoryId = selectedLaborCategoryId;
+      widget.changeValue(newId);
     });
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +98,7 @@ class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
         ),
         formSizebox10,
         widget.isEditing
-            ? DropDownFormm(
+            ? SingleSelectDropDown(
                 selectedId: selectedLaborCategoryId,
                 onChanged: onDropdownChanged,
                 dropdownItems: labordropdownItems,
@@ -127,7 +124,8 @@ class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
                 dropDownName: rateModel,
                 star: star,
                 optionalisEmpty: true,
-                controller: widget.rateModelController)
+                controller: widget.rateModelController,
+              )
             : TextformField(
                 controller: widget.rateModelController,
                 text: rateModel,

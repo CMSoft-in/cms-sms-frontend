@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
 
 class LocationFormField extends StatefulWidget {
-  const LocationFormField({
+  LocationFormField({
     Key? key,
+    required this.assignLocation,
     required this.controller,
     required this.text,
     required this.optionalisEmpty,
@@ -20,6 +25,8 @@ class LocationFormField extends StatefulWidget {
   final bool enabled;
   final bool optionalisEmpty;
 
+  Function(String)? assignLocation;
+
   @override
   _LocationFormFieldState createState() => _LocationFormFieldState();
 }
@@ -32,10 +39,9 @@ class _LocationFormFieldState extends State<LocationFormField> {
     bool serviceEnabled;
     LocationPermission permission;
 
-    // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      Fluttertoast.showToast(msg: 'Please enable Your Location Service');
+      await Geolocator.openLocationSettings();
       return;
     }
 
@@ -58,18 +64,19 @@ class _LocationFormFieldState extends State<LocationFormField> {
     try {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-
+      if (widget.assignLocation != null) {
+        widget.assignLocation!("${position.latitude} ${position.longitude}");
+      }
       List<Placemark> placemarks =
           await placemarkFromCoordinates(position.latitude, position.longitude);
-
       Placemark place = placemarks[0];
-
       setState(() {
         currentPosition = position;
         currentAddress = "${place.subLocality}, ${place.locality}";
         widget.controller.text = currentAddress;
       });
     } catch (e) {
+      print(e);
       Fluttertoast.showToast(msg: 'Error fetching location: $e');
     }
   }

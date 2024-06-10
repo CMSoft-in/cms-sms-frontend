@@ -43,6 +43,7 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
       "co_material_id":
           comaterialCategoryId.isEmpty ? null : comaterialCategoryId,
     };
+    print(updatedData);
     Navigator.push(
       context,
       MaterialPageRoute(

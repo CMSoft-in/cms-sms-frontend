@@ -42,7 +42,6 @@ class _LaborFormPageFiveState extends State<LaborFormPageFive> {
     final formKey = GlobalKey<FormState>();
    LaborTextEditingController laborTextEditingController=LaborTextEditingController();
     Future navigateToPage(context) async {
-      print(token);
       var apiURL = Uri.parse(ApiEndpoints.createLabour);
       var values = {
         ...oldData,
@@ -55,7 +54,6 @@ class _LaborFormPageFiveState extends State<LaborFormPageFive> {
         "bank_acc_location": laborTextEditingController.bankLocationController.text.isEmpty ? null :laborTextEditingController.bankLocationController.text.trim(),
       };
 
-print(values);
 
       var body = json.encode(values);
       var response = await http.post(
@@ -98,7 +96,7 @@ print(values);
                     children: [
                       const SizedBox(height: 8),
                       const StackText(
-                        stacktext: laborpage6,
+                        stacktext: laborpage5,
                         color: red,
                       ),
                       const SizedBox(height: 15),

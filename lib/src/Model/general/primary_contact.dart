@@ -7,6 +7,7 @@ import "../Const/color.dart";
 import "../Const/height_width.dart";
 import "../Const/text_const.dart";
 
+// ignore: must_be_immutable
 class PrimaryContact extends StatelessWidget {
   PrimaryContact(
       {super.key,

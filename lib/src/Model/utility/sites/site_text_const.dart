@@ -69,8 +69,9 @@ const dbPrimaryNumber = 'primary_contact_no';
 const dbSecondaryName = 'secondary_contact_name';
 const dbSecondaryEmail = 'secondary_contact_email';
 const dbSecondaryNumber = 'secondary_contact_no';
-const dbPrimaryWhatsapp = 'primary_contact_whatsapp';
+const dbPrimaryWhatsapp = "primary_contact_whatsapp";
 const dbSecondaryWhatsapp = 'secondary_contact_whatsapp';
+const dbSiteEngineerAllocated = "site_engineer_allocated";
 final siteNameController = TextEditingController();
 final sitegpsController = TextEditingController();
 final formKey = GlobalKey<FormState>();
@@ -82,7 +83,7 @@ final projectWorkNameController = TextEditingController();
 final companySiteEngineersAllocatedController = TextEditingController();
 final laborsAllocatedController = TextEditingController();
 final TextEditingController emailController = TextEditingController();
-final TextEditingController nameController=TextEditingController();
+final TextEditingController nameController = TextEditingController();
 final TextEditingController governmentApprovalsController =
     TextEditingController();
 final TextEditingController clientArchitectEmailController =
@@ -127,17 +128,23 @@ final TextEditingController clientQualityOfficerWhatsappController =
     TextEditingController();
 
 class SitesTextEditingController {
-  final  TextEditingController siteNameController = TextEditingController();
+  final TextEditingController siteNameController = TextEditingController();
   final TextEditingController sitegpsController = TextEditingController();
-  final  TextEditingController expectedCompletionDateController = TextEditingController();
-  final TextEditingController  projectSizeController = TextEditingController();
-  final TextEditingController  projectStartDateController = TextEditingController();
-  final TextEditingController  projectWorkDescriptionofController = TextEditingController();
-  final TextEditingController  projectWorkNameController = TextEditingController();
-  final TextEditingController  companySiteEngineersAllocatedController = TextEditingController();
-  final TextEditingController  laborsAllocatedController = TextEditingController();
-  final   TextEditingController emailController = TextEditingController();
-  final   TextEditingController governmentApprovalsController =
+  final TextEditingController expectedCompletionDateController =
+      TextEditingController();
+  final TextEditingController projectSizeController = TextEditingController();
+  final TextEditingController projectStartDateController =
+      TextEditingController();
+  final TextEditingController projectWorkDescriptionofController =
+      TextEditingController();
+  final TextEditingController projectWorkNameController =
+      TextEditingController();
+  final TextEditingController companySiteEngineersAllocatedController =
+      TextEditingController();
+  final TextEditingController laborsAllocatedController =
+      TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController governmentApprovalsController =
       TextEditingController();
   final TextEditingController addressline1Controller = TextEditingController();
   final TextEditingController addressline2Controller = TextEditingController();

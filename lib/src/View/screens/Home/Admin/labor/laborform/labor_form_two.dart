@@ -7,41 +7,41 @@ import '../../../../../widgets/Buttons/next_back_button.dart';
 import '../../../../../widgets/CommonUsageForm/HintText.dart';
 import '../labor_text_const.dart';
 import '../laborviewdetails/labor_view_details_two.dart';
-
 import 'labor_form_three.dart';
 
 class LaborFormPageTwo extends StatefulWidget {
-  const LaborFormPageTwo({required this.data,
+  final Map<String, dynamic> data;
+
+  const LaborFormPageTwo({
+    required this.data,
     Key? key,
   }) : super(key: key);
-final data
-;  @override
+
+  @override
   State<LaborFormPageTwo> createState() => _LaborFormPageTwoState();
 }
 
 class _LaborFormPageTwoState extends State<LaborFormPageTwo> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final LaborTextEditingController laborTextEditingController =
-      LaborTextEditingController();
+  final LaborTextEditingController laborTextEditingController = LaborTextEditingController();
   int? coLabourCategoryId;
-     
-  void changeValue(int v) {
+
+  void changeValue(int? v) {
     setState(() {
       coLabourCategoryId = v;
     });
   }
 
   void navigateToPageThree(BuildContext context) {
- var oldData =widget.data;
+    var oldData = widget.data;
     var updatedData = {
       ...oldData,
-      "bloodgroup": laborTextEditingController.bloodGroupController.text.isEmpty ? null :laborTextEditingController.bloodGroupController.text.trim() ,
-      "co_labour_category_id": [coLabourCategoryId],
-      "co_labour_rate_model":
-          laborTextEditingController.rateModelController.text.isEmpty ? null :laborTextEditingController.rateModelController.text.trim(),
-      "co_labour_rate": laborTextEditingController.laborRateController.text.isEmpty ? null :int.parse(laborTextEditingController.laborRateController.text.trim()),
+      "bloodgroup": laborTextEditingController.bloodGroupController.text.isEmpty ? null : laborTextEditingController.bloodGroupController.text.trim(),
+      "co_labour_category_id": coLabourCategoryId,
+      "co_labour_rate_model": laborTextEditingController.rateModelController.text.isEmpty ? null : laborTextEditingController.rateModelController.text.trim(),
+      "co_labour_rate": laborTextEditingController.laborRateController.text.isEmpty ? null : int.parse(laborTextEditingController.laborRateController.text.trim()),
     };
-
+    print(updatedData);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -75,14 +75,10 @@ class _LaborFormPageTwoState extends State<LaborFormPageTwo> {
                       LaborViewDetailsTwo(
                         changeValue: changeValue,
                         coLabourCategoryId: coLabourCategoryId,
-                        bloodGroupController:
-                            laborTextEditingController.bloodGroupController,
-                        laborCategoryController:
-                            laborTextEditingController.laborCategoryController,
-                        rateModelController:
-                            laborTextEditingController.rateModelController,
-                        laborRateController:
-                            laborTextEditingController.laborRateController,
+                        bloodGroupController: laborTextEditingController.bloodGroupController,
+                        laborCategoryController: laborTextEditingController.laborCategoryController,
+                        rateModelController: laborTextEditingController.rateModelController,
+                        laborRateController: laborTextEditingController.laborRateController,
                         isEditing: true,
                         enabled: true,
                       ),
@@ -96,13 +92,10 @@ class _LaborFormPageTwoState extends State<LaborFormPageTwo> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(onPressed: () {
-      //   navigateToPageThree();
-      // }),
       bottomSheet: BackNextButton(
         formKey: formKey,
         isEnabled: true,
-        onPress: ()=>navigateToPageThree(context),
+        onPress: () => navigateToPageThree(context),
       ),
       bottomNavigationBar: const BottomSheetLogo(),
     );

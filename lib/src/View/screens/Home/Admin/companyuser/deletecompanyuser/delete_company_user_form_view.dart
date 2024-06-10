@@ -12,7 +12,6 @@ import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_
 import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_user_view_four.dart';
 import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_user_view_one.dart';
 import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_user_view_three.dart';
-import '/src/View/screens/Home/Admin/companyuser/companyuserviewdetails/company_user_view_two.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/color.dart';

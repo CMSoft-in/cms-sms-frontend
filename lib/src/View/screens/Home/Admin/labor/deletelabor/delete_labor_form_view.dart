@@ -87,9 +87,7 @@ class _LaborFormDeleteViewState extends State<LaborFormDeleteView> {
             aadharfilePathController.text = data!["aadhar_image"] ?? "";
             laborCategoryController.text =
                 data!["co_labour_category_id" ] ?? "";
-            siteWorkedController.text = data!["co_sites_worked"] ?? "";
-            cuurentSiteAllocationController.text =
-                data!["co_current_sites_allocation"] ?? "";
+    
           }
         });
       } else {
@@ -124,16 +122,16 @@ class _LaborFormDeleteViewState extends State<LaborFormDeleteView> {
                   pincodeController: pincodeController,
                   stateController: stateController,
                   enabled: false),
-              LaborViewDetailsTwo(
-                changeValue: (){},
-                  coLabourCategoryId: coLabourCategoryId,
-                  // labordropdownItems: labordropdownItems,
-                  bloodGroupController: bloodGroupController,
-                  laborCategoryController: laborCategoryController,
-                  rateModelController: rateModelController,
-                  laborRateController: laborRateController,
-                  isEditing: false,
-                  enabled: false),
+              // LaborViewDetailsTwo(
+              //   changeValue: (){},
+              //     coLabourCategoryId: coLabourCategoryId,
+              //     // labordropdownItems: labordropdownItems,
+              //     bloodGroupController: bloodGroupController,
+              //     laborCategoryController: laborCategoryController,
+              //     rateModelController: rateModelController,
+              //     laborRateController: laborRateController,
+              //     isEditing: false,
+              //     enabled: false),
               // LaborViewDetailsThree(
               //   changeValue: (){},
               //   coLabourCategoryId: 1,

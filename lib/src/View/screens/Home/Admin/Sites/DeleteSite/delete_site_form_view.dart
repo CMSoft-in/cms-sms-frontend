@@ -1,12 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
-import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_eight.dart';
-import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_five.dart';
 import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_four.dart';
 import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_one.dart';
-import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_seven.dart';
-import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_six.dart';
 import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_three.dart';
 import 'package:cmssms/src/View/screens/Home/Admin/Sites/SiteViewDetails/site_view_details_two.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +15,6 @@ import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '../../../../../../controler/GetDate/get_date.dart';
-import '../../../../../../controler/common_controller.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/CommonUsageForm/Delete/delete_reason_table_header.dart';

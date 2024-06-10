@@ -18,8 +18,6 @@ import 'package:flutter/material.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../laborcategory/labor_category_text.dart';
 import 'package:http/http.dart' as http;
-
-import 'delete_labor_category_form_view.dart';
 class LaborCategoryDeleteTable extends StatefulWidget {
   const LaborCategoryDeleteTable({super.key});
 

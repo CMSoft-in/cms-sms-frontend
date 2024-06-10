@@ -63,7 +63,7 @@ class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
             addressline2Controller.text = data!["off_address_line2"] ?? "";
             cityController.text = data!["city"] ?? "";
             stateController.text = data!["state"] ?? "";
-            pincodeController.text = data!["pincode"].toString() ?? "";
+            pincodeController.text = data!["pincode"].toString();
             mcompanyController.text = data!["co_machine_company_name"] ?? "";
             mmodelController.text = data!["co_machine_model"] ?? "";
             myearofMakeController.text = data!["co_machine_yearofmake"] ?? "";
@@ -161,6 +161,7 @@ class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
       };
 
       controllers.forEach((key, value) {
+      // ignore: unnecessary_null_comparison
       if (value != null && value.isNotEmpty && (oldData[key] ?? '') != value) {
         updatedData[key] = value;
         print(updatedData);
