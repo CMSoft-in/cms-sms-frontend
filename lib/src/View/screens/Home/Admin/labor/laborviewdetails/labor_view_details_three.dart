@@ -313,9 +313,7 @@ class LaborViewDetailsTHree extends StatefulWidget {
     required this.changeValue,
     required this.coLabourCategoryId,
     required this.aadharController,
-    required this.siteWorkedController,
     required this.changeValueOne,
-    required this.cuurentSiteAllocationController,
     required this.isEditing,
     required this.coLabourCategoryIdOne,
     required this.enabled,
@@ -326,8 +324,6 @@ class LaborViewDetailsTHree extends StatefulWidget {
   final Function(List<dynamic>) changeValue;
   final Function changeValueOne;
   final TextEditingController aadharController;
-  final TextEditingController siteWorkedController;
-  final TextEditingController cuurentSiteAllocationController;
   final bool isEditing;
   final bool enabled;
 
@@ -421,51 +417,6 @@ void onDropdownChangedOne(newId) {
           enabled: widget.enabled,
         ),
         formSizebox10,
-       
-        widget.isEditing
-            ? DropDownFormm(
-                selectedId: selectedLaborCategoryIdsOne,
-                onChanged: onDropdownChangedOne,
-                dropdownItems: labordropdownItems1,
-                dropDownName: cuurentSiteAllocation,
-                star: star,
-                optionalisEmpty: true,
-                controller: widget.cuurentSiteAllocationController,
-              )
-            : TextformField(
-                controller: widget.cuurentSiteAllocationController,
-                text: cuurentSiteAllocation,
-                limitLength: 40,
-                star: star,
-                inputformat: alphabats,
-                optionalisEmpty: true,
-                inputtype: keyboardTypeNone,
-                enabled: widget.enabled,
-              ),
-        formSizebox10,
-      widget.isEditing
-            ? MultiSelectTwoDropDownForm(
-                selectedIds: selectedLaborCategoryIds,
-                onChanged: onMultiSelectChanged,
-                dropdownItems: labordropdownItems,
-                dropDownName: siteWorked,
-                star: star,
-                optionalisEmpty: true,
-                controller: widget.siteWorkedController,
-              )
-            : MaxMinTextFormField(
-              maxLines: 4,
-              minLines: 1,
-                controller: widget.siteWorkedController,
-                text: siteWorked,
-                limitLength: 40,
-                star: star,
-                inputformat: alphabats,
-                optionalisEmpty: true,
-                inputtype: keyboardTypeNone,
-                enabled: widget.enabled,
-              ),
-         formSizebox10,
       ],
     );
   }

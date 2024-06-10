@@ -185,9 +185,6 @@ final TextEditingController supplierCategoryController =  TextEditingController(
 final TextEditingController laborCategoryController = TextEditingController();
 final TextEditingController rateModelController = TextEditingController();  
 final TextEditingController laborRateController = TextEditingController();
-final TextEditingController siteWorkedController = TextEditingController();
-final TextEditingController cuurentSiteAllocationController =
-    TextEditingController();
 final TextEditingController teamMemberController = TextEditingController();
 final TextEditingController rateController = TextEditingController();
 final TextEditingController gpayNumberController = TextEditingController();

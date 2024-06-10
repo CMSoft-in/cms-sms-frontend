@@ -134,6 +134,7 @@ class _LaborDataViewState extends State<LaborDataView> {
         var body = json.decode(response.body);
         setState(() {
           allLabourCategoriesdata = body["data"];
+          
         });
       } else {
         throw Exception('Failed to load data');

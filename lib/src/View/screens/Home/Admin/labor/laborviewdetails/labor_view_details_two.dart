@@ -102,6 +102,7 @@ class _LaborViewDetailsTwoState extends State<LaborViewDetailsTwo> {
         formSizebox10,
         widget.isEditing
             ? DropDownFormm(
+              defaultValue:widget.coLabourCategoryId,
                 selectedId: selectedLaborCategoryId,
                 onChanged: onDropdownChanged,
                 dropdownItems: labordropdownItems,

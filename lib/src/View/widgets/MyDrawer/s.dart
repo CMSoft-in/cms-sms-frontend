@@ -528,23 +528,25 @@ class MultiSelectTwoDropDownForm extends StatefulWidget {
   final Function(List) onChanged;
   final List selectedIds;
   final TextEditingController controller;
-  
-  const MultiSelectTwoDropDownForm({
-    Key? key,
-    required this.selectedIds,
-    required this.dropdownItems,
-    required this.dropDownName,
-    required this.onChanged,
-    required this.star,
-    required this.optionalisEmpty,
-    required this.controller
-  }) : super(key: key);
+
+  const MultiSelectTwoDropDownForm(
+      {Key? key,
+      required this.selectedIds,
+      required this.dropdownItems,
+      required this.dropDownName,
+      required this.onChanged,
+      required this.star,
+      required this.optionalisEmpty,
+      required this.controller})
+      : super(key: key);
 
   @override
-  MultiSelectTwoDropDownFormState createState() => MultiSelectTwoDropDownFormState();
+  MultiSelectTwoDropDownFormState createState() =>
+      MultiSelectTwoDropDownFormState();
 }
 
-class MultiSelectTwoDropDownFormState extends State<MultiSelectTwoDropDownForm> {
+class MultiSelectTwoDropDownFormState
+    extends State<MultiSelectTwoDropDownForm> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -560,7 +562,8 @@ class MultiSelectTwoDropDownFormState extends State<MultiSelectTwoDropDownForm> 
                   builder: (context) {
                     return MultiSelectDialog(
                       items: widget.dropdownItems
-                          .map((item) => MultiSelectItem(item["id"], item["name"]))
+                          .map((item) =>
+                              MultiSelectItem(item["id"], item["name"]))
                           .toList(),
                       initialValue: widget.selectedIds,
                       title: Text(widget.dropDownName, style: textStyleGrey18),
@@ -589,13 +592,11 @@ class MultiSelectTwoDropDownFormState extends State<MultiSelectTwoDropDownForm> 
                     // errorText: validMethod(widget.selectedIds),
                     errorStyle: const TextStyle(color: Colors.red),
                   ),
-                
                   maxLines: 15,
                   minLines: 1,
-                  
                   validator: (value) {
-                return validMethod(value);
-              },
+                    return validMethod(value);
+                  },
                 ),
               ),
             ),
@@ -605,7 +606,7 @@ class MultiSelectTwoDropDownFormState extends State<MultiSelectTwoDropDownForm> 
     );
   }
 
-  String? validMethod( value) {
+  String? validMethod(value) {
     if (widget.optionalisEmpty) {
       if (value.isEmpty) {
         return "Please enter ${widget.dropDownName}";
@@ -614,6 +615,7 @@ class MultiSelectTwoDropDownFormState extends State<MultiSelectTwoDropDownForm> 
     return null;
   }
 }
+
 class MultiSelectDropDownForm extends StatefulWidget {
   final List dropdownItems;
   final String dropDownName;
@@ -646,58 +648,51 @@ class MultiSelectDropDownFormState extends State<MultiSelectDropDownForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
-            width: primaryWidth,
-            child: MultiSelectDialogField(
-
-              items: widget.dropdownItems
-                  .map((item) => MultiSelectItem(item["id"], item["name"]))
-                  .toList(),
-              title: Text(widget.dropDownName, style: textStyleGrey18),
-              // selectedColor: Colors.blue,
-              decoration: BoxDecoration(
-                // color: Colors.blue.withOpacity(0.1),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                border: Border.all(
-                  color: grey,
-                  width: 2,
-                ),
-              ),
-              buttonIcon: Icon(
-                Icons.arrow_drop_down,
-                color: black,
-              ),
-              buttonText:Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: widget.dropDownName,
-                      style: textStyleGrey18,  // Adjust to match textStyleGrey18
+              width: primaryWidth,
+              child: MultiSelectDialogField(
+                  items: widget.dropdownItems
+                      .map((item) => MultiSelectItem(item["id"], item["name"]))
+                      .toList(),
+                  title: Text(widget.dropDownName, style: textStyleGrey18),
+                  // selectedColor: Colors.blue,
+                  decoration: BoxDecoration(
+                    // color: Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    border: Border.all(
+                      color: grey,
+                      width: 2,
                     ),
+                  ),
+                  buttonIcon: Icon(
+                    Icons.arrow_drop_down,
+                    color: black,
+                  ),
+                  buttonText: Text.rich(
                     TextSpan(
-                      text: widget.star,
-                      style: textStyleRedStar,  // Adjust to match textStyleGrey18
+                      children: [
+                        TextSpan(
+                          text: widget.dropDownName,
+                          style:
+                              textStyleGrey18, // Adjust to match textStyleGrey18
+                        ),
+                        TextSpan(
+                          text: widget.star,
+                          style:
+                              textStyleRedStar, // Adjust to match textStyleGrey18
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-
-              validator: (value) {
-                return validMethod(value);
-              },
-              
-              onConfirm: widget.onChanged,
-              initialValue: widget.selectedIds,
-                 chipDisplay: MultiSelectChipDisplay(
-icon: null,
-            chipColor: white, // Change this to your desired color
-            textStyle: TextStyle(color:black),
-              
-                
-            )
-            )
-          
-          ),
-          
+                  ),
+                  validator: (value) {
+                    return validMethod(value);
+                  },
+                  onConfirm: widget.onChanged,
+                  initialValue: widget.selectedIds,
+                  chipDisplay: MultiSelectChipDisplay(
+                    icon: null,
+                    chipColor: white, // Change this to your desired color
+                    textStyle: TextStyle(color: black),
+                  ))),
         ],
       ),
     );
@@ -731,15 +726,19 @@ class DropDownFormm extends StatefulWidget {
   final onChanged;
   final selectedId;
   final TextEditingController controller;
-  const DropDownFormm(
-      {super.key,
-      required this.selectedId,
-      required this.dropdownItems,
-      required this.dropDownName,
-      required this.onChanged,
-      required this.star,
-      required this.optionalisEmpty,
-      required this.controller});
+  final int? defaultValue; // Add this line
+
+  const DropDownFormm({
+    super.key,
+    required this.selectedId,
+    required this.dropdownItems,
+    required this.dropDownName,
+    required this.onChanged,
+    required this.star,
+    required this.optionalisEmpty,
+    required this.controller,
+    this.defaultValue, // Add this line
+  });
 
   @override
   DropDownFormmState createState() => DropDownFormmState();
@@ -748,16 +747,18 @@ class DropDownFormm extends StatefulWidget {
 class DropDownFormmState extends State<DropDownFormm> {
   @override
   Widget build(BuildContext context) {
+    print(widget.dropdownItems);
+    print(widget.defaultValue);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
-              width: primaryWidth,
-              child: DropdownButtonFormField(
-                decoration: InputDecoration(
-                  label: RichText(
-                      text: TextSpan(
+            width: primaryWidth,
+            child: DropdownButtonFormField(
+              decoration: InputDecoration(
+                label: RichText(
+                  text: TextSpan(
                     children: [
                       TextSpan(
                         text: widget.dropDownName,
@@ -768,22 +769,25 @@ class DropDownFormmState extends State<DropDownFormm> {
                         style: textStyleRedStar,
                       )
                     ],
-                  )),
-                  errorStyle: const TextStyle(color: Colors.red),
-                  border: const OutlineInputBorder(),
+                  ),
                 ),
-                validator: validMethod,
-                style: textStyleBlack18,
-                value: widget.selectedId,
-                onChanged: widget.onChanged,
-                items: widget.dropdownItems
-                    .map<DropdownMenuItem<int>>((dynamic item) {
-                  return DropdownMenuItem<int>(
-                    value: item["id"],
-                    child: Text(item["name"]),
-                  );
-                }).toList(),
-              )),
+                errorStyle: const TextStyle(color: Colors.red),
+                border: const OutlineInputBorder(),
+              ),
+              validator: validMethod,
+              style: textStyleBlack18,
+              value:
+                  widget.selectedId ?? widget.defaultValue, // Set default value
+              onChanged: widget.onChanged,
+              items: widget.dropdownItems
+                  .map<DropdownMenuItem<int>>((dynamic item) {
+                return DropdownMenuItem<int>(
+                  value: item["id"],
+                  child: Text(item["name"]),
+                );
+              }).toList(),
+            ),
+          ),
         ],
       ),
     );
@@ -995,10 +999,12 @@ class DropDownFormmm extends StatefulWidget {
   final Function(List) onChanged;
   final List selectedIds;
   final TextEditingController controller;
+  final List defaultSelectedIds; // Add this
 
   const DropDownFormmm({
     super.key,
     required this.selectedIds,
+    required this.defaultSelectedIds, // Add this
     required this.dropdownItems,
     required this.dropDownName,
     required this.onChanged,
@@ -1039,23 +1045,25 @@ class DropDownFormmmState extends State<DropDownFormmm> {
                         style: textStyleGrey18,
                       ),
                       title: RichText(
-                          text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: widget.dropDownName,
-                            style: textStyleGrey18,
-                          ),
-                          TextSpan(
-                            text: widget.star,
-                            style: textStyleRedStar,
-                          )
-                        ],
-                      )),
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: widget.dropDownName,
+                              style: textStyleGrey18,
+                            ),
+                            TextSpan(
+                              text: widget.star,
+                              style: textStyleRedStar,
+                            )
+                          ],
+                        ),
+                      ),
                       items: widget.dropdownItems
                           .map((item) =>
                               MultiSelectItem(item['id'], item['name']))
                           .toList(),
-                      initialValue: widget.selectedIds,
+                      initialValue: widget
+                          .defaultSelectedIds, // Set default selected values here
                       onConfirm: (values) {
                         widget.onChanged(values);
                         state.didChange(values);

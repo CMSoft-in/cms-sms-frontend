@@ -1,6 +1,7 @@
 import 'package:cmssms/src/Model/api/pincode_api.dart';
 import 'package:cmssms/src/View/widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import 'package:cmssms/src/Model/Const/text_const.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,7 +12,7 @@ import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/location_form_field.dart';
 
 class SiteViewDetailsOne extends StatelessWidget {
-  const SiteViewDetailsOne(
+  SiteViewDetailsOne(
       {super.key,
       required this.enabled,
       required this.addressline1Controller,
@@ -22,7 +23,11 @@ class SiteViewDetailsOne extends StatelessWidget {
       required this.stateControllerName,
       required this.sitegpsController,
       required this.isEditing,
+    
+       this.assignLocation,
       this.ontap});
+  Function(String)? assignLocation;
+
   final bool enabled;
   final bool isEditing;
   final TextEditingController siteNameController;
@@ -107,22 +112,24 @@ class SiteViewDetailsOne extends StatelessWidget {
             inputtype: keyboardTypeNone,
             enabled: enabled),
         formSizebox10,
-        isEditing?
-        LocationFormField(
-            star: star,
-            text: sitegps,
-            controller: sitegpsController,
-            enabled: enabled,
-            optionalisEmpty: true)
-       : TextformField(
-            controller: sitegpsController,
-            text: sitegps,
-            limitLength: 120,
-            optionalisEmpty: true,
-            inputformat: alphabatsAndNumbers,
-            star: star,
-            inputtype: keyboardTypeNone,
-            enabled: enabled)
+        isEditing
+            ? LocationFormField(
+                assignLocation: assignLocation,
+
+                star: star,
+                text: sitegps,
+                controller: sitegpsController,
+                enabled: enabled,
+                optionalisEmpty: true)
+            : TextformField(
+                controller: sitegpsController,
+                text: sitegps,
+                limitLength: 120,
+                optionalisEmpty: true,
+                inputformat: alphabatsAndNumbers,
+                star: star,
+                inputtype: keyboardTypeNone,
+                enabled: enabled)
       ],
     );
   }

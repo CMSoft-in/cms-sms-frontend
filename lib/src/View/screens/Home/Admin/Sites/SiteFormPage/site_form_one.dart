@@ -22,35 +22,50 @@ class SiteFormPageOne extends StatefulWidget {
 
 class _SiteFormPageOneState extends State<SiteFormPageOne> {
   final formKey = GlobalKey<FormState>();
-  SitesTextEditingController sitesTextEditingController=SitesTextEditingController();
-    
-    
+  SitesTextEditingController sitesTextEditingController =
+      SitesTextEditingController();
 
-    void navigateToPageTwo(BuildContext context) {
-      var data = {
-        dbSiteName: sitesTextEditingController.siteNameController.text.isEmpty ? null :sitesTextEditingController.siteNameController.text.trim(),
-        dbSiteAddressOne: sitesTextEditingController.addressline1Controller.text.isEmpty ? null :sitesTextEditingController.addressline1Controller.text.trim(),
-        dbSiteAddressTwo: sitesTextEditingController.addressline2Controller.text.isEmpty ? null :sitesTextEditingController.addressline2Controller.text.trim(),
-        dbSitePincode:sitesTextEditingController. pincodeController.text.isEmpty ? null :int.parse(sitesTextEditingController. pincodeController.text.trim()),
-        dbSiteTown:sitesTextEditingController. cityController.text.isEmpty ? null :sitesTextEditingController. cityController.text.trim(),
-        dbSiteState: sitesTextEditingController.stateController.text.isEmpty ? null :sitesTextEditingController.stateController.text.trim(),
-        dbSiteGpsLocation: sitegpsController.text.isEmpty ? "Loction" :sitegpsController.text.trim()
-      };
-print(data);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SiteFormPageTwo(data: data),
-        ),
-      );
-    }
+  void assignLocation(l) {
+    location = l;
+  }
 
+  void navigateToPageTwo(BuildContext context) {
+    var data = {
+      dbSiteName: sitesTextEditingController.siteNameController.text.isEmpty
+          ? null
+          : sitesTextEditingController.siteNameController.text.trim(),
+      dbSiteAddressOne:
+          sitesTextEditingController.addressline1Controller.text.isEmpty
+              ? null
+              : sitesTextEditingController.addressline1Controller.text.trim(),
+      dbSiteAddressTwo:
+          sitesTextEditingController.addressline2Controller.text.isEmpty
+              ? null
+              : sitesTextEditingController.addressline2Controller.text.trim(),
+      dbSitePincode: sitesTextEditingController.pincodeController.text.isEmpty
+          ? null
+          : int.parse(sitesTextEditingController.pincodeController.text.trim()),
+      dbSiteTown: sitesTextEditingController.cityController.text.isEmpty
+          ? null
+          : sitesTextEditingController.cityController.text.trim(),
+      dbSiteState: sitesTextEditingController.stateController.text.isEmpty
+          ? null
+          : sitesTextEditingController.stateController.text.trim(),
+      dbSiteGpsLocation: location
+    };
+    print(data);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SiteFormPageTwo(data: data),
+      ),
+    );
+  }
+
+  String? location;
 
   @override
   Widget build(BuildContext context) {
-
-  
-
     return Scaffold(
       backgroundColor: white,
       appBar: const BuildAppBar(),
@@ -70,16 +85,24 @@ print(data);
                 color: red,
               ),
               SiteViewDetailsOne(
+                assignLocation:assignLocation,
+                  
                   // ontap:_getLocation,
                   enabled: true,
                   isEditing: true,
-                  addressline1Controller:sitesTextEditingController. addressline1Controller,
-                  addressline2Controller:sitesTextEditingController. addressline2Controller,
-                  cityControllerName:sitesTextEditingController. cityController,
-                  pincodeControllerName:sitesTextEditingController. pincodeController,
-                  siteNameController: sitesTextEditingController.siteNameController,
-                  stateControllerName:sitesTextEditingController. stateController,
-                  sitegpsController: sitesTextEditingController.sitegpsController),
+                  addressline1Controller:
+                      sitesTextEditingController.addressline1Controller,
+                  addressline2Controller:
+                      sitesTextEditingController.addressline2Controller,
+                  cityControllerName: sitesTextEditingController.cityController,
+                  pincodeControllerName:
+                      sitesTextEditingController.pincodeController,
+                  siteNameController:
+                      sitesTextEditingController.siteNameController,
+                  stateControllerName:
+                      sitesTextEditingController.stateController,
+                  sitegpsController:
+                      sitesTextEditingController.sitegpsController),
               formSizebox15,
               bottomHeight,
             ],

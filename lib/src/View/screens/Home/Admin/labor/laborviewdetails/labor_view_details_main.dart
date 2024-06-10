@@ -41,7 +41,7 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
   int? coLabourCategoryId;
   CommonController commonController = CommonController();
   List<dynamic> coLabourCategoryIds = [];
- int? coLabourCategoryIdsOne;
+  int? coLabourCategoryIdsOne;
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse("$ip/Admin/labour/${widget.id}"),
+        Uri.parse('${ApiEndpoints.getLabour}/${widget.id}'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -61,7 +61,6 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
       if (response.statusCode == 200) {
         setState(() {
           data = jsonDecode(response.body);
-          print(data);
           if (data != null) {
             rateModelController.text = data!["co_labour_rate_model"] ?? "";
             laborRateController.text = data!["co_labour_rate"].toString();
@@ -92,13 +91,12 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
             laborCategoryController.text =
                 data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
 
-           
             // laborCategoryController.text =
             //     data!["CoLabourCategory"]["co_labour_category_name"] ?? "";
-            siteWorkedController.text = data!["co_sites_worked_sites"]["co_site_name"] ?? "";
-            cuurentSiteAllocationController.text =
-                data!["co_current_sites_allocation"] ?? "";
-           aadharfilePathController.text = data!["aadhar_image"] ?? "";
+           
+            aadharfilePathController.text = data!["aadhar_image"] ?? "";
+            coLabourCategoryId =
+                data!["CoLabourCategory"]["co_labour_category_id"];
           }
         });
       } else {
@@ -195,8 +193,7 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
       };
 
       currentData.forEach((key, value) {
-        if (value.isNotEmpty &&
-            (oldData[key] ?? '') != value) {
+        if (value.isNotEmpty && (oldData[key] ?? '') != value) {
           updatedData[key] = value;
           print(updatedData);
         }
@@ -265,17 +262,17 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                   laborRateController: laborRateController,
                   isEditing: isEditing,
                   enabled: isEnabled),
-             LaborViewDetailsTHree(
-                        coLabourCategoryIdOne: coLabourCategoryIdsOne,
-                        changeValueOne: changeValueOne,
-                        changeValue: changeValue,
-                        coLabourCategoryId: coLabourCategoryIds.isNotEmpty ? coLabourCategoryIds.first : null,
-                        aadharController: aadharNumberController,
-                        siteWorkedController: siteWorkedController,
-                        cuurentSiteAllocationController: cuurentSiteAllocationController,
-                        isEditing: isEditing,
-                        enabled: isEditing,
-                      ),
+              LaborViewDetailsTHree(
+                coLabourCategoryIdOne: coLabourCategoryIdsOne,
+                changeValueOne: changeValueOne,
+                changeValue: changeValue,
+                coLabourCategoryId: coLabourCategoryIds.isNotEmpty
+                    ? coLabourCategoryIds.first
+                    : null,
+                aadharController: aadharNumberController,
+                isEditing: isEditing,
+                enabled: isEditing,
+              ),
               LaborViewDetailsFour(
                   primaryNameController: primaryNameController,
                   primaryPhoneNumberController: primaryPhoneNumberController,
@@ -287,7 +284,6 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                   secondaryEmailController: secondaryEmailController,
                   secondaryWhatsappController: secondaryWhatsappController,
                   enabled: isEnabled),
-
               LaborViewDetailsFive(
                   isEditing: isEditing,
                   gpayNumber: gpayNumberController,

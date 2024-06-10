@@ -156,8 +156,6 @@ class _LaborFormPageThreeState extends State<LaborFormPageThree> {
     var updatedData = {
       ...oldData,
       "aadhar_no": laborTextEditingController.aadharNumberController.text.isEmpty ? null :int.parse(laborTextEditingController.aadharNumberController.text.trim()),
-      "co_sites_worked": coLabourCategoryIds.isEmpty ? null :coLabourCategoryIds,
-      "co_current_sites_allocation":[coLabourCategoryIdsOne].isEmpty ? null : [coLabourCategoryIdsOne],
     };
     print(updatedData);
     Navigator.push(
@@ -196,8 +194,7 @@ class _LaborFormPageThreeState extends State<LaborFormPageThree> {
                         changeValue: changeValue,
                         coLabourCategoryId: coLabourCategoryIds.isNotEmpty ? coLabourCategoryIds.first : null,
                         aadharController: laborTextEditingController.aadharNumberController,
-                        siteWorkedController: laborTextEditingController.siteWorkedController,
-                        cuurentSiteAllocationController: laborTextEditingController.cuurentSiteAllocationController,
+      
                         isEditing: true,
                         enabled: true,
                       ),

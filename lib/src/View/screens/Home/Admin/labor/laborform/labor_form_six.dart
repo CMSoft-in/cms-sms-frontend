@@ -176,11 +176,11 @@ class _LaborFormPageSixState extends State<LaborFormPageSix> {
           child: Center(
             child: Form(
               key: formKey,
-              child: Center(
+              child: const Center(
                 child: Column(
                   children: [
                     formSizebox10,
-                    const StackText(
+                    StackText(
                       stacktext: laborpage5,
                       color: red,
                     ),

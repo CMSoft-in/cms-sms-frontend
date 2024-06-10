@@ -87,9 +87,7 @@ class _LaborFormDeleteViewState extends State<LaborFormDeleteView> {
             aadharfilePathController.text = data!["aadhar_image"] ?? "";
             laborCategoryController.text =
                 data!["co_labour_category_id" ] ?? "";
-            siteWorkedController.text = data!["co_sites_worked"] ?? "";
-            cuurentSiteAllocationController.text =
-                data!["co_current_sites_allocation"] ?? "";
+    
           }
         });
       } else {

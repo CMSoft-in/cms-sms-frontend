@@ -39,22 +39,23 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
   CommonController commonController = CommonController();
-   List<dynamic> comaterialCategoryId = [];
-    final formKey = GlobalKey<FormState>();
-    SupplierTextEditingController supplierTextEditingController=SupplierTextEditingController();
-     int? coSupplierCategoryId;
-    void changeValue(int v) {
+  List<dynamic> comaterialCategoryId = [];
+  final formKey = GlobalKey<FormState>();
+  SupplierTextEditingController supplierTextEditingController =
+      SupplierTextEditingController();
+  int? coSupplierCategoryId;
+  void changeValue(int v) {
     setState(() {
       coSupplierCategoryId = v;
     });
   }
+
   void changeMaterialValue(List<dynamic> v) {
     setState(() {
       comaterialCategoryId = v;
     });
   }
-  
-   
+
   @override
   void initState() {
     super.initState();
@@ -80,15 +81,16 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
             addressline2Controller.text = data!["off_address_line2"] ?? "";
             cityController.text = data!["off_town"] ?? "";
             stateController.text = data!["off_state"] ?? "";
-         pincodeController.text=data!["off_pincode"].toString() ?? "";
-            gstController.text = data!["gst_no"].toString() ?? "";
+            pincodeController.text = data!["off_pincode"].toString() ?? "";
+            gstController.text = data!["gst_no"] == null ? "":  data!["gst_no"].toString();
             primaryNameController.text = data!["primary_contact_name"] ?? "";
             primaryPhoneNumberController.text =
                 data!["primary_contact_no"] ?? "";
             primaryEmailController.text = data!["primary_contact_email"] ?? "";
             primaryWhatsappController.text =
                 data!["primary_contact_whatsapp"] ?? "";
-            timeLineController.text = data!["payment_timeline"].toString() ?? "";
+            timeLineController.text =
+                data!["payment_timeline"] == null ? "" : data!["payment_timeline"].toString();
             firstNameController.text = data!["owner_first_name"] ?? "";
             lastNameController.text = data!["owner_last_name"] ?? "";
             phoneNumberController.text = data!["mobile_no"] ?? "";
@@ -102,8 +104,9 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                 data!["secondary_contact_whatsapp"] ?? "";
             createBy.text = data!["created_by"] ?? "";
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
-            supplierCategoryController.text=data!["CoSupplierCategory"]["co_supplier_category_name"] ?? "";
-              //  materialsSuppliedController.text=data!["co_material_id"] ?? "";
+            supplierCategoryController.text =
+                data!["CoSupplierCategory"]["co_supplier_category_name"] ?? "";
+            //  materialsSuppliedController.text=data!["co_material_id"] ?? "";
           }
         });
       } else {
@@ -231,16 +234,18 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                   primaryPhoneNumberController: primaryPhoneNumberController,
                   primaryWhatsappController: primaryWhatsappController,
                   timeLineController: timeLineController),
-            SupplierViewDetailsThree(
-                twoOrNot: isEditing,
-                isMultiSelectDropDownEditing: false,
-                changeValue:changeValue ,
-                coSupplierCategoryId: coSupplierCategoryId,
-changeMaterialValue: changeMaterialValue,
-comaterialCategoryId: comaterialCategoryId.isNotEmpty ? comaterialCategoryId.first : null,
-                isEditing: isEditing,
+              SupplierViewDetailsThree(
+                  twoOrNot: isEditing,
+                  isMultiSelectDropDownEditing: false,
+                  changeValue: changeValue,
+                  coSupplierCategoryId: coSupplierCategoryId,
+                  changeMaterialValue: changeMaterialValue,
+                  comaterialCategoryId: comaterialCategoryId.isNotEmpty
+                      ? comaterialCategoryId.first
+                      : null,
+                  isEditing: isEditing,
                   enabled: isEditing,
-                  materialsSuppliedController:materialsSuppliedController,
+                  materialsSuppliedController: materialsSuppliedController,
                   supplierCategoryController: supplierCategoryController),
               SupplierViewDetailsFour(
                   enabled: isEnabled,
