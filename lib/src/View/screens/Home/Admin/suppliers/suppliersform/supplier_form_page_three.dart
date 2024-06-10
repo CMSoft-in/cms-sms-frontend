@@ -55,7 +55,7 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
-      appBar: BuildAppBar(),
+      appBar: const BuildAppBar(),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -92,7 +92,7 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
           formKey: formKey,
           isEnabled: true,
           onPress: () => navigateToPageFour(context)),
-      bottomNavigationBar: BottomSheetLogo(),
+      bottomNavigationBar: const BottomSheetLogo(),
     );
   }
 }

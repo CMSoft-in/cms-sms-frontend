@@ -1,3 +1,4 @@
+import 'package:cmssms/src/View/screens/Home/Admin/supplierscategory/supplier_category_text.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,6 +9,9 @@ import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/multi_select_drop_down_two.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/empty_text_form_field.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/empty_text_form_field_material_supplied.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
 import '../../../../../widgets/MyDrawer/s.dart';
 
@@ -88,8 +92,9 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
     setState(() {
       widget.changeMaterialValue(newIds);
       selectedMaterialCategoryIds = newIds.cast<int>();
-      widget.comaterialCategoryId =
-          selectedMaterialCategoryIds.isNotEmpty ? selectedMaterialCategoryIds.first : null;
+      widget.comaterialCategoryId = selectedMaterialCategoryIds.isNotEmpty
+          ? selectedMaterialCategoryIds.first
+          : null;
     });
   }
 
@@ -157,38 +162,13 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
                 enabled: widget.enabled,
               ),
         formSizebox10,
-        widget.isMultiSelectDropDownEditing
-            ? MultiSelectDropDownForm(
-                selectedIds: selectedMaterialCategoryIds,
-                onChanged: onMultiMaterialSelectChanged,
-                dropdownItems: materialDropdownItems1,
-                dropDownName: supplierMaterialsSupplied,
-                star: star,
-                optionalisEmpty: true,
-                controller: widget.materialsSuppliedController,
-              )
-            : widget.twoOrNot
-                ? MultiSelectTwoDropDownForm(
-                    selectedIds: selectedMaterialCategoryIds,
-                    onChanged: onMultiMaterialSelectChanged,
-                    dropdownItems: materialDropdownItems1,
-                    dropDownName: supplierMaterialsSupplied,
-                    star: star,
-                    optionalisEmpty: true,
-                    controller: widget.materialsSuppliedController,
-                  )
-                : MaxMinTextFormField(
-                    maxLines: 10,
-                    minLines: 1,
-                    controller: widget.materialsSuppliedController,
-                    text: supplierMaterialsSupplied,
-                    limitLength: 30,
-                    optionalisEmpty: true,
-                    inputformat: alphabatsAndNumbers,
-                    star: star,
-                    inputtype: keyboardTypeNone,
-                    enabled: widget.enabled,
-                  ),
+        EmptyTextformFieldMaterialSupplied(
+          materialSuppliedLists: const [],
+          enabled: true,
+          optionalisEmpty: true,
+          controller: TextEditingController(),
+          text: materialSupplied,
+        )
       ],
     );
   }

@@ -10,19 +10,15 @@ import '../suppliersviewdetails/supplier_view_details_two.dart';
 import 'supplier_form_page_three.dart';
 
 class SupplierFormPageTwo extends StatefulWidget {
-
   const SupplierFormPageTwo({super.key, required this.data});
 
   final data;
-
 
   @override
   State<SupplierFormPageTwo> createState() => _SupplierFormPageTwoState();
 }
 
 class _SupplierFormPageTwoState extends State<SupplierFormPageTwo> {
-   
-
   final formKey = GlobalKey<FormState>();
 
   SupplierTextEditingController supplierTextEditingController =
@@ -70,10 +66,9 @@ class _SupplierFormPageTwoState extends State<SupplierFormPageTwo> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       backgroundColor: white,
-      appBar: BuildAppBar(),
+      appBar: const BuildAppBar(),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -82,23 +77,24 @@ class _SupplierFormPageTwoState extends State<SupplierFormPageTwo> {
               formSizebox8,
               const StackText(
                 stacktext: supplierPage2,
-        color: red,
+                color: red,
               ),
               formSizebox15,
               SupplierViewDetailsTwo(
                   enabled: true,
-                  gstController:supplierTextEditingController. gstController,
+                  gstController: supplierTextEditingController.gstController,
                   primaryEmailController:
                       supplierTextEditingController.primaryEmailController,
                   primaryNameController:
                       supplierTextEditingController.primaryNameController,
-                  primaryPhoneNumberController:
-                     supplierTextEditingController.primaryPhoneNumberController,
+                  primaryPhoneNumberController: supplierTextEditingController
+                      .primaryPhoneNumberController,
                   primaryWhatsappController:
                       supplierTextEditingController.primaryWhatsappController,
-                  timeLineController: supplierTextEditingController.timeLineController),
-                   formSizebox15,
-                    bottomHeight,
+                  timeLineController:
+                      supplierTextEditingController.timeLineController),
+              formSizebox15,
+              bottomHeight,
             ],
           ),
         ),
@@ -107,7 +103,7 @@ class _SupplierFormPageTwoState extends State<SupplierFormPageTwo> {
           formKey: formKey,
           isEnabled: true,
           onPress: () => navigateToPageThree(context)),
-      bottomNavigationBar: BottomSheetLogo(),
+      bottomNavigationBar: const BottomSheetLogo(),
     );
   }
 }

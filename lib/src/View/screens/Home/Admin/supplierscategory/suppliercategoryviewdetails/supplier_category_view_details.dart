@@ -200,7 +200,7 @@ class _SupplierCategoryViewDetailsState
     }
   }
 
-  void onMultiSelectChanged(List<String> newIds) {
+  void onMultiSelectChanged(newIds) {
     setState(() {
       selectedMaterialCategoryIds = newIds;
       widget.changeValue(newIds);

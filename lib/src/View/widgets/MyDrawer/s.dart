@@ -531,11 +531,11 @@ class MyHomePage extends StatefulWidget {
   final String dropDownName;
   final bool optionalisEmpty;
   final String star;
-  final Function(List<String>) onChanged;
+  final Function(List<dynamic>) onChanged;
   final List<String> selectedIds;
   final TextEditingController controller;
 
-  const MultiSelectTwoDropDownForm(
+  const MyHomePage(
       {Key? key,
       required this.selectedIds,
       required this.dropdownItems,
@@ -547,12 +547,12 @@ class MyHomePage extends StatefulWidget {
       : super(key: key);
 
   @override
-  MultiSelectTwoDropDownFormState createState() =>
-      MultiSelectTwoDropDownFormState();
+  MyHomePageState createState() =>
+      MyHomePageState();
 }
 
-class MultiSelectTwoDropDownFormState
-    extends State<MultiSelectTwoDropDownForm> {
+class MyHomePageState
+    extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
