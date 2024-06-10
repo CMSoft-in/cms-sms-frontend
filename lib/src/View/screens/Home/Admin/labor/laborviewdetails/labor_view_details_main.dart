@@ -206,6 +206,12 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
       }
     }
   }
+  
+  void changeLaValue(int? v) {
+    setState(() {
+      coLabourCategoryId = v;
+    });
+  }
 
   void changeValue(List<dynamic> v) {
     setState(() {
@@ -213,10 +219,10 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
     });
   }
 
-  void changeValueOne(int v) {
-    // setState(() {
-    //   coLabourCategoryIdsOne = v;
-    // });
+  void changeValueOne(int? v) {
+    setState(() {
+      coLabourCategoryIdsOne = v;
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -254,7 +260,7 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                   stateController: stateController,
                   enabled: isEnabled),
               LaborViewDetailsTwo(
-                  changeValue: () {},
+                  changeValue: changeLaValue,
                   coLabourCategoryId: coLabourCategoryId,
                   bloodGroupController: bloodGroupController,
                   laborCategoryController: laborCategoryController,
@@ -262,17 +268,20 @@ class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
                   laborRateController: laborRateController,
                   isEditing: isEditing,
                   enabled: isEnabled),
-              LaborViewDetailsTHree(
-                coLabourCategoryIdOne: coLabourCategoryIdsOne,
-                changeValueOne: changeValueOne,
-                changeValue: changeValue,
-                coLabourCategoryId: coLabourCategoryIds.isNotEmpty
-                    ? coLabourCategoryIds.first
-                    : null,
-                aadharController: aadharNumberController,
-                isEditing: isEditing,
-                enabled: isEditing,
-              ),
+              // LaborViewDetailsThree(
+
+              //   currentSiteAllocationController: cuurentSiteAllocationController,
+              //    siteWorkedController: siteWorkedController,
+              //   coLabourCategoryIdOne: coLabourCategoryIdsOne,
+              //   changeValueOne: changeValueOne,
+              //   changeValue: changeValue,
+              //   coLabourCategoryId: coLabourCategoryIds.isNotEmpty
+              //       ? coLabourCategoryIds.first
+              //       : null,
+              //   aadharController: aadharNumberController,
+              //   isEditing: isEditing,
+              //   enabled: isEditing,
+              // ),
               LaborViewDetailsFour(
                   primaryNameController: primaryNameController,
                   primaryPhoneNumberController: primaryPhoneNumberController,

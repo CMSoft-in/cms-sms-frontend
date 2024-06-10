@@ -33,7 +33,7 @@ class LaborFormPageFour extends StatelessWidget {
             "secondary_contact_no": laborTextEditingController.secondaryPhoneNumberController.text.isEmpty ? null :int.parse( laborTextEditingController.secondaryPhoneNumberController.text..trim()),
             "secondary_contact_email": laborTextEditingController.secondaryEmailController.text.isEmpty ? null :laborTextEditingController.secondaryEmailController.text.trim(),
             "secondary_contact_whatsapp": laborTextEditingController.secondaryWhatsappController.text.isEmpty ? null :int.parse(laborTextEditingController.secondaryWhatsappController.text..trim()),
-      };
+      };print(updatedData);
       Navigator.push(
         context,
         MaterialPageRoute(

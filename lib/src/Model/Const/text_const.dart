@@ -188,3 +188,5 @@ final TextEditingController laborRateController = TextEditingController();
 final TextEditingController teamMemberController = TextEditingController();
 final TextEditingController rateController = TextEditingController();
 final TextEditingController gpayNumberController = TextEditingController();
+final TextEditingController siteWorkedController = TextEditingController();
+final TextEditingController cuurentSiteAllocationController = TextEditingController();

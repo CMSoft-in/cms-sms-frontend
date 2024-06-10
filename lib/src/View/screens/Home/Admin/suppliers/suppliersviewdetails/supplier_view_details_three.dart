@@ -9,12 +9,12 @@ import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/multi_select_drop_down_two.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/sigle_select_drop_down.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/empty_text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/empty_text_form_field_material_supplied.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
 import '../../../../../widgets/MyDrawer/s.dart';
-
 // ignore: must_be_immutable
 class SupplierViewDetailsThree extends StatefulWidget {
   final TextEditingController supplierCategoryController;
@@ -29,7 +29,7 @@ class SupplierViewDetailsThree extends StatefulWidget {
   final bool isMultiSelectDropDownEditing;
 
   SupplierViewDetailsThree({
-    super.key,
+    Key? key,
     required this.enabled,
     required this.changeValue,
     required this.coSupplierCategoryId,
@@ -40,17 +40,17 @@ class SupplierViewDetailsThree extends StatefulWidget {
     required this.isEditing,
     required this.materialsSuppliedController,
     required this.supplierCategoryController,
-  });
+  }) : super(key: key);
 
   @override
-  State<SupplierViewDetailsThree> createState() =>
+  _SupplierViewDetailsThreeState createState() =>
       _SupplierViewDetailsThreeState();
 }
 
 class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
-  List supplierCategoryDropdownItems = [];
+  List<Map<String, dynamic>> supplierCategoryDropdownItems = [];
   int? selectedSupplierCategoryId;
-  List materialDropdownItems1 = [];
+  List<Map<String, dynamic>> materialDropdownItems1 = [];
   List<int> selectedMaterialCategoryIds = [];
 
   @override
@@ -70,21 +70,21 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
         },
       );
 
-      var body = json.decode(response.body);
       if (response.statusCode == 200) {
-        var newList = [];
-        body.forEach((each) {
+        var body = json.decode(response.body);
+        List<Map<String, dynamic>> newList = [];
+        for (var each in body) {
           int id = each["co_material_id"];
           String name = each["co_material_name"];
           newList.add({"id": id, "name": name});
-        });
+        }
 
         setState(() {
           materialDropdownItems1 = newList;
         });
       }
     } catch (error) {
-      print('Error  Material fetching data: $error');
+      print('Error fetching material data: $error');
     }
   }
 
@@ -108,47 +108,57 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
         },
       );
 
-      var body = json.decode(response.body);
       if (response.statusCode == 200) {
-        var newList = [];
-        body.forEach((each) {
-          int id = each["co_supplier_category_id"];
-          String name = each["co_supplier_category_name"];
-          newList.add({"id": id, "name": name});
-        });
+        var body = json.decode(response.body);
+        List<Map<String, dynamic>> newList = [];
+        for (var each in body) {
+          if (each["co_supplier_category_id"] != null) {
+            int id = each["co_supplier_category_id"];
+            String name = each["co_supplier_category_name"];
+            newList.add({"id": id, "name": name});
+          }
+        }
 
         setState(() {
           supplierCategoryDropdownItems = newList;
         });
       }
     } catch (error) {
-      print('Error Supplier Category fetching data: $error');
+      print('Error fetching supplier category data: $error');
     }
   }
 
-  void onDropdownChanged(newId) {
-    setState(() {
-      widget.changeValue(newId);
-      selectedSupplierCategoryId = newId;
-      widget.coSupplierCategoryId = selectedSupplierCategoryId;
-    });
+  void onDropdownChanged(String? newId) {
+    if (newId != null) {
+      try {
+        int parsedId = int.tryParse(newId) ?? 0;
+        setState(() {
+          widget.changeValue(parsedId); 
+          selectedSupplierCategoryId = parsedId;
+          widget.coSupplierCategoryId = parsedId;
+        });
+      } catch (e) {
+        print('Error parsing ID: $newId. Exception: $e');
+      }
+    }
   }
 
+  
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         formSizebox10,
         widget.isEditing
-            ? DropDownFormm(
-                selectedId: selectedSupplierCategoryId,
-                onChanged: onDropdownChanged,
-                dropdownItems: supplierCategoryDropdownItems,
-                dropDownName: supplierCategoryText,
-                star: star,
-                optionalisEmpty: true,
-                controller: widget.supplierCategoryController,
-              )
+            ?SingleSelectDropDown(
+  selectedId: selectedSupplierCategoryId,
+  onChanged: onDropdownChanged, // Call onDropdownChanged when the value changes
+  dropdownItems: supplierCategoryDropdownItems,
+  dropDownName: supplierCategoryText,
+  star: star,
+  optionalisEmpty: true,
+  controller: widget.supplierCategoryController,
+)
             : MaxMinTextFormField(
                 maxLines: 7,
                 minLines: 1,

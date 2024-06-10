@@ -56,6 +56,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
     });
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -234,7 +235,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                   primaryPhoneNumberController: primaryPhoneNumberController,
                   primaryWhatsappController: primaryWhatsappController,
                   timeLineController: timeLineController),
-              SupplierViewDetailsThree(
+               SupplierViewDetailsThree(
                   twoOrNot: isEditing,
                   isMultiSelectDropDownEditing: false,
                   changeValue: changeValue,
@@ -245,8 +246,10 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                       : null,
                   isEditing: isEditing,
                   enabled: isEditing,
-                  materialsSuppliedController: materialsSuppliedController,
-                  supplierCategoryController: supplierCategoryController),
+                  materialsSuppliedController:
+                    materialsSuppliedController,
+                  supplierCategoryController:
+                    supplierCategoryController),
               SupplierViewDetailsFour(
                   enabled: isEnabled,
                   firstNameController: firstNameController,

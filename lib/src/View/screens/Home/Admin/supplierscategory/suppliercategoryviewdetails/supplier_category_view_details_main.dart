@@ -2,16 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../../Model/api/api_model.dart';
-import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/multi_select_drop_down_two.dart';
-import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
-import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
-import '../../../../../widgets/MyDrawer/s.dart';
 import '../supplier_category_text.dart';
 import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/local.dart';
-import '../../../../../../controler/common_controller.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
 import '../../../../../widgets/Buttons/Long_SizeButton.dart';
@@ -21,6 +16,7 @@ import '../../../../../widgets/CommonUsageForm/Update/update_header.dart';
 import '../../../../../widgets/CommonUsageForm/createBy.dart';
 import '../../../../../widgets/CommonUsageForm/view_details_text.dart';
 import '../suppliercategorydataview/supplier_category_data_view.dart';
+import 'supplier_category_view_details.dart';
 
 class SupplierCategoryViewDetailsMain extends StatefulWidget {
   const SupplierCategoryViewDetailsMain({Key? key, required this.id}) : super(key: key);
@@ -31,12 +27,12 @@ class SupplierCategoryViewDetailsMain extends StatefulWidget {
 }
 
 class _SupplierCategoryViewDetailsMain extends State<SupplierCategoryViewDetailsMain> {
-  List materialdropdownItems1 = [];
-  List<int> selectedMaterialCategoryIds = [];
+//  List<Map<String, dynamic>> materialdropdownItems1 = [];
+//   List<String> selectedMaterialCategoryIds = [];
   Map<String, dynamic>? data;
   var updatedData;
-  CommonController commonController = CommonController();
-  List<int> comaterialCategoryId = [];
+   List<int> comaterialCategoryId = [];
+  final formKey = GlobalKey<FormState>();
 
   // Initialize TextEditingControllers
   TextEditingController supplierCategoryController = TextEditingController();
@@ -51,49 +47,45 @@ class _SupplierCategoryViewDetailsMain extends State<SupplierCategoryViewDetails
   void initState() {
     super.initState();
     fetchData();
-    MaterialfetchData();
+    
   }
+Future<void> fetchData() async {
+  try {
+    final response = await http.get(
+      Uri.parse('${ApiEndpoints.getSupplierCategory}/${widget.id}'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
 
-  Future<void> fetchData() async {
-    try {
-      final response = await http.get(
-        Uri.parse('${ApiEndpoints.getSupplierCategory}/${widget.id}'),
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      );
-
-      print(response.body);
-
-      if (response.statusCode == 200) {
-        setState(() {
-          data = jsonDecode(response.body);
-          if (data != null) {
-           
-            supplierCategoryController.text = data!["co_supplier_category_name"] ?? '';
-           
-            if (data!["co_material_id"] != null) {
-              List<String> materialNames = [];
-              for (var material in data!["co_material_id"]) {
-                materialNames.add(material["co_material_name"] ?? '');
-              }
-              materialSuppliedController.text = materialNames.join(', ');
+    if (response.statusCode == 200) {
+      setState(() {
+        data = jsonDecode(response.body);
+        if (data != null) {
+          supplierCategoryController.text = data!["co_supplier_category_name"] ?? '';
+          if (data!["co_material_id"] != null) {
+            List<String> materialNames = [];
+            for (var material in data!["co_material_id"]) {
+              materialNames.add(material["co_material_name"] ?? '');
             }
-            createByController.text = data!["created_by"] ?? '';
-            createOnController.text = data!["createdAt"] ?? '';
+            materialSuppliedController.text = materialNames.join(', ');
           }
-        });
-      } else {
-        throw Exception('Failed to load data');
-      }
-    } catch (error) {
-      print('Error fetching data: $error');
+          createByController.text = data!["created_by"] ?? '';
+          createOnController.text = data!["createdAt"] ?? '';
+        }
+      });
+    } else {
+      throw Exception('Failed to load data');
     }
+  } catch (error) {
+    print('Error fetching data: $error');
   }
+}
 
-  void changeValue(List<dynamic> v) {
+
+    void changeValue(List<String> v) {
     setState(() {
-      comaterialCategoryId = v.cast<int>();
+      comaterialCategoryId = v.map((id) => int.parse(id)).toList();
     });
   }
 
@@ -169,46 +161,9 @@ class _SupplierCategoryViewDetailsMain extends State<SupplierCategoryViewDetails
     }
   }
 
-  Future<void> MaterialfetchData() async {
-    String uri = ApiEndpoints.getAllMaterials;
-    try {
-      final response = await http.get(
-        Uri.parse(uri),
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      );
-      var body = json.decode(response.body);
-
-      if (response.statusCode == 200) {
-        var newList = [];
-        body.forEach((each) {
-          int id = each["co_material_id"];
-          String name = each["co_material_name"];
-          newList.add({"id": id, "name": name});
-        });
-        setState(() {
-          materialdropdownItems1 = newList;
-        });
-      }
-    } catch (error) {
-      print('Error fetching data: $error');
-    }
-  }
-
-  void onMultiSelectChanged(List<dynamic> newIds) {
-    setState(() {
-      changeValue(newIds.cast<int>());
-      selectedMaterialCategoryIds = newIds.cast<int>();
-      comaterialCategoryId = selectedMaterialCategoryIds;
-
-      print(comaterialCategoryId);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+   
 
     return Scaffold(
       backgroundColor: white,
@@ -233,39 +188,15 @@ class _SupplierCategoryViewDetailsMain extends State<SupplierCategoryViewDetails
                   onPress: const SupplierCategoryDataView(),
                 ),
               ),
-              TextformField(
-                controller: supplierCategoryController,
-                text: supplierCategoryText,
-                star: star,
-                limitLength: 20,
-                optionalisEmpty: true,
-                inputformat: alphabatsAndNumbers,
-                inputtype: keyboardTypeNone,
-                enabled: isEnabled,
+              
+                    SupplierCategoryViewDetails(
+                changeValue: changeValue,
+                comaterialCategoryId: comaterialCategoryId,
+                enabled: isEditing,
+                isEditing: isEditing,
+                supplierCategoryController: supplierCategoryController,
+                materialSuppliedController:materialSuppliedController,
               ),
-              formSizebox10,
-              isEditing
-                  ? MultiSelectTwoDropDownForm(
-                      selectedIds: selectedMaterialCategoryIds,
-                      onChanged: onMultiSelectChanged,
-                      dropdownItems: materialdropdownItems1,
-                      dropDownName: materialSupplied,
-                      star: star,
-                      optionalisEmpty: true,
-                      controller: materialSuppliedController,
-                    )
-                  : MaxMinTextFormField(
-                      maxLines: 4,
-                      minLines: 1,
-                      controller: materialSuppliedController,
-                      text: materialSupplied,
-                      star: star,
-                      limitLength: 20,
-                      optionalisEmpty: true,
-                      inputformat: alphabatsAndNumbers,
-                      inputtype: keyboardTypeNone,
-                      enabled: isEnabled,
-                    ),
               CreateByCreatedOn(
                 createByController: createByController,
                 createOnController: createOnController,

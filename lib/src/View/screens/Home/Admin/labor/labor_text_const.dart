@@ -31,7 +31,7 @@ class LaborTextEditingController{
 final TextEditingController rateModelController = TextEditingController();
 final TextEditingController laborRateController = TextEditingController();
 final TextEditingController siteWorkedController = TextEditingController();
-final TextEditingController cuurentSiteAllocationController =
+final TextEditingController currentSiteAllocationController =
     TextEditingController();
 final TextEditingController teamMemberController = TextEditingController();
 final TextEditingController rateController = TextEditingController();

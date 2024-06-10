@@ -1,341 +1,48 @@
+import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
-import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/multi_select_drop_down_two.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/multi_select_drop_down.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/sigle_select_drop_down.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
-import '../../../../../widgets/MyDrawer/s.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../labor_text_const.dart';
+class LaborViewDetailsThree extends StatefulWidget {
+  final int? coLabourCategoryId;
+  final int? coCurrentSiteAllocationIds;
+     final Function(List<String>) changeValue;
+   final Function(int?) changeValueOne; // Updated to accept List<int>
+  final TextEditingController aadharController;
+  final TextEditingController siteWorkedController;
+  final TextEditingController currentSiteAllocationController;
+  final bool isEditing;
+  final bool enabled;
 
-// class LaborViewDetailsTHree extends StatefulWidget {
-//   LaborViewDetailsTHree(
-//       {Key? key,
-//       required this.changeValue,
-//       required this.coLabourCategoryId,
-//        required this.aadharController,
-//       required this.siteWorkedController,
-//       required this.changeValueOne,
-//       required this.cuurentSiteAllocationController,
-//       required this.isEditing,
-//       required this.coLabourCategoryIdOne,
-//       required this.enabled})
-//       : super(key: key);
-
-//   int? coLabourCategoryId;
-//   int? coLabourCategoryIdOne;
-//   final Function changeValue;
-//   final Function changeValueOne;
-//   final TextEditingController aadharController;
-//   final TextEditingController siteWorkedController;
-//   final TextEditingController cuurentSiteAllocationController;
-//   final bool isEditing;
-//   final bool enabled;
-
-//   @override
-//   State<LaborViewDetailsTHree> createState() => _LaborViewDetailsTHreeState();
-// }
-
-// class _LaborViewDetailsTHreeState extends State<LaborViewDetailsTHree> {
-//   List labordropdownItems = [];
-//    List labordropdownItems1 = [];
-//   int? selectedLaborCategoryIdOne;
-//   int? selectedLaborCategoryId;
-  
-//   @override
-//   void initState() {
-//     super.initState();
-//     fetchData();
-//   }
-
-//   Future<void> fetchData() async {
-//   String  uri=ApiEndpoints.getAllLabourCategories;
-//     try {
-//       final response = await http.get(
-//         Uri.parse(uri),
-//         headers: {
-//           'Authorization': 'Bearer $token',
-//         },
-//       );
-//       if (response.statusCode == 200) {
-//         var body = json.decode(response.body)["data"];
-//         var newList = [];
-//         var newListOne = [];
-//         body.forEach((each) {
-//           int id = each["co_labour_category_id"];
-//           String name = each["co_labour_category_name"];
-//           newList.add({"id": id, "name": name});
-//         });
-//           body.forEach((each) {
-//           int id = each["co_labour_category_id"];
-//           String name = each["co_labour_category_name"];
-//           newListOne.add({"id": id, "name": name});
-//         });
-//         setState(() {
-//           labordropdownItems = newList;
-//              labordropdownItems1 = newListOne;
-//         });
-//       }
-//     } catch (error) {
-//       print('Error fetching data: $error');
-//     }
-//   }
-
-
-//   void onDropdownChanged(newId) {
-//     setState(() {
-//        widget.changeValue(newId);
-//       selectedLaborCategoryId = newId;
-//       widget.coLabourCategoryId = selectedLaborCategoryId;
-//     });
-//   }
-
-//  void onDropdownChangedOne(newId) {
-//     setState(() {
-//        widget.changeValueOne(newId);
-//       selectedLaborCategoryIdOne = newId;
-//       widget.coLabourCategoryIdOne = selectedLaborCategoryIdOne;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         formSizebox10,
-//         TextformField(
-//           controller: widget.aadharController,
-//           text: aadharNumber,
-//           limitLength: 12,
-//           optionalisEmpty: true,
-//           inputformat: number,
-//           star: star,
-//           inputtype: keyboardTypeNumber,
-//           enabled: widget.enabled),
-//         formSizebox10,
-//         widget.isEditing
-//             ? DropDownFormm(
-//                 selectedId: selectedLaborCategoryId,
-//                 onChanged: onDropdownChanged,
-//                 dropdownItems: labordropdownItems,
-//                 dropDownName: siteWorked,
-//                 star: star,
-//                 optionalisEmpty: true,
-//                 controller: widget.siteWorkedController,
-//               )
-//             : TextformField(
-//                 controller: widget.siteWorkedController,
-//                 text: siteWorked,
-//                 limitLength: 40,
-//                 star: star,
-//                 inputformat: alphabats,
-//                 optionalisEmpty: true,
-//                 inputtype: keyboardTypeNone,
-//                 enabled: widget.enabled,
-//               ),
-//         formSizebox10,
-//         widget.isEditing
-//             ? DropDownFormm(
-//                 selectedId: selectedLaborCategoryIdOne,
-//                 onChanged: onDropdownChangedOne,
-//                 dropdownItems: labordropdownItems1,
-//                 dropDownName: cuurentSiteAllocation,
-//                 star: star,
-//                 optionalisEmpty: true,
-//                 controller: widget.cuurentSiteAllocationController,
-//               )
-//             : TextformField(
-//                 controller: widget.cuurentSiteAllocationController,
-//                 text: cuurentSiteAllocation,
-//                 limitLength: 40,
-//                 star: star,
-//                 inputformat: alphabats,
-//                 optionalisEmpty: true,
-//                 inputtype: keyboardTypeNone,
-//                 enabled: widget.enabled,
-//               ),
-//         formSizebox10,
-     
-//       ],
-//     );
-//   }
-// }
-
-
-
-
-
-// // import 'dart:convert';
-// // import 'package:flutter/material.dart';
-// // import 'package:http/http.dart' as http;
-// // import '../../../../../../Model/api/api_model.dart';
-// // import '../../../../../../Model/api/local.dart';
-// // import '../../../../../widgets/MyDrawer/s.dart';
-// // import '/src/View/widgets/CommonUsageForm/textformfeild/drop_down_form_field.dart';
-
-// // import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
-// // import '../../../../../../Model/Const/height_width.dart';
-// // import '../../../../../../Model/Const/text_const.dart';
-// // import '../labor_text_const.dart';
-
-// // class LaborViewDetailsThree extends StatefulWidget {
-// //    LaborViewDetailsThree(
-// //       {Key? key,
-// //       required this.changeValue,
-// //       required this.coLabourCategoryId,
-     
-// //       required this.aadharController,
-// //       required this.siteWorkedController,
-// //       required this.cuurentSiteAllocationController,
-// //       required this.enabled,
-// //       required this.isEditing})
-// //       : super(key: key);
-// // int? coLabourCategoryId;
-// //   final Function changeValue;
-// //   final TextEditingController aadharController;
-// //   final TextEditingController siteWorkedController;
-// //   final TextEditingController cuurentSiteAllocationController;
-// //   final bool isEditing;
-// //   final bool enabled;
-
-// //   @override
-// //   State<LaborViewDetailsThree> createState() => _LaborViewDetailsThreeState();
-// // }
-
-// // class _LaborViewDetailsThreeState extends State<LaborViewDetailsThree> {
-// //    List labordropdownItems = [];
-
-// //   int? selectedLaborCategoryId;
-
-// //   @override
-// //   void initState() {
-// //     super.initState();
-// //     fetchData();
-// //   }
-
-// //   Future<void> fetchData() async {
-// //   String  uri=ApiEndpoints.getAllLabourCategories;
-// //     try {
-// //       final response = await http.get(
-// //         Uri.parse(uri),
-// //         headers: {
-// //           'Authorization': 'Bearer $token',
-// //         },
-// //       );
-// //       if (response.statusCode == 200) {
-// //         var body = json.decode(response.body)["data"];
-// //         print(body);
-// //         var newList = [];
-// //         body.forEach((each) {
-// //           int id = each["co_labour_category_id"];
-// //           String name = each["co_labour_category_name"];
-// //           newList.add({"id": id, "name": name});
-// //         });
-// //         setState(() {
-// //           labordropdownItems = newList;
-// //         });
-// //       }
-// //     } catch (error) {
-// //       print('Error fetching data: $error');
-// //     }
-// //   }
-
-// //   void onDropdownChanged(newId) {
-// //     setState(() {
-// //        widget.changeValue(newId);
-// //       selectedLaborCategoryId = newId;
-// //       widget.coLabourCategoryId = selectedLaborCategoryId;
-// //     });
-// //   }
-
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Column(children: [
-// //       formSizebox10,
-   
-// //       formSizebox10,
-// //       TextformField(
-// //           controller: widget.aadharController,
-// //           text: aadharNumber,
-// //           limitLength: 12,
-// //           optionalisEmpty: true,
-// //           inputformat: number,
-// //           star: star,
-// //           inputtype: keyboardTypeNumber,
-// //           enabled: widget.enabled),
-// //       formSizebox10,
-// //        widget.isEditing
-// //             ? DropDownFormm(
-// //                 selectedId: selectedLaborCategoryId,
-// //                 onChanged: onDropdownChanged,
-// //                 dropdownItems: labordropdownItems,
-// //                 dropDownName: siteWorked,
-// //                 star: star,
-// //                 optionalisEmpty: true,
-// //                 controller: widget.siteWorkedController,
-// //               )
-// //       :TextformField(
-// //           controller: widget.siteWorkedController,
-// //           text: siteWorked,
-// //           limitLength: 30,
-// //           optionalisEmpty: true,
-// //           inputformat: alphabatsAndNumbers,
-// //           star: star,
-// //           inputtype: keyboardTypeNone,
-// //           enabled: widget.enabled),
-// //           formSizebox10,
-// //           widget.isEditing?
-// //       DropDownForm(
-// //           dropdownItems: ['chennai', 'Theni','2'],
-// //           dropDownName: cuurentSiteAllocation,
-// //           star: estar,
-// //           optionalisEmpty: false,
-// //           controller: widget.cuurentSiteAllocationController):
-// //           TextformField(
-// //           controller: widget.cuurentSiteAllocationController,
-// //           text: cuurentSiteAllocation,
-// //           limitLength: 30,
-// //           optionalisEmpty: false,
-// //           inputformat: alphabatsSpace,
-// //           star: estar,
-// //           inputtype: keyboardTypeNone,
-// //           enabled: widget.enabled),
-// //     ]);
-// //   }
-// // }
-// ignore: must_be_immutable
-class LaborViewDetailsTHree extends StatefulWidget {
-  LaborViewDetailsTHree({
+  LaborViewDetailsThree({
     Key? key,
     required this.changeValue,
     required this.coLabourCategoryId,
     required this.aadharController,
+    required this.siteWorkedController,
     required this.changeValueOne,
+    required this.currentSiteAllocationController,
     required this.isEditing,
-    required this.coLabourCategoryIdOne,
+    required this.coCurrentSiteAllocationIds,
     required this.enabled,
   }) : super(key: key);
 
-  int? coLabourCategoryId;
-  int? coLabourCategoryIdOne;
-  final Function(List<dynamic>) changeValue;
-  final Function changeValueOne;
-  final TextEditingController aadharController;
-  final bool isEditing;
-  final bool enabled;
-
   @override
-  State<LaborViewDetailsTHree> createState() => _LaborViewDetailsTHreeState();
+  State<LaborViewDetailsThree> createState() => _LaborViewDetailsThreeState();
 }
 
-class _LaborViewDetailsTHreeState extends State<LaborViewDetailsTHree> {
-  List labordropdownItems = [];
-  List labordropdownItems1 = [];
-  List<int> selectedLaborCategoryIds = [];
-  int? selectedLaborCategoryIdsOne;
+class _LaborViewDetailsThreeState extends State<LaborViewDetailsThree> {
+  List<Map<String, dynamic>> siteDropdownItems = [];
+  List<Map<String, dynamic>> currentSiteDropdownItems1 = [];
+  List<String> selectedSiteIds = [];
+  int? selectedCurrentSiteIds;
 
   @override
   void initState() {
@@ -352,60 +59,66 @@ class _LaborViewDetailsTHreeState extends State<LaborViewDetailsTHree> {
           'Authorization': 'Bearer $token',
         },
       );
-        print(response.body);
-        var body = json.decode(response.body);
-      
+
       if (response.statusCode == 200) {
-      
-        var newList = [];
-        var newListOne = [];
-        body.forEach((each) {
-          int id = each["co_site_id"];
-          String name = each["co_site_name"];
-          newList.add({"id": id, "name": name});
-        });
-        body.forEach((each) {
-          int id = each["co_site_id"];
-          String name = each["co_site_name"];
-          newListOne.add({"id": id, "name": name});
-        });
+         var body = json.decode(response.body) as List;
+            final List<dynamic> body1 = json.decode(response.body);
+        // List<Map<String, dynamic>> siteList = [];
+          var newList = body.map((each) {
+          return {
+            "id": each["co_site_id"].toString(),
+            "name": each["co_site_name"],
+          };
+        }).toList();
+  
+
         setState(() {
-          labordropdownItems = newList;
-          labordropdownItems1 = newListOne;
+          siteDropdownItems = newList;
+       
+           currentSiteDropdownItems1 = body1
+              .map((each) => {
+                    "id": each["co_site_id"],
+                    "name": each["co_site_name"]
+                  })
+              .toList();
         });
+      
       }
     } catch (error) {
       print('Error fetching data: $error');
     }
   }
+      
 
-  void onMultiSelectChanged(List<dynamic> newIds) {
+
+
+void onMultiSelectChanged(List<String> newIds) {
     setState(() {
+      selectedSiteIds = newIds;
       widget.changeValue(newIds);
-      selectedLaborCategoryIds = newIds.cast<int>();
-      widget.coLabourCategoryId = selectedLaborCategoryIds.isNotEmpty ? selectedLaborCategoryIds.first : null;
     });
   }
-void onDropdownChangedOne(newId) {
+ 
+//  void onDropdownChangedOneList(List<String> newIds) {
+//     setState(() {
+//       selectedCurrentSiteIds = newIds;
+//       widget.changeValueOne(newIds);
+//     });
+//   }
+
+  void onDropdownChangedOneList(String selectedId) {
+    int? newId = int.tryParse(selectedId);
     setState(() {
-       widget.changeValueOne(newId);
-      selectedLaborCategoryIdsOne = newId;
-      widget.coLabourCategoryIdOne = selectedLaborCategoryIdsOne;
+      selectedCurrentSiteIds = newId;
+      widget.changeValueOne(newId);
     });
   }
-  // void onMultiSelectChangedOne(List<dynamic> newIds) {
-  //   setState(() {
-  //     widget.changeValueOne(newIds);
-  //     selectedLaborCategoryIdsOne = newIds.cast<int>();
-  //     widget.coLabourCategoryIdOne = selectedLaborCategoryIdsOne.isNotEmpty ? selectedLaborCategoryIdsOne.first : null;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        formSizebox10,
+         formSizebox10,
         TextformField(
           controller: widget.aadharController,
           text: aadharNumber,
@@ -416,9 +129,54 @@ void onDropdownChangedOne(newId) {
           inputtype: keyboardTypeNumber,
           enabled: widget.enabled,
         ),
+         formSizebox10,
+        widget.isEditing
+            ? 
+              SingleSelectDropDown(
+                  selectedId: selectedCurrentSiteIds,
+                  onChanged: onDropdownChangedOneList,
+                  dropdownItems: currentSiteDropdownItems1,
+                  dropDownName: cuurentSiteAllocation,
+                  star: star,
+                  optionalisEmpty: true,
+                  controller: widget.currentSiteAllocationController,
+                )
+            : TextformField(
+                controller: widget.currentSiteAllocationController,
+                text: cuurentSiteAllocation,
+                limitLength: 40,
+                star: star,
+                inputformat: alphabats,
+                optionalisEmpty: true,
+                inputtype: keyboardTypeNone,
+                enabled: widget.enabled,
+              ),
+         formSizebox10,
+        widget.isEditing
+            ?
+              MultiSelectDropDown(
+                  selectedIds: selectedSiteIds,
+                  onChanged: onMultiSelectChanged,
+                  dropdownItems: siteDropdownItems,
+                  dropDownName: siteWorked,
+                  star: star,
+                  optionalisEmpty: true,
+                  controller: widget.siteWorkedController,
+                )
+            : MaxMinTextFormField(
+                maxLines: 4,
+                minLines: 1,
+                controller: widget.siteWorkedController,
+                text: siteWorked,
+                limitLength: 40,
+                star: star,
+                inputformat: alphabats,
+                optionalisEmpty: true,
+                inputtype: keyboardTypeNone,
+                enabled: widget.enabled,
+              ),
         formSizebox10,
       ],
     );
   }
 }
-
