@@ -11,7 +11,7 @@ class Backbutton extends StatelessWidget {
     required this.isEnabled,
   }) : super(key: key);
 
-  final text;
+  final String text;
   final bool isEnabled;
 
   @override
