@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -6,7 +7,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:screenshot/screenshot.dart';
-
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 import '../../../../Model/Const/color.dart';
 import '../../../../Model/Const/height_width.dart';
 import '../../../../Model/Const/padding_const.dart';
@@ -105,6 +107,39 @@ class _DataViewState extends State<DataView> {
       print(onError);
     });
   }
+
+// void printCurrentPage() async {
+//   screenshotController.capture().then((Uint8List? image) async {
+//     if (image != null) {
+//       final pdf = pw.Document();
+//       final imageMemory = pw.MemoryImage(image);
+
+//       pdf.addPage(
+//         pw.Page(
+//           build: (pw.Context context) => pw.Center(
+//             child: pw.Image(imageMemory),
+//           ),
+//         ),
+//       );
+
+//       // Generate a timestamp-based filename
+//       String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+//       String filename = '${widget.dataTableNameOne}_document_$timestamp.pdf'; // Modify filename here
+
+//       // Save the PDF with the specified filename
+//       final directory = await getTemporaryDirectory();
+//       final file = File('${directory.path}/$filename');
+//       await file.writeAsBytes(await pdf.save());
+      
+//       // Now you can use the file path to print or share the PDF
+//       // For example, you can use the 'printing' package to print the PDF
+//       await Printing.sharePdf(bytes: await file.readAsBytes(), filename: filename);
+//     }
+//   }).catchError((onError) {
+//     print(onError);
+//   });
+// }
+
 
   @override
   void initState() {

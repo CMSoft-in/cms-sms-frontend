@@ -53,7 +53,7 @@ class _DateTextFormFieldState extends State<DateTextFormField> {
         width:
             primaryWidth /*isMobile ? primaryWidth : screenSize.width * 0.7*/,
         child: TextFormField(
-          
+          readOnly: true,
           decoration: InputDecoration(
             suffixIcon: Icon(Icons.date_range),
             border: const OutlineInputBorder(),

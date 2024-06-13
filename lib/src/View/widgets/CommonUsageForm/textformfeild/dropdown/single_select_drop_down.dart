@@ -2,6 +2,9 @@ import 'package:cmssms/src/Model/Const/height_width.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
+import '../../../../../Model/Const/color.dart';
+import '../../../../../Model/Const/text_const.dart';
+
 class SingleSelectDropDown extends StatefulWidget {
   final List<Map<String, dynamic>> dropdownItems;
   final String dropDownName;
@@ -38,10 +41,24 @@ class SingleSelectDropDownState extends State<SingleSelectDropDown> {
             : null,
         dropdownDecoratorProps: DropDownDecoratorProps(
           dropdownSearchDecoration: InputDecoration(
-            labelText: widget.dropDownName,
+           label: RichText(
+                  text: TextSpan(
+                  children: [
+                    TextSpan(
+                     text: widget.dropDownName,
+                      style: textStyleGrey18,
+                    ),
+                    TextSpan(
+                     text: widget.star,
+                      style: textStyleRedStar,
+                    )
+                  ],)
+                ),
             contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
             border: OutlineInputBorder(),
+             errorStyle: const TextStyle(color: Colors.red),
           ),
+          
         ),
         onChanged: (value) {
           if (value != null) {
@@ -51,11 +68,16 @@ class SingleSelectDropDownState extends State<SingleSelectDropDown> {
             widget.controller.text = value;
           }
         },
+        validator:(value) => validMethod(value),
+        
         popupProps: PopupProps.menu(
+          menuProps: MenuProps(
+            backgroundColor: white,
+          ),
           showSelectedItems: true,
           itemBuilder: (context, item, isSelected) {
             return ListTile(
-              title: Text(item),
+              title: Text(item,style: textStyleGrey18,),
               trailing: isSelected
                   ? Icon(Icons.check_circle, color: Colors.green)
                   : Icon(Icons.check_circle_outline, color: Colors.grey),
@@ -66,5 +88,14 @@ class SingleSelectDropDownState extends State<SingleSelectDropDown> {
         clearButtonProps: ClearButtonProps(isVisible: true),
       ),
     );
+  }
+   String? validMethod(value) {
+    if (widget.optionalisEmpty == true) {
+      if (value == null || value.isEmpty) {
+        return "Please enter ${widget.dropDownName}";
+      }
+      return null;
+    }
+    return null;
   }
 }

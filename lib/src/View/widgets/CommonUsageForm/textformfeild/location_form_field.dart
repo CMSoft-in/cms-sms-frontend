@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geocoding/geocoding.dart';
 
+// ignore: must_be_immutable
 class LocationFormField extends StatefulWidget {
   LocationFormField({
     Key? key,
