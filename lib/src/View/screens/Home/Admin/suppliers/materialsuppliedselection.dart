@@ -1,9 +1,11 @@
+import 'package:cmssms/src/Model/Const/color.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../../../../../Model/api/api_model.dart';
 import '../../../../../Model/api/local.dart';
+import '../../../../widgets/Buttons/custom_button.dart';
 
 class MatterialSuppliedSelection extends StatefulWidget {
   const MatterialSuppliedSelection({Key? key, this.materialSuppliedLists})
@@ -18,17 +20,13 @@ class MatterialSuppliedSelection extends StatefulWidget {
 class MatterialSuppliedSelectionState
     extends State<MatterialSuppliedSelection> {
   List<Map<String, dynamic>> materialsData = [];
-  
-
   @override
   void initState() {
     super.initState();
     fetchData();
   }
-
   Future<void> fetchData() async {
     String apiUrl = ApiEndpoints.getAllMaterials;
-
     try {
       final response = await http.get(
         Uri.parse(apiUrl),
@@ -41,6 +39,7 @@ class MatterialSuppliedSelectionState
         List<Map<String, dynamic>> materials =
             List<Map<String, dynamic>>.from(parsedJson);
         setState(() {
+          print(materials);
           materialsData = materials;
         });
       } else {
@@ -50,11 +49,13 @@ class MatterialSuppliedSelectionState
       print('Error: $e');
     }
   }
-
+  void onPress() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text('Material Supplied Selection'),
       ),
       body: Padding(
@@ -64,31 +65,49 @@ class MatterialSuppliedSelectionState
             Expanded(
               child: materialsData.isEmpty
                   ? const Center(child: CircularProgressIndicator())
-                  : ListView.builder(
-                      itemCount: materialsData.length,
-                      itemBuilder: (context, index) {
-                        Map<String, dynamic> materialData =
-                            materialsData[index];
-                        String materialName = materialData['co_material_name'];
-                        List<Map<String, dynamic>> variants = [materialData];
-                        for (int i = index + 1; i < materialsData.length; i++) {
-                          if (materialsData[i]['co_material_name'] ==
-                              materialName) {
-                            variants.add(materialsData[i]);
-                          }
-                        }
+                  : Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                          itemCount: materialsData.length,
+                          itemBuilder: (context, index) {
+                            Map<String, dynamic> materialData =
+                                materialsData[index];
+                            String materialName =
+                                materialData['co_material_name'];
+                            List<Map<String, dynamic>> variants = [
+                              materialData
+                            ];
+                            for (int i = index + 1;
+                                i < materialsData.length;
+                                i++) {
+                              if (materialsData[i]['co_material_name'] ==
+                                  materialName) {
+                                variants.add(materialsData[i]);
+                              }
+                            }
 
-                        return MaterialListItem(
-                          materialName: materialName,
-                          variants: variants,
-                        );
-                      },
+                            return MaterialListItem(
+                              materialName: materialName,
+                              variants: variants,
+                            );
+                          },
+                        ),
+                      ),
                     ),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Save'),
-            ),
+            Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: CustomButton(
+                  backgroundColor: red,
+                  buttonText: "Save",
+                  onPressEvent: onPress,
+                )),
           ],
         ),
       ),
@@ -134,7 +153,7 @@ class _MaterialListItemState extends State<MaterialListItem> {
             });
           },
           child: Container(
-            color: Color.fromARGB(0, 207, 202, 202),
+            color: const Color.fromARGB(0, 207, 202, 202),
             child: Row(
               children: [
                 Checkbox(

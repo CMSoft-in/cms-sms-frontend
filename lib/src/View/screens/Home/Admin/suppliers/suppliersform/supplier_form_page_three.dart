@@ -23,6 +23,8 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
   SupplierTextEditingController supplierTextEditingController =
       SupplierTextEditingController();
   int? coSupplierCategoryIds;
+  List <Map> materialSupplied = [];
+
   void changeValue(int v) {
     setState(() {
       coSupplierCategoryIds = v;
@@ -39,6 +41,7 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
     var oldData = widget.data;
     var updatedData = {
       ...oldData,
+      "MaterialSupplied": materialSupplied,
       "co_supplier_category_id": [coSupplierCategoryIds],
       "co_material_id":
           comaterialCategoryId.isEmpty ? null : comaterialCategoryId,

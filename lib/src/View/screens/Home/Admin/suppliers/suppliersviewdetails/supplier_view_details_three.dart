@@ -14,7 +14,6 @@ import '../../../../../widgets/CommonUsageForm/textformfeild/empty_text_form_fie
 import '../../../../../widgets/CommonUsageForm/textformfeild/empty_text_form_field_material_supplied.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
-import '../../../../../widgets/MyDrawer/s.dart';
 // ignore: must_be_immutable
 class SupplierViewDetailsThree extends StatefulWidget {
   final TextEditingController supplierCategoryController;
@@ -152,7 +151,7 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
         widget.isEditing
             ?SingleSelectDropDown(
   selectedId: selectedSupplierCategoryId,
-  onChanged: onDropdownChanged, // Call onDropdownChanged when the value changes
+  onChanged: onDropdownChanged, 
   dropdownItems: supplierCategoryDropdownItems,
   dropDownName: supplierCategoryText,
   star: star,
