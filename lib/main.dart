@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'src/View/screens/Home/home.dart';
+import 'src/View/screens/Home/Admin/suppliers/suppliersform/supplier_form_page_three.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,7 +18,7 @@ class MyAppState extends State<MyApp> {
       theme: ThemeData(
         fontFamily: "Poppins",
       ),
-      home: const Home(),
+      home: const SupplierFormPageThree(data: "",),
       debugShowCheckedModeBanner: false,
     );
   }
