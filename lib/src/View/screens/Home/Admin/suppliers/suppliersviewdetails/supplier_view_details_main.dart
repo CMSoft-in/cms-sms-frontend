@@ -194,7 +194,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
         "off_town": cityController.text,
         "off_state": stateController.text,
         "off_pincode": pincodeController.text,
-        "gst_no": gstController.text,
+        "gst_no": gstNumberController.text,
         "primary_contact_name": primaryNameController.text,
         "primary_contact_no": primaryPhoneNumberController.text,
         "primary_contact_email": primaryEmailController.text,
