@@ -55,8 +55,7 @@ class _ClientFormPageFiveState extends State<ClientFormPageFive> {
 
         var values = {
           ...oldData,
-          dbClientController.dbGSTNumber:
-              gstController.text.isEmpty ? null : gstController.text,
+          
           dbClientController.dbBankAccountNumber:
               accountNumberController.text.isEmpty
                   ? null
@@ -131,7 +130,7 @@ class _ClientFormPageFiveState extends State<ClientFormPageFive> {
                       ),
                       const SizedBox(height: 15),
                       ClientViewDetailsFive(
-                        gstNumber: gstController,
+                        
                         accountNumberController: accountNumberController,
                         ifscCodeController: ifscCodeController,
                         accountNameController: accountNameController,

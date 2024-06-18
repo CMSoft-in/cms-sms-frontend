@@ -18,6 +18,7 @@ class Control {
   final TextEditingController email = TextEditingController();
   final TextEditingController whatsapp = TextEditingController();
   final TextEditingController addressline1Controller = TextEditingController();
+  final TextEditingController gstNumberController = TextEditingController();
   final TextEditingController addressline2Controller = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final TextEditingController pincodeController = TextEditingController();

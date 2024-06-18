@@ -214,7 +214,8 @@ void populateContactControllers(
                   pincodeControllerName: pincodeController,
                   siteNameController: siteNameController,
                   stateControllerName: stateController,
-                  sitegpsController: sitegpsController),
+                  // sitegpsController: sitegpsController
+                  ),
               SiteViewDetailsTwo(
                   enabled: isEnabled,
                   isEditing: isEditing,

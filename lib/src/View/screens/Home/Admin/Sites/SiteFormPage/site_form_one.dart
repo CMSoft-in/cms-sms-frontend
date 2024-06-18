@@ -25,9 +25,9 @@ class _SiteFormPageOneState extends State<SiteFormPageOne> {
   SitesTextEditingController sitesTextEditingController =
       SitesTextEditingController();
 
-  void assignLocation(l) {
-    location = l;
-  }
+  // void assignLocation(l) {
+  //   location = l;
+  // }
 
   void navigateToPageTwo(BuildContext context) {
     var data = {
@@ -85,7 +85,7 @@ class _SiteFormPageOneState extends State<SiteFormPageOne> {
                 color: red,
               ),
               SiteViewDetailsOne(
-                assignLocation:assignLocation,
+                // assignLocation:assignLocation,
                   
                   // ontap:_getLocation,
                   enabled: true,
@@ -101,8 +101,9 @@ class _SiteFormPageOneState extends State<SiteFormPageOne> {
                       sitesTextEditingController.siteNameController,
                   stateControllerName:
                       sitesTextEditingController.stateController,
-                  sitegpsController:
-                      sitesTextEditingController.sitegpsController),
+                  // sitegpsController:
+                  //     sitesTextEditingController.sitegpsController
+                  ),
               formSizebox15,
               bottomHeight,
             ],

@@ -27,6 +27,8 @@ class ClientFormPageThree extends StatelessWidget {
     void navigateToPageFour(BuildContext context) {
       var updatedData = {
         ...oldData,
+        dbClientController.dbGSTNumber:
+              gstNumberController.text.isEmpty ? null : gstNumberController.text,
         dbClientController.dbResidentialAddressLine1:
             secondaryAddressline1Controller.text.isEmpty
                 ? null
@@ -70,6 +72,7 @@ class ClientFormPageThree extends StatelessWidget {
                     ),
                     formSizebox15,
                     ClientViewDetailsThree(
+                      gstNumberController:gstNumberController ,
                       addressline1Controller: secondaryAddressline1Controller,
                       addressline2Controller: secondaryAddressline2Controller,
                       cityController: secondaryCityController,

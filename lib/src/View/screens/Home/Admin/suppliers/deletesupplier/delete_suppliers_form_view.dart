@@ -20,7 +20,6 @@ import '../../../../../../Model/Const/color.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/local.dart';
-import '../../../../../../controler/ClientController/client_controller.dart';
 import '../../../../../../controler/common_controller.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/BottomLogo/bottom_sheet_logo.dart';
@@ -45,7 +44,7 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
     fetchUpdateData();
   }
 
-  Future<void> fetchData() async {
+   Future<void> fetchData() async {
     try {
       final response = await http.get(
         Uri.parse('${ApiEndpoints.getSupplier}/${widget.id}'),
@@ -53,14 +52,42 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
           'Authorization': 'Bearer $token',
         },
       );
+      print(response.body);
       if (response.statusCode == 200) {
         setState(() {
           data = jsonDecode(response.body);
           if (data != null) {
-            var controllers = {"bank_acc_location": control.bankLocation};
-            controllers.forEach((key, controller) {
-              controller.text = data![key]?.toString() ?? '';
-            });
+            supplierNameController.text = data!["co_supplier_name"] ?? "";
+            addressline1Controller.text = data!["off_address_line1"] ?? "";
+            addressline2Controller.text = data!["off_address_line2"] ?? "";
+            cityController.text = data!["off_town"] ?? "";
+            stateController.text = data!["off_state"] ?? "";
+            pincodeController.text = data!["off_pincode"].toString() ?? "";
+            gstNumberController.text = data!["gst_no"] == null ? "":  data!["gst_no"].toString();
+            primaryNameController.text = data!["primary_contact_name"] ?? "";
+            primaryPhoneNumberController.text =
+                data!["primary_contact_no"] ?? "";
+            primaryEmailController.text = data!["primary_contact_email"] ?? "";
+            primaryWhatsappController.text =
+                data!["primary_contact_whatsapp"] ?? "";
+            timeLineController.text =
+                data!["payment_timeline"] == null ? "" : data!["payment_timeline"].toString();
+            firstNameController.text = data!["owner_first_name"] ?? "";
+            lastNameController.text = data!["owner_last_name"] ?? "";
+            phoneNumberController.text = data!["mobile_no"] ?? "";
+            secondaryNameController.text =
+                data!["secondary_contact_name"] ?? "";
+            secondaryPhoneNumberController.text =
+                data!["secondary_contact_no"] ?? "";
+            secondaryEmailController.text =
+                data!["secondary_contact_email"] ?? "";
+            secondaryWhatsappController.text =
+                data!["secondary_contact_whatsapp"] ?? "";
+            createBy.text = data!["created_by"] ?? "";
+            createOn.text = Date.getDate(data!["createdAt"]) ?? "";
+            supplierCategoryController.text =
+                data!["CoSupplierCategory"]["co_supplier_category_name"] ?? "";
+            //  materialsSuppliedController.text=data!["co_material_id"] ?? "";
           }
         });
       } else {
@@ -86,7 +113,7 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
           var data = jsonDecode(response.body);
 
           for (var eachData in data) {
-            if (eachData["co_client_id"].toString() == widget.id) {
+            if (eachData["co_supplier_id"].toString() == widget.id) {
               updateData.add(eachData);
             }
           }
@@ -99,6 +126,9 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
       print('Error fetching data: $error');
     }
   }
+
+
+ 
 
   bool isEditing = false;
   bool isEnabled = false;
@@ -147,7 +177,7 @@ class _SuppliersFormDeleteView extends State<SuppliersFormDeleteView> {
                   supplierNameController: supplierNameController),
               SupplierViewDetailsTwo(
                   enabled: isEnabled,
-                  gstController: gstController,
+                  gstController: gstNumberController,
                   primaryEmailController: primaryEmailController,
                   primaryNameController: primaryNameController,
                   primaryPhoneNumberController: primaryPhoneNumberController,

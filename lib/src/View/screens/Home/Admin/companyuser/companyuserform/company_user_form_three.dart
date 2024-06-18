@@ -30,8 +30,8 @@ class ComapnyUserFormPageThree extends StatelessWidget {
         ...oldData,
       "emergency_contact_name": companyUserTextEditingController.primaryNameController.text.isEmpty ? null :companyUserTextEditingController.primaryNameController.text.tr,
     "emergency_contact_no":companyUserTextEditingController.primaryPhoneNumberController.text.isEmpty ? null :companyUserTextEditingController.primaryPhoneNumberController.text.trim(),
-    "email":companyUserTextEditingController. primaryEmailController.text.isEmpty ? null :companyUserTextEditingController. primaryEmailController.text.trim(),
-    "password":companyUserTextEditingController. primaryEmailController.text.isEmpty ? null :companyUserTextEditingController. primaryEmailController.text.trim(),
+    
+    "primary_contact_email":companyUserTextEditingController. primaryEmailController.text.isEmpty ? null :companyUserTextEditingController. primaryEmailController.text.trim(),
     "primary_contact_whatsapp":companyUserTextEditingController.primaryWhatsappController.text.isEmpty ? null :int.parse(companyUserTextEditingController.primaryWhatsappController.text.trim()),
      "secondary_contact_name":companyUserTextEditingController.secondaryNameController.text.isEmpty ? null :companyUserTextEditingController.secondaryNameController.text.trim(),
     "secondary_contact_no":companyUserTextEditingController.secondaryPhoneNumberController.text.isEmpty ? null :int.parse(companyUserTextEditingController.secondaryPhoneNumberController.text.trim()),

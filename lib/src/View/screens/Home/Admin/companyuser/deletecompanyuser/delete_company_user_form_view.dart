@@ -85,6 +85,8 @@ class _CompanyUserFormDeleteViewState extends State<CompanyUserFormDeleteView> {
             children: [
               const DetailsText(enterDetails: deleteCompanyUserDetailsText),
               CompanyUserViewDetailsOne(
+                UserNameController:UserNameController,
+                passwordController:passwordController ,
                   firstNameController: firstNameController,
                   lastNameController: lastNameController,
                   phoneNumberController: phoneNumberController,

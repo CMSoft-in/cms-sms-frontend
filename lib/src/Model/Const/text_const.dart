@@ -129,6 +129,7 @@ const deleteReason='Delete Reason';
 const printText='Print';
 
 
+
 final TextEditingController firstNameController = TextEditingController();
 final TextEditingController lastNameController = TextEditingController();
 final TextEditingController phoneNumberController = TextEditingController();
@@ -172,7 +173,7 @@ final TextEditingController secondaryPhoneNumberController =
     TextEditingController();
     final TextEditingController secondaryEmailController = TextEditingController();
 final TextEditingController secondaryWhatsappController =TextEditingController();
-final TextEditingController gstController = TextEditingController();
+final TextEditingController gstNumberController = TextEditingController();
 final TextEditingController EmailController = TextEditingController();
 final TextEditingController whatsappController = TextEditingController();
 final TextEditingController accountNameController = TextEditingController();
@@ -189,4 +190,5 @@ final TextEditingController teamMemberController = TextEditingController();
 final TextEditingController rateController = TextEditingController();
 final TextEditingController gpayNumberController = TextEditingController();
 final TextEditingController siteWorkedController = TextEditingController();
-final TextEditingController cuurentSiteAllocationController = TextEditingController();
+final TextEditingController currentSiteAllocationController =
+    TextEditingController();
