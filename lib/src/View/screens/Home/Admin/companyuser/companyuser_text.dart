@@ -17,13 +17,16 @@ const deleteCompanyUserText ='Deleted Company Users';
 const deleteCompanyUserDetailsText ='Deleted Company Users Details';
 const viewCompanyUserDetailsText = "View Company User Details";
 const editCompanyUserDetailsText = "Edit Company User Details";
-
+const password="Password";
+const userName="User Name";
 final TextEditingController joinDateController = TextEditingController();
 final TextEditingController officeDesignationController = TextEditingController();
 final TextEditingController applicationRoleController = TextEditingController();
-
+final TextEditingController UserNameController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
 class CompanyUserTextEditingController{
-
+final TextEditingController UserNameController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
 final TextEditingController joinDateController = TextEditingController();
 final TextEditingController officeDesignationController = TextEditingController();
 final TextEditingController applicationRoleController = TextEditingController();

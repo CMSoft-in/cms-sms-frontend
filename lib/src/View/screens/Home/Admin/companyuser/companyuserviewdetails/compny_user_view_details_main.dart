@@ -252,6 +252,8 @@ Future<void> fetchData() async {
                 ),
               ),
               CompanyUserViewDetailsOne(
+                UserNameController: UserNameController,
+                passwordController:passwordController ,
                   firstNameController: firstNameController,
                   lastNameController: lastNameController,
                   phoneNumberController: phoneNumberController,

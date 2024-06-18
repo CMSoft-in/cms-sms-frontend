@@ -93,8 +93,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
             cityController.text = data!["off_town"] ?? "";
             stateController.text = data!["off_state"] ?? "";
             pincodeController.text = data!["off_pincode"].toString() ?? "";
-            gstController.text =
-                data!["gst_no"] == null ? "" : data!["gst_no"].toString();
+            gstNumberController.text = data!["gst_no"] == null ? "":  data!["gst_no"].toString();
             primaryNameController.text = data!["primary_contact_name"] ?? "";
             primaryPhoneNumberController.text =
                 data!["primary_contact_no"] ?? "";
@@ -276,7 +275,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                   supplierNameController: supplierNameController),
               SupplierViewDetailsTwo(
                   enabled: isEnabled,
-                  gstController: gstController,
+                  gstController:  gstNumberController,
                   primaryEmailController: primaryEmailController,
                   primaryNameController: primaryNameController,
                   primaryPhoneNumberController: primaryPhoneNumberController,

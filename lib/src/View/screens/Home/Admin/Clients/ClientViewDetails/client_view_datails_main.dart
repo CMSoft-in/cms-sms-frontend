@@ -270,6 +270,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
                 enabled: isEditing,
               ),
               ClientViewDetailsThree(
+                gstNumberController:control.gstNumberController ,
                 addressline1Controller: control.addressline1Controller,
                 addressline2Controller: control.addressline2Controller,
                 cityController: control.cityController,
@@ -289,7 +290,7 @@ class _ClientViewDetailsMainState extends State<ClientViewDetailsMain> {
                 enabled: isEditing,
               ),
               ClientViewDetailsFive(
-                gstNumber: control.gstNumber,
+                
                 accountNumberController: control.accountNumber,
                 ifscCodeController: control.ifscCode,
                 accountNameController: control.accountName,

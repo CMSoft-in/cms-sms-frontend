@@ -11,7 +11,7 @@ import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/location_form_field.dart';
 
-class SiteViewDetailsOne extends StatelessWidget {
+class SiteViewDetailsOne extends StatefulWidget {
   SiteViewDetailsOne(
       {super.key,
       required this.enabled,
@@ -21,7 +21,7 @@ class SiteViewDetailsOne extends StatelessWidget {
       required this.pincodeControllerName,
       required this.siteNameController,
       required this.stateControllerName,
-      required this.sitegpsController,
+      // required this.sitegpsController,
       required this.isEditing,
     
        this.assignLocation,
@@ -36,8 +36,15 @@ class SiteViewDetailsOne extends StatelessWidget {
   final TextEditingController cityControllerName;
   final TextEditingController stateControllerName;
   final TextEditingController pincodeControllerName;
-  final TextEditingController sitegpsController;
+  // final TextEditingController sitegpsController;
   final ontap;
+
+  @override
+  State<SiteViewDetailsOne> createState() => _SiteViewDetailsOneState();
+}
+
+class _SiteViewDetailsOneState extends State<SiteViewDetailsOne> {
+ 
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,14 +56,14 @@ class SiteViewDetailsOne extends StatelessWidget {
         ),
         formSizebox10,
         TextformField(
-            controller: siteNameController,
+            controller: widget.siteNameController,
             text: siteName,
             limitLength: 20,
             optionalisEmpty: true,
             inputformat: alphabatsSpace,
             star: star,
             inputtype: keyboardTypeNone,
-            enabled: enabled),
+            enabled: widget.enabled),
         formSizebox10,
         const StackText(
           stacktext: siteAddress,
@@ -64,64 +71,65 @@ class SiteViewDetailsOne extends StatelessWidget {
         ),
         formSizebox10,
         TextformField(
-            controller: addressline1Controller,
+            controller: widget.addressline1Controller,
             text: addressline1,
             limitLength: 120,
             optionalisEmpty: true,
             inputformat: alphabatsAndNumbers,
             star: star,
             inputtype: keyboardTypeNone,
-            enabled: enabled),
+            enabled: widget.enabled),
         formSizebox10,
         TextformField(
-            controller: addressline2Controller,
+            controller: widget.addressline2Controller,
             text: addressline2,
             limitLength: 120,
             optionalisEmpty: false,
             inputformat: alphabatsAndNumbers,
             star: estar,
             inputtype: keyboardTypeNone,
-            enabled: enabled),
+            enabled: widget.enabled),
         formSizebox10,
         PincodeAPI(
-            cityControllerName: cityControllerName,
-            stateControllerName: stateControllerName,
-            pincodeControllerName: pincodeControllerName,
+            cityControllerName: widget.cityControllerName,
+            stateControllerName: widget.stateControllerName,
+            pincodeControllerName: widget.pincodeControllerName,
             star: star,
             optionalisEmpty: true,
-            enabled: enabled,
+            enabled: widget.enabled,
             valueLength: 6),
         formSizebox10,
         TextformField(
-            controller: cityControllerName,
+            controller: widget.cityControllerName,
             text: city,
             limitLength: 60,
             optionalisEmpty: true,
             inputformat: alphabatsSpace,
             star: star,
             inputtype: keyboardTypeNone,
-            enabled: enabled),
+            enabled: widget.enabled),
         formSizebox10,
         TextformField(
-            controller: stateControllerName,
+            controller: widget.stateControllerName,
             text: state,
             limitLength: 30,
             optionalisEmpty: true,
             inputformat: alphabatsSpace,
             star: star,
             inputtype: keyboardTypeNone,
-            enabled: enabled),
+            enabled: widget.enabled),
         formSizebox10,
-        isEditing
-            ? LocationFormField(
-                assignLocation: assignLocation,
+        // isEditing
+        //     ? LocationFormField(
+        //         assignLocation: assignLocation,
 
-                star: star,
-                text: sitegps,
-                controller: sitegpsController,
-                enabled: enabled,
-                optionalisEmpty: true)
-            : TextformField(
+        //         star: star,
+        //         text: sitegps,
+        //         controller: sitegpsController,
+        //         enabled: enabled,
+        //         optionalisEmpty: true)
+        //     : 
+        TextformField(
                 controller: sitegpsController,
                 text: sitegps,
                 limitLength: 120,
@@ -129,7 +137,8 @@ class SiteViewDetailsOne extends StatelessWidget {
                 inputformat: alphabatsAndNumbers,
                 star: star,
                 inputtype: keyboardTypeNone,
-                enabled: enabled)
+                enabled: widget.enabled),
+               
       ],
     );
   }

@@ -13,6 +13,7 @@ import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '../../../../../../controler/GetLocationPlace/get_location_place.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
+import '../../../../../widgets/Buttons/Long_SizeButton.dart';
 import '../../../../../widgets/CommonUsageForm/AlartBox/alart_popup.dart';
 import '../../../../../widgets/CommonUsageForm/HintText.dart';
 import '../../../../../widgets/CommonUsageForm/Update/update_data_item.dart';
@@ -20,7 +21,7 @@ import '../../../../../widgets/CommonUsageForm/Update/update_header.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/phone_text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/view_details_text.dart';
-import 'package:geolocator/geolocator.dart';
+
 import '../SiteDataView/site_data_view_main.dart';
 
 class SiteViewDetailsMain extends StatefulWidget {
@@ -99,11 +100,12 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
       if (response.statusCode == 200) {
         final Map<String, dynamic>? data =
             jsonDecode(response.body) as Map<String, dynamic>?;
+            print(data);
         if (data != null) {
-          List<String> latlong = data[dbSiteGpsLocation]?.split(" ") ?? [];
-          double lat = double.parse(latlong[0]);
-          double long = double.parse(latlong[1]);
-          String location = await getPlace(lat, long);
+          // List<String> latlong = data[dbSiteGpsLocation]?.split(" ") ?? [];
+          // double lat = double.parse(latlong[0]);
+          // double long = double.parse(latlong[1]);
+          // String location = await getPlace(lat, long);
 
           setState(() {
             siteNameController.text = data[dbSiteName]?.toString() ?? "";
@@ -114,7 +116,7 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
             pincodeController.text = data[dbSitePincode]?.toString() ?? "";
             cityController.text = data[dbSiteTown]?.toString() ?? "";
             stateController.text = data[dbSiteState]?.toString() ?? "";
-            sitegpsController.text = location;
+            // sitegpsController.text = location;
             projectWorkNameController.text =
                 data[dbSiteProjectWorkName]?.toString() ?? "";
             projectWorkDescriptionofController.text =
@@ -202,128 +204,257 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
     }
   }
 
-  void checkUpdatingValue() {
-    oldData = data;
-    if (oldData != null) {
-      Map<String, dynamic> updatedData = {};
+  // void checkUpdatingValue() {
+  //   oldData = data;
+  //   if (oldData != null) {
+  //     Map<String, dynamic> updatedData = {};
 
-      var siteFields = {
-        dbSiteName: siteNameController.text,
-        dbSiteAddressOne: addressline1Controller.text,
-        dbSiteAddressTwo: addressline2Controller.text,
-        dbSitePincode: pincodeController.text,
-        dbSiteTown: cityController.text,
-        dbSiteState: stateController.text,
-        dbSiteGpsLocation: sitegpsController.text,
-        dbSiteProjectWorkName: projectWorkNameController.text,
-        dbSiteProjectDesc: projectWorkDescriptionofController.text,
-        dbSiteProjectSize: projectSizeController.text,
-        dbSiteProjectStartDate: projectStartDateController.text,
-        dbSiteProjectCompletionDate: expectedCompletionDateController.text,
-        dbPrimaryName: primaryNameController.text,
-        dbPrimaryNumber: primaryPhoneNumberController.text,
-        dbPrimaryEmail: primaryEmailController.text,
-        dbPrimaryWhatsapp: primaryWhatsappController.text,
-        dbSiteEngineerAllocated: companySiteEngineersAllocatedController.text,
-        dbSecondaryEmail: secondaryEmailController.text,
-        dbSecondaryName: secondaryNameController.text,
-        dbSecondaryNumber: secondaryPhoneNumberController.text,
-        "created_by": createBy.text,
-        "created_at": createOn.text,
-      };
+  //     var siteFields = {
+  //       dbSiteName: siteNameController.text,
+  //       dbSiteAddressOne: addressline1Controller.text,
+  //       dbSiteAddressTwo: addressline2Controller.text,
+  //       dbSitePincode: pincodeController.text,
+  //       dbSiteTown: cityController.text,
+  //       dbSiteState: stateController.text,
+  //       dbSiteGpsLocation: sitegpsController.text,
+  //       dbSiteProjectWorkName: projectWorkNameController.text,
+  //       dbSiteProjectDesc: projectWorkDescriptionofController.text,
+  //       dbSiteProjectSize: projectSizeController.text,
+  //       dbSiteProjectStartDate: projectStartDateController.text,
+  //       dbSiteProjectCompletionDate: expectedCompletionDateController.text,
+  //       dbPrimaryName: primaryNameController.text,
+  //       dbPrimaryNumber: primaryPhoneNumberController.text,
+  //       dbPrimaryEmail: primaryEmailController.text,
+  //       dbPrimaryWhatsapp: primaryWhatsappController.text,
+  //       dbSiteEngineerAllocated: companySiteEngineersAllocatedController.text,
+  //       dbSecondaryEmail: secondaryEmailController.text,
+  //       dbSecondaryName: secondaryNameController.text,
+  //       dbSecondaryNumber: secondaryPhoneNumberController.text,
+  //       "created_by": createBy.text,
+  //       "created_at": createOn.text,
+  //     };
 
-      siteFields.forEach((key, value) {
-        if (value.isNotEmpty && (oldData[key]?.toString() ?? '') != value) {
-          updatedData[key] = value;
-        }
-      });
+  //     siteFields.forEach((key, value) {
+  //       if (value.isNotEmpty && (oldData[key]?.toString() ?? '') != value) {
+  //         updatedData[key] = value;
+  //       }
+  //     });
 
-      checkContactUpdates(
-          "Client Architect", clientArchitectControllers, oldData, updatedData);
-      if (updatedData.isNotEmpty) {
-        updateData(updatedData);
-      } else {
-        print("No changes detected.");
+  //     checkContactUpdates(
+  //         "Client Architect", clientArchitectControllers, oldData, updatedData);
+  //     if (updatedData.isNotEmpty) {
+  //       updateData(updatedData);
+  //     } else {
+  //       print("No changes detected.");
+  //     }
+  //   } else {
+  //     print("Old data is null, unable to proceed.");
+  //   }
+  // }
+
+  // void checkContactUpdates(
+  //   String category,
+  //   List<List<TextEditingController>> controllers,
+  //   Map<String, dynamic> oldData,
+  //   Map<String, dynamic> updatedData,
+  // ) {
+  //   if (oldData["CoSiteContacts"] == null) {
+  //     return;
+  //   }
+
+  //   List<Map<String, dynamic>> updatedContacts = [];
+
+  //   for (var i = 0; i < controllers.length; i++) {
+  //     var contact = controllers[i];
+  //     if (contact[0].text.isNotEmpty) {
+  //       var oldContactData = (oldData["CoSiteContacts"] as List).firstWhere(
+  //           (element) => element["contact_category_name"] == category,
+  //           orElse: () => null);
+  //       var updatedContactData = {
+  //         "contact_name": contact[0].text,
+  //         "contact_no": contact[1].text,
+  //         "contact_email": contact[2].text,
+  //         "contact_whatsapp": contact[3].text,
+  //       };
+  //       if (oldContactData != null) {
+  //         var oldContact = (oldContactData["contact_name"] ?? "") +
+  //             (oldContactData["contact_no"] ?? "") +
+  //             (oldContactData["contact_email"] ?? "") +
+  //             (oldContactData["contact_whatsapp"] ?? "");
+  //         var newContact = (updatedContactData["contact_name"] ?? "") +
+  //             (updatedContactData["contact_no"] ?? "") +
+  //             (updatedContactData["contact_email"] ?? "") +
+  //             (updatedContactData["contact_whatsapp"] ?? "");
+  //         if (oldContact != newContact) {
+  //           updatedContacts.add({
+  //             "updated_old_value": oldContact,
+  //             "updated_new_value": newContact,
+  //             "updated_by": "User",
+  //           });
+  //         }
+  //       } else {
+  //         updatedContacts.add({
+  //           "updated_old_value": "",
+  //           "updated_new_value": updatedContactData,
+  //           "updated_by": "User"
+  //         });
+  //       }
+  //     }
+  //   }
+  //   if (updatedContacts.isNotEmpty) {
+  //     updatedData["CoSiteContacts"] = updatedContacts;
+  //   }
+  // }
+
+  // void updateData(data) async {
+  //   try {
+  //     var response = await http.patch(
+  //       Uri.parse('${ApiEndpoints.updateSite}/${widget.id}'),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Authorization": "Bearer $token",
+  //       },
+  //       body: jsonEncode(data),
+  //     );
+  //     if (response.statusCode == 200) {
+  //       Navigator.of(context).push(
+  //           MaterialPageRoute(builder: (context) => const SiteDataView()));
+  //     } else {
+  //       print("Update failed with status code: ${response.statusCode}");
+  //     }
+  //   } catch (e) {
+  //     print("Update failed with error: $e");
+  //   }
+  // }
+void checkUpdatingValue() {
+  oldData = data;
+  if (oldData != null) {
+    Map<String, dynamic> updatedData = {};
+
+    var siteFields = {
+      dbSiteName: siteNameController.text,
+      dbSiteAddressOne: addressline1Controller.text,
+      dbSiteAddressTwo: addressline2Controller.text,
+      dbSitePincode: pincodeController.text,
+      dbSiteTown: cityController.text,
+      dbSiteState: stateController.text,
+      dbSiteGpsLocation: sitegpsController.text,
+      dbSiteProjectWorkName: projectWorkNameController.text,
+      dbSiteProjectDesc: projectWorkDescriptionofController.text,
+      dbSiteProjectSize: projectSizeController.text,
+      dbSiteProjectStartDate: projectStartDateController.text,
+      dbSiteProjectCompletionDate: expectedCompletionDateController.text,
+      dbPrimaryName: primaryNameController.text,
+      dbPrimaryNumber: primaryPhoneNumberController.text,
+      dbPrimaryEmail: primaryEmailController.text,
+      dbPrimaryWhatsapp: primaryWhatsappController.text,
+      dbSiteEngineerAllocated: companySiteEngineersAllocatedController.text,
+      dbSecondaryEmail: secondaryEmailController.text,
+      dbSecondaryName: secondaryNameController.text,
+      dbSecondaryNumber: secondaryPhoneNumberController.text,
+      "created_by": createBy.text,
+      "created_at": createOn.text,
+    };
+
+    siteFields.forEach((key, value) {
+      if (value.isNotEmpty && (oldData[key]?.toString() ?? '') != value) {
+        updatedData[key] = value;
       }
+    });
+
+    checkContactUpdates(
+        "Client Architect", clientArchitectControllers, oldData, updatedData);
+
+    if (updatedData.isNotEmpty) {
+      updateData(updatedData);
     } else {
-      print("Old data is null, unable to proceed.");
+      print("No changes detected.");
     }
+  } else {
+    print("Old data is null, unable to proceed.");
+  }
+}
+
+void checkContactUpdates(
+  String category,
+  List<List<TextEditingController>> controllers,
+  Map<String, dynamic> oldData,
+  Map<String, dynamic> updatedData,
+) {
+  if (oldData["CoSiteContacts"] == null) {
+    return;
   }
 
-  void checkContactUpdates(
-    String category,
-    List<List<TextEditingController>> controllers,
-    Map<String, dynamic> oldData,
-    Map<String, dynamic> updatedData,
-  ) {
-    if (oldData["CoSiteContacts"] == null) {
-      return;
-    }
+  List<Map<String, dynamic>> updatedContacts = [];
 
-    List<Map<String, dynamic>> updatedContacts = [];
-
-    for (var i = 0; i < controllers.length; i++) {
-      var contact = controllers[i];
-      if (contact[0].text.isNotEmpty) {
-        var oldContactData = (oldData["CoSiteContacts"] as List).firstWhere(
-            (element) => element["contact_category_name"] == category,
-            orElse: () => null);
-        var updatedContactData = {
-          "contact_name": contact[0].text,
-          "contact_no": contact[1].text,
-          "contact_email": contact[2].text,
-          "contact_whatsapp": contact[3].text,
-        };
-        if (oldContactData != null) {
-          var oldContact = (oldContactData["contact_name"] ?? "") +
-              (oldContactData["contact_no"] ?? "") +
-              (oldContactData["contact_email"] ?? "") +
-              (oldContactData["contact_whatsapp"] ?? "");
-          var newContact = (updatedContactData["contact_name"] ?? "") +
-              (updatedContactData["contact_no"] ?? "") +
-              (updatedContactData["contact_email"] ?? "") +
-              (updatedContactData["contact_whatsapp"] ?? "");
-          if (oldContact != newContact) {
-            updatedContacts.add({
-              "updated_old_value": oldContact,
-              "updated_new_value": newContact,
-              "updated_by": "User",
-            });
-          }
-        } else {
+  for (var i = 0; i < controllers.length; i++) {
+    var contact = controllers[i];
+    if (contact[0].text.isNotEmpty) {
+      var oldContactData = (oldData["CoSiteContacts"] as List).firstWhere(
+          (element) => element["contact_category_name"] == category && element["co_site_contacts_id"] == contact[4].text,
+          orElse: () => null);
+      var updatedContactData = {
+        "co_site_contacts_id": contact[4].text,
+        "contact_category_name": category,
+        "contact_name": contact[0].text,
+        "contact_no": contact[1].text,
+        "contact_whatsapp": contact[2].text,
+        "contact_email": contact[3].text,
+      };
+      if (oldContactData != null) {
+        var oldContact = (oldContactData["contact_name"] ?? "") +
+            (oldContactData["contact_no"] ?? "") +
+            (oldContactData["contact_email"] ?? "") +
+            (oldContactData["contact_whatsapp"] ?? "");
+        var newContact = (updatedContactData["contact_name"] ?? "") +
+            (updatedContactData["contact_no"] ?? "") +
+            (updatedContactData["contact_email"] ?? "") +
+            (updatedContactData["contact_whatsapp"] ?? "");
+        if (oldContact != newContact) {
           updatedContacts.add({
-            "updated_old_value": "",
-            "updated_new_value": updatedContactData,
-            "updated_by": "User"
+            "co_site_contacts_id": contact[4].text,
+            "updated_old_value": oldContact,
+            "updated_new_value": newContact,
+            "updated_by": "User",
           });
         }
-      }
-    }
-    if (updatedContacts.isNotEmpty) {
-      updatedData["CoSiteContacts"] = updatedContacts;
-    }
-  }
-
-  void updateData(data) async {
-    try {
-      var response = await http.patch(
-        Uri.parse('${ApiEndpoints.updateSite}/${widget.id}'),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $token",
-        },
-        body: jsonEncode(data),
-      );
-      if (response.statusCode == 200) {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const SiteDataView()));
       } else {
-        print("Update failed with status code: ${response.statusCode}");
+        updatedContacts.add({
+          "co_site_contacts_id": contact[4].text,
+          "updated_old_value": "",
+          "updated_new_value": updatedContactData,
+          "updated_by": "User"
+        });
       }
-    } catch (e) {
-      print("Update failed with error: $e");
     }
   }
+  if (updatedContacts.isNotEmpty) {
+    updatedData["CoSiteContacts"] = updatedContacts;
+  }
+}
+
+void updateData(Map<String, dynamic> data) async {
+  try {
+    var response = await http.patch(
+      Uri.parse('${ApiEndpoints.updateSite}/${widget.id}'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: jsonEncode(data),
+    );
+    if (response.statusCode == 200) {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const SiteDataView()));
+    } else {
+      print("Update failed with status code: ${response.statusCode}");
+      print("Response body: ${response.body}");
+    }
+  } catch (e) {
+    print("Update failed with error: $e");
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -356,7 +487,8 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
                   pincodeControllerName: pincodeController,
                   siteNameController: siteNameController,
                   stateControllerName: stateController,
-                  sitegpsController: sitegpsController),
+                  // sitegpsController: sitegpsController
+                  ),
               SiteViewDetailsTwo(
                   enabled: isEnabled,
                   isEditing: isEditing,
@@ -406,7 +538,9 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
               // LongButton(
               //   formKey: formKey,
               //   text: update,
-              //   onPressed: () { checkUpdatingValue();},
+              //   onPressed: () {
+              //      checkUpdatingValue();
+              //      },
               //   isEnabled: isEnabled,
               // ),
               if (updatedData != null)

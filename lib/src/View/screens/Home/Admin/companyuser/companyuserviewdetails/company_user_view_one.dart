@@ -1,9 +1,15 @@
+import 'package:cmssms/src/Model/Const/text_const.dart';
+
+import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
+import '../companyuser_text.dart';
 import '/src/Model/general/common_basic_form_three.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/height_width.dart';
 class CompanyUserViewDetailsOne extends StatelessWidget {
   const CompanyUserViewDetailsOne(
       {Key? key,
+      required this.UserNameController,
+      required this.passwordController,
       required this.firstNameController,
       required this.lastNameController,
       required this.phoneNumberController,
@@ -14,8 +20,10 @@ class CompanyUserViewDetailsOne extends StatelessWidget {
       required this.stateController,
       required this.enabled})
       : super(key: key);
-  final TextEditingController firstNameController;
+        final TextEditingController UserNameController;
   final TextEditingController lastNameController;
+  final TextEditingController firstNameController;
+  final TextEditingController passwordController;
   final TextEditingController phoneNumberController;
   final TextEditingController addressline1Controller;
   final TextEditingController addressline2Controller;
@@ -27,6 +35,28 @@ class CompanyUserViewDetailsOne extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       formSizebox10,
+      TextformField(
+          controller: UserNameController,
+          text: userName,
+          star: star,
+          limitLength: 30,
+          optionalisEmpty: true,
+          inputformat: alphabatsAndNumbers,
+          inputtype: keyboardTypeNone,
+          enabled: enabled,
+        ),
+        formSizebox10,
+        TextformField(
+          controller: passwordController,
+          text: password,
+          limitLength: 30,
+          star: star,
+          inputformat: alphabatsAndNumbers,
+          optionalisEmpty: true,
+          inputtype: keyboardTypeNone,
+          enabled: enabled,
+        ),
+        formSizebox10,
       CommonBasicFormThree(
           firstNameController: firstNameController,
           lastNameController: lastNameController,

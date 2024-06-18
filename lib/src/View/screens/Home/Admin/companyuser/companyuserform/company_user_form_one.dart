@@ -19,18 +19,53 @@ class ComapnyUserFormPageOne extends StatelessWidget {
     Map<String, String> data;
 
     final formKey = GlobalKey<FormState>();
- CompanyUserTextEditingController companyUserTextEditingController=CompanyUserTextEditingController();  
+    CompanyUserTextEditingController companyUserTextEditingController =
+        CompanyUserTextEditingController();
 
     void navigateToPageTwo(BuildContext context) {
       var data = {
-        "first_name":companyUserTextEditingController. firstNameController.text.isEmpty ? null : companyUserTextEditingController. firstNameController.text.trim() ,
-    "last_name":companyUserTextEditingController.lastNameController.text.isEmpty ? null : companyUserTextEditingController.lastNameController.text.trim(),
-    "address_line1":companyUserTextEditingController.addressline1Controller.text.isEmpty ? null : companyUserTextEditingController.addressline1Controller.text.trim(),
-    "address_line2": companyUserTextEditingController.addressline2Controller.text.isEmpty ? null :companyUserTextEditingController.addressline2Controller.text.trim() ,
-    "town": companyUserTextEditingController.cityController.text.isEmpty ? null : companyUserTextEditingController.cityController.text.trim(),
-    "state": companyUserTextEditingController.stateController.text.isEmpty ? null :companyUserTextEditingController.stateController.text.trim() ,
-    "pincode":companyUserTextEditingController. pincodeController.text.isEmpty ? null : int.parse(companyUserTextEditingController. pincodeController.text.trim()),
-    "mobile_no": companyUserTextEditingController.phoneNumberController.text.isEmpty ? null : companyUserTextEditingController.phoneNumberController.text.trim(),
+        "email": companyUserTextEditingController
+                .UserNameController.text.isEmpty
+            ? null
+            : companyUserTextEditingController.UserNameController.text.trim(),
+        "password": companyUserTextEditingController
+                .passwordController.text.isEmpty
+            ? null
+            : companyUserTextEditingController.passwordController.text.trim(),
+        "first_name": companyUserTextEditingController
+                .firstNameController.text.isEmpty
+            ? null
+            : companyUserTextEditingController.firstNameController.text.trim(),
+        "last_name": companyUserTextEditingController
+                .lastNameController.text.isEmpty
+            ? null
+            : companyUserTextEditingController.lastNameController.text.trim(),
+        "address_line1":
+            companyUserTextEditingController.addressline1Controller.text.isEmpty
+                ? null
+                : companyUserTextEditingController.addressline1Controller.text
+                    .trim(),
+        "address_line2":
+            companyUserTextEditingController.addressline2Controller.text.isEmpty
+                ? null
+                : companyUserTextEditingController.addressline2Controller.text
+                    .trim(),
+        "town": companyUserTextEditingController.cityController.text.isEmpty
+            ? null
+            : companyUserTextEditingController.cityController.text.trim(),
+        "state": companyUserTextEditingController.stateController.text.isEmpty
+            ? null
+            : companyUserTextEditingController.stateController.text.trim(),
+        "pincode": companyUserTextEditingController
+                .pincodeController.text.isEmpty
+            ? null
+            : int.parse(
+                companyUserTextEditingController.pincodeController.text.trim()),
+        "mobile_no":
+            companyUserTextEditingController.phoneNumberController.text.isEmpty
+                ? null
+                : companyUserTextEditingController.phoneNumberController.text
+                    .trim(),
       };
       Navigator.push(
         context,
@@ -60,15 +95,28 @@ class ComapnyUserFormPageOne extends StatelessWidget {
                       stacktext: companyUserpage1,
                       color: red,
                     ),
-                   CompanyUserViewDetailsOne(firstNameController: companyUserTextEditingController.firstNameController,
-                    lastNameController: companyUserTextEditingController.lastNameController,
-                     phoneNumberController:companyUserTextEditingController.phoneNumberController,
-                      addressline1Controller: companyUserTextEditingController.addressline1Controller,
-                       addressline2Controller: companyUserTextEditingController.addressline2Controller,
-                        cityController: companyUserTextEditingController.cityController,
-                         pincodeController: companyUserTextEditingController.pincodeController,
-                          stateController: companyUserTextEditingController.stateController,
-                           enabled: true),
+                    CompanyUserViewDetailsOne(
+                        UserNameController:
+                            companyUserTextEditingController.UserNameController,
+                        passwordController:
+                            companyUserTextEditingController.passwordController,
+                        firstNameController: companyUserTextEditingController
+                            .firstNameController,
+                        lastNameController:
+                            companyUserTextEditingController.lastNameController,
+                        phoneNumberController: companyUserTextEditingController
+                            .phoneNumberController,
+                        addressline1Controller: companyUserTextEditingController
+                            .addressline1Controller,
+                        addressline2Controller: companyUserTextEditingController
+                            .addressline2Controller,
+                        cityController:
+                            companyUserTextEditingController.cityController,
+                        pincodeController:
+                            companyUserTextEditingController.pincodeController,
+                        stateController:
+                            companyUserTextEditingController.stateController,
+                        enabled: true),
                     formSizebox15,
                     bottomHeight,
                   ]),
