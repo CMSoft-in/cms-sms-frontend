@@ -129,7 +129,6 @@ class _AllocationPageState extends State<AllocationPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Center(child: Text("Available",style: textStyle20)),
-
                         const SizedBox(height: 15),
                         Padding(
                           padding: const EdgeInsets.all(3.0),

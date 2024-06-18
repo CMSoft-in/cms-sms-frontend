@@ -44,6 +44,17 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
   SupplierTextEditingController supplierTextEditingController =
       SupplierTextEditingController();
   int? coSupplierCategoryId;
+  List? materialSupplied;
+  List<Map<String, dynamic>> addedItems = [];
+  List<Map<String, dynamic>> removedItems = [];
+
+  void changeAddedDeletedItems(added, removed) {
+    setState(() {
+      addedItems = added;
+      removedItems = removed;
+    });
+  }
+
   void changeValue(int v) {
     setState(() {
       coSupplierCategoryId = v;
@@ -55,7 +66,6 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
       comaterialCategoryId = v;
     });
   }
-
 
   @override
   void initState() {
@@ -72,10 +82,10 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
           'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
       if (response.statusCode == 200) {
         setState(() {
           data = jsonDecode(response.body);
+          materialSupplied = data!["CoSupplierMaterials"];
           if (data != null) {
             supplierNameController.text = data!["co_supplier_name"] ?? "";
             addressline1Controller.text = data!["off_address_line1"] ?? "";
@@ -83,15 +93,17 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
             cityController.text = data!["off_town"] ?? "";
             stateController.text = data!["off_state"] ?? "";
             pincodeController.text = data!["off_pincode"].toString() ?? "";
-            gstController.text = data!["gst_no"] == null ? "":  data!["gst_no"].toString();
+            gstController.text =
+                data!["gst_no"] == null ? "" : data!["gst_no"].toString();
             primaryNameController.text = data!["primary_contact_name"] ?? "";
             primaryPhoneNumberController.text =
                 data!["primary_contact_no"] ?? "";
             primaryEmailController.text = data!["primary_contact_email"] ?? "";
             primaryWhatsappController.text =
                 data!["primary_contact_whatsapp"] ?? "";
-            timeLineController.text =
-                data!["payment_timeline"] == null ? "" : data!["payment_timeline"].toString();
+            timeLineController.text = data!["payment_timeline"] == null
+                ? ""
+                : data!["payment_timeline"].toString();
             firstNameController.text = data!["owner_first_name"] ?? "";
             lastNameController.text = data!["owner_last_name"] ?? "";
             phoneNumberController.text = data!["mobile_no"] ?? "";
@@ -107,7 +119,9 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
             supplierCategoryController.text =
                 data!["CoSupplierCategory"]["co_supplier_category_name"] ?? "";
-            //  materialsSuppliedController.text=data!["co_material_id"] ?? "";
+            materialsSuppliedController.text = materialSupplied!.isEmpty
+                ? "No Materials Supplied"
+                : "Materials Supplied";
           }
         });
       } else {
@@ -153,8 +167,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
   void updateData(data) async {
     try {
       print("before update");
-
-      var response = await http.post(
+      var response = await http.patch(
         Uri.parse('${ApiEndpoints.updateSupplier}/${widget.id}'),
         headers: {
           "Content-Type": "application/json",
@@ -175,8 +188,29 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
   void supplierCheckUpdatingValue() {
     if (data != null) {
       Map<String, dynamic> updatedData = {};
+      var controllers = {
+        "co_supplier_name": supplierNameController.text,
+        "off_address_line1": addressline1Controller.text,
+        "off_address_line2": addressline2Controller.text,
+        "off_town": cityController.text,
+        "off_state": stateController.text,
+        "off_pincode": pincodeController.text,
+        "gst_no": gstController.text,
+        "primary_contact_name": primaryNameController.text,
+        "primary_contact_no": primaryPhoneNumberController.text,
+        "primary_contact_email": primaryEmailController.text,
+        "primary_contact_whatsapp": primaryWhatsappController.text,
+        "payment_timeline": timeLineController.text,
+        "owner_first_name": firstNameController.text,
+        "owner_last_name": lastNameController.text,
+        "mobile_no": phoneNumberController.text,
+        "secondary_contact_name": secondaryNameController.text,
+        "secondary_contact_no": secondaryPhoneNumberController.text,
+        "secondary_contact_email": secondaryEmailController.text,
+        "secondary_contact_whatsapp": secondaryWhatsappController.text,
+        "co_supplier_category_name": supplierCategoryController.text,
+      };
 
-      var controllers = {};
       controllers.forEach((key, value) {
         if (data![key] != null &&
             data![key].toString() != value &&
@@ -184,6 +218,19 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
           updatedData[key] = value;
         }
       });
+
+      if (removedItems.isNotEmpty) {
+        List<int> id = [];
+        for (var e in removedItems) {
+          id.add(e["co_material_id"]);
+        }
+        updatedData["deletedMaterialSupplied"] = id;
+      }
+
+       if (addedItems.isNotEmpty) {
+
+        updatedData["addMaterialSupplied"] = addedItems;
+      }
 
       if (updatedData.isNotEmpty) {
         updateData(updatedData);
@@ -235,7 +282,8 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                   primaryPhoneNumberController: primaryPhoneNumberController,
                   primaryWhatsappController: primaryWhatsappController,
                   timeLineController: timeLineController),
-               SupplierViewDetailsThree(
+              SupplierViewDetailsThree(
+                  changeAddedDeletedItems: changeAddedDeletedItems,
                   twoOrNot: isEditing,
                   isMultiSelectDropDownEditing: false,
                   changeValue: changeValue,
@@ -246,10 +294,9 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                       : null,
                   isEditing: isEditing,
                   enabled: isEditing,
-                  materialsSuppliedController:
-                    materialsSuppliedController,
-                  supplierCategoryController:
-                    supplierCategoryController),
+                  materialsSuppliedController: materialsSuppliedController,
+                  materialSupplied: materialSupplied,
+                  supplierCategoryController: supplierCategoryController),
               SupplierViewDetailsFour(
                   enabled: isEnabled,
                   firstNameController: firstNameController,
