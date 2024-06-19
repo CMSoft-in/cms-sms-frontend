@@ -83,17 +83,28 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
         },
       );
       if (response.statusCode == 200) {
+        data = jsonDecode(response.body);
+        materialSupplied = data!["CoSupplierMaterials"];
+        var suppliersName = [];
+        if (materialSupplied!.isNotEmpty) {
+          for (var each in materialSupplied!) {
+            String name = each["co_material_name"];
+            suppliersName.add(name);
+          }
+          Set uniqueSuppliersName = {...suppliersName};
+          suppliersName = [...uniqueSuppliersName];
+          
+        }
         setState(() {
-          data = jsonDecode(response.body);
-          materialSupplied = data!["CoSupplierMaterials"];
           if (data != null) {
             supplierNameController.text = data!["co_supplier_name"] ?? "";
             addressline1Controller.text = data!["off_address_line1"] ?? "";
             addressline2Controller.text = data!["off_address_line2"] ?? "";
             cityController.text = data!["off_town"] ?? "";
             stateController.text = data!["off_state"] ?? "";
-            pincodeController.text = data!["off_pincode"].toString() ?? "";
-            gstNumberController.text = data!["gst_no"] == null ? "":  data!["gst_no"].toString();
+            pincodeController.text = data!["off_pincode"].toString();
+            gstNumberController.text =
+                data!["gst_no"] == null ? "" : data!["gst_no"].toString();
             primaryNameController.text = data!["primary_contact_name"] ?? "";
             primaryPhoneNumberController.text =
                 data!["primary_contact_no"] ?? "";
@@ -118,9 +129,9 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
             supplierCategoryController.text =
                 data!["CoSupplierCategory"]["co_supplier_category_name"] ?? "";
-            materialsSuppliedController.text = materialSupplied!.isEmpty
+            materialsSuppliedController.text = (materialSupplied!.isEmpty
                 ? "No Materials Supplied"
-                : "Materials Supplied";
+                : suppliersName.join(","));
           }
         });
       } else {
@@ -226,8 +237,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
         updatedData["deletedMaterialSupplied"] = id;
       }
 
-       if (addedItems.isNotEmpty) {
-
+      if (addedItems.isNotEmpty) {
         updatedData["addMaterialSupplied"] = addedItems;
       }
 
@@ -275,7 +285,7 @@ class _SupplierViewDetailsMainState extends State<SupplierViewDetailsMain> {
                   supplierNameController: supplierNameController),
               SupplierViewDetailsTwo(
                   enabled: isEnabled,
-                  gstController:  gstNumberController,
+                  gstController: gstNumberController,
                   primaryEmailController: primaryEmailController,
                   primaryNameController: primaryNameController,
                   primaryPhoneNumberController: primaryPhoneNumberController,
