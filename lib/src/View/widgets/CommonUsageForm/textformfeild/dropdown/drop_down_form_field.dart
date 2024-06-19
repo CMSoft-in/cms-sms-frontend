@@ -94,7 +94,6 @@
 //     return null;
 //   }
 // }
-
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Model/Const/color.dart';
@@ -125,12 +124,18 @@ class DropDownFormState extends State<DropDownForm> {
   String? selectedItem;
 
   @override
+  void initState() {
+    super.initState();
+    selectedItem = widget.controller.text.isNotEmpty ? widget.controller.text : null;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: primaryWidth,
       child: DropdownSearch<String>(
         items: widget.dropdownItems,
-        
+        selectedItem: selectedItem, // Set the initially selected item
         dropdownDecoratorProps: DropDownDecoratorProps(
           dropdownSearchDecoration: InputDecoration(
             label: RichText(
@@ -138,18 +143,18 @@ class DropDownFormState extends State<DropDownForm> {
                 children: [
                   TextSpan(
                     text: widget.dropDownName,
-                    style: textStyleGrey18, 
+                    style: textStyleGrey18,
                   ),
                   TextSpan(
                     text: widget.star,
-                    style: textStyleRedStar, 
+                    style: textStyleRedStar,
                   ),
                 ],
               ),
             ),
             contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
             border: OutlineInputBorder(),
-             errorStyle: const TextStyle(color: Colors.red),
+            errorStyle: const TextStyle(color: Colors.red),
           ),
         ),
         onChanged: (String? newValue) {
@@ -162,7 +167,7 @@ class DropDownFormState extends State<DropDownForm> {
         },
         validator: (value) => validMethod(value),
         popupProps: PopupProps.menu(
-        menuProps:   MenuProps(
+          menuProps: MenuProps(
             backgroundColor: white,
           ),
           showSelectedItems: true,
@@ -173,7 +178,7 @@ class DropDownFormState extends State<DropDownForm> {
     );
   }
 
-   String? validMethod(String? value) {
+  String? validMethod(String? value) {
     if (widget.optionalisEmpty == true) {
       if (value == null || value.isEmpty) {
         return "Please enter ${widget.dropDownName}";

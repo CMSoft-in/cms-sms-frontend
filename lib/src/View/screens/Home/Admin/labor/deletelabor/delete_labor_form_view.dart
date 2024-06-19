@@ -8,6 +8,7 @@ import '../../../../../widgets/CommonUsageForm/Delete/delete_reason_table_header
 import '../../../../../widgets/CommonUsageForm/Delete/delete_reason_table_item.dart';
 import '../../../../../widgets/CommonUsageForm/DetailsText.dart';
 import '../../../../../widgets/CommonUsageForm/createBy.dart';
+import '../../laborcategory/labor_category_text.dart';
 import '../labor_text_const.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_four.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_one.dart';
