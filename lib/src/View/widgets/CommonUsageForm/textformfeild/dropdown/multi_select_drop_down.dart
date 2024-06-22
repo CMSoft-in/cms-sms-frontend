@@ -1,7 +1,9 @@
-// import 'package:flutter/material.dart';
-// import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/material.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
-// import '../../../../../Model/Const/height_width.dart';
+import '../../../../../Model/Const/color.dart';
+import '../../../../../Model/Const/height_width.dart';
+import '../../../../../Model/Const/text_const.dart';
 
 // class MultiSelectDropDown extends StatefulWidget {
 //   final List<Map<String, dynamic>> dropdownItems;
@@ -24,10 +26,21 @@
 //   }) : super(key: key);
 
 //   @override
-//   MultiSelectDropDownState createState() =>MultiSelectDropDownState();
+//   MultiSelectDropDownState createState() => MultiSelectDropDownState();
 // }
 
 // class MultiSelectDropDownState extends State<MultiSelectDropDown> {
+//   late List<String> selectedItems;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     selectedItems = widget.selectedIds.map((id) {
+//       return widget.dropdownItems.firstWhere((item) => item['id'] == id)['name'] as String;
+//     }).toList();
+//     widget.controller.text = selectedItems.join(', ');
+//   }
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return SizedBox(
@@ -36,31 +49,50 @@
 //         children: [
 //           DropdownSearch<String>.multiSelection(
 //             items: widget.dropdownItems.map((item) => item['name'] as String).toList(),
-//             selectedItems: widget.selectedIds.map((id) {
-//               return widget.dropdownItems.firstWhere((item) => item['id'] == id)['name'] as String;
-//             }).toList(),
+//             selectedItems: selectedItems,
 //             dropdownDecoratorProps: DropDownDecoratorProps(
 //               dropdownSearchDecoration: InputDecoration(
-//                 labelText: widget.dropDownName,
+//                 label: RichText(
+//                   text: TextSpan(
+//                     children: [
+//                       TextSpan(
+//                         text: widget.dropDownName,
+//                         style: textStyleGrey18,
+//                       ),
+//                       TextSpan(
+//                         text: widget.star,
+//                         style: textStyleRedStar,
+//                       ),
+//                     ],
+//                   ),
+//                 ),
 //                 contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
 //                 border: OutlineInputBorder(),
+//                 errorStyle: const TextStyle(color: Colors.red),
 //               ),
 //             ),
 //             onChanged: (values) {
+//               setState(() {
+//                 selectedItems = values;
+//               });
 //               List<String> selectedIds = values.map((name) {
 //                 return widget.dropdownItems.firstWhere((item) => item['name'] == name)['id'].toString();
 //               }).toList();
 //               widget.onChanged(selectedIds);
 //               widget.controller.text = values.join(', ');
 //             },
+//             validator: (value) => validMethod(value),
 //             popupProps: PopupPropsMultiSelection.menu(
+//               menuProps: MenuProps(
+//                 backgroundColor: white,
+//               ),
 //               showSelectedItems: true,
 //               itemBuilder: (context, item, isSelected) {
 //                 return ListTile(
-//                   title: Text(item),
-//                   trailing: isSelected
-//                       ? Icon(Icons.check_circle, color: Colors.green)
-//                       : Icon(Icons.check_circle_outline, color: Colors.grey),
+//                   title: Text(item, style: textStyleGrey18,),
+//                   // trailing: isSelected
+//                   //     ? Icon(Icons.check_circle, color: Colors.green)
+//                   //     : Icon(Icons.check_circle_outline, color: Colors.grey),
 //                 );
 //               },
 //               showSearchBox: true,
@@ -71,13 +103,17 @@
 //       ),
 //     );
 //   }
-// }
-import 'package:flutter/material.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 
-import '../../../../../Model/Const/color.dart';
-import '../../../../../Model/Const/height_width.dart';
-import '../../../../../Model/Const/text_const.dart';
+//   String? validMethod(value) {
+//     if (widget.optionalisEmpty == true) {
+//       if (value == null || value.isEmpty) {
+//         return "Please enter ${widget.dropDownName}";
+//       }
+//       return null;
+//     }
+//     return null;
+//   }
+// }
 
 class MultiSelectDropDown extends StatefulWidget {
   final List<Map<String, dynamic>> dropdownItems;
@@ -100,56 +136,82 @@ class MultiSelectDropDown extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  MultiSelectDropDownState createState() =>MultiSelectDropDownState();
+  MultiSelectDropDownState createState() => MultiSelectDropDownState();
 }
 
 class MultiSelectDropDownState extends State<MultiSelectDropDown> {
+  late List<String> selectedItems;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedItems = widget.selectedIds.map((id) {
+      return widget.dropdownItems.firstWhere((item) => item['id'] == id)['name'] as String;
+    }).toList();
+    widget.controller.text = selectedItems.join(', ');
+  }
+
+  @override
+  void didUpdateWidget(MultiSelectDropDown oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedIds != widget.selectedIds) {
+      selectedItems = widget.selectedIds.map((id) {
+        return widget.dropdownItems.firstWhere((item) => item['id'] == id)['name'] as String;
+      }).toList();
+      widget.controller.text = selectedItems.join(', ');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: primaryWidth,
+      width: primaryWidth, 
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DropdownSearch<String>.multiSelection(
             items: widget.dropdownItems.map((item) => item['name'] as String).toList(),
-            selectedItems: widget.selectedIds.map((id) {
-              return widget.dropdownItems.firstWhere((item) => item['id'] == id)['name'] as String;
-            }).toList(),
+            selectedItems: selectedItems,
             dropdownDecoratorProps: DropDownDecoratorProps(
               dropdownSearchDecoration: InputDecoration(
-                label:RichText(
+                label: RichText(
                   text: TextSpan(
-                  children: [
-                    TextSpan(
-                     text: widget.dropDownName,
-                      style: textStyleGrey18,
-                    ),
-                    TextSpan(
-                     text: widget.star,
-                      style: textStyleRedStar,
-                    )
-                  ],)
+                    children: [
+                      TextSpan(
+                        text: widget.dropDownName,
+                        style: textStyleGrey18, 
+                      ),
+                      TextSpan(
+                        text: widget.star,
+                        style: textStyleRedStar, 
+                      ),
+                    ],
+                  ),
                 ),
                 contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
-                border: OutlineInputBorder(),  errorStyle: const TextStyle(color: Colors.red),
+                border: OutlineInputBorder(),
+                errorStyle: const TextStyle(color: Colors.red),
               ),
             ),
             onChanged: (values) {
+              setState(() {
+                selectedItems = values;
+              });
               List<String> selectedIds = values.map((name) {
                 return widget.dropdownItems.firstWhere((item) => item['name'] == name)['id'].toString();
               }).toList();
               widget.onChanged(selectedIds);
               widget.controller.text = values.join(', ');
             },
-            validator:(value) => validMethod(value),
+            validator: (value) => validMethod(value),
             popupProps: PopupPropsMultiSelection.menu(
               menuProps: MenuProps(
-            backgroundColor:white,
-          ),
+                backgroundColor: white, 
+              ),
               showSelectedItems: true,
               itemBuilder: (context, item, isSelected) {
                 return ListTile(
-                  title: Text(item,style: textStyleGrey18,),
+                  title: Text(item, style: textStyleGrey18,), 
                 );
               },
               showSearchBox: true,
@@ -160,12 +222,12 @@ class MultiSelectDropDownState extends State<MultiSelectDropDown> {
       ),
     );
   }
+
   String? validMethod(value) {
-    if (widget.optionalisEmpty == true) {
+    if (widget.optionalisEmpty) {
       if (value == null || value.isEmpty) {
         return "Please enter ${widget.dropDownName}";
       }
-      return null;
     }
     return null;
   }

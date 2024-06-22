@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../../../../../Model/Const/color.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/datepicker/date_picker_text_form_field.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/drop_down_form_field.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/multidrop_down.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../widgets/MyDrawer/s.dart';
 import '../companyuser_text.dart';
-
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/material.dart';
 // ignore: must_be_immutable
+
 class CompanyUserViewDetailsTwo extends StatefulWidget {
   CompanyUserViewDetailsTwo({
     Key? key,
@@ -26,8 +31,8 @@ class CompanyUserViewDetailsTwo extends StatefulWidget {
   final TextEditingController applicationRoleController;
   final bool enabled;
   final bool isEditing;
-  int? coLabourCategoryId;
-  final Function(List<dynamic>) changeValue;
+  List<int>? coLabourCategoryId; // Update to List<int>? or null
+  final Function(List<int>?) changeValue; // Change to accept List<int> or null
 
   @override
   State<CompanyUserViewDetailsTwo> createState() => _CompanyUserViewDetailsTwoState();
@@ -35,7 +40,7 @@ class CompanyUserViewDetailsTwo extends StatefulWidget {
 
 class _CompanyUserViewDetailsTwoState extends State<CompanyUserViewDetailsTwo> {
   List<int> selectedLaborCategoryIds = [];
-  List labordropdownItems = [];
+  List<Map<String, dynamic>> labordropdownItems = [];
 
   @override
   void initState() {
@@ -45,13 +50,14 @@ class _CompanyUserViewDetailsTwoState extends State<CompanyUserViewDetailsTwo> {
 
   void populateDropdownItems() {
     var originalList = ["Admin", "Site Engineer", "Site Manager", "Owner"];
-    var newList = [];
+    List<Map<String, dynamic>> newList = [];
 
     for (var i = 0; i < originalList.length; i++) {
       var id = i + 1; // Assuming IDs start from 1 and increment
       var name = originalList[i];
       newList.add({"id": id, "name": name});
     }
+
     setState(() {
       labordropdownItems = newList;
     });
@@ -59,9 +65,10 @@ class _CompanyUserViewDetailsTwoState extends State<CompanyUserViewDetailsTwo> {
 
   void onMultiSelectChanged(List<dynamic> newIds) {
     setState(() {
-      widget.changeValue(newIds);
-      selectedLaborCategoryIds = newIds.cast<int>();
-      widget.coLabourCategoryId = selectedLaborCategoryIds.isNotEmpty ? selectedLaborCategoryIds.first : null;
+      List<int> ids = newIds.map<int>((item) => item['id'] as int).toList();
+      widget.changeValue(ids.isNotEmpty ? ids : null); // Pass null if no items selected
+      widget.coLabourCategoryId = ids.isNotEmpty ? ids : null;
+      selectedLaborCategoryIds = ids;
     });
   }
 
@@ -100,19 +107,27 @@ class _CompanyUserViewDetailsTwoState extends State<CompanyUserViewDetailsTwo> {
                 enabled: widget.enabled,
               ),
         formSizebox10,
-        TextformField(
-          controller: widget.officeDesignationController,
-          text: officeDesignation,
-          star: star,
-          limitLength: 25,
-          optionalisEmpty: true,
-          inputformat: alphabatsAndNumbers,
-          inputtype: keyboardTypeNone,
-          enabled: widget.enabled,
-        ),
+        widget.isEditing
+            ? 
+            DropDownForm(
+                dropdownItems: ["Admin", "Manager", "Office Accountant"],
+                dropDownName: officeDesignation,
+                star: star,
+                optionalisEmpty: true,
+                controller: widget.officeDesignationController)
+            : TextformField(
+                controller: widget.officeDesignationController,
+                text: officeDesignation,
+                star: star,
+                limitLength: 25,
+                optionalisEmpty: true,
+                inputformat: alphabatsAndNumbers,
+                inputtype: keyboardTypeNone,
+                enabled: widget.enabled,
+              ),
         formSizebox10,
         widget.isEditing
-            ? MultiSelectDropDownForm(
+            ? MultiDropDownForm(
                 selectedIds: selectedLaborCategoryIds,
                 dropdownItems: labordropdownItems,
                 dropDownName: applicationRole,

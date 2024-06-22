@@ -8,7 +8,6 @@ import '../../../../../widgets/Buttons/next_back_button.dart';
 import '../../../../../widgets/CommonUsageForm/HintText.dart';
 import '../companyuserviewdetails/company_user_view_two.dart';
 import 'company_user_form_three.dart';
-
 class ComapnyUserFormPageTwo extends StatefulWidget {
   const ComapnyUserFormPageTwo({super.key, required this.data});
   final Map<String, dynamic> data;
@@ -16,35 +15,50 @@ class ComapnyUserFormPageTwo extends StatefulWidget {
   @override
   State<ComapnyUserFormPageTwo> createState() => _ComapnyUserFormPageTwoState();
 }
-
 class _ComapnyUserFormPageTwoState extends State<ComapnyUserFormPageTwo> {
-  List<dynamic> coLabourCategoryIds = [];
-  int? coLabourCategoryIdsOne;
-
+  List<Map<String, dynamic>> coLabourCategoryIds = [];
+  List<int>? coLabourCategoryIdsOne;
+  
   final formKey = GlobalKey<FormState>();
-  final CompanyUserTextEditingController companyUserTextEditingController = CompanyUserTextEditingController();
+  final CompanyUserTextEditingController companyUserTextEditingController =
+      CompanyUserTextEditingController();
 
-  void changeValue(List<dynamic> v) {
+  void changeValue(List<int>? v) {
     setState(() {
-      coLabourCategoryIds = v;
+      coLabourCategoryIds = v?.map((id) => {"id": id})?.toList() ?? [];
+      coLabourCategoryIdsOne = v;
     });
   }
+
 
   void navigateToPageThree(BuildContext context) {
     final oldData = widget.data;
     var updatedData = {
       ...oldData,
-      "bloodgroup": companyUserTextEditingController.bloodGroupController.text.isEmpty ? null : companyUserTextEditingController.bloodGroupController.text.trim(),
-      "dateofjoining": companyUserTextEditingController.joinDateController.text.isEmpty ? null : companyUserTextEditingController.joinDateController.text.trim(),
-      "designation_id": [companyUserTextEditingController.officeDesignationController.text.isEmpty ? null : companyUserTextEditingController.officeDesignationController.text.trim()],
-      "co_app_role_id": coLabourCategoryIds.isEmpty ? null : coLabourCategoryIds,
+      "bloodgroup": companyUserTextEditingController.bloodGroupController.text
+              .isEmpty
+          ? null
+          : companyUserTextEditingController.bloodGroupController.text.trim(),
+      "dateofjoining": companyUserTextEditingController.joinDateController.text
+              .isEmpty
+          ? null
+          : companyUserTextEditingController.joinDateController.text.trim(),
+      "designation_id": [
+        companyUserTextEditingController.officeDesignationController.text
+                .isEmpty
+            ? null
+            : companyUserTextEditingController.officeDesignationController.text
+                .trim()
+      ],
+      "co_app_role_id": coLabourCategoryIdsOne ?? null, // Ensure it's nullable
     };
 
     print(updatedData);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ComapnyUserFormPageThree(data: updatedData),
+        builder: (context) =>
+            ComapnyUserFormPageThree(data: updatedData),
       ),
     );
   }
@@ -71,16 +85,20 @@ class _ComapnyUserFormPageTwoState extends State<ComapnyUserFormPageTwo> {
                         color: red,
                       ),
                       formSizebox15,
-                      CompanyUserViewDetailsTwo(
-                        changeValue: changeValue,
-                        coLabourCategoryId: coLabourCategoryIds.isNotEmpty ? coLabourCategoryIds.first : null,
-                        bloodGroupController: companyUserTextEditingController.bloodGroupController,
-                        joinDateController: companyUserTextEditingController.joinDateController,
-                        officeDesignationController: companyUserTextEditingController.officeDesignationController,
-                        applicationRoleController: companyUserTextEditingController.applicationRoleController,
-                        enabled: true,
-                        isEditing: true,
-                      ),
+                     CompanyUserViewDetailsTwo(
+                changeValue: changeValue,
+                coLabourCategoryId: coLabourCategoryIdsOne,
+                bloodGroupController:
+                    companyUserTextEditingController.bloodGroupController,
+                joinDateController:
+                    companyUserTextEditingController.joinDateController,
+                officeDesignationController:
+                    companyUserTextEditingController.officeDesignationController,
+                applicationRoleController:
+                    companyUserTextEditingController.applicationRoleController,
+                enabled: true,
+                isEditing: true,
+              ),
                       formSizebox15,
                       bottomHeight,
                     ],

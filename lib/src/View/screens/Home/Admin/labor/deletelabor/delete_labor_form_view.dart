@@ -8,11 +8,11 @@ import '../../../../../widgets/CommonUsageForm/Delete/delete_reason_table_header
 import '../../../../../widgets/CommonUsageForm/Delete/delete_reason_table_item.dart';
 import '../../../../../widgets/CommonUsageForm/DetailsText.dart';
 import '../../../../../widgets/CommonUsageForm/createBy.dart';
+import '../../laborcategory/labor_category_text.dart';
 import '../labor_text_const.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_four.dart';
 import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_one.dart';
 import '../laborviewdetails/labor_view_details_five.dart';
-import '/src/View/screens/Home/Admin/labor/laborviewdetails/labor_view_details_two.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../../../../../../Model/Const/color.dart';
@@ -34,6 +34,8 @@ class LaborFormDeleteView extends StatefulWidget {
 class _LaborFormDeleteViewState extends State<LaborFormDeleteView> {
   Map<String, dynamic>? data;
   var updatedData;
+  final TextEditingController laborCategoryController = TextEditingController();
+
   CommonController commonController = CommonController();
   List labordropdownItems = [];
 

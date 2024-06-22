@@ -10,9 +10,7 @@ const deleteLaborCategoryDetailsText = "Deleted Labor Category Details";
 const viewLaborCategoryDetailsText = "View Labor Category Details";
 const editLaborCategoryDetailsText = "Edit Labor Category Details";
 
-final TextEditingController laborCategoryController = TextEditingController();
-final TextEditingController categorydistributionController =
-    TextEditingController();
+
 
 class LaborCategoryTextEditingController {
   final TextEditingController laborCategoryController = TextEditingController();

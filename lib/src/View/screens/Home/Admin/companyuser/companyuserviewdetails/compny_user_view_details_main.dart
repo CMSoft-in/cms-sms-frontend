@@ -48,15 +48,16 @@ class _CompanyUserViewDetailsMainState
     fetchData();
     // fetchUpdateData();
   }
- List<dynamic> coLabourCategoryIds = [];
-  int? coLabourCategoryIdsOne;
+  List<Map<String, dynamic>> coLabourCategoryIds = [];
+  List<int>? coLabourCategoryIdsOne;
 
   final formKey = GlobalKey<FormState>();
   final CompanyUserTextEditingController companyUserTextEditingController = CompanyUserTextEditingController();
 
-  void changeValue(List<dynamic> v) {
+void changeValue(List<int>? v) {
     setState(() {
-      coLabourCategoryIds = v;
+      coLabourCategoryIds = v?.map((id) => {"id": id})?.toList() ?? [];
+      coLabourCategoryIdsOne = v;
     });
   }
 Future<void> fetchData() async {
@@ -115,115 +116,115 @@ Future<void> fetchData() async {
   }
 }
 
-  // Future<void> fetchUpdateData() async {
-  //   try {
-  //     final response = await http.get(
-  //       Uri.parse("$ip/Admin/updatehistory-Couser/${widget.id}"),
-  //       headers: {
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //     );
-  //     if (response.statusCode == 200) {
-  //       setState(() {
-  //         var updateData = [];
+  Future<void> fetchUpdateData() async {
+    try {
+      final response = await http.get(
+        Uri.parse("$ip/Admin/updatehistory-Couser/${widget.id}"),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      if (response.statusCode == 200) {
+        setState(() {
+          var updateData = [];
 
-  //         var data = jsonDecode(response.body);
+          var data = jsonDecode(response.body);
 
-  //         for (var eachData in data) {
-  //           if (eachData["co_userid"].toString() == widget.id) {
-  //             updateData.add(eachData);
-  //           }
-  //         }
-  //         updatedData = updateData;
-  //       });
-  //     } else {
-  //       throw Exception('Failed to load data');
-  //     }
-  //   } catch (error) {
-  //     print('Error fetching data: $error');
-  //   }
-  // }
+          for (var eachData in data) {
+            if (eachData["co_userid"].toString() == widget.id) {
+              updateData.add(eachData);
+            }
+          }
+          updatedData = updateData;
+        });
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (error) {
+      print('Error fetching data: $error');
+    }
+  }
 
   bool isEditing = false;
   bool isEnabled = false;
 
-  // void updateData(data) async {
-  //   try {
-  //     print("before update");
+  void updateData(data) async {
+    try {
+      print("before update");
 
-  //     var response = await http.patch(
-  //       Uri.parse("$ip/Admin/update-couser/${widget.id}"),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Authorization": "Bearer $token",
-  //       },
-  //       body: jsonEncode(data),
-  //     );
-  //     print("beefore update");
-  //     print(response.body);
-  //     if (response.statusCode == 200) {
-  //       print(response.body);
-  //       Navigator.of(context).push(MaterialPageRoute(
-  //           builder: (context) => const CompanyUserDataView()));
-  //     }
-  //   } catch (e) {
-  //     print("update failed $e");
-  //   }
-  // }
+      var response = await http.patch(
+        Uri.parse("$ip/Admin/update-couser/${widget.id}"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: jsonEncode(data),
+      );
+      print("beefore update");
+      print(response.body);
+      if (response.statusCode == 200) {
+        print(response.body);
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const CompanyUserDataView()));
+      }
+    } catch (e) {
+      print("update failed $e");
+    }
+  }
 
-  // void companyUserCheckUpdatingValue() {
-  //   var oldData = data;
-  //   print(oldData);
-  //   if (oldData != null) {
-  //     Map<String, dynamic> updatedData = {};
-  //     var controllers = {
-  //       "first_name": firstNameController.text,
-  //       "last_name": lastNameController.text,
-  //       "address_line1": addressline1Controller.text,
-  //       "address_line2": addressline2Controller.text,
-  //       "town": cityController.text,
-  //       "state": stateController.text,
-  //       "pincode": pincodeController.text,
-  //       "mobile_no": phoneNumberController.text,
-  //       "bloodgroup": bloodGroupController.text,
-  //       "dateofjoining": joinDateController.text,
-  //       "designation_id": officeDesignationController.text,
-  //       "co_app_role_id": applicationRoleController.text,
-  //       "aadhar_no": aadharNumberController.text,
-  //       "pan_no": panNumberController.text,
-  //       "primary_contact_name": primaryNameController.text,
-  //       "primary_contact_no": primaryPhoneNumberController.text,
-  //       "primary_contact_email": primaryEmailController.text,
-  //       "primary_contact_whatsapp": primaryWhatsappController.text,
-  //       "secondary_contact_name": secondaryNameController.text,
-  //       "secondary_contact_no": secondaryPhoneNumberController.text,
-  //       "secondary_contact_email": secondaryEmailController.text,
-  //       "secondary_contact_whatsapp": secondaryWhatsappController.text,
-  //       "bank_acc_name": accountNameController.text,
-  //       "bank_acc_no": accountNumberController.text,
-  //       "bank_acc_type": accountTypeController.text,
-  //       "bank_name": bankNameController.text,
-  //       "bank_ifsc_code": ifscCodeController.text,
-  //       "bank_acc_location": bankLocationController.text,
-  //       "createdAt": createOn.text,
-  //       "createdBy": createBy.text,
-  //     };
-  //     controllers.forEach((key, value) {
-  //       if (
-  //           value.isNotEmpty &&value != null &&
-  //           (oldData[key] ?? '') != value) {
-  //         updatedData[key] = value;
-  //         print(updatedData);
-  //       }
-  //     });
-  //     if (updatedData.isNotEmpty) {
-  //       print("Updated Data: $updatedData");
-  //       updateData(updatedData);
-  //     } else {
-  //       print("No changes detected.");
-  //     }
-  //   }
-  // }
+  void companyUserCheckUpdatingValue() {
+    var oldData = data;
+    print(oldData);
+    if (oldData != null) {
+      Map<String, dynamic> updatedData = {};
+      var controllers = {
+        "first_name": firstNameController.text,
+        "last_name": lastNameController.text,
+        "address_line1": addressline1Controller.text,
+        "address_line2": addressline2Controller.text,
+        "town": cityController.text,
+        "state": stateController.text,
+        "pincode": pincodeController.text,
+        "mobile_no": phoneNumberController.text,
+        "bloodgroup": bloodGroupController.text,
+        "dateofjoining": joinDateController.text,
+        "designation_id": officeDesignationController.text,
+        "co_app_role_id": applicationRoleController.text,
+        "aadhar_no": aadharNumberController.text,
+        "pan_no": panNumberController.text,
+        "primary_contact_name": primaryNameController.text,
+        "primary_contact_no": primaryPhoneNumberController.text,
+        "primary_contact_email": primaryEmailController.text,
+        "primary_contact_whatsapp": primaryWhatsappController.text,
+        "secondary_contact_name": secondaryNameController.text,
+        "secondary_contact_no": secondaryPhoneNumberController.text,
+        "secondary_contact_email": secondaryEmailController.text,
+        "secondary_contact_whatsapp": secondaryWhatsappController.text,
+        "bank_acc_name": accountNameController.text,
+        "bank_acc_no": accountNumberController.text,
+        "bank_acc_type": accountTypeController.text,
+        "bank_name": bankNameController.text,
+        "bank_ifsc_code": ifscCodeController.text,
+        "bank_acc_location": bankLocationController.text,
+        "createdAt": createOn.text,
+        "createdBy": createBy.text,
+      };
+      controllers.forEach((key, value) {
+        if (
+            value.isNotEmpty &&value != null &&
+            (oldData[key] ?? '') != value) {
+          updatedData[key] = value;
+          print(updatedData);
+        }
+      });
+      if (updatedData.isNotEmpty) {
+        print("Updated Data: $updatedData");
+        updateData(updatedData);
+      } else {
+        print("No changes detected.");
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -265,7 +266,7 @@ Future<void> fetchData() async {
                   enabled: isEnabled),
               CompanyUserViewDetailsTwo(
                 changeValue:changeValue ,
-                coLabourCategoryId:coLabourCategoryIds.isNotEmpty ? coLabourCategoryIds.first : null, 
+                 coLabourCategoryId: coLabourCategoryIdsOne,
                   bloodGroupController: bloodGroupController,
                   joinDateController: joinDateController,
                   officeDesignationController: officeDesignationController,

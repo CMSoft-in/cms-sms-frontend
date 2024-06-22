@@ -26,6 +26,7 @@ import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dar
 import '../../../../../widgets/CommonUsageForm/view_details_text.dart';
 
 import '../SiteDataView/site_data_view_main.dart';
+import '../SiteDataView/site_data_view_main.dart';
 
 class SiteViewDetailsMain extends StatefulWidget {
   const SiteViewDetailsMain({Key? key, required this.id}) : super(key: key);
@@ -86,6 +87,12 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
   Map<String, dynamic> storeUpdatedData = {};
   Map<String, dynamic> oldData = {};
 
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+    getToken();
+  }
   @override
   void initState() {
     super.initState();

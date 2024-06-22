@@ -12,7 +12,6 @@ import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
-import '../../../../../widgets/Buttons/Long_SizeButton.dart';
 import '../../../../../widgets/CommonUsageForm/AlartBox/alart_popup.dart';
 import '../../../../../widgets/CommonUsageForm/HintText.dart';
 import '../../../../../widgets/CommonUsageForm/Update/update_data_item.dart';
@@ -310,12 +309,35 @@ void checkUpdatingValue() {
 
     if (updatedData.isNotEmpty) {
       print(updatedData);
-      // updateData(updatedData);
+      updateData(updatedData);
     } else {
       print("No changes detected.");
     }
   }
 
+  void updateData(data) async {
+    try {
+      print("before update");
+      var response = await http.patch(
+        Uri.parse('${ApiEndpoints.updateSite}/${widget.id}'),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: jsonEncode(data),
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const SiteDataView()));
+      } else {
+        print("before e");
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print("update failed $e");
+    }
+  }
   // Future<void> checkUpdatingValue() async {
   //   oldData = data;
   //   updatedData = {};
