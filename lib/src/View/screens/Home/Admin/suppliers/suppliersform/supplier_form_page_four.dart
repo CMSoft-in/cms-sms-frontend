@@ -31,57 +31,83 @@ class _SupplierFormPageFourState extends State<SupplierFormPageFour> {
     getToken();
   }
 
-    final formKey = GlobalKey<FormState>();
-    SupplierTextEditingController supplierTextEditingController =
-        SupplierTextEditingController();
- Future<dynamic> navigateToPage(BuildContext context) async {
-  try {
-    final oldData = widget.data;
-    var apiURL = Uri.parse(ApiEndpoints.createSupplier);
- 
-    var values = {
-      ...oldData,
-      "owner_first_name": supplierTextEditingController.firstNameController.text.isEmpty ? null : supplierTextEditingController.firstNameController.text.trim(),
-      "owner_last_name": supplierTextEditingController.lastNameController.text.isEmpty ? null : supplierTextEditingController.lastNameController.text.trim(),
-      "mobile_no": supplierTextEditingController.phoneNumberController.text.isEmpty ? null : int.parse(supplierTextEditingController.phoneNumberController.text.trim()),
-      "secondary_contact_name": supplierTextEditingController.secondaryNameController.text.isEmpty ? null : supplierTextEditingController.secondaryNameController.text.trim(),
-      "secondary_contact_no": supplierTextEditingController.secondaryPhoneNumberController.text.isEmpty ? null : int.parse(supplierTextEditingController.secondaryPhoneNumberController.text.trim()),
-      "secondary_contact_email": supplierTextEditingController.secondaryEmailController.text.isEmpty ? null : supplierTextEditingController.secondaryEmailController.text.trim(),
-      "secondary_contact_whatsapp": supplierTextEditingController.secondaryWhatsappController.text.isEmpty ? null : int.parse(supplierTextEditingController.secondaryWhatsappController.text.trim()),
-    };
-    print(values);
+  final formKey = GlobalKey<FormState>();
+  SupplierTextEditingController supplierTextEditingController =
+      SupplierTextEditingController();
+  Future<dynamic> navigateToPage(BuildContext context) async {
+    try {
+      final oldData = widget.data;
+      var apiURL = Uri.parse(ApiEndpoints.createSupplier);
 
-    var body = json.encode(values);
-    var response = await http.post(
-      apiURL,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
-      },
-      body: body,
-    );
-    print(response.body);
-    if (response.statusCode == 201) {
-      print('Response body: ${response.body}');
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const SupplierDataView(),
-        ),
+      var values = {
+        ...oldData,
+        "owner_first_name":
+            supplierTextEditingController.firstNameController.text.isEmpty
+                ? null
+                : supplierTextEditingController.firstNameController.text.trim(),
+        "owner_last_name":
+            supplierTextEditingController.lastNameController.text.isEmpty
+                ? null
+                : supplierTextEditingController.lastNameController.text.trim(),
+        "mobile_no": supplierTextEditingController
+                .phoneNumberController.text.isEmpty
+            ? null
+            : int.parse(supplierTextEditingController.phoneNumberController.text
+                .trim()),
+        "secondary_contact_name": supplierTextEditingController
+                .secondaryNameController.text.isEmpty
+            ? null
+            : supplierTextEditingController.secondaryNameController.text.trim(),
+        "secondary_contact_no": supplierTextEditingController
+                .secondaryPhoneNumberController.text.isEmpty
+            ? null
+            : int.parse(supplierTextEditingController
+                .secondaryPhoneNumberController.text
+                .trim()),
+        "secondary_contact_email":
+            supplierTextEditingController.secondaryEmailController.text.isEmpty
+                ? null
+                : supplierTextEditingController.secondaryEmailController.text
+                    .trim(),
+        "secondary_contact_whatsapp": supplierTextEditingController
+                .secondaryWhatsappController.text.isEmpty
+            ? null
+            : int.parse(supplierTextEditingController
+                .secondaryWhatsappController.text
+                .trim()),
+      };
+      print(values);
+
+      var body = json.encode(values);
+      var response = await http.post(
+        apiURL,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: body,
       );
-    } else {
       print(response.body);
-      print('Failed to load data: ${response.statusCode}');
+      if (response.statusCode == 201) {
+        print('Response body: ${response.body}');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SupplierDataView(),
+          ),
+        );
+      } else {
+        print(response.body);
+        print('Failed to load data: ${response.statusCode}');
+      }
+    } catch (e) {
+      print("E$e");
     }
-  } catch (e) {
-    print("E$e");
-   
   }
-}
 
   @override
   Widget build(BuildContext context) {
-   
+    print(widget.data);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const BuildAppBar(),

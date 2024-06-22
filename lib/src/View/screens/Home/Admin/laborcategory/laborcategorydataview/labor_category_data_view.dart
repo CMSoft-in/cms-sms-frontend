@@ -48,7 +48,7 @@ class _LaborCategoryDataViewState extends State<LaborCategoryDataView> {
       );
       if (response.statusCode == 200) {
         var body = json.decode(response.body);
-        print(body);
+     
         setState(() {
           data = body["data"];
           isLoading = false;

@@ -84,7 +84,7 @@ class _TextformFieldState extends State<TextformField> {
   String? validMethod(value) {
     if (widget.optionalisEmpty == true) {
       if (value == null || value.isEmpty) {
-        if(widget.text == "Email"){
+        if(value.length > 0 && widget.text == "Email"){
             if(value.toString().endsWith("@gmail.com")){
                   return null;
             }

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:cmssms/src/View/screens/Home/Admin/laborOutturn/labor_outturn_text.dart';
 
 import '../../../../../../Model/api/api_model.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
+import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
 import '/src/Model/Const/text_const.dart';
 import '/src/View/widgets/AppBar/AppBar.dart';
 import '/src/View/widgets/Buttons/Long_SizeButton.dart';
@@ -17,7 +19,7 @@ import '../../../../../widgets/CommonUsageForm/DetailsText.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_width.dart';
 import '../labor_category_text.dart';
 import '../laborcategorydataview/labor_category_data_view.dart';
-import '../laborcategoryviewdetails/labor_category_view.dart';
+
 
 class LaborCategoryForm extends StatefulWidget {
   const LaborCategoryForm({super.key});
@@ -37,13 +39,13 @@ class _LaborCategoryFormState extends State<LaborCategoryForm> {
     super.initState();
     getToken();
   }
-
+final TextEditingController laborCategoryController = TextEditingController();
+final TextEditingController categorydistributionController =
+    TextEditingController();
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    LaborCategoryTextEditingController laborCategoryTextEditingController =
-        LaborCategoryTextEditingController();
-
+  
     Future navigateToPage(context) async {
       var apiURL = Uri.parse(ApiEndpoints.createLabourCategory);
       try {
@@ -58,16 +60,13 @@ for (int i = 0; i < _labourController.length; i++) {
 
 
         var values = {
-          "co_labour_category_name": laborCategoryTextEditingController
-                  .laborCategoryController.text.isEmpty
+          "co_labour_category_name": laborCategoryController.text.isEmpty
               ? null
-              : laborCategoryTextEditingController.laborCategoryController.text
+              : laborCategoryController.text
                   .trim(),
-          "co_labour_category_desc": laborCategoryTextEditingController
-                  .categorydistributionController.text.isEmpty
+          "co_labour_category_desc":categorydistributionController.text.isEmpty
               ? null
-              : laborCategoryTextEditingController
-                  .categorydistributionController.text
+              :categorydistributionController.text
                   .trim(),
           "co_labour_category_team": teamData,
         };
@@ -108,14 +107,29 @@ for (int i = 0; i < _labourController.length; i++) {
               formSizebox8,
               const DetailsText(enterDetails: laborCategorydetails),
               formSizebox15,
-              LaborCategoryViewDetails(
-                enabled: true,
-                laborCategoryController:
-                    laborCategoryTextEditingController.laborCategoryController,
-                categorydistributionController:
-                    laborCategoryTextEditingController
-                        .categorydistributionController,
-              ),
+              formSizebox10,
+          TextformField(
+            controller: laborCategoryController,
+            text: laborCategoryText,
+            star: star,
+            limitLength: 20,
+            optionalisEmpty: true,
+            inputformat: alphabatsSpace,
+            inputtype: keyboardTypeNone,
+            enabled: true,
+          ),
+          formSizebox10,
+          MaxMinTextFormField(
+              controller: categorydistributionController,
+              text: categorydistribution,
+              limitLength: 150,
+              optionalisEmpty: true,
+              inputformat: alphabatsAndNumbers,
+              star: star,
+              inputtype: keyboardTypeNone,
+              enabled: true,
+              maxLines: 5,
+              minLines: 5),
               formSizebox10,
               ListView.builder(
                 shrinkWrap: true,

@@ -7,13 +7,11 @@ import '../../../../../../Model/Const/height_width.dart';
 import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
-import '../../../../../../Model/utility/supplier/supplier_text_const.dart';
-import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/multi_select_drop_down_two.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/dropdown/single_select_drop_down.dart';
-import '../../../../../widgets/CommonUsageForm/textformfeild/empty_text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/empty_text_form_field_material_supplied.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field.dart';
 import '../../../../../widgets/CommonUsageForm/textformfeild/text_form_field_maxLines.dart';
+
 // ignore: must_be_immutable
 class SupplierViewDetailsThree extends StatefulWidget {
   final TextEditingController supplierCategoryController;
@@ -26,20 +24,26 @@ class SupplierViewDetailsThree extends StatefulWidget {
   final Function changeValue;
   final bool isEditing;
   final bool isMultiSelectDropDownEditing;
+  final Function? changeMateralSupplied;
+  List? materialSupplied;
+  Function? changeAddedDeletedItems;
 
-  SupplierViewDetailsThree({
-    Key? key,
-    required this.enabled,
-    required this.changeValue,
-    required this.coSupplierCategoryId,
-    required this.isMultiSelectDropDownEditing,
-    required this.changeMaterialValue,
-    required this.comaterialCategoryId,
-    required this.twoOrNot,
-    required this.isEditing,
-    required this.materialsSuppliedController,
-    required this.supplierCategoryController,
-  }) : super(key: key);
+  SupplierViewDetailsThree(
+      {Key? key,
+      this.changeAddedDeletedItems,
+      this.changeMateralSupplied,
+      required this.enabled,
+      required this.changeValue,
+      required this.coSupplierCategoryId,
+      required this.isMultiSelectDropDownEditing,
+      required this.changeMaterialValue,
+      required this.comaterialCategoryId,
+      required this.twoOrNot,
+      required this.isEditing,
+      required this.materialsSuppliedController,
+      required this.supplierCategoryController,
+      this.materialSupplied})
+      : super(key: key);
 
   @override
   _SupplierViewDetailsThreeState createState() =>
@@ -132,7 +136,7 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
       try {
         int parsedId = int.tryParse(newId) ?? 0;
         setState(() {
-          widget.changeValue(parsedId); 
+          widget.changeValue(parsedId);
           selectedSupplierCategoryId = parsedId;
           widget.coSupplierCategoryId = parsedId;
         });
@@ -142,42 +146,53 @@ class _SupplierViewDetailsThreeState extends State<SupplierViewDetailsThree> {
     }
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         formSizebox10,
         widget.isEditing
-            ?SingleSelectDropDown(
-  selectedId: selectedSupplierCategoryId,
-  onChanged: onDropdownChanged, 
-  dropdownItems: supplierCategoryDropdownItems,
-  dropDownName: supplierCategoryText,
-  star: star,
-  optionalisEmpty: true,
-  controller: widget.supplierCategoryController,
-)
+            ? SingleSelectDropDown(
+                selectedId: selectedSupplierCategoryId,
+                onChanged: onDropdownChanged,
+                dropdownItems: supplierCategoryDropdownItems,
+                dropDownName: supplierCategoryText,
+                star: star,
+                optionalisEmpty: false,
+                controller: widget.supplierCategoryController,
+              )
             : MaxMinTextFormField(
                 maxLines: 7,
                 minLines: 1,
                 controller: widget.supplierCategoryController,
                 text: supplierCategoryText,
                 limitLength: 30,
-                optionalisEmpty: true,
+                optionalisEmpty: false,
                 inputformat: alphabatsAndNumbers,
                 star: star,
                 inputtype: keyboardTypeNone,
                 enabled: widget.enabled,
               ),
         formSizebox10,
-        EmptyTextformFieldMaterialSupplied(
-          materialSuppliedLists: const [],
-          enabled: true,
-          optionalisEmpty: true,
-          controller: TextEditingController(),
-          text: materialSupplied,
-        )
+        widget.isEditing
+            ? EmptyTextformFieldMaterialSupplied(
+              changeAddedDeletedItems:widget.changeAddedDeletedItems,
+                materialSupplied: widget.materialSupplied,
+                changeMateralSupplied: widget.changeMateralSupplied,
+                enabled: true,
+                optionalisEmpty: false,
+                controller: widget.materialsSuppliedController,
+                text: materialSupplied,
+              )
+            : TextformField(
+                controller: widget.materialsSuppliedController,
+                text: materialSupplied,
+                limitLength: 30,
+                optionalisEmpty: true,
+                inputformat: alphabatsAndNumbers,
+                star: estar,
+                inputtype: keyboardTypeNone,
+                enabled: false)
       ],
     );
   }

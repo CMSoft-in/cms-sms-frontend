@@ -40,8 +40,11 @@ class _LaborCategoryViewDetailsMainState
   final List<TextEditingController> _rateController = [];
   final formKey = GlobalKey<FormState>();
   final CommonController commonController = CommonController();
-  final TextEditingController laborCategoryController = TextEditingController();
-  final TextEditingController categorydistributionController =
+  final TextEditingController laborCategoryControlleer = TextEditingController();
+    LaborCategoryTextEditingController laborCategoryTextEditingController =
+        LaborCategoryTextEditingController();
+
+  final TextEditingController categorydistributionControlleer =
       TextEditingController();
   final TextEditingController createBy = TextEditingController();
   final TextEditingController createOn = TextEditingController();
@@ -68,9 +71,10 @@ class _LaborCategoryViewDetailsMainState
       if (response.statusCode == 200) {
         setState(() {
           data = jsonDecode(response.body)["data"];
+          print(data);
           if (data != null) {
-            laborCategoryController.text = data!["co_labour_category_name"];
-            categorydistributionController.text =
+            laborCategoryControlleer.text = data!["co_labour_category_name"];
+            categorydistributionControlleer.text =
                 data!["co_labour_category_desc"];
             createBy.text = data!["created_by"];
             createOn.text = data!["created_at"];
@@ -123,8 +127,8 @@ class _LaborCategoryViewDetailsMainState
 
     // Checking fields
     Map<String, String> checkingFields = {
-      "co_labour_category_name": laborCategoryController.text,
-      "co_labour_category_desc": categorydistributionController.text,
+      "co_labour_category_name": laborCategoryControlleer.text,
+      "co_labour_category_desc": categorydistributionControlleer.text,
     };
 
     checkingFields.forEach((key, value) {
@@ -154,12 +158,15 @@ class _LaborCategoryViewDetailsMainState
             'co_labour_category_team_name': newTeamName,
             'co_labour_category_team_rate': newTeamRate,
           });
+          print(updatedData);
         }
       } else {
         updatedTeams.add({
-          'co_labour_category_team_name': newTeamName,
+          
+        'co_labour_category_team_name': newTeamName,
           'co_labour_category_team_rate': newTeamRate,
         });
+        print(updatedData);
       }
     }
     if (updatedTeams.isNotEmpty) {
@@ -233,9 +240,9 @@ class _LaborCategoryViewDetailsMainState
                               LaborCategoryViewDetails(
                                 enabled: isEditing,
                                 laborCategoryController:
-                                    laborCategoryController,
+                                    laborCategoryControlleer,
                                 categorydistributionController:
-                                    categorydistributionController,
+                                    categorydistributionControlleer,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 20),

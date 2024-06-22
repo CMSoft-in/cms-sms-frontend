@@ -1,5 +1,7 @@
-
+import 'package:cmssms/src/View/screens/Home/Admin/companyuser/companyuserform/company_user_form_five.dart';
 import 'package:flutter/material.dart';
+import 'src/View/screens/Home/Admin/companyuser/companyuserform/company_user_form_two.dart';
+import 'src/View/screens/Home/Admin/suppliers/suppliersform/supplier_form_page_three.dart';
 import 'src/View/screens/Home/home.dart';
 
 void main() => runApp(const MyApp());
@@ -15,13 +17,17 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Site Management Software',
-      theme: ThemeData(
-        fontFamily: "Poppins",
-      ),
-      home: const Home(),
-      debugShowCheckedModeBanner: false,
-    );
+        title: 'Site Management Software',
+        theme: ThemeData(
+          fontFamily: "Poppins",
+        ),
+        // home: const SupplierFormPageThree(
+        //   data: "",
+        // ),
+          home: ComapnyUserFormPageTwo(data: {},),
+          // const Home(),
+          debugShowCheckedModeBanner: false,
+        );
   }
 }
 

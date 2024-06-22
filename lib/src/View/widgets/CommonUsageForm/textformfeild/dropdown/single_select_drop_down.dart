@@ -36,7 +36,7 @@ class SingleSelectDropDownState extends State<SingleSelectDropDown> {
   @override
   void initState() {
     super.initState();
-    // Initialize selectedItem based on selectedId if available
+    
     if (widget.selectedId != null) {
       selectedItem = widget.dropdownItems.firstWhere((item) => item['id'] == widget.selectedId)['name'] as String;
     } else if (widget.controller.text.isNotEmpty) {
@@ -47,7 +47,7 @@ class SingleSelectDropDownState extends State<SingleSelectDropDown> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: primaryWidth, // Adjust as needed
+      width: primaryWidth, 
       child: DropdownSearch<String>(
         items: widget.dropdownItems.map((item) => item['name'] as String).toList(),
         selectedItem: selectedItem,

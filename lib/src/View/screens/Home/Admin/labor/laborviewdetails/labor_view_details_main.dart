@@ -39,6 +39,8 @@ class LaborViewDetailsMain extends StatefulWidget {
 class _LaborViewDetailsMainState extends State<LaborViewDetailsMain> {
   Map<String, dynamic>? data;
   List<dynamic>? updatedData;
+  final TextEditingController laborCategoryController = TextEditingController();
+
   int? coLabourCategoryId;
    List<Map<String, dynamic>> labordropdownItems = [];
      List<Map<String, dynamic>> siteDropdownItems = [];

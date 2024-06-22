@@ -1,6 +1,6 @@
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
-import '../SiteViewDetails/site_view_details_main.dart';
+import '../SiteViewDetails/site_view_details_main copy.dart';
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/image_const.dart';
 import '/src/Model/Const/text_const.dart';

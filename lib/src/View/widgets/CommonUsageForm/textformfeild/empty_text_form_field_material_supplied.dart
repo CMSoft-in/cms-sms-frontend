@@ -5,20 +5,23 @@ import '../../../screens/Home/Admin/suppliers/materialsuppliedselection.dart';
 
 
 class EmptyTextformFieldMaterialSupplied extends StatefulWidget {
-  const EmptyTextformFieldMaterialSupplied({
-    super.key,
-    required this.controller,
-    required this.text,
-    required this.optionalisEmpty,
-    required this.enabled,
-    required this.materialSuppliedLists,
-  });
+  const EmptyTextformFieldMaterialSupplied(
+      {super.key,
+      this.changeAddedDeletedItems,
+      this.materialSupplied,
+      required this.controller,
+      required this.text,
+      required this.optionalisEmpty,
+      required this.enabled,
+      required this.changeMateralSupplied});
 
+  final Function? changeAddedDeletedItems;
   final TextEditingController controller;
   final String text;
   final bool optionalisEmpty;
   final bool enabled;
-  final List<int> materialSuppliedLists;
+  final Function? changeMateralSupplied;
+  final List? materialSupplied;
 
   @override
   State<EmptyTextformFieldMaterialSupplied> createState() =>
@@ -27,28 +30,29 @@ class EmptyTextformFieldMaterialSupplied extends StatefulWidget {
 
 class _EmptyTextformFieldMaterialSuppliedState
     extends State<EmptyTextformFieldMaterialSupplied> {
-  List<int> materialSuppliedLists = [];
+  List<Map<String, dynamic>> materialSuppliedLists = [];
 
   void _goMaterialSuppliedPage() async {
-    var getMaterialSuppliedList = await Navigator.push(
+    final List<Map<String, dynamic>> getMaterialSuppliedList =
+        await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => MatterialSuppliedSelection(
+          changeAddedDeletedItems: widget.changeAddedDeletedItems,
+          materialSupplied: widget.materialSupplied,
+          changeMateralSupplied: widget.changeMateralSupplied,
           materialSuppliedLists: materialSuppliedLists,
         ),
       ),
     );
 
-    if (getMaterialSuppliedList != null && getMaterialSuppliedList.isNotEmpty) {
-      setState(() {
-        materialSuppliedLists = List<int>.from(getMaterialSuppliedList);
-        widget.controller.text = "Material Allocated";
-      });
-    } else {
-      setState(() {
-        widget.controller.text = "Material Supplierd Allocated";
-      });
-    }
+    setState(() {
+      if ( getMaterialSuppliedList.isEmpty) {
+        widget.controller.text = "Material Supplier Not Allocated";
+      } else {
+        widget.controller.text = "Material Supplier Allocated";
+      }
+    });
   }
 
   @override

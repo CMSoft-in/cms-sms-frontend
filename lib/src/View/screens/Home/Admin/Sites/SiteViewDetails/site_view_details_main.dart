@@ -11,7 +11,6 @@ import '../../../../../../Model/Const/text_const.dart';
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../../Model/api/local.dart';
 import '../../../../../../Model/utility/sites/site_text_const.dart';
-import '../../../../../../controler/GetLocationPlace/get_location_place.dart';
 import '../../../../../widgets/AppBar/AppBar.dart';
 import '../../../../../widgets/Buttons/Long_SizeButton.dart';
 import '../../../../../widgets/CommonUsageForm/AlartBox/alart_popup.dart';
@@ -100,7 +99,7 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
       if (response.statusCode == 200) {
         final Map<String, dynamic>? data =
             jsonDecode(response.body) as Map<String, dynamic>?;
-        
+            print(data);
         if (data != null) {
           // List<String> latlong = data[dbSiteGpsLocation]?.split(" ") ?? [];
           // double lat = double.parse(latlong[0]);
@@ -234,7 +233,7 @@ void checkUpdatingValue() {
     };
 
     siteFields.forEach((key, value) {
-        if (value.isNotEmpty && (oldData[key] ?? '') != value) {
+      if (value.isNotEmpty && (oldData[key] ?? '') != value) {
           updatedData[key] = value;
           print(updatedData);
         }
@@ -253,64 +252,64 @@ void checkUpdatingValue() {
   }
 }
 
-// void checkContactUpdates(
-//   String category,
-//   List<List<TextEditingController>> controllers,
-//   Map<String, dynamic> oldData,
-//   Map<String, dynamic> updatedData,
-// ) {
-//   if (oldData["CoSiteContacts"] == null) {
-//     return;
-//   }
+void checkContactUpdates(
+  String category,
+  List<List<TextEditingController>> controllers,
+  Map<String, dynamic> oldData,
+  Map<String, dynamic> updatedData,
+) {
+  if (oldData["CoSiteContacts"] == null) {
+    return;
+  }
 
-//   List<Map<String, dynamic>> updatedContacts = [];
+  List<Map<String, dynamic>> updatedContacts = [];
 
-//   for (var i = 0; i < controllers.length; i++) {
-//     var contact = controllers[i];
-//     if (contact[0].text.isNotEmpty) {
-//       var oldContactData = (oldData["CoSiteContacts"] as List).firstWhere(
-//           (element) => element["contact_category_name"] == category && element["co_site_contacts_id"] == contact[4].text,
-//           orElse: () => null);
-//       var updatedContactData = {
-//         "co_site_contacts_id": contact[4].text,
-//         "contact_category_name": category,
-//         "contact_name": contact[0].text,
-//         "contact_no": contact[1].text,
-//         "contact_whatsapp": contact[2].text,
-//         "contact_email": contact[3].text,
-//       };
-//       print(updatedContactData);
-//       if (oldContactData != null) {
-//         var oldContact = (oldContactData["contact_name"] ?? "") +
-//             (oldContactData["contact_no"] ?? "") +
-//             (oldContactData["contact_email"] ?? "") +
-//             (oldContactData["contact_whatsapp"] ?? "");
-//         var newContact = (updatedContactData["contact_name"] ?? "") +
-//             (updatedContactData["contact_no"] ?? "") +
-//             (updatedContactData["contact_email"] ?? "") +
-//             (updatedContactData["contact_whatsapp"] ?? "");
-//         if (oldContact != newContact) {
-//           updatedContacts.add({
-//             "co_site_contacts_id": contact[4].text,
-//             "updated_old_value": oldContact,
-//             "updated_new_value": newContact,
-//             "updated_by": "User",
-//           });
-//         }
-//       } else {
-//         updatedContacts.add({
-//           "co_site_contacts_id": contact[4].text,
-//           "updated_old_value": "",
-//           "updated_new_value": updatedContactData,
-//           "updated_by": "User"
-//         });
-//       }
-//     }
-//   }
-//   if (updatedContacts.isNotEmpty) {
-//     updatedData["CoSiteContacts"] = updatedContacts;
-//   }
-// }
+  for (var i = 0; i < controllers.length; i++) {
+    var contact = controllers[i];
+    if (contact[0].text.isNotEmpty) {
+      var oldContactData = (oldData["CoSiteContacts"] as List).firstWhere(
+          (element) => element["contact_category_name"] == category && element["co_site_contacts_id"] == contact[4].text,
+          orElse: () => null);
+      var updatedContactData = {
+        "co_site_contacts_id": contact[4].text,
+        "contact_category_name": category,
+        "contact_name": contact[0].text,
+        "contact_no": contact[1].text,
+        "contact_whatsapp": contact[2].text,
+        "contact_email": contact[3].text,
+      };
+      print(updatedContactData);
+      if (oldContactData != null) {
+        var oldContact = (oldContactData["contact_name"] ?? "") +
+            (oldContactData["contact_no"] ?? "") +
+            (oldContactData["contact_email"] ?? "") +
+            (oldContactData["contact_whatsapp"] ?? "");
+        var newContact = (updatedContactData["contact_name"] ?? "") +
+            (updatedContactData["contact_no"] ?? "") +
+            (updatedContactData["contact_email"] ?? "") +
+            (updatedContactData["contact_whatsapp"] ?? "");
+        if (oldContact != newContact) {
+          updatedContacts.add({
+            "co_site_contacts_id": contact[4].text,
+            "updated_old_value": oldContact,
+            "updated_new_value": newContact,
+            "updated_by": "User",
+          });
+        }
+      } else {
+        updatedContacts.add({
+          "co_site_contacts_id": contact[4].text,
+          "updated_old_value": "",
+          "updated_new_value": updatedContactData,
+          "updated_by": "User"
+        });
+      }
+    }
+  }
+  if (updatedContacts.isNotEmpty) {
+    updatedData["CoSiteContacts"] = updatedContacts;
+  }
+}
 
 void updateData(Map<String, dynamic> data) async {
   try {
