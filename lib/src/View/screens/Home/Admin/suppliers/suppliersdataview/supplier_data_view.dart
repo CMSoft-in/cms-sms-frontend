@@ -18,19 +18,20 @@ class SupplierDataView extends StatelessWidget {
     void navigateToSuppliersViewDetails(String id) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SupplierViewDetailsMain(id: id)),
+        MaterialPageRoute(
+            builder: (context) => SupplierViewDetailsMain(id: id)),
       );
     }
 
     var dataViewContainer = DataView(
       dateOrNot: false,
       mapOrNot: true,
-      fixFistColumnLength:2 ,
+      fixFistColumnLength: 2,
       fixMiddleColumnLength: 2,
       fixLastColumnLength: 1,
       firstColumnMainName: "co_supplier_name",
       firstColumnsubName: "CoSupplierCategory",
-      firstColumnSecondSubName:"CoSupplierCategory" ,
+      firstColumnSecondSubName: "CoSupplierCategory",
       middleColumMainName: "primary_contact_name",
       middleColumnSubName: "primary_contact_no",
       middleColumnSecondSubName: "primary_contact_no",
@@ -38,20 +39,21 @@ class SupplierDataView extends StatelessWidget {
       lastColumnSubName: "co_supplier_category_id",
       lastColumnSecondSubName: "co_supplier_category_id",
       id: "co_supplier_id",
-     uri: ApiEndpoints.getAllSuppliers,
-        header:  EmptyViewHeaderBar(
-          image: suppliers,
-          onpress: SupplierFormPageOne(),
-          text: titlesuppliers,
-        ),
-        image: supplierEmptyDataImage,
-        navigatePage: navigateToSuppliersViewDetails,
-        doubleStar: estar,
-        dataTableNameOne: supplierDataTableName,
-        dataTableNameTwo: supplierDataTableProjectName,
-        deletext:deleteSupplierText ,
-        onpress: SuppliersDeleteTable(),
-        );
+      uri: ApiEndpoints.getAllSuppliers,
+      header: const EmptyViewHeaderBar(
+        image: suppliers,
+        onpress: SupplierFormPageOne(),
+        text: titlesuppliers,
+      ),
+      image: supplierEmptyDataImage,
+      navigatePage: navigateToSuppliersViewDetails,
+      doubleStar: estar,
+      dataTableNameOne: supplierDataTableName,
+      dataTableNameTwo: supplierDataTableProjectName,
+      dataTableNameThree: supplierDataTableProjectName,
+      deletext: deleteSupplierText,
+      onpress: const SuppliersDeleteTable(),
+    );
 
     return Container(color: white, child: dataViewContainer);
   }

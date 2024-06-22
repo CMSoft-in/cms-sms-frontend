@@ -52,7 +52,7 @@ class MaterialsDeleteTable extends StatelessWidget {
         ),
         dataTableNameOne: material,
         dataTableNameTwo: variant,
-       
+       dataTableNameThree: variant,
        
       ),
     );

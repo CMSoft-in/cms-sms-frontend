@@ -50,6 +50,7 @@ class MachinesDataView extends StatelessWidget {
         doubleStar: estar,
         dataTableNameOne: machineDataTableName,
         dataTableNameTwo: machineDataTableCompanyName,
+        dataTableNameThree: machineDataTableCompanyName ,
         deletext: deleteMachines,
         onpress: MachinesDeleteTable(),
       );

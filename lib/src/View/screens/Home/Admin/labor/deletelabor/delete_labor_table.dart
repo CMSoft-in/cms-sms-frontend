@@ -51,7 +51,7 @@ class LaborDeleteTable extends StatelessWidget {
         ),
         dataTableNameOne: laborName,
         dataTableNameTwo: laborCategoryText,
-      
+      dataTableNameThree: laborCategoryText,
       ),
     );
   }

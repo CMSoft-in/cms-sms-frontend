@@ -31,6 +31,8 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
     });
   }
 
+
+
   void changeValue(int v) {
     setState(() {
       coSupplierCategoryIds = v;
@@ -48,11 +50,10 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
     var updatedData = {
       ...oldData,
       "co_supplier_category_id": [coSupplierCategoryIds],
-       "MaterialSupplied": materialSupplied,
+      "MaterialSupplied": materialSupplied,
       "co_material_id":
           comaterialCategoryId.isEmpty ? null : comaterialCategoryId,
     };
-    print(updatedData);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -78,7 +79,8 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
               ),
               formSizebox15,
               SupplierViewDetailsThree(
-                changeMateralSupplied:changeMateralSupplied,
+  
+                  changeMateralSupplied: changeMateralSupplied,
                   twoOrNot: false,
                   isMultiSelectDropDownEditing: true,
                   changeValue: changeValue,
@@ -102,7 +104,7 @@ class _SupplierFormPageThreeState extends State<SupplierFormPageThree> {
       bottomSheet: BackNextButton(
           formKey: formKey,
           isEnabled: true,
-          onPress: () => navigateToPageFour(context)),
+          onPress: () => navigateToPageFour(context )),
       bottomNavigationBar: const BottomSheetLogo(),
     );
   }

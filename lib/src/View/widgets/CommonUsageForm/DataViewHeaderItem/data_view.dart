@@ -25,6 +25,7 @@ import 'data_item.dart';
 class DataView extends StatefulWidget {
   final String dataTableNameOne;
   final String dataTableNameTwo;
+  final String dataTableNameThree;
   final String uri;
   final String id;
   final String firstColumnMainName;
@@ -52,6 +53,7 @@ class DataView extends StatefulWidget {
     Key? key,
     required this.dataTableNameOne,
     required this.dataTableNameTwo,
+    required this.dataTableNameThree,
     required this.uri,
     required this.id,
     required this.firstColumnMainName,
@@ -198,6 +200,7 @@ class _DataViewState extends State<DataView> {
                           DataHeader(
                             titlename: widget.dataTableNameOne,
                             dataTableNameTwo: widget.dataTableNameTwo,
+                            dataTableNameThree: widget.dataTableNameThree,
                           ),
                           ...data.map((item) {
                             return DataItem(
@@ -237,7 +240,7 @@ class _DataViewState extends State<DataView> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: black,
-                minimumSize: Size(deleteButtonWidth, deleteprintHeight),
+                // minimumSize: Size(deleteButtonWidth, deleteprintHeight),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -250,7 +253,7 @@ class _DataViewState extends State<DataView> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: formButtonColor,
-                  minimumSize: Size(printButtonWidth, deleteprintHeight),
+                  // minimumSize: Size(printButtonWidth, deleteprintHeight),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),

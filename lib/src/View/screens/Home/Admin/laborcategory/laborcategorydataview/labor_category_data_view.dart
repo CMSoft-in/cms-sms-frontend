@@ -103,6 +103,7 @@ class _LaborCategoryDataViewState extends State<LaborCategoryDataView> {
                         const DataHeader(
                           titlename: laborCategoryText,
                           dataTableNameTwo: categorydistribution,
+                          dataTableNameThree: categorydistribution,
                         ),
                         ...data.map((item) {
                           return Padding(
@@ -156,7 +157,7 @@ class _LaborCategoryDataViewState extends State<LaborCategoryDataView> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: black,
-                minimumSize: const Size(deleteButtonWidth, deleteprintHeight),
+               
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -170,7 +171,7 @@ class _LaborCategoryDataViewState extends State<LaborCategoryDataView> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: formButtonColor,
-                  minimumSize: const Size(printButtonWidth, deleteprintHeight),
+                  
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),

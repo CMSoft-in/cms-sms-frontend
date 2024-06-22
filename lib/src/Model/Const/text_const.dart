@@ -9,6 +9,8 @@ const titlesuppliers = 'Suppliers';
 const titlecompanyUsers = 'Company Users';
 const titlematerials = 'Materials';
 const titlelaborCategory = 'Labor Category';
+const titleSiteAllocted = 'Site Allocated';
+
 const titleworkCategory = 'Work Category';
 const titlesupplierCategory = 'Supplier Category';
 const titlemachines = 'Machines & Vechicles';

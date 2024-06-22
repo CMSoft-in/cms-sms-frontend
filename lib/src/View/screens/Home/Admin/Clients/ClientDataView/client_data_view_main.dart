@@ -65,6 +65,7 @@ class _ClientDataViewState extends State<ClientDataView> {
         lastColumnSubName: 'primary_contact_no',
         dataTableNameOne: clientDataTableName,
         dataTableNameTwo: clientDataTablePrimaryNumber,
+        dataTableNameThree: clientDataTableName,
     
          deletext: deleteclient,
      

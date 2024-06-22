@@ -52,6 +52,7 @@ class CompanyUserDataView extends StatelessWidget {
       doubleStar: estar,
       dataTableNameOne: companyUserDataTableName,
       dataTableNameTwo: companyUserDataTablePrimaryNumber,
+      dataTableNameThree: companyUserDataTablePrimaryNumber,
     );
     return Container(color: white, child: dataViewContainer);
   }

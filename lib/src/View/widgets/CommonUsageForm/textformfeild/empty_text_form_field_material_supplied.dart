@@ -46,7 +46,8 @@ class _EmptyTextformFieldMaterialSuppliedState
     );
 
     setState(() {
-      if ( getMaterialSuppliedList.isEmpty) {
+      print(getMaterialSuppliedList);
+      if (getMaterialSuppliedList.isEmpty) {
         widget.controller.text = "Material Supplier Not Allocated";
       } else {
         widget.controller.text = "Material Supplier Allocated";

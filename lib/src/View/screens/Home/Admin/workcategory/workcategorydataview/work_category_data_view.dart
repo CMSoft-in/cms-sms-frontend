@@ -49,6 +49,7 @@ class WorkCategoryDataView extends StatelessWidget {
       doubleStar: estar,
       dataTableNameOne: workCategoryText,
       dataTableNameTwo: categorydistribution,
+      dataTableNameThree: categorydistribution,
       deletext: deleteworkCategory,
       onpress: const WorkCategoryDeleteTable(),
     );

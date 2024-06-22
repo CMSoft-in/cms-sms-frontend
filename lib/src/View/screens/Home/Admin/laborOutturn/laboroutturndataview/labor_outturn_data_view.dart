@@ -33,6 +33,7 @@ class LaborOutturnDataView extends StatelessWidget {
         lastColumnSecondSubName: "",
         dataTableNameOne: "",
         dataTableNameTwo: "",
+        dataTableNameThree: "",
         uri: "",
         doubleStar: estar,
        

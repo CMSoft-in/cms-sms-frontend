@@ -22,6 +22,7 @@ import 'data_item.dart';
 class DeleteDataView extends StatefulWidget {
   final String dataTableNameOne;
   final String dataTableNameTwo;
+  final String dataTableNameThree;
   final String uri;
   final String id;
   final String firstColumnMainName;
@@ -29,7 +30,7 @@ class DeleteDataView extends StatefulWidget {
   final Widget header;
   final String doubleStar;
   final Function navigatePage;
- 
+
   final int fixFistColumnLength;
   final String firstColumnsubName;
   final String firstColumnSecondSubName;
@@ -48,11 +49,11 @@ class DeleteDataView extends StatefulWidget {
     Key? key,
     required this.dataTableNameOne,
     required this.dataTableNameTwo,
+    required this.dataTableNameThree,
     required this.uri,
     required this.id,
     required this.firstColumnMainName,
     required this.image,
-  
     required this.header,
     required this.doubleStar,
     required this.navigatePage,
@@ -69,7 +70,6 @@ class DeleteDataView extends StatefulWidget {
     required this.fixMiddleColumnLength,
     required this.dateOrNot,
     required this.mapOrNot,
-   
   }) : super(key: key);
 
   @override
@@ -160,23 +160,43 @@ class _DeleteDataViewState extends State<DeleteDataView> {
                           DataHeader(
                             titlename: widget.dataTableNameOne,
                             dataTableNameTwo: widget.dataTableNameTwo,
+                            dataTableNameThree: widget.dataTableNameThree,
                           ),
                           ...data.map((item) {
                             return DataItem(
                               fixLastColumnLength: widget.fixLastColumnLength,
                               fixFistColumnLength: widget.fixFistColumnLength,
-                              fixMiddleColumnLength: widget.fixMiddleColumnLength,
-                              navigatePage: () => widget.navigatePage(item[widget.id].toString()), // Ensure ID is a String
+                              fixMiddleColumnLength:
+                                  widget.fixMiddleColumnLength,
+                              navigatePage: () => widget.navigatePage(
+                                  item[widget.id]
+                                      .toString()), // Ensure ID is a String
                               doubleStar: widget.doubleStar,
-                              firstColumnMainName: item[widget.firstColumnMainName].toString(),
-                              firstColumnSubName: widget.mapOrNot ? item[widget.firstColumnsubName]["co_supplier_category_name"].toString() : item[widget.firstColumnsubName].toString(),
-                              firstColumnSecondSubName: item[widget.firstColumnSecondSubName].toString(),
-                              lastColumMainName: widget.dateOrNot ? Date.getDate(item[widget.lastColumMainName]) : item[widget.lastColumMainName].toString(),
-                              lastColumnSubName: item[widget.lastColumnSubName].toString(),
-                              lastColumnSecondSubName: item[widget.lastColumnSecondSubName].toString(),
-                              middleColumMainName: item[widget.middleColumMainName].toString(),
-                              middleColumnSubName: item[widget.middleColumnSubName].toString(),
-                              middleColumnSecondSubName: item[widget.middleColumnSecondSubName].toString(),
+                              firstColumnMainName:
+                                  item[widget.firstColumnMainName].toString(),
+                              firstColumnSubName: widget.mapOrNot
+                                  ? item[widget.firstColumnsubName]
+                                          ["co_supplier_category_name"]
+                                      .toString()
+                                  : item[widget.firstColumnsubName].toString(),
+                              firstColumnSecondSubName:
+                                  item[widget.firstColumnSecondSubName]
+                                      .toString(),
+                              lastColumMainName: widget.dateOrNot
+                                  ? Date.getDate(item[widget.lastColumMainName])
+                                  : item[widget.lastColumMainName].toString(),
+                              lastColumnSubName:
+                                  item[widget.lastColumnSubName].toString(),
+                              lastColumnSecondSubName:
+                                  item[widget.lastColumnSecondSubName]
+                                      .toString(),
+                              middleColumMainName:
+                                  item[widget.middleColumMainName].toString(),
+                              middleColumnSubName:
+                                  item[widget.middleColumnSubName].toString(),
+                              middleColumnSecondSubName:
+                                  item[widget.middleColumnSecondSubName]
+                                      .toString(),
                             );
                           }).toList(),
                           bottomHeight,
@@ -187,33 +207,23 @@ class _DeleteDataViewState extends State<DeleteDataView> {
           ),
         ),
       ),
-      bottomSheet: data.isEmpty?Container(color: white,height: 20,):ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: formButtonColor,
+      bottomSheet: data.isEmpty
+          ? Container(
+              color: white,
+              height: 20,
+            )
+          : ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: formButtonColor,
                 minimumSize: Size(primaryWidth, deleteprintHeight),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                onPressed:printCurrentPage,
-                child: Text('Print', style: textStyleWhite18),
-      ),
+              ),
+              onPressed: printCurrentPage,
+              child: Text('Print', style: textStyleWhite18),
+            ),
       bottomNavigationBar: const BottomSheetLogo(),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
