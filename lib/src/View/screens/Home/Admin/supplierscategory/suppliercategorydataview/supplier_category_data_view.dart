@@ -46,6 +46,7 @@ class SupplierCategoryDataView extends StatelessWidget {
         doubleStar: estar,
         dataTableNameOne: supplierCategoryText,
         dataTableNameTwo: materialSupplied,
+        dataTableNameThree: materialSupplied,
         deletext: deleteSupplierCategory,
         onpress: SuppliersCategoryDeleteTable(),
      );

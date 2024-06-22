@@ -49,6 +49,7 @@ class SuppliersDeleteTable extends StatelessWidget {
     
         dataTableNameOne: supplierDataTableName,
         dataTableNameTwo: supplierDataTableProjectName,
+        dataTableNameThree: supplierDataTableProjectName,
 
         
       ),

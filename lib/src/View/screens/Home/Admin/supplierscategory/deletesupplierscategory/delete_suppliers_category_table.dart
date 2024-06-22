@@ -49,7 +49,7 @@ class SuppliersCategoryDeleteTable extends StatelessWidget {
         ),
         dataTableNameOne: supplierCategoryText,
         dataTableNameTwo: materialSupplied,
-       
+       dataTableNameThree: materialSupplied,
       ),
     );
   }

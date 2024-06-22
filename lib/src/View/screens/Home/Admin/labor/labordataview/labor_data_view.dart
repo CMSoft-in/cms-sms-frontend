@@ -134,7 +134,6 @@ class _LaborDataViewState extends State<LaborDataView> {
         var body = json.decode(response.body);
         setState(() {
           allLabourCategoriesdata = body["data"];
-          
         });
       } else {
         throw Exception('Failed to load data');
@@ -201,7 +200,6 @@ class _LaborDataViewState extends State<LaborDataView> {
     }
   }
 
-  
   navigateToLaborViewDetails(String id) {
     Navigator.push(
       context,
@@ -237,7 +235,7 @@ class _LaborDataViewState extends State<LaborDataView> {
                         const DataHeader(
                           titlename: titlelabors,
                           dataTableNameTwo: titlelaborCategory,
-                          // dataTableNameThree:titlesites,
+                          dataTableNameThree: titleSiteAllocted,
                         ),
                         ...allLabourdata.map((item) {
                           return Padding(
@@ -259,14 +257,18 @@ class _LaborDataViewState extends State<LaborDataView> {
                                   Expanded(
                                     child: Text(
                                         textAlign: TextAlign.left,
-                                        getLabourCategoryName(
-                                            item["co_labour_category_id"]).toString() ?? ''),
+                                        getLabourCategoryName(item[
+                                                    "co_labour_category_id"])
+                                                .toString() ??
+                                            ''),
                                   ),
                                   Expanded(
                                     child: Text(
                                         textAlign: TextAlign.left,
                                         getSiteName(item[
-                                            "co_current_sites_allocation"]).toString()??  ''),
+                                                    "co_current_sites_allocation"])
+                                                .toString() ??
+                                            ''),
                                   )
                                 ],
                               ),
@@ -275,7 +277,6 @@ class _LaborDataViewState extends State<LaborDataView> {
                                   item["co_labour_id"].toString(),
                                 );
                               },
-                              
                             ),
                           );
                         })
@@ -293,7 +294,7 @@ class _LaborDataViewState extends State<LaborDataView> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: black,
-                minimumSize: const Size(deleteButtonWidth, deleteprintHeight),
+               
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -307,7 +308,7 @@ class _LaborDataViewState extends State<LaborDataView> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: formButtonColor,
-                  minimumSize: const Size(printButtonWidth, deleteprintHeight),
+                  
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),

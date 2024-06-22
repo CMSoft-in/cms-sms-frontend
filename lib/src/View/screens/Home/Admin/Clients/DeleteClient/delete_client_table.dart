@@ -48,6 +48,7 @@ class ClientDeleteTable extends StatelessWidget {
           dateOrNot: false,
           dataTableNameOne: clientDataTableName,
           dataTableNameTwo: clientDataTablePrimaryNumber,
+          dataTableNameThree: clientDataTablePrimaryNumber,
           uri: ApiEndpoints.getAllDeletedClients,
         ));
   }

@@ -9,12 +9,12 @@ class DataHeader extends StatelessWidget {
     Key? key,
     required this.titlename,
     required this.dataTableNameTwo,
-    // required this.dataTableNameThree,
+    required this.dataTableNameThree,
     // required this.primaryNumber
   }) : super(key: key);
   final titlename;
   final dataTableNameTwo;
-  // final dataTableNameThree;
+  final dataTableNameThree;
   // final primaryNumber;
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class DataHeader extends StatelessWidget {
           child: Padding(
             padding: right25,
             child: Text(
-              dataTableNameTwo,
+              dataTableNameThree,
               style: datatableHeaderblack16,
             ),
           ),

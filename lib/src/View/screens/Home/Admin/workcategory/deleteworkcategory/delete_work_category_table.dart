@@ -50,7 +50,7 @@ class WorkCategoryDeleteTable extends StatelessWidget {
 
         dataTableNameOne: workCategoryText,
         dataTableNameTwo: categorydistribution,
-       
+       dataTableNameThree: categorydistribution,
         
       ),
     );

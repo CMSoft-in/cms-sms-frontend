@@ -10,4 +10,3 @@ void getToken() async {
   var pref = await SharedPreferences.getInstance();
   token = pref.getString("token")!;
 }
-

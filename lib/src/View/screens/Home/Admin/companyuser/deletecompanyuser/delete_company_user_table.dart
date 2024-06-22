@@ -49,6 +49,7 @@ class CompanyUserDeleteTable extends StatelessWidget {
         ),
         dataTableNameOne: companyUserDataTableName,
         dataTableNameTwo: companyUserDataTablePrimaryNumber,
+        dataTableNameThree: companyUserDataTablePrimaryNumber,
       
       ),
     );

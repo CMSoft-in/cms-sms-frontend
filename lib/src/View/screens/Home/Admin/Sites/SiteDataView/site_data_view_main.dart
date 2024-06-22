@@ -1,6 +1,6 @@
 import '../../../../../../Model/api/api_model.dart';
 import '../../../../../widgets/CommonUsageForm/DataViewHeaderItem/data_view.dart';
-import '../SiteViewDetails/site_view_details_main copy.dart';
+import '../SiteViewDetails/site_view_details_main.dart';
 import '/src/Model/Const/color.dart';
 import '/src/Model/Const/image_const.dart';
 import '/src/Model/Const/text_const.dart';
@@ -48,6 +48,7 @@ class SiteDataView extends StatelessWidget {
       id: 'co_site_id',
       dataTableNameOne: siteDataTableName,
       dataTableNameTwo: siteDataTableProjectName,
+      dataTableNameThree: siteDataTablePrimaryContactName,
       deletext: deleteSiteText,
       onpress: const SiteDeleteTable(),
     );

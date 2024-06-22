@@ -102,6 +102,7 @@ class _LaborCategoryDeleteTableState extends State<LaborCategoryDeleteTable> {
                         const DataHeader(
                           titlename: laborCategoryText,
                           dataTableNameTwo: categorydistribution,
+                          dataTableNameThree: categorydistribution,
                         ),
                         ...data.map((item) {
                           return Padding(

@@ -39,7 +39,6 @@ class MatterialSuppliedSelectionState
     fetchData();
   }
 
-
   void getData() {
     materialDict.clear();
     for (var item in materialsData) {
@@ -111,20 +110,26 @@ class MatterialSuppliedSelectionState
         removedItems.add(item);
       }
     }
-    widget.changeAddedDeletedItems!(addedItems, removedItems);
-    if (!(widget.changeMateralSupplied == null)) {
+
+    if (widget.changeAddedDeletedItems != null) {
+      widget.changeAddedDeletedItems!(addedItems, removedItems);
+    }
+    
+    if (widget.changeMateralSupplied != null) {
       widget.changeMateralSupplied!(selectedItems);
     }
 
     setState(() {
-      widget.materialSupplied!.removeWhere((item) => removedItems.any(
-          (removed) =>
-              removed["co_material_id"] == item["co_material_id"] &&
-              removed["material_variant"] == item["material_variant"]));
-      widget.materialSupplied!.addAll(addedItems);
+      print("working ");
+      if (widget.materialSupplied != null) {
+        widget.materialSupplied!.removeWhere((item) => removedItems.any(
+            (removed) =>
+                removed["co_material_id"] == item["co_material_id"] &&
+                removed["material_variant"] == item["material_variant"]));
+        widget.materialSupplied!.addAll(addedItems);
+      }
+      realSelectedItems = selectedItems;
     });
-
-    realSelectedItems = selectedItems;
     Navigator.pop(context, realSelectedItems);
   }
 

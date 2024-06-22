@@ -49,6 +49,7 @@ const editSiteDetailsText = "Edit Site Details";
 //Site DataTable
 const siteDataTableName = 'Site Name';
 const siteDataTableProjectName = 'Project Name';
+const siteDataTablePrimaryContactName = 'Primary Contact';
 
 //DbName
 const dbSiteName = 'co_site_name';

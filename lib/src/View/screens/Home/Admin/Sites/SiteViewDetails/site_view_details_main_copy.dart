@@ -365,7 +365,6 @@ void checkUpdatingValue() {
   //     "created_by": createBy.text,
   //     "created_at": createOn.text,
   //   };
-
   //   siteFields.forEach((key, value) {
   //     if (value.isNotEmpty && (oldData[key]?.toString() ?? '') != value) {
   //       updatedData[key] = value;

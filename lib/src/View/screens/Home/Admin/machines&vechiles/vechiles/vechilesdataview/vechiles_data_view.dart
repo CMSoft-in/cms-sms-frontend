@@ -24,11 +24,11 @@ class VechilesDataView extends StatelessWidget {
     }
 
     var dataViewContainer = DataView(
-      dateOrNot: true,
+      dateOrNot: false,
       mapOrNot: false,
-      fixFistColumnLength: 2,
+      fixFistColumnLength: 1,
       fixMiddleColumnLength: 1,
-      fixLastColumnLength: 2,
+      fixLastColumnLength: 1,
       firstColumnMainName: "co_vehicle_reg_no",
       firstColumnsubName: "co_vehicle_company_name",
       firstColumnSecondSubName: "co_vehicle_model",
@@ -36,8 +36,8 @@ class VechilesDataView extends StatelessWidget {
       middleColumnSubName: "co_vehicle_model",
       middleColumnSecondSubName: "co_vehicle_model",
       lastColumMainName:
-          // "co_vehicle_model",
-          "co_vehicle_insurance_exp_date",
+          "co_vehicle_model",
+          // "co_vehicle_insurance_exp_date",
       lastColumnSubName: "created_by",
       lastColumnSecondSubName: "co_vehicle_registration_certificate",
       id: "co_vehicle_id",
@@ -52,6 +52,7 @@ class VechilesDataView extends StatelessWidget {
       doubleStar: estar,
       dataTableNameOne: machineDataTableName,
       dataTableNameTwo: machineDataTableCompanyName,
+      dataTableNameThree: machineDataTableCompanyName,
       deletext: deleteVechiles,
       onpress: const VechilesDeleteTable(),
     );

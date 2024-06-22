@@ -50,6 +50,7 @@ class VechilesDeleteTable extends StatelessWidget {
         ),
         dataTableNameOne: machineDataTableName,
         dataTableNameTwo: machineDataTableCompanyName,
+        dataTableNameThree: machineDataTableCompanyName,
        
       ),
     );
