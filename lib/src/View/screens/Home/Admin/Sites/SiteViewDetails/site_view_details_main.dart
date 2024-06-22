@@ -93,12 +93,7 @@ class _SiteViewDetailsMainState extends State<SiteViewDetailsMain> {
     fetchData();
     getToken();
   }
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-    getToken();
-  }
+
 
   bool isEditing = false;
   bool isEnabled = false;
