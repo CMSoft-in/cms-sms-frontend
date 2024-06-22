@@ -1,6 +1,7 @@
 
 
 
+import 'package:cmssms/src/Model/Const/height_width.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class MultiDropDownForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: primaryWidth,
       child: DropdownSearch<Map<String, dynamic>>.multiSelection(
         items: dropdownItems,
         itemAsString: (item) => item['name'],
