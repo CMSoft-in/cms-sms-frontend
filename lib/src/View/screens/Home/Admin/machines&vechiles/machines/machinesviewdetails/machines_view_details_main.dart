@@ -37,6 +37,10 @@ class MachinesViewDetailsMain extends StatefulWidget {
 class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
   Map<String, dynamic>? data;
   var updatedData;
+  
+  bool isEditing = false;
+  bool isEnabled = false;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -69,8 +73,9 @@ class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
             myearofMakeController.text = data!["co_machine_yearofmake"] ?? "";
             minsuranceExpiryDateController.text =
                 Datee.getDate(data!["co_machine_insurance_exp_date"]) ?? "";
-            mnextFCDateController.text =
-                Datee.getDate(data!["co_machine_next_fitness_certificate_date"]) ?? "";
+            mnextFCDateController.text = Datee.getDate(
+                    data!["co_machine_next_fitness_certificate_date"]) ??
+                "";
             createBy.text = data!["created_by"] ?? "";
             createOn.text = Date.getDate(data!["createdAt"]) ?? "";
           }
@@ -82,7 +87,6 @@ class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
       print('Error fetching data: $error');
     }
   }
-
 
   Future<void> fetchUpdateData() async {
     try {
@@ -113,8 +117,6 @@ class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
     }
   }
 
-  bool isEditing = false;
-  bool isEnabled = false;
 
   void updateData(data) async {
     try {
@@ -127,9 +129,8 @@ class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
           "Authorization": "Bearer $token",
         },
         body: jsonEncode(data),
-       
       );
-       print(response.body);
+      print(response.body);
       if (response.statusCode == 200) {
         print(response.body);
         Navigator.of(context).push(
@@ -139,9 +140,9 @@ class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
       print("update failed $e");
     }
   }
-  
+
   void machinesCheckUpdatingValue() {
-     var oldData = data;
+    var oldData = data;
     if (oldData != null) {
       Map<String, dynamic> updatedData = {};
       var controllers = {
@@ -157,24 +158,25 @@ class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
         "co_machine_yearofmake": myearofMakeController.text,
         "co_machine_insurance_exp_date": minsuranceExpiryDateController.text,
         "co_machine_next_fitness_certificate_date": mnextFCDateController.text,
-       
       };
 
       controllers.forEach((key, value) {
-      // ignore: unnecessary_null_comparison
-      if (value != null && value.isNotEmpty && (oldData[key] ?? '') != value) {
-        updatedData[key] = value;
-        print(updatedData);
+        // ignore: unnecessary_null_comparison
+        if (value != null &&
+            value.isNotEmpty &&
+            (oldData[key] ?? '') != value) {
+          updatedData[key] = value;
+          print(updatedData);
+        }
+      });
+      if (updatedData.isNotEmpty) {
+        print("Updated Data: $updatedData");
+        updateData(updatedData);
+      } else {
+        print("No changes detected.");
       }
-    });
-    if (updatedData.isNotEmpty) {
-      print("Updated Data: $updatedData");
-      updateData(updatedData);
-    } else {
-      print("No changes detected.");
     }
   }
-}
   //
 
   CommonController commonController = CommonController();
@@ -217,10 +219,10 @@ class _MachinesViewDetailsMainState extends State<MachinesViewDetailsMain> {
                   enabled: isEnabled,
                   CompanyController: mcompanyController,
                   ModelController: mmodelController,
-                  yearofMakeController:myearofMakeController),
+                  yearofMakeController: myearofMakeController),
               MachinesViewDetailsThree(
                   machineImagesFilePathController:
-                     mmachineImagesFilePathController,
+                      mmachineImagesFilePathController,
                   registrationCertificateFilePathController:
                       mregistrationCertificateFilePathController,
                   insuranceFilePathController: minsuranceFilePathController,
